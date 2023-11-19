@@ -1,0 +1,5 @@
+{
+  "root": true,
+  "ignorePatterns": ["build"],
+  "extends": ["@antfu"]
+}
