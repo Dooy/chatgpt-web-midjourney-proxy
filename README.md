@@ -4,4 +4,4 @@
 - 本开源是在 [ChenZhaoYu](https://github.com/ChenZhaoYu/chatgpt-web) 上开源的 ；使用 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 提供的midjourney api 作为后端而形成的。
 
 ## License
-MIT © [ChenZhaoYu &&  && Dooy](./license)
+MIT © [ChenZhaoYu && Novicezk  && Dooy](./license)
