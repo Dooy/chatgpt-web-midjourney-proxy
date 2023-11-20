@@ -18,17 +18,27 @@
 - ⏰ 图片本地保存
 ## docker 部署
 **假设**:
-- 你已经搭建好 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 服务，开发端口服务器地址为 https://172.17.0.1:6001
+- 你已经搭建好 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 服务，开发端口服务器地址为 https://172.17.0.1:6013
 - [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 服务 的 API_SECRET  为 abc123456
 ```bash
 docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
 -e OPENAI_API_BASE_URL=https://api.openai.com  \
--e MJ_SERVER=https://172.17.0.1:6001  \
+-e MJ_SERVER=https://172.17.0.1:6013  \
 -e MJ_API_SECRET=abc123456  ydlhero/chatgpt-web-midjourney-proxy
 ```
-
 访问 http://ip:6015 
+### midjourney-proxy API docker部署
+```bash
+docker run -d --name mj6013  -p 6013:8080  \
+-e mj.discord.guild-id=discord服务ID  \
+-e mj.discord.channel-id=discord服务组ID   \
+-e mj.queue.timeout-minutes=6 \
+-e mj.api-secret=abc123456 \
+-e mj.discord.user-token=**********  \
+--restart=always novicezk/midjourney-proxy:2.5.5
+```
+
 
 ## 更多展示
 局部重绘：
