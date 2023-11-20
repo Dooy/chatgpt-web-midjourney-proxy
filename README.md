@@ -13,7 +13,7 @@
 - ✅ midjourney 支持1.5倍变焦 2倍变焦
 - ✅ midjourney 支持2倍高清 4倍高清
 - ✅ midjourney 支持左、右、上、下延伸变化
-- ✅ midjourney [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 接口，也支持[midjourney-proxy-plus](https://github.com/litter-coder/midjourney-proxy-plus) 接口
+- ✅ midjourney 同时支持[midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 接口 和 [midjourney-proxy-plus](https://github.com/litter-coder/midjourney-proxy-plus) 接口
 ## 待开发
 - ⏰ midjourney 图生文
 - ⏰ 图片本地保存
