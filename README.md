@@ -29,7 +29,7 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 ```
 访问 http://ip:6015 
 ### midjourney-proxy API docker部署
-过多参考到 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 开源光光
+更多参考到 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 开源光光
 ```bash
 docker run -d --name mj6013  -p 6013:8080  \
 -e mj.discord.guild-id=discord服务ID  \
