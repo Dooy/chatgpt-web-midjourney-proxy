@@ -7,6 +7,9 @@ import hljs from 'highlight.js'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { copyToClip } from '@/utils/copy'
+import {NImage} from 'naive-ui'
+
+import mjText from '@/views/mj/mjText.vue'
 
 interface Props {
   inversion?: boolean
@@ -14,6 +17,7 @@ interface Props {
   text?: string
   loading?: boolean
   asRawText?: boolean
+  chat:Chat.Chat
 }
 
 const props = defineProps<Props>()
@@ -107,10 +111,18 @@ onUnmounted(() => {
   <div class="text-black" :class="wrapClass">
     <div ref="textRef" class="leading-relaxed break-words">
       <div v-if="!inversion">
+        <mjText v-if="chat.mjID" class="whitespace-pre-wrap" :chat="chat"></mjText>
+        <template v-else>
         <div v-if="!asRawText" class="markdown-body" :class="{ 'markdown-body-generate': loading }" v-html="text" />
         <div v-else class="whitespace-pre-wrap" v-text="text" />
+        </template>
       </div>
       <div v-else class="whitespace-pre-wrap" v-text="text" />
+      <div v-if="chat.opt?.images" class="flex flex-wrap justify-start items-baseline">
+          <div v-for="(img,k ) of chat.opt?.images" :key="k" class="p-1" >
+            <NImage :src="img" preview class="w-[200px] rounded" />
+          </div>
+      </div>
     </div>
   </div>
 </template>

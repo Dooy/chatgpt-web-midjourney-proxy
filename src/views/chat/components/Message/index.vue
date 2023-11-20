@@ -15,6 +15,7 @@ interface Props {
   inversion?: boolean
   error?: boolean
   loading?: boolean
+  chat:Chat.Chat
 }
 
 interface Emit {
@@ -112,13 +113,15 @@ async function handleCopy() {
         class="flex items-end gap-1 mt-2"
         :class="[inversion ? 'flex-row-reverse' : 'flex-row']"
       >
-        <TextComponent
+        
+        <TextComponent 
           ref="textRef"
           :inversion="inversion"
           :error="error"
           :text="text"
           :loading="loading"
           :as-raw-text="asRawText"
+          :chat="chat"
         />
         <div class="flex flex-col">
           <button

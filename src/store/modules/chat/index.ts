@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { defaultState, getLocalState, setLocalState } from './helper'
 import { router } from '@/router'
+import { homeStore } from '@/store/homeStore'
 
 export const useChatStore = defineStore('chat-store', {
   state: (): Chat.ChatState => getLocalState(),
@@ -188,8 +189,9 @@ export const useChatStore = defineStore('chat-store', {
     },
 
     async reloadRoute(uuid?: number) {
-      this.recordState()
-      await router.push({ name: 'Chat', params: { uuid } })
+      this.recordState();
+
+      await router.push({ name: homeStore.myData.local=='draw'?'draw': 'Chat', params: { uuid } })
     },
 
     recordState() {

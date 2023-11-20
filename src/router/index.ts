@@ -3,6 +3,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { setupPageGuard } from './permission'
 import { ChatLayout } from '@/views/chat/layout'
+import mjlayout from '@/views/mj/layout.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -18,6 +19,21 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+
+  {
+    path: '/draw',
+    name: 'Rootdraw',
+    component: mjlayout,
+    redirect: '/draw/index',
+    children: [
+      {
+        path: '/draw/:uuid?',
+        name: 'draw',
+        component: () => import('@/views/mj/draw.vue'),
+      },
+    ],
+  },
+
 
   {
     path: '/404',

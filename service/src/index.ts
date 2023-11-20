@@ -5,12 +5,18 @@ import { chatConfig, chatReplyProcess, currentModel } from './chatgpt'
 import { auth } from './middleware/auth'
 import { limiter } from './middleware/limiter'
 import { isNotEmptyString } from './utils/is'
+// const { createProxyMiddleware } = require('http-proxy-middleware');
+//import {createProxyMiddleware} from "http-proxy-middleware"
+import  proxy from "express-http-proxy"
+import bodyParser  from 'body-parser';
+
 
 const app = express()
 const router = express.Router()
 
 app.use(express.static('public'))
-app.use(express.json())
+//app.use(express.json())
+app.use(bodyParser.json({ limit: '10mb' })); //大文件传输
 
 app.all('*', (_, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -81,6 +87,40 @@ router.post('/verify', async (req, res) => {
     res.send({ status: 'Fail', message: error.message, data: null })
   }
 })
+// const apiProxy = createProxyMiddleware( {
+  
+//   target:  process.env.MJ_SERVER, //MJ_SERVER
+//   changeOrigin: true,
+//   secure: false,
+//   pathRewrite: {
+//     '^/mjapi': '' // 将URL中的 `/` 替换为空字符串
+//   },
+//   headers: {
+//     // 添加自定义请求头
+//     'mj-api-secret': process.env.MJ_API_SECRET
+//     , 'Content-Type': 'application/json'
+//   },
+//   onProxyReq:(proxyReq, req, res)=>{
+//      //console.log(`Proxying ${req.method} request from ${req.originalUrl} to ${proxyReq.path}`);
+//      console.log(   req.body);
+//   }
+// });
+// app.use('/mjapi', apiProxy); 
+
+app.use('/mjapi', proxy(process.env.MJ_SERVER, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return req.originalUrl.replace('/mjapi', '') // 将URL中的 `/mjapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    return proxyReqOpts;
+  },
+  //limit: '10mb'
+  
+}));
+
 
 app.use('', router)
 app.use('/api', router)

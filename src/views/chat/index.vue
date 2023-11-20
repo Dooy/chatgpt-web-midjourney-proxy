@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import type { Ref } from 'vue'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref,watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
@@ -12,10 +12,11 @@ import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
 import { HoverButton, SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { useChatStore, usePromptStore } from '@/store'
+import { homeStore, useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
-
+import drawListVue from '../mj/drawList.vue'
+import AiSiderInput from '../mj/aiSiderInput.vue'
 let controller = new AbortController()
 
 const openLongReply = import.meta.env.VITE_GLOB_OPEN_LONG_REPLY === 'true'
@@ -461,6 +462,11 @@ onUnmounted(() => {
   if (loading.value)
     controller.abort()
 })
+
+const local= computed(()=>homeStore.myData.local );
+watch(()=>homeStore.myData.act,(n)=>{
+    if(n=='draw')  scrollToBottom();
+});
 </script>
 
 <template>
@@ -496,6 +502,7 @@ onUnmounted(() => {
                 :loading="item.loading"
                 @regenerate="onRegenerate(index)"
                 @delete="handleDelete(index)"
+                :chat="item"
               />
               <div class="sticky bottom-0 left-0 flex justify-center">
                 <NButton v-if="loading" type="warning" @click="handleStop">
@@ -510,7 +517,7 @@ onUnmounted(() => {
         </div>
       </div>
     </main>
-    <footer :class="footerClass">
+    <footer :class="footerClass" v-if="local!=='draw'">
       <div class="w-full max-w-screen-xl m-auto">
         <div class="flex items-center justify-between space-x-2">
           <HoverButton v-if="!isMobile" @click="handleClear">
@@ -554,4 +561,7 @@ onUnmounted(() => {
       </div>
     </footer>
   </div>
+
+  <drawListVue /> 
+  <AiSiderInput v-if="isMobile"  :button-disabled="false" /> 
 </template>

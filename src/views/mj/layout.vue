@@ -2,8 +2,8 @@
 import { computed } from 'vue'
 import { NLayout, NLayoutContent } from 'naive-ui'
 import { useRouter } from 'vue-router'
-import Sider from './sider/index.vue'
-import Permission from './Permission.vue'
+import Sider from '../chat/layout/sider/index.vue'
+import Permission from '../chat/layout/Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
 import { aiSider } from '@/views/mj'
@@ -13,8 +13,8 @@ const appStore = useAppStore()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 
-router.replace({ name: 'Chat', params: { uuid: chatStore.active } })
-homeStore.setMyData({local:'Chat'});
+router.replace({ name: 'draw', params: { uuid: chatStore.active } })
+homeStore.setMyData({local:'draw'});
 const { isMobile } = useBasicLayout()
 
 const collapsed = computed(() => appStore.siderCollapsed)
@@ -38,14 +38,15 @@ const getContainerClass = computed(() => {
 <template>
   <div class="h-full dark:bg-[#24272e] transition-all" :class="[isMobile ? 'p-0' : 'p-0']">
     <div class="h-full overflow-hidden" :class="getMobileClass">
-      <NLayout class="z-40 transition" :class="getContainerClass" has-sider>
+      <NLayout class="z-40 transition" :class="getContainerClass" has-sider  :sider-placement="isMobile?'left': 'right'">
         <aiSider v-if="!isMobile"/>
-        <Sider />
+       
         <NLayoutContent class="h-full">
           <RouterView v-slot="{ Component, route }">
             <component :is="Component" :key="route.fullPath" />
           </RouterView>
         </NLayoutContent>
+         <Sider />
       </NLayout>
     </div>
     <Permission :visible="needPermission" />

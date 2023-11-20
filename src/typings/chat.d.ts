@@ -8,6 +8,12 @@ declare namespace Chat {
 		loading?: boolean
 		conversationOptions?: ConversationRequest | null
 		requestOptions: { prompt: string; options?: ConversationRequest | null }
+		model?:string //模型
+		mjID?:string //MJ的ID
+		opt?:{progress?:string, imageUrl?:string, status?:string, images?:string[]} //
+		uuid?:number
+		index?:number
+		//progress?:string
 	}
 
 	interface History {

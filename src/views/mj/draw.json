@@ -1,0 +1,181 @@
+{
+"qualityList": [{
+                "label": "一般",
+                "value": "0.25"
+            }, {
+                "label": "清晰",
+                "value": "0.5"
+            }, {
+                "label": "高清",
+                "value": "1"
+            }, {
+                "label": "超高清",
+                "value": "2"
+            }],
+    "styleList": [
+        {
+                 "label": "赛博朋克",
+                "value": "Cyberpunk"
+            }, {
+                "label": "星际",
+                "value": "Warframe"
+            }, {
+                "label": "二次元",
+                "value": "ACGN"
+            }, {
+                "label": "日本漫画",
+                "value": "Japanese comics/manga"
+            }, {
+                "label": "水墨",
+                "value": "Ink Wash Painting Style"
+            }, {
+                "label": "原画风格",
+                "value": "Original"
+            }, {
+               "label": "山水画",
+                "value": "landscape"
+            }, {
+                "label": "插画",
+                "value": "illustration"
+            }, {
+                "label": "漫画",
+                "value": "Manga"
+            }, {
+                "label": "现代自然",
+                "value": "modern organic"
+            }, {
+                "label": "创世纪",
+                "value": "Genesis"
+            }, {
+                "label": "海报",
+                "value": "posterstyle"
+            }, {
+                "label": "超现实主义",
+                "value": "surrealism"
+            }, {
+                "label": "素描",
+                "value": "sketch"
+            }, {
+                "label": "写实",
+                "value": "realism"
+            }, {
+                "label": "水彩绘画",
+                "value": "Watercolor painting"
+            }, {
+                "label": "立体派",
+                "value": "Cubism"
+            }, {
+                "label": "黑白",
+                "value": "black and white"
+            }, {
+                "label": "电影摄影风格",
+                "value": "fm photography"
+            }, {
+                "label": "电影般的",
+                "value": "cinematic"
+            }, {
+                "label": "清晰的面部特征",
+                "value": "dlear facial features"
+            }],
+    "viewList": [{
+                "label": "宽景",
+                "value": "Wide view"
+            }, {
+                "label": "鸟瞰",
+                "value": "Bird view"
+            }, {
+                "label": "俯视",
+                "value": "Top view"
+            }, {
+                "label": "仰视",
+                "value": "Upview"
+            }, {
+                "label": "正面",
+                "value": "Front view"
+            }, {
+                "label": "头部特写",
+                "value": "Headshot"
+            }, {
+                "label": "超广角",
+                "value": "Ultrawideshot"
+            }, {
+                "label": "中景",
+                "value": "Medium Shot(MS)"
+            }, {
+                "label": "远景",
+                "value": "Long Shot(LS)"
+            }, {
+                "label": "景深",
+                "value": "depth offield(dof)"
+            }],
+    "shotList": [{
+                "label": "脸部特写",
+                "value": "Face Shot (VCU)"
+            }, {
+                "label": "头部以上",
+                "value": "Big Close-Up(BCU)"
+            }, {
+                "label": "颈部以上",
+                "value": "Close-Up(CU)"
+            }, {
+                "label": "腰部以上",
+                "value": "Waist Shot(WS)"
+            }, {
+                "label": "膝盖以上",
+                "value": "KneeShot(KS)"
+            }, {
+                "label": "全身",
+                "value": "Full Length Shot(FLS)"
+            }, {
+                "label": "人在远方",
+                "value": "Extra Long Shot(ELS)"
+            }],
+    "lightList": [{
+                "label": "冷光",
+                "value": "Cold light"
+            }, {
+                "label": "暖光",
+                "value": "Warm light"
+            }, {
+                "label": "强光",
+                "value": "hard lighting"
+            }, {
+                "label": "戏剧光",
+                "value": "Dramatic light"
+            }, {
+                "label": "反光",
+                "value": "reflection light"
+            }, {
+                "label": "雾气朦胧",
+                "value": "Misty foggy"
+            }, {
+                "label": "自然光",
+                "value": "Natural light"
+            }, {
+                "label": "太阳光",
+                "value": "Sun light"
+            }, {
+                "label": "暗黑的",
+                "value": "moody"
+            }],
+     "versionList": [{
+                "label": "MJ V5.2",
+                "value": "--v 5.2"
+            }, {
+                "label": "MJ V5.1",
+                "value": "--v 5.1" 
+            }, {
+                "label": "二次元 niji V5",
+                "value": "--niji 5"
+            }, {
+                "label": "二次元 niji V4",
+                "value": "--niji 4"
+            }, {
+                "label": "开通漫画",
+                "value": "--test"
+            }, {
+                "label": "写实照片",
+                "value": "--testp"
+            }
+     ]
+}
