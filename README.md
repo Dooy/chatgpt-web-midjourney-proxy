@@ -16,7 +16,10 @@
 ## 待开发
 - ⏰ midjourney 图生文
 - ⏰ 图片本地保存
-
+## docker 部署
+```bash
+docker build -t chatgpt-web-midjourney-proxy . && docker tag chatgpt-web-midjourney-proxy ydlhero/chatgpt-web-midjourney-proxy && docker push  ydlhero/chatgpt-web-midjourney-proxy
+```
 ## 更多展示
 局部重绘：
 [![局部重绘](./docs/mj2.jpg)](./docs/mj2.jpg)

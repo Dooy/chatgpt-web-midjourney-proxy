@@ -108,7 +108,7 @@ export const flechTask= ( chat:Chat.Chat)=>{
         const ts=  await mjFetch(`/mj/task/${chat.mjID}/fetch`);
         chat.opt= ts;
         chat.loading=   (cnt>=99)?false:true; 
-        chat.progress=ts.progress;
+        //chat.progress=ts.progress;
     
         if(ts.progress && ts.progress== "100%") chat.loading=false;
 
@@ -123,11 +123,11 @@ export const flechTask= ( chat:Chat.Chat)=>{
     check();
 }
 export const subTask= async (data:any, chat:Chat.Chat )=>{
-   let d= {}
+   let d:any;
    if(  data.action &&data.action=='change' ){ //执行变化
      d=  await mjFetch('/mj/submit/change' , data.data  );
    }else if( data.action &&data.action=='mask') { //局部重绘
-     d=  await mjFetch('/mj/submit/action' , data.data  );
+     d =  await mjFetch('/mj/submit/action' , data.data  );
      if(d.result){
         let bdata= data.maskData;
         bdata.taskId= d.result;
