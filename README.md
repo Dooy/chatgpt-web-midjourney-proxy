@@ -8,7 +8,7 @@
 - ✅ 原chatgpt web 所有功能
 - ✅ midjourney 文生图
 - ✅ midjourney 垫图+文生图  
-- ✅ midjourney 图变 U1-U4 、 V1-V4、重绘等操作
+- ✅ midjourney 图变 U1到U4 、 V1到V4、重绘等操作
 - ✅ midjourney 支持局部重绘
 - ✅ midjourney 支持1.5倍变焦 2倍变焦
 - ✅ midjourney 支持2倍高清 4倍高清
