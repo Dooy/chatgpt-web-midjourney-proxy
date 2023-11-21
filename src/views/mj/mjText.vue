@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { NImage,NButton,NModal } from 'naive-ui'
-import { computed , ref } from 'vue'
-import {flechTask ,mlog } from '@/api'
+import { computed , ref,watch } from 'vue'
+import {flechTask ,localGet,mlog, url2base64 } from '@/api'
 import { homeStore } from '@/store'
 import aiCanvas from './aiCanvas.vue'
 interface Props { 
@@ -11,7 +11,7 @@ interface Props {
  const { isMobile } = useBasicLayout()
 
 const props = defineProps<Props>();
-const st = ref( { isLoadImg:true, uri_base64:'', bts:[],isShow:false})
+const st = ref( { isLoadImg:false, uri_base64:'', bts:[],isShow:false })
 
 const reload= ()=>{
     flechTask(chat.value);
@@ -43,11 +43,10 @@ const sub= (type:string,index:number)=>{
 const chat = computed(() =>props.chat);
 
 const subV2= (b:{k:string,n:string})=>{
+    if(chat.value.opt?.buttons ==undefined ) return;
     //mlog('subV2', b );
     let i = getIndex( chat.value.opt?.buttons, b);
-    
     mlog('subV2', b,i ,  chat.value.opt?.buttons[i] );
-
     if(b.k== ':Inpaint::1' ){
         mlog('局部重绘！' , i );
         st.value.isShow =true;
@@ -66,6 +65,8 @@ const subV2= (b:{k:string,n:string})=>{
 }
 
 const maskOk=(d:any)=>{
+    if(chat.value.opt?.buttons ==undefined ) return;
+   
    mlog('maskOk',d  );
     let i = getIndex( chat.value.opt?.buttons, {k:':Inpaint::1',n:'局部重绘'} );
     let obj={
@@ -120,13 +121,37 @@ const getIndexName=  (arr:any[], ib:any )=> {
   if(ib.k=='upsample_v5_2x') return ib.n;
   return `${arr[i].emoji} ${ib.n}`;
 }
+
+const load = async ()=>{
+     
+     if(!chat.value.mjID) return ;
+     let key= 'img:'+chat.value.mjID;
+    try {
+        if(chat.value.opt?.imageUrl){
+            //await loadImg(chat.value.opt?.imageUrl);
+            let base64 = await localGet(key );  
+            if(!base64) {
+                const ubase64=  await url2base64(chat.value.opt?.imageUrl ,key );
+                base64= ubase64.base64;
+                mlog('图片已保存>>', ubase64.key )
+            }
+            st.value.uri_base64=base64;
+        }
+    } catch (error) {
+        mlog('图片保存失败',error);
+    }
+    
+    st.value.isLoadImg=true;
+}
+ 
+load();
 </script>
 <template>
-<div >
+<div v-if="st.isLoadImg">
     
     <template   v-if="chat.opt?.progress">
         <div v-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
-        <NImage v-if="chat.opt.imageUrl" :src="chat.opt.imageUrl" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
+        <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64:chat.opt.imageUrl" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
         <div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
             <template v-if="chat.opt?.buttons">
                 <div v-for="(bts,ii) in bt" class=" flex justify-start items-center flex-wrap "> 
@@ -137,7 +162,7 @@ const getIndexName=  (arr:any[], ib:any )=> {
                     </template>
                 </div>
             </template>
-            <template v-else-if="chat.opt?.action==='UPSCALE'"></template>
+            <template v-else-if="chat.opt?.action==='UPSCALE' || 'DESCRIBE'===chat.opt?.action"></template>
             <template v-else>
                 <div class="flex space-x-2">
                     <NButton type="primary" @click="sub('UPSCALE',1)" size="small">U1</NButton>
@@ -171,7 +196,7 @@ const getIndexName=  (arr:any[], ib:any )=> {
     <div class=" hidden">{{ chat.dateTime }}</div>
 
     <NModal v-model:show="st.isShow"   preset="card"  title="局部重绘编辑" style="max-width: 800px;" @close="st.isShow=false" >
-        <aiCanvas :chat="chat" base64="" v-if="st.isShow" @success="maskOk" />
+        <aiCanvas :chat="chat" :base64="st.uri_base64" v-if="st.isShow" @success="maskOk" />
     </NModal>
 </div>
 

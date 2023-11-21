@@ -8,7 +8,7 @@ import { useChat } from '../chat/hooks/useChat'
 import { useUsingContext } from '../chat/hooks/useUsingContext' 
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { homeStore, useChatStore, usePromptStore } from '@/store'
-import {   mlog,mjFetch,subTask } from '@/api'
+import {   mlog,mjFetch,subTask,localSaveAny, url2base64 } from '@/api'
 import { t } from '@/locales'
 
 let controller = new AbortController()
@@ -64,11 +64,33 @@ async function onConversation() {
         conversationOptions: null,
         requestOptions: { prompt: message.drawText , options: null },
         }
+    
     if( message.fileBase64 && message.fileBase64.length>0 ){
-        promptMsg.opt={  images: message.fileBase64 }
+       // promptMsg.opt={  images: message.fileBase64 }
+       try{
+            let images= await localSaveAny( JSON.stringify( message.fileBase64)  ) ;
+            mlog('key', images );
+            promptMsg.opt= {images:[images]}
+       }catch(e){
+           mlog('localSaveAny error',e);
+       }
     }
-    addChat(  +uuid, promptMsg )
+    addChat(  +uuid, promptMsg );
+
+    
   }
+//   else if( message.action && message.action =='img2txt'){ //img2txt
+//     let promptMsg: Chat.Chat= { 
+//         dateTime: new Date().toLocaleString(),
+//         text:'图生文' ,
+//         inversion: true,
+//         error: false,
+//         conversationOptions: null,
+//         requestOptions: { prompt: '图生文' , options: null },
+//         opt:{  images:[message.data.base64] }
+//     }
+//     addChat(  +uuid, promptMsg )
+//   }
 
   scrollToBottom()
 
@@ -166,6 +188,10 @@ watch(()=>homeStore.myData.act,(n)=>{
         if(  dchat.uuid && dchat.index ) {
             dchat.dateTime= new Date().toLocaleString();
             updateChat( +dchat.uuid, +dchat.index, dchat );
+            mlog('updateChat', dchat.opt?.progress, dchat.opt?.imageUrl );
+            if( dchat.opt?.progress&& dchat.opt?.progress=='100%' && dchat.opt?.imageUrl ){
+                url2base64(dchat.opt?.imageUrl ,'img:'+dchat.mjID ).then(()=>{}).catch((e)=>mlog('url2base64 error',e));
+            }
         }
     }
     

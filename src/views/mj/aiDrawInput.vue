@@ -5,7 +5,7 @@ import config from "./draw.json";
 import {  NSelect,NInput,NButton,NTag,NPopover, useMessage} from 'naive-ui'; 
 import {  SvgIcon } from '@/components/common'
 import AiMsg from './aiMsg.vue' 
-import { train, upImg } from '@/api' 
+import { mlog, train, upImg } from '@/api' 
 //import {copyText3} from "@/utils/format";
 import { homeStore } from "@/store";
 //import { upImg } from "./mj";
@@ -31,8 +31,8 @@ const farr= [
  ];
 
 const msgRef = ref()
-const fsRef= ref()
-const copyRef = ref()
+const fsRef= ref() 
+const fsRef2 = ref()
 const $emit=defineEmits(['drawSent','close']);
 const props = defineProps({buttonDisabled:Boolean});
 
@@ -100,6 +100,22 @@ function selectFile(input:any){
     upImg(input.target.files[0]).then(d=>st.value.fileBase64.push(d) ).catch(e=>msgRef.value.showError(e))
 }
 
+//图生文
+function selectFile2(input:any){
+     
+    upImg(input.target.files[0]).then(d=>{
+        mlog('f2base64>> ',d );
+        let obj={
+            action:'img2txt', 
+            data:{
+                "base64":d
+            }
+        }
+        homeStore.setMyData({act:'draw',actData:obj});
+    })
+    .catch(e=>msgRef.value.showError(e))
+}
+
 const same2=()=>{
      st.value.text= homeStore.myData.actData.prompt;
     f.value.version='';
@@ -121,6 +137,7 @@ onMounted(()=>{
 <template>
 <AiMsg ref="msgRef" />
 <input type="file"  @change="selectFile" ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
+<input type="file"  @change="selectFile2" ref="fsRef2" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
 
 <div class="overflow-y-auto bg-[#fafbfc] p-4 dark:bg-[#18181c] h-full ">
     
@@ -148,7 +165,7 @@ onMounted(()=>{
       :autosize="{   minRows:2, maxRows:5 }" />
     </div>
     <div class="mb-4 flex justify-between items-center">
-        <div>
+        <div class="flex justify-start items-center">
              <NPopover trigger="hover">
                 <template #trigger>
                 <n-tag type="error" round size="small" style="cursor: pointer; " :bordered="false" @click="fsRef.click()"   v-if="st.fileBase64.length">
@@ -173,7 +190,20 @@ onMounted(()=>{
                 </div>
                 </div>
              </NPopover>
+
+             <div class="pl-1">
+               <NPopover trigger="hover">
+                    <template #trigger>
+                        <n-tag type="warning" round size="small" style="cursor: pointer; " :bordered="false" @click="fsRef2.click()"    >
+                            <div style="display: flex;">  <SvgIcon icon="fluent:image-edit-16-regular" /> 图生文  </div>
+                        </n-tag>
+                    </template>
+                     <div  style="max-width: 240px;">不知如何写提示词？可以看看用图生文！<br/>图片进去，提示词出来
+                     </div>
+                </NPopover>
+            </div>
         </div>
+        
 
         <div class="flex ">
          <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
@@ -189,6 +219,8 @@ onMounted(()=>{
         <div @click="copy()" ref="copyRef">复制</div>
         <div @click="copy2()"  >复制2</div> 
     </div> -->
+
+   
 
 </div>
 </template>

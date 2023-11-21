@@ -7,9 +7,9 @@ import hljs from 'highlight.js'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { copyToClip } from '@/utils/copy'
-import {NImage} from 'naive-ui'
 
 import mjText from '@/views/mj/mjText.vue'
+import MjTextAttr from '@/views/mj/mjTextAttr.vue'
 
 interface Props {
   inversion?: boolean
@@ -118,11 +118,12 @@ onUnmounted(() => {
         </template>
       </div>
       <div v-else class="whitespace-pre-wrap" v-text="text" />
-      <div v-if="chat.opt?.images" class="flex flex-wrap justify-start items-baseline">
+      <MjTextAttr :image="chat.opt?.images[0]" v-if="chat.opt?.images"></MjTextAttr>
+      <!-- <div v-if="chat.opt?.images" class="flex flex-wrap justify-start items-baseline">
           <div v-for="(img,k ) of chat.opt?.images" :key="k" class="p-1" >
             <NImage :src="img" preview class="w-[200px] rounded" />
           </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

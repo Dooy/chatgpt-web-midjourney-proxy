@@ -133,6 +133,8 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
         bdata.taskId= d.result;
         d=  await mjFetch('/mj/submit/modal' , bdata );
      }
+   }else if( data.action &&data.action=='img2txt') { //图生文 
+        d=  await mjFetch('/mj/submit/describe' , data.data  ); 
    }else if( data.action &&data.action=='changeV2') { //执行动作！
      d=  await mjFetch('/mj/submit/action' , data.data  );
    }else {
@@ -164,3 +166,4 @@ const backOpt= (d:any, chat:Chat.Chat )=>{
         homeStore.setMyData({act:'updateChat', actData:chat });
     }
 }
+
