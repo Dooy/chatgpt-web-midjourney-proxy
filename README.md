@@ -4,7 +4,7 @@
 - 本开源是在 [ChenZhaoYu](https://github.com/ChenZhaoYu/chatgpt-web) 基础上做二次开发 ；使用 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 提供的midjourney api 作为后端而形成的。
 
 [![npm version](./docs/mj1.jpg)](./docs/mj1.jpg)
-## 支持的功能
+## 支持功能
 - ✅ 原chatgpt web 所有功能
 - ✅ midjourney 文生图
 - ✅ midjourney 垫图+文生图  
