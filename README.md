@@ -15,7 +15,7 @@
 - ✅ midjourney 支持左、右、上、下延伸变化
 - ✅ midjourney 同时支持[midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 接口 和 [midjourney-proxy-plus](https://github.com/litter-coder/midjourney-proxy-plus) 接口
 - ✅ midjourney 图生文
-- ✅ 图片本地保存
+- ✅ 图片使用localforage实现本地存储
 ## 待开发
 - ⏰ 支持 niji・journey Bot， InsightFace 人脸服务
  
