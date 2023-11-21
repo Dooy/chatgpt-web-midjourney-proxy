@@ -146,6 +146,9 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
         } );
         mlog('submit',d );
    }
+   if(d.code==21){
+       d=  await mjFetch('/mj/submit/modal' , { taskId:d.result} );
+   }
      
     backOpt(d, chat);
    

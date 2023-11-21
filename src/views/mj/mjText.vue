@@ -99,6 +99,13 @@ const bt= [
         {k:'Outpaint::50',n:'变焦1.5倍'},
         {k:'Outpaint::75',n:'变焦2倍'},
         {k:'Outpaint::100',n:'方正'}
+
+        ,{k:'Job::PicReader::1',n:'T1'}
+        ,{k:'Job::PicReader::2',n:'T2'}
+        ,{k:'Job::PicReader::3',n:'T3'}
+        ,{k:'Job::PicReader::4',n:'T4'}
+        ,{k:'Picread::Retry',n:'重分析'}
+       // ,{k:'Job::PicReader::all',n:'全4张'}
     ]
     ,[
     {k:':variation::1',n:'V1'}
@@ -150,7 +157,7 @@ load();
 <div v-if="st.isLoadImg">
     
     <template   v-if="chat.opt?.progress">
-        <div v-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
+        <div v-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
         <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64:chat.opt.imageUrl" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
         <div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
             <template v-if="chat.opt?.buttons">

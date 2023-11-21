@@ -198,7 +198,7 @@ onMounted(()=>{
                             <div style="display: flex;">  <SvgIcon icon="fluent:image-edit-16-regular" /> 图生文  </div>
                         </n-tag>
                     </template>
-                     <div  style="max-width: 240px;">不知如何写提示词？可以看看用图生文！<br/>图片进去，提示词出来
+                     <div  style="max-width: 240px;">不知如何写提示词？用图生文试试！<br/>提交图片，出提示词
                      </div>
                 </NPopover>
             </div>
