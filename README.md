@@ -14,9 +14,11 @@
 - ✅ midjourney 支持2倍高清 4倍高清
 - ✅ midjourney 支持左、右、上、下延伸变化
 - ✅ midjourney 同时支持[midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 接口 和 [midjourney-proxy-plus](https://github.com/litter-coder/midjourney-proxy-plus) 接口
+- ✅ midjourney 图生文
+- ✅ 图片本地保存
 ## 待开发
-- ⏰ midjourney 图生文
-- ⏰ 图片本地保存
+- ⏰ 支持 niji・journey Bot， InsightFace 人脸服务
+ 
 ## docker 部署
 **假设**:
 - 你已经搭建好 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 服务，开发端口服务器地址为 https://172.17.0.1:6013
