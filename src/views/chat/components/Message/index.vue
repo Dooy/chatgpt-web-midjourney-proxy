@@ -123,9 +123,9 @@ async function handleCopy() {
           :as-raw-text="asRawText"
           :chat="chat"
         />
-        <div class="flex flex-col">
+        <div class="flex flex-col" v-if="!chat.mjID">
           <button
-            v-if="!inversion"
+            v-if="!inversion "
             class="mb-2 transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300"
             @click="handleRegenerate"
           >
@@ -135,7 +135,7 @@ async function handleCopy() {
             :trigger="isMobile ? 'click' : 'hover'"
             :placement="!inversion ? 'right' : 'left'"
             :options="options"
-            @select="handleSelect"
+            @select="handleSelect" 
           >
             <button class="transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-200">
               <SvgIcon icon="ri:more-2-fill" />

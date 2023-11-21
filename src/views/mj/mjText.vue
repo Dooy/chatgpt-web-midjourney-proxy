@@ -160,6 +160,9 @@ const getIndexName=  (arr:any[], ib:any )=> {
         <div v-else class="py-2"> 任务已经提交请等待...</div>
         <!-- <div v-html="chat.opt?.action"></div> -->
     </template>
+    <div v-else-if="chat.opt?.status=='FAILURE'"> 
+        <div>失败原因：<p>{{ chat.opt?.failReason }}</p></div>
+    </div>
     <div v-else> 
     任务 {{ chat.mjID }} 已经提交请等待 
         <div v-if="!chat.loading"> <NButton type="primary" @click="reload()">重新获取</NButton></div>
