@@ -109,6 +109,7 @@ function selectFile2(input:any){
             action:'img2txt', 
             data:{
                 "base64":d
+                ,"botType": "MID_JOURNEY"
             }
         }
         homeStore.setMyData({act:'draw',actData:obj});
