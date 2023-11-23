@@ -50,7 +50,9 @@ async function onConversation() {
 
   if (loading.value)
     return
-
+  if( !message.drawText && dataSources.value.length==0){
+      message.drawText='AI绘图';
+  }
 //   if (!message || message.trim() === '')
 //     return
 

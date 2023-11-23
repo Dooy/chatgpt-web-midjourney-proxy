@@ -72,7 +72,7 @@ function createPrompt(rz:string){
      
    
     for(let v of farr){
-        if( f.value[v.k]=='') continue;
+        if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
         if(v.k=='quality') rz +=`  --q ${f.value.quality}`;
         else if(v.k=='version') {
             rz +=` ${f.value.version}`;
