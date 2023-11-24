@@ -140,7 +140,7 @@ onMounted(()=>{
 const exportToTxt= async ()=>{
     let txtContent ='';
     mlog('sss',txtContent,chatStore.$state.chat.length  );
-    ms.info('导出成功....');
+   
     let d = await getMjAll( chatStore.$state);
     if(d.length==0) {
         ms.info('赞赏没作品');
@@ -160,6 +160,7 @@ const exportToTxt= async ()=>{
     a.href = URL.createObjectURL(blob);
     a.download = "ai绘画.txt";
     a.click();
+    ms.success('导出成功... 请看下载栏');
 }
 //const config=
 </script>
