@@ -192,5 +192,15 @@
                 "label": "写实照片",
                 "value": "--testp"
             }
+     ],
+
+     "botList": [{
+                "label": "Midjourney Bot",
+                "value": "MID_JOURNEY"
+            }, {
+                "label": "Niji・journey",
+                "value": "NIJI_JOURNEY"  
+            }
      ]
+     
 }

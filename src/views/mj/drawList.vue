@@ -111,7 +111,7 @@ async function onConversation() {
       inversion: false,
       error: false,
       conversationOptions: null,
-      requestOptions: { prompt: message, options: { ...options } },
+      requestOptions: { prompt: '提交中', options: { ...options } },
       uuid:+uuid,
      
     }
@@ -163,7 +163,7 @@ async function onConversation() {
         error: true,
         loading: false,
         conversationOptions: null,
-        requestOptions: { prompt: message, options: { ...options } },
+        requestOptions: { prompt: "", options: { ...options } },
       },
     )
     scrollToBottomIfAtBottom()

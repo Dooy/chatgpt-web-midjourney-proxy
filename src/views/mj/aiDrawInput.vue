@@ -2,9 +2,10 @@
 //boy, Cyberpunk , Top view , Face Shot (VCU) , Warm light  --style raw  --ar 3:4 --q 0.5 --v 5.2
 import { ref,computed,watch,onMounted } from "vue";
 import config from "./draw.json";
-import {  NSelect,NInput,NButton,NTag,NPopover, useMessage} from 'naive-ui'; 
+import {  NSelect,NInput,NButton,NTag,NPopover, useMessage,NDivider} from 'naive-ui'; 
 import {  SvgIcon } from '@/components/common'
 import AiMsg from './aiMsg.vue' 
+import aiFace from './aiFace.vue' 
 import { mlog, train, upImg ,getMjAll } from '@/api' 
 //import {copyText3} from "@/utils/format";
 import { homeStore ,useChatStore} from "@/store";
@@ -20,7 +21,7 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 
 const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 5.2'});
 const st =ref({text:'',isDisabled:false,isLoad:false
-    ,fileBase64:[]
+    ,fileBase64:[],bot:''
 });
 const farr= [
 { k:'style',v:'风格'}
@@ -62,6 +63,9 @@ function drawSent(rz:any){
     let rz2= rz;
     if(st.value.fileBase64) {
         rz2.fileBase64=st.value.fileBase64
+    }
+    if( st.value.bot=='NIJI_JOURNEY' ){
+        rz2.bot='NIJI_JOURNEY';
     }
     $emit('drawSent', rz2 )
     st.value.fileBase64= [];
@@ -201,6 +205,11 @@ const exportToTxt= async ()=>{
      
     <n-select v-model:value="f[v.k]" :options="config[v.k+'List']" size="small"  class="!w-[60%]" :clearable="true" />
     </section>
+    <section class="mb-4 flex justify-between items-center"  >
+     <div>机器人</div>
+    <n-select v-model:value="st.bot" :options="config.botList" size="small"  class="!w-[60%]" :clearable="true" />
+
+     </section>
     <div class="mb-1">
      <n-input    type="textarea"  v-model:value="st.text"   placeholder="提示词" round clearable maxlength="500" show-count 
       :autosize="{   minRows:2, maxRows:5 }" />
@@ -255,6 +264,13 @@ const exportToTxt= async ()=>{
             
         </n-button>
         </div>
+    </div>
+
+    <div>
+    <NDivider dashed>
+        <NTag type="success" round ><div class="cursor-pointer">换脸服务</div></NTag>
+    </NDivider>
+    <aiFace />
     </div>
     <!-- <div class="mb-4 flex justify-between items-center">
         <div @click="copy()" ref="copyRef">复制</div>

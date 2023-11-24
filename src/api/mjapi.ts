@@ -133,18 +133,28 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
         bdata.taskId= d.result;
         d=  await mjFetch('/mj/submit/modal' , bdata );
      }
+   }else if( data.action &&data.action=='face') { //换脸 
+      d=  await mjFetch('/mj/insight-face/swap' , data.data  ); 
+      //mlog('换年服务', data.data );
+      //return; 
    }else if( data.action &&data.action=='img2txt') { //图生文 
         d=  await mjFetch('/mj/submit/describe' , data.data  ); 
    }else if( data.action &&data.action=='changeV2') { //执行动作！
      d=  await mjFetch('/mj/submit/action' , data.data  );
    }else {
-     d=  await mjFetch('/mj/submit/imagine' , {
+    let toData =  {
         "base64Array":data.fileBase64??[],
         "notifyHook": "",
         "prompt": data.drawText,
-        "state": ""
-        } );
+        "state": "",
+        botType:'MID_JOURNEY'
+        };
+        if(data.bot && data.bot=='NIJI_JOURNEY'){
+            toData.botType= data.bot;
+        }
+        d=  await mjFetch('/mj/submit/imagine' ,toData );
         mlog('submit',d );
+        //return ;
    }
    if(d.code==21){
        d=  await mjFetch('/mj/submit/modal' , { taskId:d.result} );
