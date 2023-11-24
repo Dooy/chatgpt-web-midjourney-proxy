@@ -143,7 +143,7 @@ const exportToTxt= async ()=>{
    
     let d = await getMjAll( chatStore.$state);
     if(d.length==0) {
-        ms.info('赞赏没作品');
+        ms.info('暂时没作品');
         return;
     }
     d.forEach((v:Chat.Chat,i:number)=>{
@@ -152,7 +152,7 @@ const exportToTxt= async ()=>{
         }
     })
     if(txtContent=='') {
-         ms.info('赞赏没成熟作品');
+         ms.info('暂时没成熟作品');
         return;
     }
     let blob = new Blob([txtContent], { type: "text/plain" });
