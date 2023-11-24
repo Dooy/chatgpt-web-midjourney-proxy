@@ -58,3 +58,18 @@ export function url2base64(url:string,key?:string){
     });
     
 }
+
+export const getMjAll= async ( ChatState:Chat.ChatState)=>{
+    let rz:Chat.Chat[]=[]
+    ChatState.chat.forEach(v=>{
+       // mlog('uid>>', v.uuid );
+        v.data.forEach(chat=>{
+            if( chat.mjID ){
+               // mlog('MJID>> ',chat.mjID);
+                rz.push(chat );
+            }
+        })
+    });
+    return rz ;
+
+}

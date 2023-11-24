@@ -5,9 +5,10 @@ import config from "./draw.json";
 import {  NSelect,NInput,NButton,NTag,NPopover, useMessage} from 'naive-ui'; 
 import {  SvgIcon } from '@/components/common'
 import AiMsg from './aiMsg.vue' 
-import { mlog, train, upImg } from '@/api' 
+import { mlog, train, upImg ,getMjAll } from '@/api' 
 //import {copyText3} from "@/utils/format";
-import { homeStore } from "@/store";
+import { homeStore ,useChatStore} from "@/store";
+const chatStore = useChatStore()
 //import { upImg } from "./mj";
 
 const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
@@ -97,7 +98,8 @@ function selectFile(input:any){
         ms.error('最多上传3张图片');
         return;
     }
-    upImg(input.target.files[0]).then(d=>st.value.fileBase64.push(d) ).catch(e=>msgRef.value.showError(e))
+    upImg(input.target.files[0]).then(d=>st.value.fileBase64.push(d) ).catch(e=>msgRef.value.showError(e));
+    
 }
 
 //图生文
@@ -113,6 +115,9 @@ function selectFile2(input:any){
             }
         }
         homeStore.setMyData({act:'draw',actData:obj});
+        //input.value.value='';
+        fsRef2.value.value='';
+       
     })
     .catch(e=>msgRef.value.showError(e))
 }
@@ -132,18 +137,51 @@ onMounted(()=>{
 
 
 
-
+const exportToTxt= async ()=>{
+    let txtContent ='';
+    mlog('sss',txtContent,chatStore.$state.chat.length  );
+    ms.info('导出成功....');
+    let d = await getMjAll( chatStore.$state);
+    if(d.length==0) {
+        ms.info('赞赏没作品');
+        return;
+    }
+    d.forEach((v:Chat.Chat,i:number)=>{
+        if( v.opt&& v.opt?.status=='SUCCESS' && v.opt?.imageUrl ) {
+                txtContent += v.opt?.imageUrl+ "\n\n";
+        }
+    })
+    if(txtContent=='') {
+         ms.info('赞赏没成熟作品');
+        return;
+    }
+    let blob = new Blob([txtContent], { type: "text/plain" });
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "ai绘画.txt";
+    a.click();
+}
 //const config=
 </script>
 <template>
 <AiMsg ref="msgRef" />
-<input type="file"  @change="selectFile" ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
+<input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
 <input type="file"  @change="selectFile2" ref="fsRef2" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
 
 <div class="overflow-y-auto bg-[#fafbfc] p-4 dark:bg-[#18181c] h-full ">
     
     <section class="mb-4">
-        <div class="mr-1 text-sm mb-2">图片比例</div>
+        <div class="mr-1  mb-2 flex justify-between items-center">
+            <div class="text-sm">图片比例</div>
+            <div>
+            <NPopover trigger="hover">
+                <template #trigger>
+                 <SvgIcon icon="iconoir:database-export" class="text-lg cursor-pointer" @click="exportToTxt"></SvgIcon>
+                </template>
+                <div>作品图片链接导出</div>
+            </NPopover>
+            </div>
+        </div>
         <div class=" flex items-center justify-between space-x-1">
             <template  v-for="(item,index) in vf" >
             <section class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"  :class="{'active':index==f.bili}"  @click="f.bili=index">
