@@ -130,6 +130,21 @@
                 "label": "人在远方",
                 "value": "Extra Long Shot(ELS)"
             }],
+    "stylesList":[
+            {
+                "label": "Style low",
+                "value": "--s 50"
+            }, {
+                "label": "Style med",
+                "value": "--s 100"
+            }, {
+                "label": "Style high",
+                "value": "--s 250"
+            }, {
+                "label": "Style very high",
+                "value": "--s 750"
+            }
+    ],        
     "lightList": [{
                 "label": "冷光",
                 "value": "Cold light"
