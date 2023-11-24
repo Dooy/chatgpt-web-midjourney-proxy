@@ -21,7 +21,7 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 
 const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 5.2'});
 const st =ref({text:'',isDisabled:false,isLoad:false
-    ,fileBase64:[],bot:''
+    ,fileBase64:[],bot:'',showFace:false
 });
 const farr= [
 { k:'style',v:'风格'}
@@ -268,9 +268,9 @@ const exportToTxt= async ()=>{
 
     <div>
     <NDivider dashed>
-        <NTag type="success" round ><div class="cursor-pointer">换脸服务</div></NTag>
+        <NTag type="success" round ><div class="cursor-pointer" @click="st.showFace= !st.showFace">换脸服务</div></NTag>
     </NDivider>
-    <aiFace />
+    <aiFace v-if="st.showFace" />
     </div>
     <!-- <div class="mb-4 flex justify-between items-center">
         <div @click="copy()" ref="copyRef">复制</div>
