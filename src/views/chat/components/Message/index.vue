@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { NDropdown, useMessage } from 'naive-ui'
 import AvatarComponent from './Avatar.vue'
 import TextComponent from './Text.vue'
@@ -8,6 +8,8 @@ import { useIconRender } from '@/hooks/useIconRender'
 import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
+import { homeStore } from '@/store'
+import { mlog } from '@/api'
 
 interface Props {
   dateTime?: string
@@ -91,6 +93,11 @@ async function handleCopy() {
     message.error('复制失败')
   }
 }
+
+const sendReload = () => {
+  homeStore.setMyData({act:'mjReload', actData:{mjID:props.chat.mjID} })
+}
+ 
 </script>
 
 <template>
@@ -106,9 +113,12 @@ async function handleCopy() {
       <AvatarComponent :image="inversion" />
     </div>
     <div class="overflow-hidden text-sm " :class="[inversion ? 'items-end' : 'items-start']">
-      <p class="text-xs text-[#b4bbc4]" :class="[inversion ? 'text-right' : 'text-left']">
-        {{ dateTime }}
+      <p class="text-xs text-[#b4bbc4] flex justify-start items-center space-x-2 " :class="[inversion ? 'text-right' : 'text-left']">
+        <span>{{ dateTime }}</span>
+        <!-- <span>{{ chat.opt?.progress }}</span> -->
+        <SvgIcon icon="ri:restart-line" @click="sendReload"  class="cursor-pointer text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300 " v-if="chat.opt?.status=='SUCCESS'"></SvgIcon>
       </p>
+      
       <div
         class="flex items-end gap-1 mt-2"
         :class="[inversion ? 'flex-row-reverse' : 'flex-row']"

@@ -210,7 +210,10 @@ watch(()=>homeStore.myData.act,(n)=>{
             updateChat( +dchat.uuid, +dchat.index, dchat );
             mlog('updateChat', dchat.opt?.progress, dchat.opt?.imageUrl );
             if( dchat.opt?.progress&& dchat.opt?.progress=='100%' && dchat.opt?.imageUrl ){
-                url2base64(dchat.opt?.imageUrl ,'img:'+dchat.mjID ).then(()=>{}).catch((e)=>mlog('url2base64 error',e));
+               // url2base64(dchat.opt?.imageUrl ,'img:'+dchat.mjID ).then(()=>{}).catch((e)=>mlog('url2base64 error',e));
+               //homeStore.setMyData{{act}}
+               homeStore.setMyData({act:'mjReload', actData:{mjID:dchat.mjID,noShow:true} })
+
             }
         }
     }

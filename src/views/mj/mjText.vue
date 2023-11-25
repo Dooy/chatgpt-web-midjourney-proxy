@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { NImage,NButton,NModal } from 'naive-ui'
+import { NImage,NButton,NModal,useMessage } from 'naive-ui'
 import { computed , ref,watch } from 'vue'
 import {flechTask ,localGet,mlog, url2base64 } from '@/api'
 import { homeStore } from '@/store'
@@ -9,7 +9,7 @@ interface Props {
   chat:Chat.Chat
 }
  const { isMobile } = useBasicLayout()
-
+const ms = useMessage();
 const props = defineProps<Props>();
 const st = ref( { isLoadImg:false, uri_base64:'', bts:[],isShow:false })
 
@@ -150,7 +150,20 @@ const load = async ()=>{
     
     st.value.isLoadImg=true;
 }
- 
+
+watch(()=>homeStore.myData.act,(n)=>{
+    const actData :any= homeStore.myData.actData;
+    if(n=='mjReload' &&  actData.mjID== chat.value.mjID ){ //&& actData.mjID==chat.value.mjID
+         mlog('mjReload', actData.mjID, chat.value.mjID , chat.value.opt?.imageUrl);
+         if( !st.value.isLoadImg){
+            ms.success('客官不要太急嘛，正在加载呢');
+            return ;
+         }
+         st.value.isLoadImg=false;
+         load();
+         if( !actData.noShow ) ms.success('图片刷新成功！');
+    }
+})
 load();
 </script>
 <template>
@@ -205,6 +218,11 @@ load();
     <NModal v-model:show="st.isShow"   preset="card"  title="局部重绘编辑" style="max-width: 800px;" @close="st.isShow=false" >
         <aiCanvas :chat="chat" :base64="st.uri_base64" v-if="st.isShow" @success="maskOk" />
     </NModal>
+</div>
+<div v-else class="w-[200px] h-[150px] flex flex-col justify-center items-center" >
+    <div class="p-4">正在载入图片</div>
+    
+    <NButton type="primary"  ><a :href="chat.opt?.imageUrl" target="_blank">直接打开链接</a></NButton> 
 </div>
 
 
