@@ -3,7 +3,8 @@
 - 此项目只发布于 GitHub，基于 MIT 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、讨论群、讨论组等行为。谨防受骗。
 - 本开源是在 [ChenZhaoYu](https://github.com/ChenZhaoYu/chatgpt-web) 基础上做二次开发 ；使用 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 提供的midjourney api 作为后端而形成的。
 
-[![npm version](./docs/mj1.jpg)](./docs/mj1.jpg)
+
+![cover](./docs/mj2a1.jpg)
 ## 支持功能
 - ✅ 原chatgpt web 所有功能
 - ✅ midjourney 文生图
@@ -16,6 +17,9 @@
 - ✅ midjourney 同时支持[midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 接口 和 [midjourney-proxy-plus](https://github.com/litter-coder/midjourney-proxy-plus) 接口
 - ✅ midjourney 图生文
 - ✅ 图片使用localforage实现本地存储
+- ✅ 支持midjourney、niji 不同机器人
+- ✅ 支持[InsightFace 人脸替换](https://discord.com/api/oauth2/authorize?client_id=1090660574196674713&permissions=274877945856&scope=bot)
+- ✅ midjourney 混图
 ## 待开发
 - ⏰ 支持 niji・journey Bot， InsightFace 人脸服务
  
@@ -45,8 +49,16 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 
 ## 更多展示
+
 局部重绘：
 [![局部重绘](./docs/mj2.jpg)](./docs/mj2.jpg)
+
+换脸
+![换脸](./docs/mj2a2.jpg)
+
+混图
+![混图](./docs/mj2a3.jpg)
+
 
 手机端：
 <div style="display: flex; flex-wrap: wrap">
