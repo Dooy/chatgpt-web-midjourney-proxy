@@ -206,6 +206,17 @@
                 "label": "Niji・journey",
                 "value": "NIJI_JOURNEY"  
             }
+     ],
+     "dimensionsList": [{
+                "label": "广场 SQUARE(1:1)",
+                "value": "SQUARE"
+            }, {
+                "label": "肖像 PORTRAIT(2:3)",
+                "value": "PORTRAIT"  
+            }, {
+                "label": "景观 LANDSCAPE(3:2)",
+                "value": "LANDSCAPE"  
+            }
      ]
      
 }

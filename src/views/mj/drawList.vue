@@ -44,7 +44,17 @@ dataSources.value.forEach((item, index) => {
 function handleSubmit() {
   onConversation()
 }
-
+const getInitChat = (txt:string)=>{
+    let promptMsg: Chat.Chat= {
+        dateTime: new Date().toLocaleString(),
+        text:  txt ,
+        inversion: true,
+        error: false,
+        conversationOptions: null,
+        requestOptions: { prompt:txt, options: null },
+        }
+        return promptMsg;
+}
 async function onConversation() {
   let message = prompt.value
 
@@ -58,14 +68,7 @@ async function onConversation() {
 
   controller = new AbortController()
   if( message.drawText){
-    let promptMsg: Chat.Chat= {
-        dateTime: new Date().toLocaleString(),
-        text: message.drawText ,
-        inversion: true,
-        error: false,
-        conversationOptions: null,
-        requestOptions: { prompt: message.drawText , options: null },
-        }
+    let promptMsg: Chat.Chat= getInitChat(message.drawText)
     
     if( message.fileBase64 && message.fileBase64.length>0 ){
        // promptMsg.opt={  images: message.fileBase64 }
@@ -80,19 +83,34 @@ async function onConversation() {
     addChat(  +uuid, promptMsg );
 
     
+  }else if( message.action && message.action=='face' ){
+    let promptMsg: Chat.Chat= getInitChat('换脸');
+    try{
+          let images= await localSaveAny( JSON.stringify( [message.data.sourceBase64,message.data.targetBase64 ] )  ) ;
+          mlog('key', images );
+          promptMsg.opt= {images:[images]}
+     }catch(e){
+         mlog('localSaveAny error',e);
+     }
+     addChat(  +uuid, promptMsg );
+     //return ;
+
+  }else if( message.action && message.action=='blend' ){
+     // promptMsg.opt={  images: message.fileBase64 }
+     let promptMsg: Chat.Chat= getInitChat('混图');
+     try{
+          let images= await localSaveAny( JSON.stringify( message.data.base64Array )  ) ;
+          mlog('key', images );
+          promptMsg.opt= {images:[images]}
+     }catch(e){
+         mlog('localSaveAny error',e);
+     }
+     addChat(  +uuid, promptMsg );
+
+    
   }
-//   else if( message.action && message.action =='img2txt'){ //img2txt
-//     let promptMsg: Chat.Chat= { 
-//         dateTime: new Date().toLocaleString(),
-//         text:'图生文' ,
-//         inversion: true,
-//         error: false,
-//         conversationOptions: null,
-//         requestOptions: { prompt: '图生文' , options: null },
-//         opt:{  images:[message.data.base64] }
-//     }
-//     addChat(  +uuid, promptMsg )
-//   }
+  
+
 
   scrollToBottom()
 

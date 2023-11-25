@@ -133,6 +133,8 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
         bdata.taskId= d.result;
         d=  await mjFetch('/mj/submit/modal' , bdata );
      }
+   }else if( data.action &&data.action=='blend') { //blend
+       d=  await mjFetch('/mj/submit/blend' ,  data.data );
    }else if( data.action &&data.action=='face') { //换脸 
       d=  await mjFetch('/mj/insight-face/swap' , data.data  ); 
       //mlog('换年服务', data.data );

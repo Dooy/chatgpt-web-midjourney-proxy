@@ -5,7 +5,7 @@ import {upImg} from '@/api'
 import { homeStore } from '@/store';
 const ms = useMessage();
 const fsRef= ref() ;
-const st= ref({status:'',isGo:true})
+const st= ref({status:'',isGo:false})
 const f= ref({sourceBase64:'',targetBase64:''});
 function selectFile(input:any){
      
@@ -43,5 +43,12 @@ const send=()=>{
         <div class="text-center" v-else>明星图</div> 
     </div>
 </div>
-<div v-if="f.sourceBase64 && f.targetBase64" class="flex justify-center "><NButton @click="send" type="primary" :disabled="!st.isGo">提交</NButton> </div>
+<div   class="flex justify-center pt-5"><NButton @click="send" type="primary" :disabled="!st.isGo">提交</NButton> </div>
+<ul class="pt-4">
+    说明：
+    <li>1 图片都必须包含脸，否则出不来图</li>
+    <li>2 “明星图”可以先用mj绘画制作出来</li>
+    <li>3 “明星图”其实动漫图也行</li>
+    <li>4 “你的头像”建议用一寸个人照</li>
+</ul>
 </template>
