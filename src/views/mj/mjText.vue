@@ -156,7 +156,7 @@ watch(()=>homeStore.myData.act,(n)=>{
     if(n=='mjReload' &&  actData.mjID== chat.value.mjID ){ //&& actData.mjID==chat.value.mjID
          mlog('mjReload', actData.mjID, chat.value.mjID , chat.value.opt?.imageUrl);
          if( !st.value.isLoadImg){
-            ms.info('客官不要太急嘛，正在加载呢');
+            ms.success('客官不要太急嘛，正在加载呢');
             return ;
          }
          st.value.isLoadImg=false;
