@@ -50,13 +50,13 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 ## 更多展示
 
-局部重绘：
+### 局部重绘：
 [![局部重绘](./docs/mj2.jpg)](./docs/mj2.jpg)
 
-换脸
+### 换脸
 ![换脸](./docs/mj2a2.jpg)
 
-混图
+### 混图
 ![混图](./docs/mj2a3.jpg)
 
 
