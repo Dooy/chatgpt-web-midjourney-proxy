@@ -173,7 +173,8 @@
                 "label": "暗黑的",
                 "value": "moody"
             }],
-     "versionList": [{
+     "versionList": [
+        {
                 "label": "MJ V5.2",
                 "value": "--v 5.2"
             }, {
@@ -185,6 +186,13 @@
             }, {
                 "label": "二次元 niji V4",
                 "value": "--niji 4"
+                
+            },{
+                "label": "Midjourney Bot",
+                "value": "MID_JOURNEY"
+            }, {
+                "label": "Niji・journey",
+                "value": "NIJI_JOURNEY"  
             }, {
                 "label": "开通漫画",
                 "value": "--test"

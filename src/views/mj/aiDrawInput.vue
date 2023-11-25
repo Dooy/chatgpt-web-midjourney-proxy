@@ -81,7 +81,10 @@ function createPrompt(rz:string){
         if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
         if(v.k=='quality') rz +=`  --q ${f.value.quality}`;
         else if(v.k=='version') {
-            rz +=` ${f.value.version}`;
+            st.value.bot= '';
+           if(['MID_JOURNEY','NIJI_JOURNEY'].indexOf(f.value.version)>-1 ){
+                 st.value.bot= f.value.version ;
+           } else   rz +=` ${f.value.version}`;
         }
         else if( f.value[v.k] ) rz +=` , ${f.value[v.k]}`;
     }
@@ -205,11 +208,11 @@ const exportToTxt= async ()=>{
      
     <n-select v-model:value="f[v.k]" :options="config[v.k+'List']" size="small"  class="!w-[60%]" :clearable="true" />
     </section>
-    <section class="mb-4 flex justify-between items-center"  >
+    <!-- <section class="mb-4 flex justify-between items-center"  >
      <div>机器人</div>
     <n-select v-model:value="st.bot" :options="config.botList" size="small"  class="!w-[60%]" :clearable="true" />
 
-     </section>
+     </section> -->
     <div class="mb-1">
      <n-input    type="textarea"  v-model:value="st.text"   placeholder="提示词" round clearable maxlength="500" show-count 
       :autosize="{   minRows:2, maxRows:5 }" />
