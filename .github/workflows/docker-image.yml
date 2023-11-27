@@ -13,6 +13,11 @@ jobs:
       -
         name: Check out the repo
         uses: actions/checkout@v3
+      - run: |
+          echo "本次构建的版本为：${GITHUB_REF_NAME} (但是这个变量目前上下文中无法获取到)"
+          echo 本次构建的版本为：${{ github.ref_name }}
+          echo 账号：${{ secrets.DOCKER_USERNAME }}
+          env
       -
         name: Log in to Docker Hub
         uses: docker/login-action@v2
