@@ -20,6 +20,7 @@
 - ✅ 支持midjourney、niji 不同机器人
 - ✅ 支持[InsightFace 人脸替换](https://discord.com/api/oauth2/authorize?client_id=1090660574196674713&permissions=274877945856&scope=bot)
 - ✅ midjourney 混图
+- ✅ midjourney 获取 seed
 ## 待开发
 - ⏰ 支持 niji・journey Bot， InsightFace 人脸服务
  
