@@ -9,7 +9,7 @@ import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
 import { homeStore } from '@/store'
-import { mlog } from '@/api'
+import { getSeed } from '@/api' 
 
 interface Props {
   dateTime?: string
@@ -84,9 +84,9 @@ function handleRegenerate() {
   emit('regenerate')
 }
 
-async function handleCopy() {
+async function handleCopy(txt?:string) {
   try {
-    await copyToClip(props.text || '')
+    await copyToClip( txt|| props.text || '')
     message.success('复制成功')
   }
   catch {
@@ -97,7 +97,35 @@ async function handleCopy() {
 const sendReload = () => {
   homeStore.setMyData({act:'mjReload', actData:{mjID:props.chat.mjID} })
 }
- 
+// const getSeed = async ()=>{
+//    let cchat = props.chat;
+//   if(!cchat.mjID ) return ;
+//   let seed=0 ;
+//   if(props.chat.opt?.seed) seed = props.chat.opt?.seed;
+//   else{
+//    try{
+//         message.info('获取中...');
+//       const res:any  = await mjSeed( cchat.mjID);
+//       seed= res.result;
+//       if(seed>0 ) {
+       
+//         if ( cchat.opt ){
+//           cchat.opt.seed = seed;
+
+//            homeStore.setMyData({act:'updateChat', actData:cchat });
+//         }
+//         message.success('获取成功');
+//       }
+      
+//    } catch(e){
+//       message.error('获取失败')
+//    }
+//   }
+//   mlog('getSeed',seed);
+//   if(seed>0 ) await handleCopy(`${seed}`);
+  
+// }
+
 </script>
 
 <template>
@@ -117,6 +145,10 @@ const sendReload = () => {
         <span>{{ dateTime }}</span>
         <!-- <span>{{ chat.opt?.progress }}</span> -->
         <SvgIcon icon="ri:restart-line" @click="sendReload"  class="cursor-pointer text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300 " v-if="chat.opt?.status=='SUCCESS'"></SvgIcon>
+        <div v-if="chat.opt?.status=='SUCCESS'" @click="getSeed(chat, message )" class="cursor-pointer">
+          <span v-if="chat.opt?.seed">Seed:{{ chat.opt?.seed }}</span>
+          <span v-else>Seed</span>
+        </div>
       </p>
       
       <div

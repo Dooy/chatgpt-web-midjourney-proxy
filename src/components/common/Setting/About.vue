@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { NSpin } from 'naive-ui'
 import pkg from '../../../../package.json'
-import { fetchChatConfig } from '@/api'
+import { fetchChatConfig ,getLastVersion} from '@/api'
 import { useAuthStore } from '@/store'
 
 interface ConfigState {
@@ -19,6 +19,7 @@ const authStore = useAuthStore()
 const loading = ref(false)
 
 const config = ref<ConfigState>()
+const st = ref({lastVersion:''})
 
 const isChatGPTAPI = computed<boolean>(() => !!authStore.isChatGPTAPI)
 
@@ -32,10 +33,33 @@ async function fetchConfig() {
     loading.value = false
   }
 }
-
-onMounted(() => {
-  fetchConfig()
+const getLastFrom= ()=>{
+  const str = localStorage.getItem('lastVersion');
+  if(!str) return '';
+  const obj = JSON.parse(str);
+  if( Date.now()- obj.t>1000*60*60 ){
+    return '';
+  }
+  return obj.v;
+}
+onMounted( () => {
+  fetchConfig();
+  
+  let t = getLastFrom();
+  if(t){
+     st.value.lastVersion = t ;
+  }else {
+    getLastVersion().then(res=>{
+      if(  res[0] && res[0].name ){
+        st.value.lastVersion = res[0].name;
+        localStorage.setItem('lastVersion',JSON.stringify( {v:  res[0].name,t: Date.now() } ))
+      }
+    });
+  }
 })
+const  isShow = computed(()=>{
+  return st.value.lastVersion && st.value.lastVersion != `v${pkg.version}`
+});
 </script>
 
 <template>
@@ -43,6 +67,8 @@ onMounted(() => {
     <div class="p-4 space-y-4">
       <h2 class="text-xl font-bold">
         Version - {{ pkg.version }}
+        <a class="text-red-500" href="https://github.com/Dooy/chatgpt-web-midjourney-proxy" target="_blank" v-if=" isShow  "> (发现更新版本 {{ st.lastVersion }})</a>
+        <a class="text-gray-500" href="https://github.com/Dooy/chatgpt-web-midjourney-proxy" target="_blank" v-else-if="st.lastVersion"> (已是最新版本)</a>
       </h2>
       <div class="p-2 space-y-2 rounded-md bg-neutral-100 dark:bg-neutral-700">
         <p>

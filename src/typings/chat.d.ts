@@ -10,9 +10,15 @@ declare namespace Chat {
 		requestOptions: { prompt: string; options?: ConversationRequest | null }
 		model?:string //模型
 		mjID?:string //MJ的ID
-		opt?:{progress?:string, imageUrl?:string, status?:string, images?:string[],promptEn?:string,buttons?:any[],action?:string} //
+		opt?:{
+			progress?:string,seed?:number, imageUrl?:string
+			, status?:string, images?:string[]
+			,promptEn?:string,buttons?:any[]
+			,action?:string
+		} //
 		uuid?:number
 		index?:number
+		
 		//progress?:string
 	}
 

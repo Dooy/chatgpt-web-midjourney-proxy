@@ -80,6 +80,7 @@ function createPrompt(rz:string){
     for(let v of farr){
         if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
         if(v.k=='quality') rz +=`  --q ${f.value.quality}`;
+        else if(v.k=='styles') rz +=` ${f.value.styles}`;
         else if(v.k=='version') {
             st.value.bot= '';
            if(['MID_JOURNEY','NIJI_JOURNEY'].indexOf(f.value.version)>-1 ){

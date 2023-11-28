@@ -2,6 +2,8 @@
  //import { useChat } from '@/views/chat/hooks/useChat'
 
 import { homeStore } from "@/store";
+import { copyToClip } from "@/utils/copy";
+//import { useMessage } from "naive-ui";
 
  //const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 export function upImg(file:any   ):Promise<any>
@@ -75,6 +77,7 @@ export const mlog = (msg: string, ...args: unknown[]) => {
 }
 
 const getUrl=(url:string)=>{
+    if(url.indexOf('http')==0) return url;
     return `/mjapi${url}`;
 }
 
@@ -94,6 +97,7 @@ export const mjFetch=(url:string,data?:any)=>{
     })
      
 }
+
 
 export const flechTask= ( chat:Chat.Chat)=>{
     let cnt=0;
@@ -182,3 +186,50 @@ const backOpt= (d:any, chat:Chat.Chat )=>{
     }
 }
 
+export const mjSeed= async ( mjid:string )=>{
+     const ts=  await mjFetch(`/mj/task/${mjid}/image-seed`);
+     return ts;
+}
+
+
+
+export const getSeed = async (cchat:Chat.Chat,message:any )=>{
+   // const message = useMessage();
+  // let cchat = props.chat;
+  if(!cchat.mjID ) return ;
+  let seed=0 ;
+  if(cchat.opt?.seed) seed =cchat.opt?.seed;
+  else{
+   try{
+        message.info('获取中...');
+      const res:any  = await mjSeed( cchat.mjID);
+      seed= res.result;
+      if(seed>0 ) {
+       
+        if ( cchat.opt ){
+          cchat.opt.seed = seed;
+
+           homeStore.setMyData({act:'updateChat', actData:cchat });
+        }
+        message.success('获取成功');
+      }
+      
+   } catch(e){
+      message.error('获取失败')
+   }
+  }
+  mlog('getSeed',seed);
+  if(seed>0 ) {
+    await copyToClip(`${seed}`);
+    message.success('复制seed成功');
+  }
+  
+}
+
+export const getLastVersion=  async ()=>{
+    const url='https://api.github.com/repos/Dooy/chatgpt-web-midjourney-proxy/tags?per_page=1';
+    const a= await mjFetch(url);
+    mlog('lastVersion', a ); 
+    return a;
+    
+}
