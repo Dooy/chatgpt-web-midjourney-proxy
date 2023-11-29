@@ -87,25 +87,10 @@ router.post('/verify', async (req, res) => {
     res.send({ status: 'Fail', message: error.message, data: null })
   }
 })
-// const apiProxy = createProxyMiddleware( {
-  
-//   target:  process.env.MJ_SERVER, //MJ_SERVER
-//   changeOrigin: true,
-//   secure: false,
-//   pathRewrite: {
-//     '^/mjapi': '' // 将URL中的 `/` 替换为空字符串
-//   },
-//   headers: {
-//     // 添加自定义请求头
-//     'mj-api-secret': process.env.MJ_API_SECRET
-//     , 'Content-Type': 'application/json'
-//   },
-//   onProxyReq:(proxyReq, req, res)=>{
-//      //console.log(`Proxying ${req.method} request from ${req.originalUrl} to ${proxyReq.path}`);
-//      console.log(   req.body);
-//   }
-// });
-// app.use('/mjapi', apiProxy); 
+
+ const API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
+    ? process.env.OPENAI_API_BASE_URL
+    : 'https://api.openai.com'
 
 app.use('/mjapi', proxy(process.env.MJ_SERVER, {
   https: false, limit: '10mb',
@@ -114,6 +99,21 @@ app.use('/mjapi', proxy(process.env.MJ_SERVER, {
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    return proxyReqOpts;
+  },
+  //limit: '10mb'
+  
+}));
+
+//代理openai 接口
+app.use('/openapi', proxy(API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return req.originalUrl.replace('/openapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    proxyReqOpts.headers['Authorization'] = process.env.OPENAI_API_KEY;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     return proxyReqOpts;
   },

@@ -8,7 +8,7 @@ import { useChat } from '../chat/hooks/useChat'
 import { useUsingContext } from '../chat/hooks/useUsingContext' 
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { homeStore, useChatStore, usePromptStore } from '@/store'
-import {   mlog,mjFetch,subTask,localSaveAny, url2base64 } from '@/api'
+import {   mlog,subTask,localSaveAny, subGPT } from '@/api'
 import { t } from '@/locales'
 
 let controller = new AbortController()
@@ -67,23 +67,7 @@ async function onConversation() {
 //     return
 
   controller = new AbortController()
-  if( message.drawText){
-    let promptMsg: Chat.Chat= getInitChat(message.drawText)
-    
-    if( message.fileBase64 && message.fileBase64.length>0 ){
-       // promptMsg.opt={  images: message.fileBase64 }
-       try{
-            let images= await localSaveAny( JSON.stringify( message.fileBase64)  ) ;
-            mlog('key', images );
-            promptMsg.opt= {images:[images]}
-       }catch(e){
-           mlog('localSaveAny error',e);
-       }
-    }
-    addChat(  +uuid, promptMsg );
-
-    
-  }else if( message.action && message.action=='face' ){
+  if( message.action && message.action=='face' ){
     let promptMsg: Chat.Chat= getInitChat('换脸');
     try{
           let images= await localSaveAny( JSON.stringify( [message.data.sourceBase64,message.data.targetBase64 ] )  ) ;
@@ -108,7 +92,24 @@ async function onConversation() {
      addChat(  +uuid, promptMsg );
 
     
-  }
+  }else if( message.action && message.action=='gpt.dall-e-3' ){ //gpt.dall-e-3
+    let promptMsg: Chat.Chat= getInitChat( message.data.prompt ); 
+     addChat(  +uuid, promptMsg );
+  }else if( message.drawText){
+    let promptMsg: Chat.Chat= getInitChat(message.drawText)
+    
+    if( message.fileBase64 && message.fileBase64.length>0 ){
+       // promptMsg.opt={  images: message.fileBase64 }
+       try{
+            let images= await localSaveAny( JSON.stringify( message.fileBase64)  ) ;
+            mlog('key', images );
+            promptMsg.opt= {images:[images]}
+       }catch(e){
+           mlog('localSaveAny error',e);
+       }
+    }
+    addChat(  +uuid, promptMsg ); 
+  } 
   
 
 
@@ -124,13 +125,14 @@ async function onConversation() {
     options = { ...lastContext }
   let outMsg: Chat.Chat={
       dateTime: new Date().toLocaleString(),
-      text: '提交中',
+      text: message.action=='gpt.dall-e-3'?'请勿关闭! 图片生成中...':'提交中',
       loading: true,
       inversion: false,
       error: false,
       conversationOptions: null,
       requestOptions: { prompt: '提交中', options: { ...options } },
       uuid:+uuid,
+      myid: `${Date.now()}`
      
     }
   addChat(  +uuid, outMsg  )
@@ -138,7 +140,10 @@ async function onConversation() {
   scrollToBottom()
 
   try { 
-     await subTask(message, outMsg );
+     if( message.action && message.action.indexOf('gpt.')==0 ){ 
+        await subGPT(message, outMsg );
+     }
+     else await subTask(message, outMsg );
      return ;
   }
   catch (error: any) {
@@ -208,13 +213,16 @@ watch(()=>homeStore.myData.act,(n)=>{
         if(  dchat.uuid && dchat.index ) {
             dchat.dateTime= new Date().toLocaleString();
             updateChat( +dchat.uuid, +dchat.index, dchat );
-            mlog('updateChat', dchat.opt?.progress, dchat.opt?.imageUrl );
+            mlog('updateChat',dchat.model , dchat.opt?.progress, dchat.opt?.imageUrl  );
             if( dchat.opt?.progress&& dchat.opt?.progress=='100%' && dchat.opt?.imageUrl ){
                // url2base64(dchat.opt?.imageUrl ,'img:'+dchat.mjID ).then(()=>{}).catch((e)=>mlog('url2base64 error',e));
                //homeStore.setMyData{{act}}
                homeStore.setMyData({act:'mjReload', actData:{mjID:dchat.mjID,noShow:true} })
 
+            }else if( dchat.model=='dall-e-3' && dchat.opt?.imageUrl ){
+                homeStore.setMyData({act:'dallReload', actData:{myid:dchat.myid,noShow:true} })
             }
+
         }
     }
     

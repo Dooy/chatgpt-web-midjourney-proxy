@@ -3,6 +3,7 @@ import { NTabs,NTabPane } from 'naive-ui';
 import aiDrawInputItem from './aiDrawInputItem.vue'
 import aiFace from './aiFace.vue'
 import aiBlend from './aiBlend.vue'
+import aiDall from './aiDall.vue'
 
 const $emit=defineEmits(['drawSent','close']);
 const drawSent=(d:any )=> $emit('drawSent',d);
@@ -24,6 +25,9 @@ const drawSent=(d:any )=> $emit('drawSent',d);
     </n-tab-pane>
     <n-tab-pane name="blend" tab="混图">
      <div class="p-4"><aiBlend  /></div>
+    </n-tab-pane>
+    <n-tab-pane name="dall3" tab="Dall.E.3">
+     <div class="p-4"><aiDall  /></div>
     </n-tab-pane>
 </n-tabs> 
 </div>
