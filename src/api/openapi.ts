@@ -3,6 +3,12 @@ import { gptConfigStore, gptServerStore, homeStore } from "@/store";
 import { mlog } from "./mjapi";
 import { fetchSSE } from "./sse/fetchsse";
 
+export const KnowledgeCutOffDate: Record<string, string> = {
+  default: "2021-09",
+  "gpt-4-1106-preview": "2023-04",
+  "gpt-4-vision-preview": "2023-04",
+};
+
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
     if(gptServerStore.myData.OPENAI_API_BASE_URL){
@@ -68,6 +74,20 @@ function getHeaderAuthorization(){
     return {
         'Authorization': 'Bearer ' +gptServerStore.myData.OPENAI_API_KEY
     }
+}
+
+export const getSystemMessage = ()=>{
+    //KnowledgeCutOffDate
+    if( gptConfigStore.myData.systemMessage) return  gptConfigStore.myData.systemMessage
+    let model= gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo";
+      const DEFAULT_SYSTEM_TEMPLATE = `You are ChatGPT, a large language model trained by OpenAI.
+Knowledge cutoff: ${KnowledgeCutOffDate[model]}
+Current model: ${model}
+Current time: ${ new Date().toLocaleString()}
+Latex inline: $x^2$ 
+Latex block: $$e=mc^2$$`;   
+return DEFAULT_SYSTEM_TEMPLATE;
+
 }
 export const subModel= async (opt: subModelType)=>{
     let body ={

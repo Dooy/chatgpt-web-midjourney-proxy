@@ -8,7 +8,7 @@ import { useChat } from '../chat/hooks/useChat'
 import { useUsingContext } from '../chat/hooks/useUsingContext' 
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { gptConfigStore, homeStore, useChatStore, usePromptStore } from '@/store'
-import { getInitChat, mlog, subModel} from '@/api'
+import { getInitChat, mlog, subModel,getSystemMessage} from '@/api'
 
 const emit = defineEmits(['finished']);
 const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat() 
@@ -90,7 +90,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
         let message= [
                 {
                     "role": "system",
-                    "content": gptConfigStore.myData.systemMessage? gptConfigStore.myData.systemMessage:'You are ChatGPT, a large language model trained by OpenAI. Follow the user\'s instructions carefully. Respond using markdown.'
+                    "content": getSystemMessage()
                 },
                 ...historyMesg,
                 {
