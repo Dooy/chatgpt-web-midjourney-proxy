@@ -1,7 +1,7 @@
 
  //import { useChat } from '@/views/chat/hooks/useChat'
 
-import { homeStore } from "@/store";
+import { gptConfigStore, gptServerStore, homeStore } from "@/store";
 import { copyToClip } from "@/utils/copy";
 //import { useMessage } from "naive-ui";
 
@@ -76,16 +76,31 @@ export const mlog = (msg: string, ...args: unknown[]) => {
     console.log(`%c[mjgpt]`,  style, msg , ...args)
 }
 
+function getHeaderApiSecret(){
+    if(!gptServerStore.myData.MJ_API_SECRET){
+        return {}
+    }
+    return {
+        'mj-api-secret':  gptServerStore.myData.MJ_API_SECRET
+    }
+}
+
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
+    if(gptServerStore.myData.MJ_SERVER){
+        return `${ gptServerStore.myData.MJ_SERVER}${url}`;
+    }
     return `/mjapi${url}`;
 }
 
 export const mjFetch=(url:string,data?:any)=>{
     mlog('mjFetch', url  );
+    let header = {'Content-Type':'application/json'};
+    header= {...header,...getHeaderApiSecret() }
+
     return new Promise<any>((resolve, reject) => {
         let opt:RequestInit ={method:'GET'}; 
-        opt.headers={'Content-Type':'application/json'};
+        opt.headers=header;
         if(data) {
             opt.body= JSON.stringify(data) ;
              opt.method='POST';
