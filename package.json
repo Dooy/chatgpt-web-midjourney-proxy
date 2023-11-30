@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-web-midjourney-proxy",
-  "version": "2.11.9",
+  "version": "2.11.10",
   "private": false,
   "description": "ChatGPT Web Midjourney Proxy",
   "author": "Dooy <ydlhero@gmail.com>",
@@ -29,6 +29,7 @@
   "dependencies": {
     "@traptitech/markdown-it-katex": "^3.6.0",
     "@vueuse/core": "^9.13.0",
+    "eventsource-parser": "^1.1.1",
     "highlight.js": "^11.7.0",
     "html2canvas": "^1.4.1",
     "katex": "^0.16.4",

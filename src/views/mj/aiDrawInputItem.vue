@@ -5,7 +5,7 @@ import config from "./draw.json";
 import {  NSelect,NInput,NButton,NTag,NPopover, useMessage,NDivider} from 'naive-ui'; 
 import {  SvgIcon } from '@/components/common'
 import AiMsg from './aiMsg.vue' 
-import aiFace from './aiFace.vue' 
+//import aiFace from './aiFace.vue' 
 import { mlog, train, upImg ,getMjAll } from '@/api' 
 //import {copyText3} from "@/utils/format";
 import { homeStore ,useChatStore} from "@/store";

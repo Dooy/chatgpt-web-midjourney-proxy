@@ -6,12 +6,15 @@ import { homeStore } from '@/store';
 import { SvgIcon } from '@/components/common';
 
 const ms = useMessage();
-const config = ref( {dimensionsList:[{
+const config = ref( {dimensionsList:[{ 
                 "label": "1024px*1024px",
                 "value": "1024x1024"
             }, {
-                "label": "2048px*2048px",
-                "value": "2048x2048"  
+                "label": "1792px*1024px",
+                "value": "1792x1024"
+            }, {
+                "label": "1024px*1792px",
+                "value": "1024x1792"
             }
      ]});
 const st =ref({isGo:false });     
@@ -68,5 +71,6 @@ watch(()=>homeStore.myData.act,(n)=>{
     说明：
     <li>1 dall-e-3 是openAi提供的画图模型</li>
     <li>2 openAi的图片有时效性，请做好备份</li> 
+    <li>3 注意：1790px的图片价格是双倍</li> 
 </ul>
 </template>

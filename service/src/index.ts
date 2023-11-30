@@ -92,7 +92,7 @@ router.post('/verify', async (req, res) => {
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
 
-app.use('/mjapi', proxy(process.env.MJ_SERVER, {
+app.use('/mjapi', proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return req.originalUrl.replace('/mjapi', '') // 将URL中的 `/mjapi` 替换为空字符串

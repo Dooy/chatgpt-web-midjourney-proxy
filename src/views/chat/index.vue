@@ -16,7 +16,9 @@ import { homeStore, useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import drawListVue from '../mj/drawList.vue'
+import aiGPT from '../mj/aiGpt.vue'
 import AiSiderInput from '../mj/aiSiderInput.vue'
+
 let controller = new AbortController()
 
 const openLongReply = import.meta.env.VITE_GLOB_OPEN_LONG_REPLY === 'true'
@@ -54,7 +56,14 @@ dataSources.value.forEach((item, index) => {
 })
 
 function handleSubmit() {
-  onConversation()
+  //onConversation() //把这个放到aiGpt
+  let message = prompt.value;
+  if (!message || message.trim() === '')
+    return
+   if (loading.value) return;
+   loading.value = true
+  homeStore.setMyData({act:'gpt.submit', actData:{ prompt:prompt.value, uuid } });
+   prompt.value='';
 }
 
 async function onConversation() {
@@ -404,6 +413,7 @@ function handleEnter(event: KeyboardEvent) {
 
 function handleStop() {
   if (loading.value) {
+    homeStore.setMyData({act:'abort'});
     controller.abort()
     loading.value = false
   }
@@ -466,13 +476,18 @@ onUnmounted(() => {
 const local= computed(()=>homeStore.myData.local );
 watch(()=>homeStore.myData.act,(n)=>{
     if(n=='draw')  scrollToBottom();
+    if(n=='scrollToBottom') scrollToBottom();
+    if(n=='scrollToBottomIfAtBottom') scrollToBottomIfAtBottom();
 });
+
+
 </script>
 
 <template>
   <div class="flex flex-col w-full h-full">
+   <!-- v-if="isMobile" -->
     <HeaderComponent
-      v-if="isMobile"
+     
       :using-context="usingContext"
       @export="handleExport"
       @handle-clear="handleClear"
@@ -520,6 +535,7 @@ watch(()=>homeStore.myData.act,(n)=>{
     <footer :class="footerClass" v-if="local!=='draw'">
       <div class="w-full max-w-screen-xl m-auto">
         <div class="flex items-center justify-between space-x-2">
+          <!-- 
           <HoverButton v-if="!isMobile" @click="handleClear">
             <span class="text-xl text-[#4f555e] dark:text-white">
               <SvgIcon icon="ri:delete-bin-line" />
@@ -535,6 +551,7 @@ watch(()=>homeStore.myData.act,(n)=>{
               <SvgIcon icon="ri:chat-history-line" />
             </span>
           </HoverButton>
+          -->
           <NAutoComplete v-model:value="prompt" :options="searchOptions" :render-label="renderOption">
             <template #default="{ handleInput, handleBlur, handleFocus }">
               <NInput
@@ -563,5 +580,6 @@ watch(()=>homeStore.myData.act,(n)=>{
   </div>
 
   <drawListVue /> 
+  <aiGPT @finished="loading = false" /> 
   <AiSiderInput v-if="isMobile"  :button-disabled="false" /> 
 </template>

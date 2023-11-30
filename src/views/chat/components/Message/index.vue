@@ -143,6 +143,7 @@ const sendReload = () => {
     <div class="overflow-hidden text-sm " :class="[inversion ? 'items-end' : 'items-start']">
       <p class="text-xs text-[#b4bbc4] flex justify-start items-center space-x-2 " :class="[inversion ? 'text-right' : 'text-left']">
         <span>{{ dateTime }}</span>
+        <span v-if="chat.model"  class="text-[#b4bbc4]/50">{{ chat.model }}</span>
         <!-- <span>{{ chat.opt?.progress }}</span> -->
         <SvgIcon icon="ri:restart-line" @click="sendReload"  class="cursor-pointer text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300 " v-if="chat.opt?.status=='SUCCESS'"></SvgIcon>
         <div v-if="chat.opt?.status=='SUCCESS'" @click="getSeed(chat, message )" class="cursor-pointer">
@@ -166,13 +167,13 @@ const sendReload = () => {
           :chat="chat"
         />
         <div class="flex flex-col" v-if="!chat.mjID">
-          <button
+          <!-- <button
             v-if="!inversion "
             class="mb-2 transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300"
             @click="handleRegenerate"
           >
             <SvgIcon icon="ri:restart-line" />
-          </button>
+          </button> -->
           <NDropdown
             :trigger="isMobile ? 'click' : 'hover'"
             :placement="!inversion ? 'right' : 'left'"

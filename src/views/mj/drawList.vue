@@ -133,6 +133,7 @@ async function onConversation() {
       requestOptions: { prompt: '提交中', options: { ...options } },
       uuid:+uuid,
       myid: `${Date.now()}`
+      ,model:message.action=='gpt.dall-e-3'?'dall-e-3':'midjourney'
      
     }
   addChat(  +uuid, outMsg  )

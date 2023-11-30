@@ -1,7 +1,12 @@
 <script lang="ts" setup>
-import { computed, nextTick } from 'vue'
+import { computed, nextTick,ref  } from 'vue'
 import { HoverButton, SvgIcon } from '@/components/common'
-import { useAppStore, useChatStore } from '@/store'
+import { gptConfigStore, homeStore, useAppStore, useChatStore } from '@/store'
+import { useBasicLayout } from '@/hooks/useBasicLayout'
+import {NModal} from "naive-ui"
+import aiModel from "@/views/mj/aiModel.vue"
+
+const { isMobile } = useBasicLayout()
 
 interface Props {
   usingContext: boolean
@@ -39,6 +44,8 @@ function handleExport() {
 function handleClear() {
   emit('handleClear')
 }
+
+const st = ref({isShow:false});
 </script>
 
 <template>
@@ -49,7 +56,7 @@ function handleClear() {
       <div class="flex items-center">
         <button
           class="flex items-center justify-center w-11 h-11"
-          @click="handleUpdateCollapsed"
+          @click="handleUpdateCollapsed" v-if="isMobile"
         >
           <SvgIcon v-if="collapsed" class="text-2xl" icon="ri:align-justify" />
           <SvgIcon v-else class="text-2xl" icon="ri:align-right" />
@@ -74,5 +81,17 @@ function handleClear() {
         </HoverButton>
       </div>
     </div>
+    
+    <div @click="st.isShow=true" class="absolute left-1/2 top-full -translate-x-1/2 cursor-pointer select-none rounded-b-md border  bg-white px-2 dark:border-neutral-800 dark:bg-[#111114]">
+        <div class="flex items-center justify-center space-x-1 cursor-pointer hover:text-[#4b9e5f]" v-if="homeStore.myData.local!='draw'">
+            <SvgIcon icon="heroicons:sparkles" />
+            <span>{{ gptConfigStore.myData.model }}</span> 
+            <SvgIcon icon="icon-park-outline:right" />
+        </div>
+    </div>
   </header>
+
+  <NModal v-model:show="st.isShow"   preset="card"  title="模型切换" class="!max-w-[620px]" @close="st.isShow=false" >  
+        <aiModel @close="st.isShow=false"/>
+  </NModal>
 </template>

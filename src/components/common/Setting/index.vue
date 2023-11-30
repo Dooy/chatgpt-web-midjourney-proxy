@@ -3,6 +3,8 @@ import { computed, ref } from 'vue'
 import { NModal, NTabPane, NTabs } from 'naive-ui'
 import General from './General.vue'
 import Advanced from './Advanced.vue'
+import aiModel from '@/views/mj/aiModel.vue'
+import aiSetServer from '@/views/mj/aiSetServer.vue'
 import About from './About.vue'
 import { useAuthStore } from '@/store'
 import { SvgIcon } from '@/components/common'
@@ -51,19 +53,31 @@ const show = computed({
         <NTabPane v-if="isChatGPTAPI" name="Advanced" tab="Advanced">
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:equalizer-line" />
-            <span class="ml-2">{{ $t('setting.advanced') }}</span>
+            <!-- <span class="ml-2">{{ $t('setting.advanced') }}</span> -->
+            <span class="ml-2">模型</span>
           </template>
           <div class="min-h-[100px]">
-            <Advanced />
+            <!-- <Advanced /> -->
+            <aiModel/>
           </div>
+        </NTabPane>
+
+        <NTabPane name="server" tab="server">
+          <template #tab>
+            <SvgIcon class="text-lg" icon="mingcute:server-line" />
+            <span class="ml-2">服务端</span>
+          </template>
+          <aiSetServer />
         </NTabPane>
         <NTabPane name="Config" tab="Config">
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:list-settings-line" />
-            <span class="ml-2">{{ $t('setting.config') }}</span>
+            <!-- <span class="ml-2">{{ $t('setting.config') }}</span> -->
+            <span class="ml-2">关于</span>
           </template>
           <About />
         </NTabPane>
+
       </NTabs>
     </div>
   </NModal>
