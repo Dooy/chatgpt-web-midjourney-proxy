@@ -1,17 +1,11 @@
 <script setup lang='ts'> 
-import { computed, onMounted, onUnmounted, ref,watch ,nextTick } from 'vue'
-import { useRoute } from 'vue-router' 
-import {    useMessage } from 'naive-ui'
- 
-import { useScroll } from '../chat/hooks/useScroll'
-import { useChat } from '../chat/hooks/useChat'
-import { useUsingContext } from '../chat/hooks/useUsingContext' 
-import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { gptConfigStore, homeStore, useChatStore, usePromptStore } from '@/store'
+import { computed,   ref,watch  } from 'vue' 
+import { useChat } from '../chat/hooks/useChat' 
+import { gptConfigStore, homeStore, useChatStore } from '@/store'
 import { getInitChat, mlog, subModel,getSystemMessage} from '@/api'
 
 const emit = defineEmits(['finished']);
-const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat() 
+const { addChat , updateChatSome } = useChat() 
 const chatStore = useChatStore()
 const st=ref({uuid:'1002'});
 const controller = ref<AbortController>( );;// new AbortController();
