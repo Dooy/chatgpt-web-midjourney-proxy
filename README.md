@@ -22,6 +22,8 @@
 - ✅ midjourney 混图
 - ✅ midjourney 获取 seed
 - ✅ dall-e-3 画图
+- ✅ chatgpt 前端选择模型
+- ✅ chatgpt 前端支持自定义模型、上下文对话数、回复数
 ## 待开发
 - ⏰ 支持 niji・journey Bot， InsightFace 人脸服务
  
