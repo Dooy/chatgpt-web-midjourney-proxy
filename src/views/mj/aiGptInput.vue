@@ -87,7 +87,7 @@ function handleEnter(event: KeyboardEvent) {
                     <template #trigger>
                     <SvgIcon icon="ri:attachment-line" class="absolute bottom-[10px] left-[8px] cursor-pointer" @click="fsRef.click()"></SvgIcon>
                     </template>
-                    <span>上传图片，会自动调用 gpt-4-vision-preview 模型</span>
+                    <span>上传图片<br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用</span>
                     </n-tooltip>
                 </div>
                 
