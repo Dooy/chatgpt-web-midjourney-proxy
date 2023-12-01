@@ -113,6 +113,26 @@ export const mjFetch=(url:string,data?:any)=>{
      
 }
 
+export const myFetch=(url:string,data?:any)=>{
+    mlog('mjFetch', url  );
+    let header = {'Content-Type':'application/json'};
+    //header= {...header  }
+
+    return new Promise<any>((resolve, reject) => {
+        let opt:RequestInit ={method:'GET'}; 
+        opt.headers=header;
+        if(data) {
+            opt.body= JSON.stringify(data) ;
+             opt.method='POST';
+        }
+        fetch(getUrl(url),  opt )
+        .then(d=>d.json().then(d=> resolve(d))
+        .catch(e=>reject(e)))
+        .catch(e=>reject(e))
+    })
+     
+}
+
 
 export const flechTask= ( chat:Chat.Chat)=>{
     let cnt=0;
@@ -243,7 +263,7 @@ export const getSeed = async (cchat:Chat.Chat,message:any )=>{
 
 export const getLastVersion=  async ()=>{
     const url='https://api.github.com/repos/Dooy/chatgpt-web-midjourney-proxy/tags?per_page=1';
-    const a= await mjFetch(url);
+    const a= await myFetch(url);
     mlog('lastVersion', a ); 
     return a;
     
