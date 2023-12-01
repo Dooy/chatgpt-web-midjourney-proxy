@@ -10,14 +10,15 @@ import { useScroll } from './hooks/useScroll'
 import { useChat } from './hooks/useChat'
 import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
-import { HoverButton, SvgIcon } from '@/components/common'
+import {  SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { homeStore, useChatStore, usePromptStore } from '@/store'
+import { gptConfigStore, homeStore, useChatStore, usePromptStore } from '@/store'
 import { fetchChatAPIProcess } from '@/api'
 import { t } from '@/locales'
 import drawListVue from '../mj/drawList.vue'
 import aiGPT from '../mj/aiGpt.vue'
 import AiSiderInput from '../mj/aiSiderInput.vue'
+import aiGptInput from '../mj/aiGptInput.vue'
 
 let controller = new AbortController()
 
@@ -479,7 +480,7 @@ watch(()=>homeStore.myData.act,(n)=>{
     if(n=='scrollToBottom') scrollToBottom();
     if(n=='scrollToBottomIfAtBottom') scrollToBottomIfAtBottom();
 });
-
+const st =ref({inputme:true});
 
 </script>
 
@@ -534,7 +535,11 @@ watch(()=>homeStore.myData.act,(n)=>{
     </main>
     <footer :class="footerClass" v-if="local!=='draw'">
       <div class="w-full max-w-screen-xl m-auto">
-        <div class="flex items-center justify-between space-x-2">
+        <aiGptInput v-if="['gpt-4-vision-preview','gpt-3.5-turbo-16k'].indexOf(gptConfigStore.myData.model)>-1 || st.inputme "
+         v-model:modelValue="prompt" :disabled="buttonDisabled" 
+         :searchOptions="searchOptions"  :renderOption="renderOption"
+          />
+        <div class="flex items-center justify-between space-x-2" v-else>
           <!-- 
           <HoverButton v-if="!isMobile" @click="handleClear">
             <span class="text-xl text-[#4f555e] dark:text-white">
@@ -552,6 +557,7 @@ watch(()=>homeStore.myData.act,(n)=>{
             </span>
           </HoverButton>
           -->
+
           <NAutoComplete v-model:value="prompt" :options="searchOptions" :render-label="renderOption">
             <template #default="{ handleInput, handleBlur, handleFocus }">
               <NInput
@@ -574,6 +580,7 @@ watch(()=>homeStore.myData.act,(n)=>{
               </span>
             </template>
           </NButton>
+
         </div>
       </div>
     </footer>

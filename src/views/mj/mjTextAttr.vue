@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { localGet, mlog } from '@/api';
+import { localGet } from '@/api';
 import { ref } from 'vue'
 import {NImage} from 'naive-ui'
 const pp = defineProps<{image:string}>();
@@ -18,7 +18,7 @@ load();
 <template>
 <div v-if="images.length" class="flex flex-wrap justify-start items-baseline">
           <div v-for="(img,k ) of  images" :key="k" class="p-1" >
-            <NImage :src="img" preview class="w-[130px] rounded" />
+            <NImage :src="img" preview class=" rounded" :class="[images.length<=1?'w-[330px]':'w-[130px]']" />
           </div>
       </div>
 </template>

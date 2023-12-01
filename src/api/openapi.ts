@@ -66,6 +66,7 @@ interface subModelType{
     onMessage:(d:{text:string,isFinish:boolean})=>void
     onError?:(d?:any)=>void
     signal?:AbortSignal
+    model?:string
 }
 function getHeaderAuthorization(){
     if(!gptServerStore.myData.OPENAI_API_KEY){
@@ -90,12 +91,16 @@ return DEFAULT_SYSTEM_TEMPLATE;
 
 }
 export const subModel= async (opt: subModelType)=>{
+    //
+    const model= opt.model?? ( gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo");
+    let max_tokens= gptConfigStore.myData.max_tokens;
+    if(model=='gpt-4-vision-preview' && max_tokens>2048) max_tokens=2048; 
     let body ={
-            "max_tokens": gptConfigStore.myData.max_tokens ,
-            "model": gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo",
-            "temperature": 0.8,
+            max_tokens ,
+            model ,
+            "temperature": 0.5,
             "top_p": 1,
-            "presence_penalty": 1,
+            "presence_penalty":0,
             "messages": opt.message
            ,stream:true 
         }

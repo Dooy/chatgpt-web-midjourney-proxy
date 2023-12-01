@@ -190,12 +190,7 @@
             },{
                 "label": "Niji・journey",
                 "value": "NIJI_JOURNEY"  
-            }, {
-                "label": "开通漫画",
-                "value": "--test"
-            }, {
-                "label": "写实照片",
-                "value": "--testp"
+          
             }
      ],
 

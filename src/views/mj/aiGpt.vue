@@ -2,7 +2,8 @@
 import { computed,   ref,watch  } from 'vue' 
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
-import { getInitChat, mlog, subModel,getSystemMessage} from '@/api'
+import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny } from '@/api'
+import { isString } from '@/utils/is';
 
 const emit = defineEmits(['finished']);
 const { addChat , updateChatSome } = useChat() 
@@ -57,10 +58,23 @@ watch(()=>homeStore.myData.act, async (n)=>{
         mlog('gpt.submit', dd) ;
         const uuid = dd.uuid;
         st.value.uuid = uuid;
+        let model = gptConfigStore.myData.model
         
         let promptMsg = getInitChat(dd.prompt );
-         addChat(  +uuid, promptMsg );
-        homeStore.setMyData({act:'scrollToBottom'})
+        if( dd.fileBase64 && dd.fileBase64.length>0 ){ 
+        model='gpt-4-vision-preview';
+        try{
+                let images= await localSaveAny( JSON.stringify( dd.fileBase64)  ) ;
+                mlog('key', images );
+                promptMsg.opt= {images:[images]}
+        }catch(e){
+            mlog('localSaveAny error',e);
+        }
+        }
+        addChat(  +uuid, promptMsg );
+        homeStore.setMyData({act:'scrollToBottom'});
+       
+
 
        
         let outMsg: Chat.Chat={
@@ -72,7 +86,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
             conversationOptions: null,
             requestOptions: { prompt: dd.prompt, options: {  } },
             uuid:+uuid,
-            model:gptConfigStore.myData.model,
+            model ,
             myid: `${Date.now()}` 
         }
         addChat(  +uuid, outMsg  )
@@ -81,28 +95,33 @@ watch(()=>homeStore.myData.act, async (n)=>{
 
         homeStore.setMyData({act:'scrollToBottom'})
         let historyMesg=  getMessage();
-        let message= [
-                {
-                    "role": "system",
-                    "content": getSystemMessage()
-                },
-                ...historyMesg,
-                {
+        let message= [ {  "role": "system", "content": getSystemMessage() },
+                ...historyMesg ];
+        if( dd.fileBase64 && dd.fileBase64.length>0 ){
+            let obj={
                     "role": "user",
-                    "content": dd.prompt
-                }
-            ];
+                    "content": [] as any
+            }
+            // //"Generate code for a web page that looks exactly like this."
+            obj.content.push({ "type": "text",      "text": dd.prompt  });
+            dd.fileBase64.forEach((f:any)=>{
+                obj.content.push({ "type": "image_url",  "image_url": f  });
+            });
+            message.push(obj); 
+        }else{
+            message.push({  "role": "user",  "content": dd.prompt })
+        }
 
         controller.value = new AbortController();
         //controller.signal
-        subModel( {message
+        subModel( {message,model
         ,onMessage:(d)=>{
             mlog('🐞消息',d);
             textRz.value.push(d.text);
         }
         ,onError:(e:any)=>{
             mlog('onError',e)
-            const emsg = (e.reason??JSON.stringify(e,null,2));
+            const emsg =   (JSON.stringify(  e.reason? JSON.parse( e.reason ):e,null,2));
             if(e.message!='canceled' && emsg.indexOf('aborted')==-1 ) textRz.value.push("\n错误:\n```\n"+emsg+"\n```\n");
              goFinish();
         }
