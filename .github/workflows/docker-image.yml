@@ -45,12 +45,16 @@ jobs:
       - 
         name: Build and push Docker image
         uses: docker/build-push-action@v4
+        use-cache:
+          type: boolean
+          description: Whether or not to use the Docker action's cache feature.
+          default: true
         with:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: ${{ inputs.use-cache == 'true' && 'type=gha' || 'type=local,src=/tmp' }}
+          cache-to: ${{ inputs.use-cache == 'true' && 'type=gha, mode=max' || 'type=local,dest=/tmp' }}
             
