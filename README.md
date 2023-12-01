@@ -65,7 +65,7 @@ docker run -d --name mj6013  -p 6013:8080  \
 ![混图](./docs/mj2a3.jpg)
 
 ### 支持图片上传图片 供gpt-4-vision-preview使用
-![混图](./docs/mj4a1.jpg)
+![混图](./docs/mj4a1.png)
 手机端：
 <div style="display: flex; flex-wrap: wrap">
  <img src="./docs/mjs1.jpg" style="width:200px" >
