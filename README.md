@@ -7,7 +7,7 @@
 ![cover](./docs/mj2a1.jpg)
 ## 支持功能
 - ✅ 原chatgpt web 所有功能
-- ✅ chatgpt web 支持自定义key、base_url
+- ✅ chatgpt web 支持自定义api key、base_url
 - ✅ midjourney 文生图
 - ✅ midjourney 垫图+文生图  
 - ✅ midjourney 图变 U1到U4 、 V1到V4、重绘等操作
