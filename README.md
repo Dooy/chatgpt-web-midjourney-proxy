@@ -7,6 +7,7 @@
 ![cover](./docs/mj2a1.jpg)
 ## 支持功能
 - ✅ 原chatgpt web 所有功能
+- ✅ chatgpt web 支持自定义key、base_url
 - ✅ midjourney 文生图
 - ✅ midjourney 垫图+文生图  
 - ✅ midjourney 图变 U1到U4 、 V1到V4、重绘等操作
@@ -54,6 +55,9 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 
 ## 更多展示
+
+### 自定义服务端api key、base_url：
+[![base_url](./docs/mj3a2.jpg)
 
 ### 局部重绘：
 [![局部重绘](./docs/mj2.jpg)](./docs/mj2.jpg)
