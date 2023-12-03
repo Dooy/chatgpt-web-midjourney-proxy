@@ -57,7 +57,7 @@ docker run -d --name mj6013  -p 6013:8080  \
 ## 更多展示
 
 ### 自定义服务端api key、base_url：
-[![base_url](./docs/mj3a2.jpg)
+![base_url](./docs/mj3a2.jpg)
 
 ### 局部重绘：
 [![局部重绘](./docs/mj2.jpg)](./docs/mj2.jpg)
