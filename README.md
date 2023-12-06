@@ -26,6 +26,8 @@
 - ✅ chatgpt 前端选择模型
 - ✅ chatgpt 前端支持自定义模型、上下文对话数、回复数
 - ✅ chatgpt 支持图片上传图片 供gpt-4-vision-preview使用
+- ✅ chatgpt 支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
+- ✅ chatgpt 支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
 ## 待开发
 - ⏰ 支持 niji・journey Bot， InsightFace 人脸服务
  
@@ -41,6 +43,27 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e MJ_API_SECRET=abc123456  ydlhero/chatgpt-web-midjourney-proxy
 ```
 访问 http://ip:6015 
+
+**文件上传**: 
+```bash
+docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
+-e OPENAI_API_KEY=sk-xxxxx \
+-e OPENAI_API_BASE_URL=https://api.openai.com  \
+-e MJ_SERVER=https://172.17.0.1:6013  \
+-e API_UPLOADER=1  \
+-e MJ_API_SECRET=abc123456  ydlhero/chatgpt-web-midjourney-proxy
+```
+如果是前端ui设置 OPENAI_API_KEY OPENAI_API_BASE_URL ; 图片上传也会随着走 OPENAI_API_BASE_URL走
+```shell
+curl -X POST -H "Content-Type: multipart/form-data" -F "file=@/path/to/file" http://OPENAI_API_BASE_URL/v1/upload
+```
+返回格式
+```json
+{
+"url":"https://xxxxxxx.jpg"
+}
+```
+
 ### midjourney-proxy API docker部署
 更多参考到 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 开源光光
 ```bash
