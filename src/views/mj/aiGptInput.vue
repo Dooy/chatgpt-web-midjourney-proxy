@@ -37,7 +37,7 @@ const mvalue = computed({
   set(value) {  emit('update:modelValue', value) }
 })
 function selectFile(input:any){
- if(!homeStore.myData.session.isUpload ) {
+ if(  !canVisionModel(gptConfigStore.myData.model )  ) {
     upImg(input.target.files[0]).then(d=>{
         fsRef.value.value='';
         if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
@@ -93,7 +93,7 @@ function handleEnter(event: KeyboardEvent) {
 }
 
 const acceptData = computed(() => {
-  if(homeStore.myData.session.isUpload ) return "*/*";
+  if(  canVisionModel(gptConfigStore.myData.model) ) return "*/*";
   return  "image/jpeg, image/jpg, image/png, image/gif"
 })
 </script>
@@ -103,8 +103,14 @@ const acceptData = computed(() => {
     <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
 
     <div class="flex items-base justify-start pb-1 flex-wrap-reverse" v-if="st.fileBase64.length>0 "> 
-        <div class="w-[60px] h-[60px] rounded-sm bg-slate-50 mr-1 mt-1 text-red-300 relative group" v-for="v in st.fileBase64">
-         <NImage :src="v" object-fit="cover" class="w-full h-full" /> 
+        <div class="w-[60px] h-[60px] rounded-sm bg-slate-50 mr-1 mt-1 text-red-300 relative group" v-for="(v,ii) in st.fileBase64">
+         <NImage :src="v" object-fit="cover" class="w-full h-full" >
+            <template #placeholder>
+                <a class="w-full h-full flex items-center justify-center  text-neutral-500" :href="v" target="_blank" >
+                    <SvgIcon icon="mdi:download" />附{{ ii+1 }}
+                </a>
+            </template>
+         </NImage> 
          <SvgIcon icon="mdi:close" class="hidden group-hover:block absolute top-[-5px] right-[-5px] rounded-full bg-red-300 text-white cursor-pointer" @click="st.fileBase64.splice(st.fileBase64.indexOf(v),1)"></SvgIcon>
         </div>
     </div>
