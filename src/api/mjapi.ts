@@ -268,3 +268,10 @@ export const getLastVersion=  async ()=>{
     return a;
     
 }
+
+export const canVisionModel= (model:string)=>{
+    //['gpt-4-all','gpt-4-v'].indexOf(model)==-1 && model.indexOf('gpt-4-gizmo')==-1
+    if( ['gpt-4-all','gpt-4-v'].indexOf(model)>-1 ) return true;
+    if(model.indexOf('gpt-4-gizmo')>-1 )return true; 
+    return false;
+}

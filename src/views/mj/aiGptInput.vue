@@ -4,8 +4,8 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
-import { GptUploader, mlog, upImg } from '@/api';
-import { homeStore } from '@/store';
+import { canVisionModel, GptUploader, mlog, upImg } from '@/api';
+import { gptConfigStore, homeStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
  
@@ -50,9 +50,11 @@ function selectFile(input:any){
     const formData = new FormData( );
     const file = input.target.files[0];
     formData.append('file', file); 
+    ms.info('上传中...');
     GptUploader('/v1/upload',formData).then(r=>{
         //mlog('上传成功', r);
         if(r.url ){
+             ms.info('上传成功');
             if(r.url.indexOf('http')>-1) {
                 st.value.fileBase64.push(r.url)
             }else{
@@ -98,11 +100,7 @@ const acceptData = computed(() => {
 <template>
 <div class="  myinputs" >
 
-
     <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
-   
-    
-    
 
     <div class="flex items-base justify-start pb-1 flex-wrap-reverse" v-if="st.fileBase64.length>0 "> 
         <div class="w-[60px] h-[60px] rounded-sm bg-slate-50 mr-1 mt-1 text-red-300 relative group" v-for="v in st.fileBase64">
@@ -124,7 +122,12 @@ const acceptData = computed(() => {
                     <template #trigger>
                     <SvgIcon icon="ri:attachment-line" class="absolute bottom-[10px] left-[8px] cursor-pointer" @click="fsRef.click()"></SvgIcon>
                     </template>
-                    <span>上传图片<br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用</span>
+                    <div v-if="canVisionModel(gptConfigStore.myData.model)">
+                       <span>上传图片、附件<br/>能上传图片、PDF、EXCEL等文档</span>
+                    </div>
+                    <div v-else>
+                         <span>上传图片<br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用</span>
+                    </div>
                     </n-tooltip>
                 </div>
                 

@@ -2,7 +2,7 @@
 import { computed,   ref,watch  } from 'vue' 
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
-import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny } from '@/api'
+import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel } from '@/api'
 import { isString } from '@/utils/is';
 
 const emit = defineEmits(['finished']);
@@ -62,14 +62,15 @@ watch(()=>homeStore.myData.act, async (n)=>{
         
         let promptMsg = getInitChat(dd.prompt );
         if( dd.fileBase64 && dd.fileBase64.length>0 ){ 
-        model='gpt-4-vision-preview';
-        try{
-                let images= await localSaveAny( JSON.stringify( dd.fileBase64)  ) ;
-                mlog('key', images );
-                promptMsg.opt= {images:[images]}
-        }catch(e){
-            mlog('localSaveAny error',e);
-        }
+            if( !canVisionModel(model)  ) model='gpt-4-vision-preview';
+        
+            try{
+                    let images= await localSaveAny( JSON.stringify( dd.fileBase64)  ) ;
+                    mlog('key', images );
+                    promptMsg.opt= {images:[images]}
+            }catch(e){
+                mlog('localSaveAny error',e);
+            }
         }
         addChat(  +uuid, promptMsg );
         homeStore.setMyData({act:'scrollToBottom'});
@@ -98,16 +99,23 @@ watch(()=>homeStore.myData.act, async (n)=>{
         let message= [ {  "role": "system", "content": getSystemMessage() },
                 ...historyMesg ];
         if( dd.fileBase64 && dd.fileBase64.length>0 ){
-            let obj={
-                    "role": "user",
-                    "content": [] as any
+            if(  model=='gpt-4-vision-preview' ){
+                let obj={
+                        "role": "user",
+                        "content": [] as any
+                }
+                // //"Generate code for a web page that looks exactly like this."
+                obj.content.push({ "type": "text",      "text": dd.prompt  });
+                dd.fileBase64.forEach((f:any)=>{
+                    obj.content.push({ "type": "image_url",  "image_url": f  });
+                });
+                message.push(obj); 
+            }else{
+                let cc= dd.prompt;
+                let arr = dd.fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
+                if(arr.length>0) cc = arr.join(' ')+' '+ cc ;
+                message.push({  "role": "user",  "content": cc })
             }
-            // //"Generate code for a web page that looks exactly like this."
-            obj.content.push({ "type": "text",      "text": dd.prompt  });
-            dd.fileBase64.forEach((f:any)=>{
-                obj.content.push({ "type": "image_url",  "image_url": f  });
-            });
-            message.push(obj); 
         }else{
             message.push({  "role": "user",  "content": dd.prompt })
         }
