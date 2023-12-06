@@ -1,6 +1,6 @@
 # 功能升级日志
 ## 2.12.2
-- 😄 新增：支持文件后端上传 
+- 😄 新增：支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
 - 😄 新增：支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
 
 ## 2.12.1
