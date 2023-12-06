@@ -50,7 +50,7 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
 -e OPENAI_API_BASE_URL=https://api.openai.com  \
 -e MJ_SERVER=https://172.17.0.1:6013  \
--e API_UPLOADER=1  \
+-e API_UPLOADER=1  -v /data/uploads:/app/uploads \
 -e MJ_API_SECRET=abc123456  ydlhero/chatgpt-web-midjourney-proxy
 ```
 如果是前端ui设置 OPENAI_API_KEY OPENAI_API_BASE_URL ; 图片上传也会随着走 OPENAI_API_BASE_URL走
