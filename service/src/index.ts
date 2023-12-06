@@ -4,7 +4,10 @@ import type { ChatMessage } from './chatgpt'
 import { chatConfig, chatReplyProcess, currentModel } from './chatgpt'
 import { auth } from './middleware/auth'
 import { limiter } from './middleware/limiter'
-import { isNotEmptyString } from './utils/is'
+import { isNotEmptyString,formattedDate } from './utils/is'
+import multer from "multer"
+import path from "path"
+import fs from "fs" 
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 //import {createProxyMiddleware} from "http-proxy-middleware"
 import  proxy from "express-http-proxy"
@@ -17,6 +20,8 @@ const router = express.Router()
 app.use(express.static('public'))
 //app.use(express.json())
 app.use(bodyParser.json({ limit: '10mb' })); //大文件传输
+
+
 
 app.all('*', (_, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
@@ -65,7 +70,9 @@ router.post('/session', async (req, res) => {
   try {
     const AUTH_SECRET_KEY = process.env.AUTH_SECRET_KEY
     const hasAuth = isNotEmptyString(AUTH_SECRET_KEY)
-    res.send({ status: 'Success', message: '', data: { auth: hasAuth, model: currentModel() } })
+    const isUpload= isNotEmptyString(  process.env.API_UPLOADER )
+    const isHideServer= isNotEmptyString(  process.env.HIDE_SERVER )
+    res.send({ status: 'Success', message: '', data: {isHideServer,isUpload, auth: hasAuth, model: currentModel() } })
   }
   catch (error) {
     res.send({ status: 'Fail', message: error.message, data: null })
@@ -106,6 +113,48 @@ app.use('/mjapi', proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api
   
 }));
 
+
+
+// 设置存储引擎和文件保存路径
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    let uploadFolderPath=`./uploads/${formattedDate()}/`;//`
+
+    console.log('dir', __dirname   ) ;
+
+    if(!fs.existsSync('./uploads/')) {
+      fs.mkdirSync('./uploads/');
+    }
+    if(!fs.existsSync(uploadFolderPath)) {
+      fs.mkdirSync(uploadFolderPath);
+    }
+    cb(null, `uploads/${formattedDate()}/`); 
+  },
+  filename: function (req, file, cb) {
+    let filename=  Date.now() + path.extname(file.originalname);
+    console.log( 'file',  filename );
+    cb(null, filename);
+  }
+});
+const upload = multer({ storage: storage });
+// 处理文件上传的路由
+const isUpload= isNotEmptyString(  process.env.API_UPLOADER )
+if(isUpload){
+  app.use('/openapi/v1/upload', upload.single('file'), (req, res) => {
+    //res.send('文件上传成功！');
+    res.setHeader('Content-type', 'application/json' ); 
+    if(req.file.filename) res.json({ url:`/uploads/${formattedDate()}/${ req.file.filename  }`,created:Date.now() })
+    else res.json({ error:`uploader fail`,created:Date.now() })
+  });
+}else {
+  app.use('/openapi/v1/upload',  (req, res) => {
+    //res.send('文件上传成功！');
+     res.json({ error:`server is no open uploader `,created:Date.now() })
+  });
+}
+app.use('/uploads', express.static('uploads'));
+
+
 //代理openai 接口
 app.use('/openapi', proxy(API_BASE_URL, {
   https: false, limit: '10mb',
@@ -117,8 +166,7 @@ app.use('/openapi', proxy(API_BASE_URL, {
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     return proxyReqOpts;
   },
-  //limit: '10mb'
-  
+  //limit: '10mb' 
 }));
 
 

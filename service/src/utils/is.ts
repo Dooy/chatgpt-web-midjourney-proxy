@@ -17,3 +17,12 @@ export function isBoolean<T extends boolean>(value: T | unknown): value is boole
 export function isFunction<T extends (...args: any[]) => any | void | never>(value: T | unknown): value is T {
   return Object.prototype.toString.call(value) === '[object Function]'
 }
+
+export const formattedDate=()=>{
+  const currentDate = new Date(); 
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = currentDate.getDate().toString().padStart(2, '0'); 
+  return  `${year}${month}${day}`;
+   
+}

@@ -4,10 +4,11 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
-import { upImg } from '@/api';
+import { GptUploader, mlog, upImg } from '@/api';
 import { homeStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
+ 
 
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
@@ -36,17 +37,43 @@ const mvalue = computed({
   set(value) {  emit('update:modelValue', value) }
 })
 function selectFile(input:any){
-     
+ if(!homeStore.myData.session.isUpload ) {
     upImg(input.target.files[0]).then(d=>{
-    fsRef.value.value='';
-    if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
-        ms.error('不能重复上传')
-        return ;
-    }
-    st.value.fileBase64.push(d)  
- } ).catch(e=>ms.error(e));
-    
+        fsRef.value.value='';
+        if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
+            ms.error('不能重复上传')
+            return ;
+        }
+        st.value.fileBase64.push(d)  
+    } ).catch(e=>ms.error(e));
+ }else{
+    const formData = new FormData( );
+    const file = input.target.files[0];
+    formData.append('file', file); 
+    GptUploader('/v1/upload',formData).then(r=>{
+        //mlog('上传成功', r);
+        if(r.url ){
+            if(r.url.indexOf('http')>-1) {
+                st.value.fileBase64.push(r.url)
+            }else{
+                st.value.fileBase64.push(location.origin +r.url)
+            }
+        }
+    })
+ }
+//   let url= gptGetUrl('/test/2023/upload');
+//   axios.post( url , formData, {
+//         headers: {
+//             'Content-Type': 'multipart/form-data'
+//         }
+//         }).then(response => {
+//         console.log('上传成功', response.data);
+//         }).catch(error => {
+//         console.error('上传失败', error);
+//         });
+
 }
+ 
 
 function handleEnter(event: KeyboardEvent) {
   if (!isMobile.value) {
@@ -62,10 +89,20 @@ function handleEnter(event: KeyboardEvent) {
     }
   }
 }
+
+const acceptData = computed(() => {
+  if(homeStore.myData.session.isUpload ) return "*/*";
+  return  "image/jpeg, image/jpg, image/png, image/gif"
+})
 </script>
 <template>
 <div class="  myinputs" >
-<input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
+
+
+    <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
+   
+    
+    
 
     <div class="flex items-base justify-start pb-1 flex-wrap-reverse" v-if="st.fileBase64.length>0 "> 
         <div class="w-[60px] h-[60px] rounded-sm bg-slate-50 mr-1 mt-1 text-red-300 relative group" v-for="v in st.fileBase64">

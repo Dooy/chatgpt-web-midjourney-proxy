@@ -6,7 +6,7 @@ import Advanced from './Advanced.vue'
 import aiModel from '@/views/mj/aiModel.vue'
 import aiSetServer from '@/views/mj/aiSetServer.vue'
 import About from './About.vue'
-import { useAuthStore } from '@/store'
+import { homeStore, useAuthStore } from '@/store'
 import { SvgIcon } from '@/components/common'
 
 interface Props {
@@ -62,7 +62,7 @@ const show = computed({
           </div>
         </NTabPane>
 
-        <NTabPane name="server" tab="server">
+        <NTabPane name="server" tab="server" v-if=" ! homeStore.myData.session.isHideServer">
           <template #tab>
             <SvgIcon class="text-lg" icon="mingcute:server-line" />
             <span class="ml-2">服务端</span>

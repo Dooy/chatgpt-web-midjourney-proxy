@@ -4,6 +4,7 @@ export const homeStore = reactive({
         act:'',//动作
         actData:{} //动作类别 
         ,local:'' //当前所处的版本
+        ,session:{} as any
     }
     
     ,setMyData( v:object){

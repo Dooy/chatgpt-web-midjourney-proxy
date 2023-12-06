@@ -2,6 +2,7 @@
 import { gptConfigStore, gptServerStore, homeStore } from "@/store";
 import { mlog } from "./mjapi";
 import { fetchSSE } from "./sse/fetchsse";
+import axios from 'axios';
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
@@ -17,17 +18,22 @@ const getUrl=(url:string)=>{
     return `/openapi${url}`;
 }
 export const gptGetUrl = getUrl 
-export const gptFetch=(url:string,data?:any)=>{
+export const gptFetch=(url:string,data?:any,opt2?:any )=>{
     mlog('gptFetch', url  );
     let headers= {'Content-Type':'application/json'}
+    if(opt2 && opt2.headers ) headers= opt2.headers;
      
     headers={...headers,...getHeaderAuthorization()}
     return new Promise<any>((resolve, reject) => {
         let opt:RequestInit ={method:'GET'}; 
         opt.headers= headers ;
-        if(data) {
-            opt.body= JSON.stringify(data) ;
+        if(opt2?.upFile ){
              opt.method='POST';
+             opt.body=data as FormData ;
+        }
+        else if(data) {
+            opt.body= JSON.stringify(data) ;
+            opt.method='POST';
         }
         fetch(getUrl(url),  opt )
         .then(d=>d.json().then(d=> resolve(d))
@@ -35,6 +41,20 @@ export const gptFetch=(url:string,data?:any)=>{
         .catch(e=>reject(e))
     })
      
+}
+
+export const GptUploader =   ( url:string, FormData:FormData )=>{
+    url= gptGetUrl( url );
+    let headers=  {'Content-Type': 'multipart/form-data'}
+     
+    headers={...headers,...getHeaderAuthorization()}
+    return new Promise<any>((resolve, reject) => {
+            axios.post( url , FormData, {
+            headers 
+        }).then(response =>  resolve(response.data ) 
+        ).catch(error =>reject(error)  );
+    })
+    
 }
 
 export const subGPT= async (data:any, chat:Chat.Chat )=>{
