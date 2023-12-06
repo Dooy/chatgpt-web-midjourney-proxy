@@ -24,8 +24,7 @@
 - ✅ midjourney 获取 seed
 - ✅ dall-e-3 画图
 - ✅ chatgpt 前端选择模型
-- ✅ chatgpt 前端支持自定义模型、上下文对话数、回复数
-- ✅ chatgpt 支持图片上传图片 供gpt-4-vision-preview使用
+- ✅ chatgpt 前端支持自定义模型、上下文对话数、回复数 
 - ✅ chatgpt 支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
 - ✅ chatgpt 支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
 ## 待开发
