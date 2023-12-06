@@ -60,8 +60,8 @@ function selectFile(input:any){
             }else{
                 st.value.fileBase64.push(location.origin +r.url)
             }
-        }
-    })
+        }else if(r.error) ms.error(r.error);
+    }).catch(e=>ms.error(e));
  }
 //   let url= gptGetUrl('/test/2023/upload');
 //   axios.post( url , formData, {
