@@ -4,7 +4,7 @@ import { SvgIcon ,HoverButton} from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 const { isMobile } = useBasicLayout()
 import { NAvatar,NTooltip } from 'naive-ui'
-import { useUserStore } from '@/store'
+import { homeStore, useUserStore } from '@/store'
  
 //import gallery from '@/views/gallery/index.vue'
 
@@ -51,6 +51,20 @@ const goHome =computed(  () => {
                     AI绘画 Midjourney引擎
                 </n-tooltip>
             </a>
+
+
+            <a   @click="homeStore.setMyData({act:'showgpts'}) " class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
+                <n-tooltip placement="right" trigger="hover">
+                  <template #trigger> 
+                    <div  class="flex h-full justify-center items-center   py-1 flex-col" >
+                    <SvgIcon icon="ri:apps-fill" class="text-3xl flex-1"></SvgIcon>
+                     <span class="text-[10px]">GTPs</span>
+                    </div> 
+                  </template>
+                    ChatGPT Store 
+                </n-tooltip>
+            </a>
+
             <!-- <section  class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]"
              >
                 <n-tooltip placement="right" trigger="hover">
@@ -83,11 +97,11 @@ const goHome =computed(  () => {
 </div>
  <Setting v-if="st.show" v-model:visible="st.show" />
 
- <!-- <n-drawer v-model:show="st.showImg" class="!w-[80vw]" style="--n-body-padding:0">
-    <n-drawer-content title="画廊">
-      <gallery @close="st.showImg=false"/>
+ <!-- <n-drawer v-model:show="st.showImg" :placement="isMobile?'bottom':'right'"  :class="isMobile?['!h-[90vh]']: ['!w-[80vw]']" style="--n-body-padding:0">
+    <n-drawer-content title="GPT store" closable>
+      sdsd 
     </n-drawer-content>
-  </n-drawer> -->
+</n-drawer> -->
 </template>
 
  

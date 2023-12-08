@@ -4,7 +4,12 @@
 import { gptConfigStore, gptServerStore, homeStore } from "@/store";
 import { copyToClip } from "@/utils/copy";
 //import { useMessage } from "naive-ui";
-
+export interface gptsType{
+    gid:string
+    name:string
+    logo:string
+    info:string
+}
  //const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 export function upImg(file:any   ):Promise<any>
 {

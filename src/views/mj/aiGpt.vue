@@ -3,7 +3,7 @@ import { computed,   ref,watch  } from 'vue'
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
 import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel } from '@/api'
-import { isString } from '@/utils/is';
+ 
 
 const emit = defineEmits(['finished']);
 const { addChat , updateChatSome } = useChat() 
@@ -89,6 +89,9 @@ watch(()=>homeStore.myData.act, async (n)=>{
             uuid:+uuid,
             model ,
             myid: `${Date.now()}` 
+        }
+        if(gptConfigStore.myData.gpts){
+            outMsg.logo= gptConfigStore.myData.gpts.logo ;
         }
         addChat(  +uuid, outMsg  )
 

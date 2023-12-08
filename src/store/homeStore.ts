@@ -1,3 +1,4 @@
+import { gptsType, mlog } from '@/api';
 import { reactive } from 'vue'
 export const homeStore = reactive({
     myData:{
@@ -5,6 +6,7 @@ export const homeStore = reactive({
         actData:{} //动作类别 
         ,local:'' //当前所处的版本
         ,session:{} as any
+       
     }
     
     ,setMyData( v:object){
@@ -25,7 +27,7 @@ export interface gptConfigType{
     userModel?:string //自定义
     talkCount:number //联系对话
     systemMessage:string //自定义系统提示语
-
+    gpts?:gptsType
 }
 const getGptInt= ():gptConfigType =>{
     let v:gptConfigType=getDefault();
@@ -50,7 +52,11 @@ let v:gptConfigType={
 export const gptConfigStore= reactive({
     myData:getGptInt(),
     setMyData(v: Partial<gptConfigType>){
+
          this.myData={...this.myData,...v}; 
+         //mlog('gptConfigStore', v )
+         if(v.model && !v.gpts) this.myData.gpts=undefined;
+
          localStorage.setItem('gptConfigStore', JSON.stringify( this.myData));
     }
     ,setInit(){

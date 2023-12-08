@@ -19,6 +19,7 @@ declare namespace Chat {
 		uuid?:number
 		index?:number
 		myid?:string //唯一随机
+		logo?:string
 		
 		//progress?:string
 	}

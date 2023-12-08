@@ -1,21 +1,35 @@
 <script setup lang='ts'>
 import { computed } from 'vue'
-import { NLayout, NLayoutContent } from 'naive-ui'
-import { useRouter } from 'vue-router'
+import { NLayout, NLayoutContent,useMessage } from 'naive-ui'
+import { useRouter ,useRoute } from 'vue-router'
 import Sider from './sider/index.vue'
 import Permission from './Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
-import { aiSider } from '@/views/mj'
+import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
+import { aiSider,aiGpts } from '@/views/mj' 
 
 const router = useRouter()
 const appStore = useAppStore()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 
+const rt = useRoute();
+if(rt.name =='GPTs'){
+  const ms = useMessage();
+  let model= `gpt-4-gizmo-${rt.params.gid.toString()}`  ;
+  gptConfigStore.setMyData({model:model});
+  ms.success(`GPTs 模型加载成功`);
+}else if(rt.name=='Model'){
+   const ms = useMessage();
+  let model= `${rt.params.gid.toString()}`  ;
+  gptConfigStore.setMyData({model:model});
+  ms.success(`模型加载成功`);
+}
+
 router.replace({ name: 'Chat', params: { uuid: chatStore.active } })
 homeStore.setMyData({local:'Chat'});
 const { isMobile } = useBasicLayout()
+
 
 const collapsed = computed(() => appStore.siderCollapsed)
 
@@ -50,4 +64,5 @@ const getContainerClass = computed(() => {
     </div>
     <Permission :visible="needPermission" />
   </div>
+  <aiGpts/>
 </template>

@@ -19,6 +19,32 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+   {
+    path: '/g',
+    name: 'g',
+    component: ChatLayout,
+    redirect: '/g/g-2fkFE8rbu',
+    children: [
+      {
+        path: '/g/:gid',
+        name: 'GPTs',
+        component: () => import('@/views/chat/index.vue'),
+      },
+    ],
+  },
+   {
+    path: '/m',
+    name: 'm',
+    component: ChatLayout,
+    redirect: '/m/gpt-3.5-turbo',
+    children: [
+      {
+        path: '/m/:gid',
+        name: 'Model',
+        component: () => import('@/views/chat/index.vue'),
+      },
+    ],
+  },
 
   {
     path: '/draw',

@@ -138,7 +138,7 @@ const sendReload = () => {
       class="flex items-center justify-center flex-shrink-0 h-8 overflow-hidden rounded-full basis-8"
       :class="[inversion ? 'ml-2' : 'mr-2']"
     >
-      <AvatarComponent :image="inversion" />
+      <AvatarComponent :image="inversion" :logo="chat.logo"/>
     </div>
     <div class="overflow-hidden text-sm " :class="[inversion ? 'items-end' : 'items-start']">
       <p class="text-xs text-[#b4bbc4] flex justify-start items-center space-x-2 " :class="[inversion ? 'text-right' : 'text-left']">

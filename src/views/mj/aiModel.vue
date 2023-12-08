@@ -32,13 +32,14 @@ const modellist = computed(() => { //
     return uniqueArray ;
 });
 const ms= useMessage();
-const save = ()=>{
+const save = ()=>{ 
     gptConfigStore.setMyData( gptConfigStore.myData );
     ms.success('保存成功');
     emit('close');
 }
  
 watch(()=>gptConfigStore.myData.model,(n)=>{
+    gptConfigStore.myData.gpts=undefined;
     let max=4096;
     if( n.indexOf('vision')>-1){
         max=4096;
