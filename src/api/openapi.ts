@@ -62,12 +62,12 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
    let action= data.action;
    //chat.myid=  `${Date.now()}`;
    if(  action=='gpt.dall-e-3' ){ //执行变化
-        chat.model= 'dall-e-3';
+       // chat.model= 'dall-e-3';
 
        let d= await gptFetch('/v1/images/generations', data.data);
        try{
             const rz : any= d.data[0];
-            chat.text= rz.revised_prompt;
+            chat.text= rz.revised_prompt??`图片已完成`;
             chat.opt={imageUrl:rz.url } ;
             chat.loading = false;
             homeStore.setMyData({act:'updateChat', actData:chat });

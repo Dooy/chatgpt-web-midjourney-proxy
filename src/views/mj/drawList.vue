@@ -133,9 +133,10 @@ async function onConversation() {
       requestOptions: { prompt: '提交中', options: { ...options } },
       uuid:+uuid,
       myid: `${Date.now()}`
-      ,model:message.action=='gpt.dall-e-3'?'dall-e-3':'midjourney'
+      ,model:message.action=='gpt.dall-e-3'? message.data.model :'midjourney'
      
     }
+  //mlog('outMsg model',outMsg.model );
   addChat(  +uuid, outMsg  )
   outMsg.index=  dataSources.value.length - 1;
   scrollToBottom()
@@ -220,7 +221,7 @@ watch(()=>homeStore.myData.act,(n)=>{
                //homeStore.setMyData{{act}}
                homeStore.setMyData({act:'mjReload', actData:{mjID:dchat.mjID,noShow:true} })
 
-            }else if( dchat.model=='dall-e-3' && dchat.opt?.imageUrl ){
+            }else if(  (dchat.model=='dall-e-2' || dchat.model=='dall-e-3')   && dchat.opt?.imageUrl ){
                 homeStore.setMyData({act:'dallReload', actData:{myid:dchat.myid,noShow:true} })
             }
 

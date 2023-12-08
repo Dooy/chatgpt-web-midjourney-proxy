@@ -61,7 +61,7 @@ function selectFile(input:any){
                 st.value.fileBase64.push(location.origin +r.url)
             }
         }else if(r.error) ms.error(r.error);
-    }).catch(e=>ms.error(e));
+    }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
  }
 //   let url= gptGetUrl('/test/2023/upload');
 //   axios.post( url , formData, {

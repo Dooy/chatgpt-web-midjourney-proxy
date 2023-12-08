@@ -4,6 +4,8 @@ import { ref,computed,watch,onMounted } from "vue";
 import config from "./draw.json";
 import {  NSelect,NInput,NButton,NTag,NPopover, useMessage,NDivider} from 'naive-ui'; 
 import {  SvgIcon } from '@/components/common'
+import { useBasicLayout } from '@/hooks/useBasicLayout'
+const { isMobile } = useBasicLayout()
 import AiMsg from './aiMsg.vue' 
 //import aiFace from './aiFace.vue' 
 import { mlog, train, upImg ,getMjAll } from '@/api' 
@@ -29,7 +31,7 @@ const farr= [
 ,{ k:'shot',v:'人物镜头'}
 ,{ k:'light',v:'灯光'}
 ,{ k:'quality',v:'画质'}
-,{ k:'styles',v:'性格'}
+,{ k:'styles',v:'艺术程度'}
 ,{ k:'version',v:'模型版本'}
  ];
 
@@ -80,7 +82,7 @@ function createPrompt(rz:string){
     for(let v of farr){
         if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
         if(v.k=='quality') rz +=`  --q ${f.value.quality}`;
-        else if(v.k=='styles') rz +=` ${f.value.styles}`;
+        else if(v.k=='styles') if( f.value.styles ) rz +=` ${f.value.styles}`;
         else if(v.k=='version') {
             st.value.bot= '';
            if(['MID_JOURNEY','NIJI_JOURNEY'].indexOf(f.value.version)>-1 ){
@@ -267,6 +269,8 @@ const exportToTxt= async ()=>{
             
         </n-button>
         </div>
+
+        
     </div>
 
     <!-- <div>
@@ -280,9 +284,18 @@ const exportToTxt= async ()=>{
         <div @click="copy2()"  >复制2</div> 
     </div> -->
 
-   
+   <ul class="pt-4"  v-if="!isMobile">
+    其他参数：
+    <li>1 --no 忽略 --no car 图中不出现车 </li>
+    <li>2 --seed 可先获取种子 --seed 123456 </li> 
+    <li>3 --chaos 10 混合(范围：0-100)</li> 
+    <li>4 --tile 碎片化 </li> 
+</ul>
 
 </div>
+
+
+
 </template>
 <style>
     .aspect-item.active, .aspect-item.active .aspect-box{

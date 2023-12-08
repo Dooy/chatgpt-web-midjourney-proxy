@@ -26,7 +26,7 @@ const drawSent=(d:any )=> $emit('drawSent',d);
     <n-tab-pane name="blend" tab="混图">
      <div class="p-4"><aiBlend  /></div>
     </n-tab-pane>
-    <n-tab-pane name="dall3" tab="Dall.E.3">
+    <n-tab-pane name="dall3" tab="Dall.E">
      <div class="p-4"><aiDall  /></div>
     </n-tab-pane>
 </n-tabs> 
