@@ -7,12 +7,12 @@ module.exports = (req, res) => {
     let headers= {}
     // 代理目标地址
     if (req.url.startsWith('/mjapi')) { //这里使用/api可能会与vercel serverless 的 api 路径冲突，根据接口进行调整
-        target = process.env.MJ_SERVER;
+        target = process.env.MJ_SERVER??'https://api.openai.com';
         headers= {
             'Mj-Api-Secret': process.env.MJ_API_SECRET // 添加自定义请求头
         }
     }else if(req.url.startsWith('/openapi')){
-        target = process.env.OPENAI_API_BASE_URL;
+        target = process.env.OPENAI_API_BASE_URL??'https://api.openai.com';
         headers= {
             'Authorization': 'Bearer ' +process.env.OPENAI_API_KEY // 添加自定义请求头
         }
