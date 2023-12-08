@@ -2,7 +2,7 @@
 ## 2.12.4
 - 😄 新增 dall-e-2模型
 - 🐞 修复：上传错误提示为空
-- 🐞 修复：OPENAI_API_KEY `环境变量中配置的OPENAI_API_BASE_URL和OPENAI_API_KEY依旧没有效果，前端对话一直处于“思考中...”` #4
+- 🐞 修复：`环境变量中配置的OPENAI_API_BASE_URL和OPENAI_API_KEY依旧没有效果，前端对话一直处于“思考中...”` #4
 
 ## 2.12.3
 - 😄 新增 支持超链模型切换 http://ip:6013/#/m/gpt-4-all http://ip:6013/#/m/gpt-4-gizmo-1234
