@@ -1,7 +1,13 @@
 # 功能升级日志
+## 2.12.4
+- 😄 新增 dall-e-2模型
+- 🐞 修复：上传错误提示为空
+- 🐞 修复：OPENAI_API_KEY `环境变量中配置的OPENAI_API_BASE_URL和OPENAI_API_KEY依旧没有效果，前端对话一直处于“思考中...”` #4
+
 ## 2.12.3
 - 😄 新增 支持超链模型切换 http://ip:6013/#/m/gpt-4-all http://ip:6013/#/m/gpt-4-gizmo-1234
 - 😄 新增 支持 GPTs 多模态
+
 ## 2.12.2
 - 😄 新增：支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
 - 😄 新增：支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
