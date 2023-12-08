@@ -84,7 +84,7 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 ### GPTS  GTP Store 
 ![多模态](./docs/gpts.jpg)
-![多模态](./docs/gpts2.jpg)
+![多模态](./docs/gpts1.jpg)
 
 ### 自定义服务端api key、base_url：
 ![base_url](./docs/mj3a2.jpg)
