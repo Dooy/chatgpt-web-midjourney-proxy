@@ -162,7 +162,7 @@ app.use('/openapi', proxy(API_BASE_URL, {
     return req.originalUrl.replace('/openapi', '') // 将URL中的 `/openapi` 替换为空字符串
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    proxyReqOpts.headers['Authorization'] = process.env.OPENAI_API_KEY;
+    proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     return proxyReqOpts;
   },

@@ -11,6 +11,11 @@ module.exports = (req, res) => {
         headers= {
             'Mj-Api-Secret': process.env.MJ_API_SECRET // 添加自定义请求头
         }
+    }else if(req.url.startsWith('/openapi')){
+        target = process.env.OPENAI_API_BASE_URL;
+        headers= {
+            'Authorization': 'Bearer ' +process.env.OPENAI_API_KEY // 添加自定义请求头
+        }
     }
     // 创建代理对象并转发请求
     createProxyMiddleware({
@@ -20,6 +25,7 @@ module.exports = (req, res) => {
         pathRewrite: {
             // 通过路径重写，去除请求路径中的 `/api`
             '^/mjapi/': '/'
+            ,'^/openapi/': '/'
         }
     })(req, res)
 }
