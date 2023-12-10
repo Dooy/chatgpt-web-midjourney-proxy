@@ -44,10 +44,13 @@ export const gptFetch=(url:string,data?:any,opt2?:any )=>{
 }
 
 export const GptUploader =   ( url:string, FormData:FormData )=>{
-    url= gptGetUrl( url );
+    // if(gptServerStore.myData.OPENAI_API_BASE_URL){
+    //     return `${ gptServerStore.myData.OPENAI_API_BASE_URL}${url}`;
+    // }
+    url= gptServerStore.myData.UPLOADER_URL? gptServerStore.myData.UPLOADER_URL :  gptGetUrl( url );
     let headers=  {'Content-Type': 'multipart/form-data'}
      
-    headers={...headers,...getHeaderAuthorization()}
+    if(gptServerStore.myData.OPENAI_API_BASE_URL && url.indexOf(gptServerStore.myData.OPENAI_API_BASE_URL)>-1  ) headers={...headers,...getHeaderAuthorization()}
     return new Promise<any>((resolve, reject) => {
             axios.post( url , FormData, {
             headers 

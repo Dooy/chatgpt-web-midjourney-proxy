@@ -1,5 +1,6 @@
 <script setup lang='ts'> 
 import { computed,   ref,watch  } from 'vue' 
+import { useRoute } from 'vue-router'
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
 import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel } from '@/api'
@@ -51,13 +52,13 @@ watch( ()=>textRz.value, (n)=>{
     homeStore.setMyData({act:'scrollToBottomIfAtBottom'})
     //homeStore.setMyData({act:'scrollToBottom'})
 },{deep:true}) 
-
+const { uuid } = useRoute().params as { uuid: string }
 watch(()=>homeStore.myData.act, async (n)=>{
     if(n=='gpt.submit'){
         const dd:any = homeStore.myData.actData;
-        mlog('gpt.submit', dd) ;
-        const uuid = dd.uuid;
-        st.value.uuid = uuid;
+        mlog('gpt.submit', dd , dd.uuid) ;
+        let  uuid2 =  dd.uuid?? uuid;
+        st.value.uuid =  uuid2 ;
         let model = gptConfigStore.myData.model
         
         let promptMsg = getInitChat(dd.prompt );
@@ -72,7 +73,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
                 mlog('localSaveAny error',e);
             }
         }
-        addChat(  +uuid, promptMsg );
+        addChat(  +uuid2, promptMsg );
         homeStore.setMyData({act:'scrollToBottom'});
        
 
@@ -86,14 +87,14 @@ watch(()=>homeStore.myData.act, async (n)=>{
             error: false,
             conversationOptions: null,
             requestOptions: { prompt: dd.prompt, options: {  } },
-            uuid:+uuid,
+            uuid:+uuid2,
             model ,
             myid: `${Date.now()}` 
         }
         if(gptConfigStore.myData.gpts){
             outMsg.logo= gptConfigStore.myData.gpts.logo ;
         }
-        addChat(  +uuid, outMsg  )
+        addChat(  +uuid2, outMsg  )
 
         if(textRz.value.length>=0) textRz.value = [ ];
 

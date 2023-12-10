@@ -220,15 +220,22 @@ watch(()=>homeStore.myData.act,(n)=>{
                // url2base64(dchat.opt?.imageUrl ,'img:'+dchat.mjID ).then(()=>{}).catch((e)=>mlog('url2base64 error',e));
                //homeStore.setMyData{{act}}
                homeStore.setMyData({act:'mjReload', actData:{mjID:dchat.mjID,noShow:true} })
-
+               toBottom();
             }else if(  (dchat.model=='dall-e-2' || dchat.model=='dall-e-3')   && dchat.opt?.imageUrl ){
-                homeStore.setMyData({act:'dallReload', actData:{myid:dchat.myid,noShow:true} })
+                homeStore.setMyData({act:'dallReload', actData:{myid:dchat.myid,noShow:true} });
+                toBottom();
             }
 
         }
     }
     
 });
+
+const toBottom= ()=>{
+  setTimeout(() => {
+    homeStore.setMyData({act:'scrollToBottom'});
+  }, 1800);
+}
 </script>
 
 <template>

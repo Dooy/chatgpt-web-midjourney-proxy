@@ -9,6 +9,7 @@ export interface gptsType{
     name:string
     logo:string
     info:string
+    use_cnt?:string
 }
  //const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 export function upImg(file:any   ):Promise<any>

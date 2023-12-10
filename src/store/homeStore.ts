@@ -70,6 +70,7 @@ export interface gptServerType{
     OPENAI_API_BASE_URL:string
     MJ_SERVER:string
     MJ_API_SECRET:string
+    UPLOADER_URL:string
 
 }
 
@@ -78,6 +79,7 @@ let v:gptServerType={
         OPENAI_API_KEY:'',
         OPENAI_API_BASE_URL:'',
         MJ_SERVER:'',
+        UPLOADER_URL:'',
         MJ_API_SECRET:''
     }
     return v ;

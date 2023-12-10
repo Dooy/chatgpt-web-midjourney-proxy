@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NInput, NButton, useMessage,NDivider} from "naive-ui"
+import { NInput, NButton, useMessage} from "naive-ui"
  
 import {gptServerStore} from '@/store'
 
@@ -47,6 +47,16 @@ const save = ()=>{
       </template>
     </n-input>
  </section>
+
+ <div  class="text-right" > 上传相关</div>
+<section class="mb-4 flex justify-between items-center"  >
+    <n-input   placeholder="必须包含 http(s)://" v-model:value="gptServerStore.myData.UPLOADER_URL" clearable>
+      <template #prefix>
+        <span class="text-[var(--n-tab-text-color-active)]">上传地址:</span>
+      </template>
+    </n-input>
+ </section>
+
 <section class=" text-right flex justify-end space-x-2"  >
     <NButton   @click="gptServerStore.setInit()">恢复默认</NButton>
     <NButton type="primary" @click="save">保存</NButton>
