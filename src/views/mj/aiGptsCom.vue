@@ -1,11 +1,14 @@
 <script setup lang="ts"> 
 import { myFetch, gptsType, mlog } from '@/api';
-import { homeStore,gptConfigStore } from '@/store';
+import { homeStore,gptConfigStore,useChatStore } from '@/store';
 import { ref,computed ,watch  } from 'vue';
 import { useMessage ,NButton,NImage,NTag} from 'naive-ui';
 import { SvgIcon } from '@/components/common';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const ms = useMessage();
+const chatStore = useChatStore()
 const emit = defineEmits(['close','toq']);
 const pp= defineProps<{q:string}>( );
 //const gptsList= ref<gptsType[]>([]);
@@ -26,6 +29,8 @@ const go= async ( item: gptsType)=>{
     const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/use`; 
     myFetch(gptUrl,item );
     emit('close');
+    mlog('go local ', homeStore.myData.local );
+    if(homeStore.myData.local!=='Chat') router.replace({name:'Chat',params:{uuid:chatStore.active}});
 
 }
 const pageLoad= async ()=>{
@@ -35,7 +40,7 @@ const pageLoad= async ()=>{
     st.value.loadPage= false;
 
     let rz = d.data.list  as gptsType[];
-    gptsPageList.value = rz.concat( gptsPageList.value,rz  )
+    gptsPageList.value = rz.concat( gptsPageList.value  )
 }
 const gptsList = computed(()=>{
     let rz:gptsType[]=[];
@@ -68,8 +73,11 @@ defineExpose({ searchQ })
 
 <div class="w-full h-full p-4">
     <template v-if="gptsList.length>0">
-        <div class="flex items-center justify-start line-clamp-1 pb-4" v-if="st.tab==''">
-            <div class="m-1 cursor-pointer" v-for="v in tag" @click="goSearch(v)"><n-button strong secondary round size="small" type="success" >{{ v }}</n-button></div>
+        <div class="flex items-center justify-start line-clamp-1 pb-4"  >
+            <div class="m-1 cursor-pointer" v-for="v in tag" @click="goSearch(v)">
+            <n-button strong   round size="small" type="success" v-if="v==pp.q">{{ v }}</n-button>
+            <n-button strong secondary round size="small" type="success" v-else>{{ v }}</n-button>
+            </div>
         </div>
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"  >
             
@@ -102,7 +110,7 @@ defineExpose({ searchQ })
         </div>
     </template>
     <div class="h-full flex items-center justify-center flex-col"  v-else-if="st.tab=='search' && !st.search">
-        <div>未能找到 <b class=" text-green-400">{{st.q}}</b>相关内容, 你可以参试以下内容</div>
+        <div>未能找到 <b class=" text-green-400">{{st.q}}</b>相关内容, 你可尝试以下内容</div>
         <div class="flex items-center justify-center flex-wrap">
             <div class="m-1 cursor-pointer" v-for="v in tag" @click="goSearch(v)"><n-button strong secondary round size="small" type="success" >{{ v }}</n-button></div>
         </div>

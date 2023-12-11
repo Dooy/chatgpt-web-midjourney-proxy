@@ -25,14 +25,15 @@ const mjClose=()=>{
 //handleAdd();
 </script>
 <template>
-<div class="flex w-full h-full">
+         <!-- <chatIndex></chatIndex> -->
+
+<div   class="flex">
     <div>
     <aiSiderInput  @close="mjClose" @drawSent="drawSent" :button-disabled="false"></aiSiderInput>
     </div>
-    <main class="flex-1">
-         <chatIndex></chatIndex>
-            <!-- <drawList></drawList> -->
-        
+     
+    <main class="flex-1 overflow-hidden">
+        <chatIndex></chatIndex>
     </main>
 </div>
 </template>
