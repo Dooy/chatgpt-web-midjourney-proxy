@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { getToken, removeToken, setToken } from './helper'
 import { store } from '@/store/helper'
 import { fetchSession } from '@/api'
-import { homeStore } from '@/store/homeStore'
+import { gptConfigStore, homeStore } from '@/store/homeStore'
 
 interface SessionResponse {
   auth: boolean
@@ -32,6 +32,9 @@ export const useAuthStore = defineStore('auth-store', {
         const { data } = await fetchSession<SessionResponse>()
         this.session = { ...data }
         homeStore.setMyData({session: data });
+
+        let str = localStorage.getItem('gptConfigStore');
+        if( ! str ) setTimeout( ()=>  gptConfigStore.setInit() , 500); 
         return Promise.resolve(data)
       }
       catch (error) {
