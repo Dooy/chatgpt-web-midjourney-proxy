@@ -48,6 +48,7 @@ const getMobileClass = computed<CSSProperties>(() => {
     return {
       position: 'fixed',
       zIndex: 50,
+      height: '100%',
     }
   }
   return {}

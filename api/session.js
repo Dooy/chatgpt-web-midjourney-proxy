@@ -8,8 +8,9 @@ module.exports = (req, res) => {
         "data": {
             "isHideServer": false,
             "isUpload": false,
-            "auth": false,
-            "model": "ChatGPTAPI"
+            "auth":   process.env.AUTH_SECRET_KEY?true:false ,
+            "model": "ChatGPTAPI",
+            "amodel": process.env.OPENAI_API_MODEL?? "gpt-3.5-turbo"
         }
     }
     res.writeHead(200).end(
