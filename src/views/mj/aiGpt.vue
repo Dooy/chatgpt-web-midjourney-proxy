@@ -4,19 +4,21 @@ import { useRoute } from 'vue-router'
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
 import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel } from '@/api'
+import { isNumber } from '@/utils/is'
  
 
 const emit = defineEmits(['finished']);
 const { addChat , updateChatSome } = useChat() 
 const chatStore = useChatStore()
-const st=ref({uuid:'1002'});
+const st=ref({uuid:'1002', index:-1 });
 const controller = ref<AbortController>( );;// new AbortController();
 const dataSources = computed(() => chatStore.getChatByUuid(+st.value.uuid))
 
 const textRz= ref<string[]>([]);
-const goFinish= ()=>{
+const goFinish= (  )=>{
+    //let dindex = st.value.index>=0? st.value.index : dataSources.value.length - 1;
     //return ;
-    updateChatSome( +st.value.uuid, dataSources.value.length - 1, { dateTime: new Date().toLocaleString(),loading: false })
+    updateChatSome( +st.value.uuid,  st.value.index , { dateTime: new Date().toLocaleString(),loading: false })
     //scrollToBottom();
     emit('finished');
   
@@ -28,10 +30,12 @@ const goFinish= ()=>{
     // }, 200 ); 
 }
 
-const getMessage= ()=>{
+const getMessage= (start=1000)=>{
     let i=0;
     let rz = [];
-    for( let ii=dataSources.value.length-3 ; ii>=0 ; ii-- ){ //let o of dataSources.value
+    let istart = (isNumber( start)&& start>=0 )? Math.min(start  ,   dataSources.value.length - 3):  dataSources.value.length - 3;
+    mlog('istart',istart, start); 
+    for( let ii=  istart  ; ii>=0 ; ii-- ){ //let o of dataSources.value
         if(i>=gptConfigStore.myData.talkCount) break;
         i++;
 
@@ -47,7 +51,7 @@ const getMessage= ()=>{
 watch( ()=>textRz.value, (n)=>{
     //mlog('🐞 textRz',n);
     if(n.length==0) return ;
-    updateChatSome( +st.value.uuid, dataSources.value.length - 1, { dateTime: new Date().toLocaleString(),text: n.join('') })
+    updateChatSome( +st.value.uuid, st.value.index , { dateTime: new Date().toLocaleString(),text: n.join('') })
     //scrollToBottom();
     homeStore.setMyData({act:'scrollToBottomIfAtBottom'})
     //homeStore.setMyData({act:'scrollToBottom'})
@@ -95,7 +99,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
             outMsg.logo= gptConfigStore.myData.gpts.logo ;
         }
         addChat(  +uuid2, outMsg  )
-
+        st.value.index= dataSources.value.length - 1;
         if(textRz.value.length>=0) textRz.value = [ ];
 
         homeStore.setMyData({act:'scrollToBottom'})
@@ -145,6 +149,41 @@ watch(()=>homeStore.myData.act, async (n)=>{
  
     }else if(n=='abort'){
        controller.value && controller.value.abort();
+    }else if(n=='gpt.resubmit'){
+        const dd:any = homeStore.myData.actData;
+        let  uuid2 =  dd.uuid?? uuid;
+        st.value.uuid =  uuid2 ;
+        st.value.index = +dd.index
+        mlog('gpt.resubmit', dd  ) ;
+        let historyMesg=  getMessage( (+dd.index)-1 ); //
+        mlog('gpt.resubmit historyMesg', historyMesg );
+        let nobj = dataSources.value[ dd.index ];
+        //mlog('gpt.resubmit model', nobj.model  );
+        let model = nobj.model
+        //return ;
+
+        controller.value = new AbortController();
+        let message= [ {  "role": "system", "content": getSystemMessage() },
+                ...historyMesg ]; 
+        textRz.value=[];
+       
+        subModel( {message,model
+        ,onMessage:(d)=>{
+            mlog('🐞消息2',d);
+            textRz.value.push(d.text);
+        }
+        ,onError:(e:any)=>{
+            mlog('onError',e)
+            const emsg =   (JSON.stringify(  e.reason? JSON.parse( e.reason ):e,null,2));
+            if(e.message!='canceled' && emsg.indexOf('aborted')==-1 ) textRz.value.push("\n错误:\n```\n"+emsg+"\n```\n");
+             goFinish();
+        }
+        ,signal:controller.value.signal,
+        }).then(()=>goFinish() ).catch(e=>{
+            if(e.message!='canceled')  textRz.value.push("\n错误:\n```\n"+(e.reason??JSON.stringify(e,null,2)) +"\n```\n")
+            goFinish();
+        });
+
     }
     
 })

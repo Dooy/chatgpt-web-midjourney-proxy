@@ -6,7 +6,7 @@ import Sider from '../chat/layout/sider/index.vue'
 import Permission from '../chat/layout/Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
-import { aiSider ,aiGpts} from '@/views/mj'
+import { aiSider ,aiGpts,aiGallery} from '@/views/mj'
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -52,4 +52,5 @@ const getContainerClass = computed(() => {
     <Permission :visible="needPermission" />
   </div>
   <aiGpts/>
+  <aiGallery/>
 </template>

@@ -9,7 +9,7 @@ import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
 import { homeStore } from '@/store'
-import { getSeed } from '@/api' 
+import { getSeed, mlog } from '@/api' 
 
 interface Props {
   dateTime?: string
@@ -18,6 +18,7 @@ interface Props {
   error?: boolean
   loading?: boolean
   chat:Chat.Chat
+  index:number
 }
 
 interface Emit {
@@ -84,6 +85,7 @@ function handleRegenerate() {
   emit('regenerate')
 }
 
+
 async function handleCopy(txt?:string) {
   try {
     await copyToClip( txt|| props.text || '')
@@ -125,7 +127,13 @@ const sendReload = () => {
 //   if(seed>0 ) await handleCopy(`${seed}`);
   
 // }
-
+function handleRegenerate2() {
+  messageRef.value?.scrollIntoView()
+  //emit('regenerate')
+  mlog('重新发送！');
+  homeStore.setMyData({act:'gpt.resubmit', actData:{ index:props.index , uuid:props.chat.uuid } });
+}
+ 
 </script>
 
 <template>
@@ -166,7 +174,7 @@ const sendReload = () => {
           :as-raw-text="asRawText"
           :chat="chat"
         />
-        <div class="flex flex-col" v-if="!chat.mjID">
+        <div class="flex flex-col" v-if="!chat.mjID && chat.model!='dall-e-3' && chat.model!='dall-e-2' ">
           <!-- <button
             v-if="!inversion "
             class="mb-2 transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300"
@@ -174,6 +182,13 @@ const sendReload = () => {
           >
             <SvgIcon icon="ri:restart-line" />
           </button> -->
+          <button
+            v-if="!inversion "
+            class="mb-2 transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300"
+            @click="handleRegenerate2"
+          >
+            <SvgIcon icon="ri:restart-line" />
+          </button>
           <NDropdown
             :trigger="isMobile ? 'click' : 'hover'"
             :placement="!inversion ? 'right' : 'left'"
