@@ -100,7 +100,7 @@ function getHeaderAuthorization(){
     }
 }
 
-export const getSystemMessage = ()=>{
+export const getSystemMessage = ()=>{ 
     //KnowledgeCutOffDate
     if( gptConfigStore.myData.systemMessage) return  gptConfigStore.myData.systemMessage
     let model= gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo";
