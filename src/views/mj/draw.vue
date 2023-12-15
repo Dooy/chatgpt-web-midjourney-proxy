@@ -27,12 +27,12 @@ const mjClose=()=>{
 <template>
          <!-- <chatIndex></chatIndex> -->
 
-<div   class="flex">
-    <div>
+<div   class="flex h-full">
+    <div class="h-full ">
     <aiSiderInput  @close="mjClose" @drawSent="drawSent" :button-disabled="false"></aiSiderInput>
     </div>
      
-    <main class="flex-1 overflow-hidden">
+    <main class="flex-1 overflow-hidden h-full">
         <chatIndex></chatIndex>
     </main>
 </div>
