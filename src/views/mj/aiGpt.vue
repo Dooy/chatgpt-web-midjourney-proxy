@@ -187,6 +187,8 @@ watch(()=>homeStore.myData.act, async (n)=>{
     }
     
 })
+
+homeStore.setMyData({isLoader:false});
 </script>
 <template>
  

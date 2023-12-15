@@ -3,6 +3,8 @@
 
 import { gptConfigStore, gptServerStore, homeStore } from "@/store";
 import { copyToClip } from "@/utils/copy";
+import { isNumber } from "@/utils/is";
+import { localGet, localSaveAny } from "./mjsave";
 //import { useMessage } from "naive-ui";
 export interface gptsType{
     gid:string
@@ -280,4 +282,31 @@ export const canVisionModel= (model:string)=>{
     if( ['gpt-4-all','gpt-4-v','gpt-4v','gpt-3.5-net'].indexOf(model)>-1 ) return true;
     if(model.indexOf('gpt-4-gizmo')>-1 )return true; 
     return false;
+}
+
+function isStringOnlyDigits(input: string): boolean {
+    // 使用正则表达式检查字符串是否只包含数字
+    const regex = /^[0-9]+$/;
+    return regex.test(input);
+}
+export const loadGallery  = async ()=>{
+     let localKey= 'mj-list-condition';
+     const d2:any = await localGet(localKey);
+     //mlog('d2',d2 , (Date.now()- d2.ctime));
+     if(d2 && (Date.now()- d2.ctime)<300*1000 ){
+
+        return d2.d as any[];
+     }
+     let  d =  await mjFetch(`/mj/gallery`);
+     //mlog('tsList', d.data.list   );
+     if( !d.data.list  ||  d.data.list.length ==0 ) return [];
+     const list =d.data.list as any[];
+     const ids = list.filter(v=> isStringOnlyDigits(v.reqid)).map(v=> +v.reqid ) ;
+     mlog('ids',  ids   );
+     if(ids.length==0) return [];
+     ///mj/task/list-by-condition
+     d=  await mjFetch('/mj/task/list-by-condition',{ids } );
+
+     if( d.length>0 ) localSaveAny({ctime: Date.now(), d}, localKey);
+     return d as any[] ;
 }

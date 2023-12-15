@@ -11,6 +11,7 @@ module.exports = (req, res) => {
             "auth":   process.env.AUTH_SECRET_KEY?true:false ,
             "model": "ChatGPTAPI",
             "amodel": process.env.OPENAI_API_MODEL?? "gpt-3.5-turbo"
+            ,isApiGallery:    process.env.MJ_API_GALLERY ? true : false 
         }
     }
     res.writeHead(200).end(

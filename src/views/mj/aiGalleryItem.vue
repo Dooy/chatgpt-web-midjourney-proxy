@@ -3,7 +3,7 @@ import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next'
 import 'vue-waterfall-plugin-next/dist/style.css'
 //import { ajax } from '@/api' 
 import {ref,nextTick} from "vue"
-import {NSpin ,NEmpty,NImage } from 'naive-ui' 
+import {NSpin ,NEmpty,NImage, NTag } from 'naive-ui' 
 //import {copyText3} from "@/utils/format";
 //import { copyText } from 'vue3-clipboard'
 //import { copyToClip } from "@/utils/copy";
@@ -11,7 +11,7 @@ import {NSpin ,NEmpty,NImage } from 'naive-ui'
 import { homeStore ,useChatStore} from "@/store"
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { ViewCard } from 'vue-waterfall-plugin-next/dist/types/types/waterfall'
-import { getMjAll, localGet, mlog } from '@/api'
+import { getMjAll, localGet, mlog ,loadGallery, url2base64 } from '@/api'
  
 const chatStore = useChatStore()
 
@@ -20,9 +20,7 @@ const { isMobile } = useBasicLayout()
 const emit = defineEmits(['close']);
 //import {hom}
 
-const st =ref({show:true
-,showImg:''
-});
+const st =ref({show:true ,showImg:'' ,isLoad:false });
 
 const showImg= ref<typeof NImage>();
  
@@ -30,6 +28,12 @@ const showImg= ref<typeof NImage>();
 const list = ref<ViewCard[]>([])
 
 const breakpoints= {
+  2000: { //当屏幕宽度小于等于1200
+    rowPerView: 6,
+  },
+  1600: { //当屏幕宽度小于等于1200
+    rowPerView: 5,
+  },
   1200: { //当屏幕宽度小于等于1200
     rowPerView: 4,
   },
@@ -41,7 +45,53 @@ const breakpoints= {
   }
 }
 
-const loadImg= async ( )=>{
+const loadImg= ()=>{
+    //mlog('local',homeStore.myData.session.isApiGallery );  
+    if( homeStore.myData.session.isApiGallery )  loadApiGallery();
+    else  loadImagFormLocal();
+}
+
+const loadApiGallery= async ()=>{
+    st.value.isLoad= true;
+   let d= await loadGallery();
+   mlog('loadApiGallery',d);
+    st.value.isLoad= false;
+   if( !d || d.length==0 ) return;
+   let rz = d.map((v:any)=>{
+       return {
+           mjID: v.id,
+            src: v.imageUrl,isLoad:0, prompt: v.prompt,
+            image_url: v.imageUrl,
+            action: v.action
+            ,time: v.startTime
+       }
+   });
+   for(let i in rz ){
+        let v = rz[i];
+        try {
+            if( v.image_url){
+                //await loadImg(chat.value.opt?.imageUrl);
+                let key= 'img:'+v.mjID;
+                let base64 = await localGet(key );  
+                if(!base64) {
+                   url2base64( v.image_url ,key ).then((v:any)=>{
+                         mlog('图片已保存>>', key )
+                    }); 
+                }else {
+                     rz[i].image_url =  rz[i].src =base64;
+                }
+                
+            }
+        } catch (error) {
+            mlog('图片保存失败',error);
+        }
+   }
+   
+
+   list.value= rz.sort((a:any,b:any)=> ( b.time - a.time) ) ;
+}
+
+const loadImagFormLocal= async ( )=>{
     let d = await getMjAll( chatStore.$state);
     if( !d || d.length==0 ) return;
    //mlog('loadImg', d );
@@ -54,6 +104,8 @@ const loadImg= async ( )=>{
             mjID: v.mjID,
             src: v.opt.imageUrl,isLoad:0, prompt: v.opt.promptEn,
             image_url: v.opt.imageUrl 
+            ,action: v.opt.action
+            ,time: v.opt.startTime
         }
     });
     list.value=[];
@@ -119,7 +171,13 @@ loadImg();
       </div>
       <div class="absolute w-full bottom-0   backdrop-blur-sm text-white/70 invisible group-hover/item:visible ">
         <div class="p-3">
-            <div class="line-clamp-2 text-[13px]">{{ item.prompt }}</div>
+            <div class="line-clamp-2 text-[13px]"> 
+                <template v-if="item.prompt">{{ item.prompt }}</template>
+                <NTag v-else-if="item.action=='SWAP_FACE'" type="success" size="small" round >变脸</NTag>
+                <NTag v-else-if="item.action=='BLEND'" type="success" size="small" round >混图</NTag>
+                <NTag v-else type="success" size="small" round >{{ item.action }}</NTag>
+            </div>
+            <div class="line-clamp-1 text-[12px] text-right">{{ new Date( item.time).toLocaleString() }}</div>
             <div class="space-x-2">
                 
                 <!-- <NButton type="primary" size="small" @click="copy(item )" >复制</NButton> -->
@@ -134,6 +192,10 @@ loadImg();
     </div>
   </template>
 </Waterfall>
+<div v-else-if="st.isLoad" class="w-full h-full flex justify-center items-center">
+    <n-spin size="large" />
+    <div>Loading....</div>
+</div>
 <div v-else class="w-full h-full flex justify-center items-center">
     <n-empty description="画廊还没有您的作品" />
 </div>

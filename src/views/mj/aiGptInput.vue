@@ -22,6 +22,10 @@ const placeholder = computed(() => {
 })
 
 const handleSubmit = ( ) => {
+    if( mvalue.value==''  ) return ;
+    if( homeStore.myData.isLoader  ) { 
+        return ;
+    }
     let obj={
         prompt: mvalue.value,
         fileBase64:st.value.fileBase64
@@ -141,7 +145,7 @@ const acceptData = computed(() => {
             <template #suffix>
                 <div  class=" relative; w-[40px] ">
                     <div class="absolute bottom-[-3px] right-[0px] ">
-                        <NButton type="primary" :disabled="disabled"  @click="handleSubmit" >
+                        <NButton type="primary" :disabled="disabled || homeStore.myData.isLoader "  @click="handleSubmit" >
                             <template #icon>
                             <span class="dark:text-black">
                                 <SvgIcon icon="ri:send-plane-fill" />

@@ -470,8 +470,9 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (loading.value)
-    controller.abort()
+
+  if (loading.value)   controller.abort() 
+  homeStore.setMyData({isLoader:false});
 })
 
 const local= computed(()=>homeStore.myData.local );
@@ -483,6 +484,7 @@ watch(()=>homeStore.myData.act,(n)=>{
 });
 const st =ref({inputme:true});
 
+watch( ()=>loading.value ,(n)=> homeStore.setMyData({isLoader:n }))
 </script>
 
 <template>

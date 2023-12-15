@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref,watch ,onMounted } from "vue";
+import { ref,watch  } from "vue";
 import gallery from './aiGalleryItem.vue'
 import { homeStore } from "@/store";
 import { useRoute } from 'vue-router';

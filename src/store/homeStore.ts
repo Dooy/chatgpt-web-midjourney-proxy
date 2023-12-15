@@ -6,6 +6,7 @@ export const homeStore = reactive({
         actData:{} //动作类别 
         ,local:'' //当前所处的版本
         ,session:{} as any
+        ,isLoader:false
        
     }
     
