@@ -115,7 +115,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
                 // //"Generate code for a web page that looks exactly like this."
                 obj.content.push({ "type": "text",      "text": dd.prompt  });
                 dd.fileBase64.forEach((f:any)=>{
-                    obj.content.push({ "type": "image_url",  "image_url": f  });
+                    obj.content.push({ "type": "image_url",  "image_url": {url:f }   });
                 });
                 message.push(obj); 
             }else{
