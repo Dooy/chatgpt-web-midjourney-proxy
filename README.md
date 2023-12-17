@@ -51,6 +51,7 @@
 | AUTH_SECRET_KEY |  验证密码 | 无  | ✅ |  ✅|
 | API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
 | HIDE_SERVER |  前端ui隐藏服务端|    | ✅ |  x|
+| CUSTOM_MODELS |  自定义可选模型 | 无  | ✅ |  ✅|
 
 ## docker 部署
 **假设**:

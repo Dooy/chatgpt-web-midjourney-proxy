@@ -16,7 +16,12 @@ export async function fetchSSE(
   fetch: types.FetchFn = globalFetch
 ) {
   const { onMessage, onError, ...fetchOptions } = options
-  const res = await fetch(url, fetchOptions)
+  let res ;
+  try{
+     res = await fetch(url, fetchOptions)
+  }catch(e :any ){ 
+    throw {reason: JSON.stringify({message:'fetch error, pleace check url',url ,code:'fetch_error'}) } 
+  }
   if (!res.ok) {
     let reason: string
 

@@ -137,7 +137,9 @@ watch(()=>homeStore.myData.act, async (n)=>{
         }
         ,onError:(e:any)=>{
             mlog('onError',e)
-            const emsg =   (JSON.stringify(  e.reason? JSON.parse( e.reason ):e,null,2));
+            let  emsg =   (JSON.stringify(  e.reason? JSON.parse( e.reason ):e,null,2));
+            //if(emsg=='{}' ) emsg= JSON.stringify(e );
+
             if(e.message!='canceled' && emsg.indexOf('aborted')==-1 ) textRz.value.push("\n错误:\n```\n"+emsg+"\n```\n");
              goFinish();
         }
