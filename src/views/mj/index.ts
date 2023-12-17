@@ -1,4 +1,5 @@
 import aiSider from "./aiSider.vue"
 import aiGpts from "./aiGpts.vue"
+import aiGallery from "./aiGallery.vue"
 
-export {aiSider,aiGpts }
+export {aiSider,aiGpts,aiGallery }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import {NSelect, NInput,NSlider, NButton, useMessage} from "naive-ui"
 import { ref ,computed,watch} from "vue";
-import {gptConfigStore} from '@/store'
+import {gptConfigStore, homeStore} from '@/store'
+import { mlog } from "@/api";
 
 const emit = defineEmits(['close']);
 const config = ref({
@@ -23,6 +24,21 @@ const modellist = computed(() => { //
         for(let o of arr ){
              rz.push({label:o,value:o})
         }
+    }
+    //服务端的 CUSTOM_MODELS 设置
+    if( homeStore.myData.session.cmodels ){
+        let delModel:string[] = [];
+        let addModel:string[]=[];
+        homeStore.myData.session.cmodels.split(/[ ,]+/ig).map( (v:string)=>{
+            if(v.indexOf('-')==0){
+                delModel.push(v.substring(1))
+            }else{
+                addModel.push(v);
+            }
+        });
+        mlog('cmodels',delModel,addModel);
+        rz= rz.filter(v=> delModel.indexOf(v.value)==-1 );
+        addModel.map(o=>rz.push({label:o,value:o}) )
     }
 
     let uniqueArray: { label: string, value: string }[] = Array.from(

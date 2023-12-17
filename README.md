@@ -39,6 +39,19 @@
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Dooy/chatgpt-web-midjourney-proxy&env=OPENAI_API_BASE_URL&env=OPENAI_API_KEY&env=MJ_SERVER&env=MJ_API_SECRET&project-name=chatgpt-web-midjourney-proxy&repository-name=chatgpt-web-midjourney-proxy)
 
+## env 环境变量
+
+| 环境变量 | 说明 | 默认值 |docker等部署| vercel 部署|
+| --- | --- | --- | --- | --- |
+| OPENAI_API_BASE_URL | OpenAI API 接口地址 | https://api.openai.com | ✅ |  ✅|
+| OPENAI_API_KEY | OpenAI API 密钥 |  sk-xxxxx | ✅ |  ✅|
+| OPENAI_API_MODEL |  默认模型 | gpt-3.5-turbo  | ✅ |  ✅|
+| MJ_SERVER |  mj proxy 接口地址 | https://api.openai.com  | ✅ |  ✅|
+| MJ_API_SECRET |  mj proxy | 空  | ✅ |  ✅|
+| AUTH_SECRET_KEY |  验证密码 | 无  | ✅ |  ✅|
+| API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
+| HIDE_SERVER |  前端ui隐藏服务端|    | ✅ |  x|
+| CUSTOM_MODELS |  自定义可选模型 | 无  | ✅ |  ✅|
 
 ## docker 部署
 **假设**:

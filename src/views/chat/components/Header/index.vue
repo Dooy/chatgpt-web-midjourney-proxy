@@ -86,7 +86,7 @@ const st = ref({isShow:false});
         <div class="flex items-center   justify-center space-x-1 cursor-pointer hover:text-[#4b9e5f]" v-if="homeStore.myData.local!='draw'">
             <template   v-if="gptConfigStore.myData.gpts">
              <SvgIcon icon="ri:apps-fill" /> 
-             <span>{{ gptConfigStore.myData.gpts.name }}</span> 
+             <span class="line-clamp-1 overflow-hidden">{{ gptConfigStore.myData.gpts.name }}</span> 
             </template>
             <template v-else >
             <SvgIcon icon="heroicons:sparkles" /> 

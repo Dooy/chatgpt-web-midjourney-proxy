@@ -470,8 +470,9 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (loading.value)
-    controller.abort()
+
+  if (loading.value)   controller.abort() 
+  homeStore.setMyData({isLoader:false});
 })
 
 const local= computed(()=>homeStore.myData.local );
@@ -479,9 +480,11 @@ watch(()=>homeStore.myData.act,(n)=>{
     if(n=='draw')  scrollToBottom();
     if(n=='scrollToBottom') scrollToBottom();
     if(n=='scrollToBottomIfAtBottom') scrollToBottomIfAtBottom();
+    if(n=='gpt.submit' || n=='gpt.resubmit'){ loading.value = true;}
 });
 const st =ref({inputme:true});
 
+watch( ()=>loading.value ,(n)=> homeStore.setMyData({isLoader:n }))
 </script>
 
 <template>
@@ -519,6 +522,7 @@ const st =ref({inputme:true});
                 @regenerate="onRegenerate(index)"
                 @delete="handleDelete(index)"
                 :chat="item"
+                :index="index"
               />
               <div class="sticky bottom-0 left-0 flex justify-center">
                 <NButton v-if="loading" type="warning" @click="handleStop">

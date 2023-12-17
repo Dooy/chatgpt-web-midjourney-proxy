@@ -9,7 +9,7 @@ import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
 import { homeStore } from '@/store'
-import { getSeed } from '@/api' 
+import { getSeed, mlog } from '@/api' 
 
 interface Props {
   dateTime?: string
@@ -18,6 +18,7 @@ interface Props {
   error?: boolean
   loading?: boolean
   chat:Chat.Chat
+  index:number
 }
 
 interface Emit {
@@ -84,6 +85,7 @@ function handleRegenerate() {
   emit('regenerate')
 }
 
+
 async function handleCopy(txt?:string) {
   try {
     await copyToClip( txt|| props.text || '')
@@ -125,7 +127,13 @@ const sendReload = () => {
 //   if(seed>0 ) await handleCopy(`${seed}`);
   
 // }
-
+function handleRegenerate2() {
+  messageRef.value?.scrollIntoView()
+  //emit('regenerate')
+  mlog('重新发送！');
+  homeStore.setMyData({act:'gpt.resubmit', actData:{ index:props.index , uuid:props.chat.uuid } });
+}
+ 
 </script>
 
 <template>
@@ -141,15 +149,19 @@ const sendReload = () => {
       <AvatarComponent :image="inversion" :logo="chat.logo"/>
     </div>
     <div class="overflow-hidden text-sm " :class="[inversion ? 'items-end' : 'items-start']">
-      <p class="text-xs text-[#b4bbc4] flex justify-start items-center space-x-2 " :class="[inversion ? 'text-right' : 'text-left']">
+      <p class="text-xs group  text-[#b4bbc4] flex justify-start items-center space-x-2 " :class="[inversion ? 'text-right' : 'text-left']">
         <span>{{ dateTime }}</span>
         <span v-if="chat.model"  class="text-[#b4bbc4]/50">{{ chat.model }}</span>
         <!-- <span>{{ chat.opt?.progress }}</span> -->
-        <SvgIcon icon="ri:restart-line" @click="sendReload"  class="cursor-pointer text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300 " v-if="chat.opt?.status=='SUCCESS'"></SvgIcon>
-        <div v-if="chat.opt?.status=='SUCCESS'" @click="getSeed(chat, message )" class="cursor-pointer">
-          <span v-if="chat.opt?.seed">Seed:{{ chat.opt?.seed }}</span>
-          <span v-else>Seed</span>
-        </div>
+        <template  v-if="chat.opt?.status=='SUCCESS'">
+          <SvgIcon icon="ri:restart-line" @click="sendReload"  class="cursor-pointer text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300 " ></SvgIcon>
+          
+          <div @click="getSeed(chat, message )" class="cursor-pointer">
+            <span v-if="chat.opt?.seed">Seed:{{ chat.opt?.seed }}</span>
+            <span v-else>Seed</span>
+          </div>
+          <a :href="chat.opt?.imageUrl" class="hidden group-hover:block active  cursor-pointer underline " target="_blank">原图链接</a>
+        </template>
       </p>
       
       <div
@@ -166,7 +178,7 @@ const sendReload = () => {
           :as-raw-text="asRawText"
           :chat="chat"
         />
-        <div class="flex flex-col" v-if="!chat.mjID">
+        <div class="flex flex-col" v-if="!chat.mjID && chat.model!='dall-e-3' && chat.model!='dall-e-2' ">
           <!-- <button
             v-if="!inversion "
             class="mb-2 transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300"
@@ -174,6 +186,13 @@ const sendReload = () => {
           >
             <SvgIcon icon="ri:restart-line" />
           </button> -->
+          <button
+            v-if="!inversion "
+            class="mb-2 transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300"
+            @click="handleRegenerate2"
+          >
+            <SvgIcon icon="ri:restart-line" />
+          </button>
           <NDropdown
             :trigger="isMobile ? 'click' : 'hover'"
             :placement="!inversion ? 'right' : 'left'"
