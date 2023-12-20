@@ -4,7 +4,7 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
-import { canVisionModel, GptUploader, mlog, upImg } from '@/api';
+import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard } from '@/api';
 import { gptConfigStore, homeStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
@@ -18,7 +18,7 @@ const { isMobile } = useBasicLayout()
 const placeholder = computed(() => {
   if (isMobile.value)
     return t('chat.placeholderMobile')
-  return t('chat.placeholder')
+  return t('chat.placeholder');//可输入说点什么，也可贴截图或拖拽文件
 })
 
 const handleSubmit = ( ) => {
@@ -136,9 +136,13 @@ const drop = (e: DragEvent) => {
   upFile(files[0]);
   //mlog('drop', files);
 }
+const paste=   (e: ClipboardEvent)=>{
+    let rz =   getFileFromClipboard(e); 
+    if(rz.length>0 ) upFile(rz[0]);
+}
 </script>
 <template>
-<div class="  myinputs"  @drop="drop" >
+<div class="  myinputs"  @drop="drop" @paste="paste">
 
     <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
 
@@ -160,7 +164,7 @@ const drop = (e: DragEvent) => {
             :placeholder="placeholder"  :autosize="{ minRows: 1, maxRows: isMobile ? 4 : 8 }"
             @input="handleInput"
             @focus="handleFocus"
-            @blur="handleBlur"
+            @blur="handleBlur" 
             @keypress="handleEnter"    >
             <template #prefix>
                 <div  class=" relative; w-[22px]">
