@@ -75,7 +75,9 @@ router.post('/session', async (req, res) => {
     const amodel=   process.env.OPENAI_API_MODEL?? "gpt-3.5-turbo" ; 
     const isApiGallery=  isNotEmptyString(  process.env.MJ_API_GALLERY );  
     const cmodels =   process.env.CUSTOM_MODELS??'' ;  
-    res.send({ status: 'Success', message: '', data: {isHideServer,isUpload, auth: hasAuth, model: currentModel(),amodel,isApiGallery,cmodels } })
+    const baiduId=process.env.TJ_BAIDU_ID?? "" ; 
+    const googleId=process.env.TJ_GOOGLE_ID?? "" ; 
+    res.send({ status: 'Success', message: '', data: {baiduId, googleId,isHideServer,isUpload, auth: hasAuth, model: currentModel(),amodel,isApiGallery,cmodels } })
   }
   catch (error) {
     res.send({ status: 'Fail', message: error.message, data: null })

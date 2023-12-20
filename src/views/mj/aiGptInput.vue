@@ -41,6 +41,10 @@ const mvalue = computed({
   set(value) {  emit('update:modelValue', value) }
 })
 function selectFile(input:any){
+
+   const file = input.target.files[0];
+   upFile( file );
+/*
  if(  !canVisionModel(gptConfigStore.myData.model )  ) {
     upImg(input.target.files[0]).then(d=>{
         fsRef.value.value='';
@@ -67,18 +71,41 @@ function selectFile(input:any){
         }else if(r.error) ms.error(r.error);
     }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
  }
-//   let url= gptGetUrl('/test/2023/upload');
-//   axios.post( url , formData, {
-//         headers: {
-//             'Content-Type': 'multipart/form-data'
-//         }
-//         }).then(response => {
-//         console.log('上传成功', response.data);
-//         }).catch(error => {
-//         console.error('上传失败', error);
-//         });
+ */
+
+
+ 
 
 }
+
+ const upFile= (file:any )=>{
+    if(  !canVisionModel(gptConfigStore.myData.model )  ) {
+        upImg( file).then(d=>{
+            fsRef.value.value='';
+            if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
+                ms.error('不能重复上传')
+                return ;
+            }
+            st.value.fileBase64.push(d)  
+        } ).catch(e=>ms.error(e));
+    }else{
+        const formData = new FormData( );
+        //const file = input.target.files[0];
+        formData.append('file', file); 
+        ms.info('上传中...');
+        GptUploader('/v1/upload',formData).then(r=>{
+            //mlog('上传成功', r);
+            if(r.url ){
+                ms.info('上传成功');
+                if(r.url.indexOf('http')>-1) {
+                    st.value.fileBase64.push(r.url)
+                }else{
+                    st.value.fileBase64.push(location.origin +r.url)
+                }
+            }else if(r.error) ms.error(r.error);
+        }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
+    }
+ }
  
 
 function handleEnter(event: KeyboardEvent) {
@@ -100,9 +127,18 @@ const acceptData = computed(() => {
   if(  canVisionModel(gptConfigStore.myData.model) ) return "*/*";
   return  "image/jpeg, image/jpg, image/png, image/gif"
 })
+
+const drop = (e: DragEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+  if( !e.dataTransfer || e.dataTransfer.files.length==0 ) return;
+  const files =    e.dataTransfer.files;
+  upFile(files[0]);
+  //mlog('drop', files);
+}
 </script>
 <template>
-<div class="  myinputs" >
+<div class="  myinputs"  @drop="drop" >
 
     <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
 
@@ -134,9 +170,11 @@ const acceptData = computed(() => {
                     </template>
                     <div v-if="canVisionModel(gptConfigStore.myData.model)">
                        <span>上传图片、附件<br/>能上传图片、PDF、EXCEL等文档</span>
+                       <p>支持拖拽</p>
                     </div>
                     <div v-else>
                          <span>上传图片<br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用</span>
+                          <p>支持拖拽</p>
                     </div>
                     </n-tooltip>
                 </div>

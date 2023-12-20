@@ -12,7 +12,9 @@ module.exports = (req, res) => {
             "model": "ChatGPTAPI",
             "amodel": process.env.OPENAI_API_MODEL?? "gpt-3.5-turbo"
             ,isApiGallery:    process.env.MJ_API_GALLERY ? true : false 
-            ,cmodels :  process.env.CUSTOM_MODELS??'' 
+            ,cmodels : process.env.CUSTOM_MODELS??'' 
+            ,baiduId : process.env.TJ_BAIDU_ID?? "" 
+            ,googleId: process.env.TJ_GOOGLE_ID?? ""
         }
     }
     res.writeHead(200).end(

@@ -40,7 +40,7 @@ const pageLoad= async ()=>{
     st.value.loadPage= false;
 
     let rz = d.data.list  as gptsType[];
-    gptsPageList.value = rz.concat( gptsPageList.value  )
+    gptsPageList.value = gptsPageList.value.concat(rz) //rz.concat( gptsPageList.value  )
 }
 const gptsList = computed(()=>{
     let rz:gptsType[]=[];
