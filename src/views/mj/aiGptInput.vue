@@ -2,13 +2,13 @@
 import { ref ,computed } from 'vue';
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
-import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete } from 'naive-ui'
+import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NDivider } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
-import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard } from '@/api';
+import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard,isFileMp3 } from '@/api';
 import { gptConfigStore, homeStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
- 
+//import FormData from 'form-data'
 
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
@@ -80,14 +80,28 @@ function selectFile(input:any){
 
  const upFile= (file:any )=>{
     if(  !canVisionModel(gptConfigStore.myData.model )  ) {
-        upImg( file).then(d=>{
-            fsRef.value.value='';
-            if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
-                ms.error('不能重复上传')
-                return ;
-            }
-            st.value.fileBase64.push(d)  
-        } ).catch(e=>ms.error(e));
+        if( isFileMp3(  file.name ) ){
+            mlog('mp3' , file); 
+            //  const formData = new FormData( ); 
+            // formData.append('file', file);
+            // formData.append('model', 'whisper-1'); 
+
+            // GptUploader('/v1/audio/transcriptions',formData).then(r=>{
+            //     mlog('语音识别成功', r ); 
+            // }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
+            homeStore.setMyData({act:'gpt.whisper', actData:{ file , prompt:'whisper' } });
+            return ;
+
+        }else{ 
+            upImg( file).then(d=>{
+                fsRef.value.value='';
+                if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
+                    ms.error('不能重复上传')
+                    return ;
+                }
+                st.value.fileBase64.push(d)  
+            } ).catch(e=>ms.error(e));
+        }
     }else{
         const formData = new FormData( );
         //const file = input.target.files[0];
@@ -125,7 +139,7 @@ function handleEnter(event: KeyboardEvent) {
 
 const acceptData = computed(() => {
   if(  canVisionModel(gptConfigStore.myData.model) ) return "*/*";
-  return  "image/jpeg, image/jpg, image/png, image/gif"
+  return  "image/jpeg, image/jpg, image/png, image/gif, .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm"
 })
 
 const drop = (e: DragEvent) => {
@@ -177,8 +191,16 @@ const paste=   (e: ClipboardEvent)=>{
                        <p>支持拖拽</p>
                     </div>
                     <div v-else>
-                         <span>上传图片<br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用</span>
+                         <span><b>上传图片</b>
+                         <br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用
+                         <br/>格式: jpeg jpg png gif
+                         </span>
                           <p>支持拖拽</p>
+                          <p class="pt-2"><b>上传MP3 MP4</b> 
+                          <br>会自动直接调用 whisper-1 模型
+                          <br>格式有：mp3 mp4 mpeg mpga m4a wav webm
+                          </p>
+
                     </div>
                     </n-tooltip>
                 </div>

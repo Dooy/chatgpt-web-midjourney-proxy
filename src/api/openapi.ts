@@ -3,6 +3,8 @@ import { gptConfigStore, gptServerStore, homeStore } from "@/store";
 import { mlog } from "./mjapi";
 import { fetchSSE } from "./sse/fetchsse";
 import axios from 'axios';
+import { localSaveAny } from "./mjsave";
+//import FormData from 'form-data';
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
@@ -42,13 +44,17 @@ export const gptFetch=(url:string,data?:any,opt2?:any )=>{
     })
      
 }
+ 
 
 export const GptUploader =   ( url:string, FormData:FormData )=>{
     // if(gptServerStore.myData.OPENAI_API_BASE_URL){
     //     return `${ gptServerStore.myData.OPENAI_API_BASE_URL}${url}`;
     // }
     url= gptServerStore.myData.UPLOADER_URL? gptServerStore.myData.UPLOADER_URL :  gptGetUrl( url );
-    let headers=  {'Content-Type': 'multipart/form-data'}
+    let headers=   {'Content-Type': 'multipart/form-data' }
+    // 
+    
+    
      
     if(gptServerStore.myData.OPENAI_API_BASE_URL && url.indexOf(gptServerStore.myData.OPENAI_API_BASE_URL)>-1  ) headers={...headers,...getHeaderAuthorization()}
     return new Promise<any>((resolve, reject) => {
@@ -172,4 +178,52 @@ export const getInitChat = (txt:string )=>{
         requestOptions: { prompt:txt, options: null },
         }
         return promptMsg;
+}
+
+export interface ttsType{ 
+        model: string,
+        input: string ,
+        voice?: string,
+     
+}
+export const subTTS = async (tts:ttsType )=>{
+    if(!tts.voice) tts.voice='alloy';
+    let url= getUrl('/v1/audio/speech');
+    let headers=  {
+        'Content-Type': 'application/json' 
+      }
+     headers={...headers,...getHeaderAuthorization()}
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(tts),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API request failed with status ${response.status}`);
+    } 
+    const audioData = await response.arrayBuffer();
+    const blob = new Blob([audioData], { type: 'audio/mp3' });
+    mlog('blob', blob);
+    const saveID = await localSaveAny( blob );
+    const pp= await bolbObj(blob );
+    return { blob,saveID ,...pp };
+
+}
+
+export const bolbObj= ( blob:Blob )=>{
+    return new Promise<{player:HTMLAudioElement,duration:number }>((resolve, reject) => {
+        const player = new window.Audio(); 
+        player.src = URL.createObjectURL(blob);
+        
+        player.addEventListener('loadedmetadata', () => {
+            mlog('时长', player.duration);
+            resolve({player,duration: player.duration });
+        });
+        player.addEventListener('error',(e )=>{
+            reject(e )
+        })
+        player.load(); 
+    })
+    
 }

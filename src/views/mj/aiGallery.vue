@@ -46,9 +46,7 @@ const tjGoogle= ( googleId:string )=>{
 }
 
 //const baiduID= computed(()=>homeStore.myData.session.baiduID );
-watch( ()=>homeStore.myData.session, (session:any )=>{
-  mlog('session', session )
-},{deep:true});
+ 
 initLoad();
 </script>
 

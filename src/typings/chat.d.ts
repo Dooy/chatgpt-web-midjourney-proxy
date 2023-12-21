@@ -15,6 +15,8 @@ declare namespace Chat {
 			, status?:string, images?:string[]
 			,promptEn?:string,buttons?:any[]
 			,action?:string
+			,duration?:number
+			,lkey?:string
 		} //
 		uuid?:number
 		index?:number
