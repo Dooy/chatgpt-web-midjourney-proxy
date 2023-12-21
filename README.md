@@ -110,7 +110,8 @@ docker run -d --name mj6013  -p 6013:8080  \
 ![多模态](./docs/gpts.jpg)
 ![多模态](./docs/gpts1.jpg)
 
-
+### tts 和 whisper
+![多模态](./docs/tts.jpg)
 
 ### 局部重绘：
 [![局部重绘](./docs/mj2.jpg)](./docs/mj2.jpg)
