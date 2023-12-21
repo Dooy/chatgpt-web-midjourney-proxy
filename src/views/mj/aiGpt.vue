@@ -164,6 +164,10 @@ watch(()=>homeStore.myData.act, async (n)=>{
         let model = nobj.model
         if(!model) model= 'gpt-3.5-turbo';
         //return ;
+        if(['whisper-1','midjourney'].indexOf(model)>-1){
+            ms.error('刷新，暂不支持此模型！');
+            return; 
+        }
 
         controller.value = new AbortController();
         let message= [ {  "role": "system", "content": getSystemMessage() },
