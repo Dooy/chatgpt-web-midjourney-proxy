@@ -4,7 +4,7 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
-import { canVisionModel, GptUploader, mlog, upImg } from '@/api';
+import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard } from '@/api';
 import { gptConfigStore, homeStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
@@ -18,7 +18,7 @@ const { isMobile } = useBasicLayout()
 const placeholder = computed(() => {
   if (isMobile.value)
     return t('chat.placeholderMobile')
-  return t('chat.placeholder')
+  return t('chat.placeholder');//可输入说点什么，也可贴截图或拖拽文件
 })
 
 const handleSubmit = ( ) => {
@@ -41,6 +41,10 @@ const mvalue = computed({
   set(value) {  emit('update:modelValue', value) }
 })
 function selectFile(input:any){
+
+   const file = input.target.files[0];
+   upFile( file );
+/*
  if(  !canVisionModel(gptConfigStore.myData.model )  ) {
     upImg(input.target.files[0]).then(d=>{
         fsRef.value.value='';
@@ -67,18 +71,41 @@ function selectFile(input:any){
         }else if(r.error) ms.error(r.error);
     }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
  }
-//   let url= gptGetUrl('/test/2023/upload');
-//   axios.post( url , formData, {
-//         headers: {
-//             'Content-Type': 'multipart/form-data'
-//         }
-//         }).then(response => {
-//         console.log('上传成功', response.data);
-//         }).catch(error => {
-//         console.error('上传失败', error);
-//         });
+ */
+
+
+ 
 
 }
+
+ const upFile= (file:any )=>{
+    if(  !canVisionModel(gptConfigStore.myData.model )  ) {
+        upImg( file).then(d=>{
+            fsRef.value.value='';
+            if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
+                ms.error('不能重复上传')
+                return ;
+            }
+            st.value.fileBase64.push(d)  
+        } ).catch(e=>ms.error(e));
+    }else{
+        const formData = new FormData( );
+        //const file = input.target.files[0];
+        formData.append('file', file); 
+        ms.info('上传中...');
+        GptUploader('/v1/upload',formData).then(r=>{
+            //mlog('上传成功', r);
+            if(r.url ){
+                ms.info('上传成功');
+                if(r.url.indexOf('http')>-1) {
+                    st.value.fileBase64.push(r.url)
+                }else{
+                    st.value.fileBase64.push(location.origin +r.url)
+                }
+            }else if(r.error) ms.error(r.error);
+        }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
+    }
+ }
  
 
 function handleEnter(event: KeyboardEvent) {
@@ -100,9 +127,22 @@ const acceptData = computed(() => {
   if(  canVisionModel(gptConfigStore.myData.model) ) return "*/*";
   return  "image/jpeg, image/jpg, image/png, image/gif"
 })
+
+const drop = (e: DragEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+  if( !e.dataTransfer || e.dataTransfer.files.length==0 ) return;
+  const files =    e.dataTransfer.files;
+  upFile(files[0]);
+  //mlog('drop', files);
+}
+const paste=   (e: ClipboardEvent)=>{
+    let rz =   getFileFromClipboard(e); 
+    if(rz.length>0 ) upFile(rz[0]);
+}
 </script>
 <template>
-<div class="  myinputs" >
+<div class="  myinputs"  @drop="drop" @paste="paste">
 
     <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
 
@@ -124,7 +164,7 @@ const acceptData = computed(() => {
             :placeholder="placeholder"  :autosize="{ minRows: 1, maxRows: isMobile ? 4 : 8 }"
             @input="handleInput"
             @focus="handleFocus"
-            @blur="handleBlur"
+            @blur="handleBlur" 
             @keypress="handleEnter"    >
             <template #prefix>
                 <div  class=" relative; w-[22px]">
@@ -134,9 +174,11 @@ const acceptData = computed(() => {
                     </template>
                     <div v-if="canVisionModel(gptConfigStore.myData.model)">
                        <span>上传图片、附件<br/>能上传图片、PDF、EXCEL等文档</span>
+                       <p>支持拖拽</p>
                     </div>
                     <div v-else>
                          <span>上传图片<br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用</span>
+                          <p>支持拖拽</p>
                     </div>
                     </n-tooltip>
                 </div>

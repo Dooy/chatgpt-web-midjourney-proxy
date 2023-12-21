@@ -310,3 +310,25 @@ export const loadGallery  = async ()=>{
      if( d.length>0 ) localSaveAny({ctime: Date.now(), d}, localKey);
      return d as any[] ;
 }
+
+
+export   function getFileFromClipboard(event:any ){
+    let rz=[];
+    if ( event.clipboardData || event.originalEvent ) {
+        let clipboardData = (event.clipboardData || event.originalEvent.clipboardData);
+        if (clipboardData.items) {
+            let items = clipboardData.items;
+            // mlog('getFileFromClipboard',  items  );
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf("image") !== -1 || items[i].kind === 'file') {
+                    //rz.push( await fileToBase64(  items[i].getAsFile()) );
+                    //mlog('fff', items[i] );
+                    rz.push( items[i].getAsFile()) 
+                }
+            }
+
+        }
+    }
+    //console.log('passs>>' ,rz );
+    return rz;
+}
