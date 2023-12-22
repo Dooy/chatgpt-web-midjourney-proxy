@@ -30,6 +30,7 @@
 - ✅ chatgpt 支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
 - ✅ chatgpt 支持超链模型切换 https://git.ddaiai.com/#/m/gpt-4-all https://git.ddaiai.com/#/m/gpt-4-gizmo-g-2fkFE8rbu
 - ✅ chatgpt 支持 GPTs 多模态
+- ✅ chatgpt 支持 tts whisper
 
 ## 待开发
 - ⏰ 支持 GPTs 多模态
