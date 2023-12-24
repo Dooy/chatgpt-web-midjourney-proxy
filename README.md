@@ -135,4 +135,9 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 
 ## License
-MIT © [ChenZhaoYu && Novicezk  && Dooy](./license)
+MIT © [Dooy](./license)
+
+## 其他
+如果觉得这个项目对您有所帮助，请帮忙点个star
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Dooy/chatgpt-web-midjourney-proxy&type=Date)](https://star-history.com/#Dooy/chatgpt-web-midjourney-proxy&Date)
