@@ -227,3 +227,34 @@ export const bolbObj= ( blob:Blob )=>{
     })
     
 }
+
+function formatDate(): string[] {
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = today.getMonth() + 1
+  const lastDay = new Date(year, month, 0)
+  const formattedFirstDay = `${year}-${month.toString().padStart(2, '0')}-01`
+  const formattedLastDay = `${year}-${month.toString().padStart(2, '0')}-${lastDay.getDate().toString().padStart(2, '0')}`
+  return [formattedFirstDay, formattedLastDay]
+}
+
+//  
+
+export const  gptUsage=async ()=>{
+
+    // fetch(getUrl(url),  opt )
+    //     .then(d=>d.json().then(d=> resolve(d))
+    //     .catch(e=>reject(e)))
+    //     .catch(e=>reject(e))
+    const [startDate, endDate] = formatDate();
+    const urlUsage = `/v1/dashboard/billing/usage?start_date=${startDate}&end_date=${endDate}`
+    const usageData = await gptFetch(urlUsage);
+    const billData = await gptFetch('/v1/dashboard/billing/subscription');
+   
+    const usage = Math.round(usageData.total_usage) / 100
+     mlog('gpt', usage , billData  );
+     //remaining = subscriptionData.system_hard_limit_usd - totalUsage;
+     return {usage,remaining:Math.round(billData.system_hard_limit_usd- usageData.total_usage ) / 100 } ;
+
+}
+
