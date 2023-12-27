@@ -15,6 +15,7 @@ module.exports = (req, res) => {
             ,cmodels : process.env.CUSTOM_MODELS??'' 
             ,baiduId : process.env.TJ_BAIDU_ID?? "" 
             ,googleId: process.env.TJ_GOOGLE_ID?? ""
+            , notify : process.env.SYS_NOTIFY?? "" 
         }
     }
     res.writeHead(200).end(
