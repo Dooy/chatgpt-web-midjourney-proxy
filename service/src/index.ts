@@ -80,7 +80,8 @@ router.post('/session', async (req, res) => {
     const cmodels =   process.env.CUSTOM_MODELS??'' ;  
     const baiduId=process.env.TJ_BAIDU_ID?? "" ; 
     const googleId=process.env.TJ_GOOGLE_ID?? "" ; 
-    res.send({ status: 'Success', message: '', data: {baiduId, googleId,isHideServer,isUpload, auth: hasAuth, model: currentModel(),amodel,isApiGallery,cmodels } })
+    const notify = process.env.SYS_NOTIFY?? "" ;
+    res.send({  status: 'Success', message: '', data: { notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth, model: currentModel(),amodel,isApiGallery,cmodels } })
   }
   catch (error) {
     res.send({ status: 'Fail', message: error.message, data: null })

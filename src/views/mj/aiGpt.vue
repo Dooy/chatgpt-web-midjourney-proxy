@@ -3,7 +3,7 @@ import { computed,   ref,watch  } from 'vue'
 import { useRoute } from 'vue-router'
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
-import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, GptUploader } from '@/api'
+import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, GptUploader, localGet } from '@/api'
 import { isNumber } from '@/utils/is'
 import { useMessage  } from "naive-ui";
 
@@ -30,7 +30,7 @@ const goFinish= (  )=>{
     // }, 200 ); 
 }
 
-const getMessage= (start=1000)=>{
+const getMessage= async (start=1000)=>{
     let i=0;
     let rz = [];
     let istart = (isNumber( start)&& start>=0 )? Math.min(start  ,   dataSources.value.length - 3):  dataSources.value.length - 3;
@@ -40,9 +40,23 @@ const getMessage= (start=1000)=>{
         i++;
 
         let o = dataSources.value[ii];
+        //mlog('o',ii ,o);
+        let content= o.text;
+        if( o.inversion && o.opt?.images && o.opt.images.length>0 ){
+            //获取附件信息 比如 图片 文件等
+            try{
+               let str =  await localGet(  o.opt.images[0]) as string;
+               let fileBase64= JSON.parse(str) as string[];
+               let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
+               if(arr.length>0) content = arr.join(' ')+' '+ content ;
+
+               mlog('附件',o.opt.images[0] , content );
+            }catch(ee){
+            }
+        }
 
         //mlog('d',gptConfigStore.myData.talkCount ,i ,o.inversion , o.text);
-        rz.push({content:o.text, role: !o.inversion ? 'assistant' : 'user'});
+        rz.push({content , role: !o.inversion ? 'assistant' : 'user'});
     }
     rz.reverse();
     mlog('rz',rz);
@@ -116,7 +130,9 @@ watch(()=>homeStore.myData.act, async (n)=>{
         if(textRz.value.length>=0) textRz.value = [ ];
 
         homeStore.setMyData({act:'scrollToBottom'})
-        let historyMesg=  getMessage();
+        let historyMesg=  await getMessage();
+        mlog('historyMesg', historyMesg );
+        //return ;
         let message= [ {  "role": "system", "content": getSystemMessage() },
                 ...historyMesg ];
         if( dd.fileBase64 && dd.fileBase64.length>0 ){
@@ -133,6 +149,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
                 message.push(obj); 
             }else{
                 let cc= dd.prompt;
+                //附件需要时远程的图片链接 或者文件 链接
                 let arr = dd.fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
                 if(arr.length>0) cc = arr.join(' ')+' '+ cc ;
                 message.push({  "role": "user",  "content": cc })
@@ -157,7 +174,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
         st.value.index = +dd.index;
 
         mlog('gpt.resubmit', dd  ) ;
-        let historyMesg=  getMessage( (+dd.index)-1 ); //
+        let historyMesg= await  getMessage( (+dd.index)-1 ); //
         mlog('gpt.resubmit historyMesg', historyMesg );
         let nobj = dataSources.value[ dd.index ];
         //mlog('gpt.resubmit model', nobj.model  );

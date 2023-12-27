@@ -55,6 +55,7 @@
 | CUSTOM_MODELS |  自定义可选模型 | 无  | ✅ |  ✅|
 | TJ_BAIDU_ID |  百度统计ID | 无  | ✅ |  ✅|
 | TJ_GOOGLE_ID |  谷歌统计ID | 无  | ✅ |  ✅|
+| SYS_NOTIFY |  系统通知 | 无  | ✅ |  ✅|
 
 ## docker 部署
 **假设**:
