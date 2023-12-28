@@ -41,6 +41,42 @@ export function upImg(file:any   ):Promise<any>
     
 }
 
+export const file2blob= (selectedFile: any  )=>{
+    return new Promise<{blob:Blob,filename:string}>((resolve, reject) => {
+        const reader = new FileReader();
+        mlog('selectedFile', selectedFile )
+        reader.onload = function (event:any ) {
+            // 将文件内容转换为 Blob
+            const blob = new Blob([event.target.result], { type: selectedFile.type });
+
+            // 在这里可以使用生成的 Blob 对象
+            //console.log(blob);
+            resolve({blob,filename:selectedFile.name });
+        };
+        reader.onerror = (e)=> reject(e);
+
+        // 开始读取文件
+        reader.readAsArrayBuffer(selectedFile);
+        
+    })
+     
+}
+
+export const blob2file= ( blob:Blob,fileName:string )=>{
+    const file = new File([blob], fileName, { type: blob.type, lastModified: Date.now() });
+    return file;
+}
+
+export const  isFileMp3= (filename:string )=>{
+    let arr='.mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm'.split(/[, ]+/ig);
+    mlog('fileIsMp3', arr );
+    filename= filename.toLocaleLowerCase();
+    for(let ext of arr ){
+        if(filename.endsWith(ext)) return true;
+    }
+    return false;
+}
+
 function containsChinese(str:string ) {
   return false; //11.18 都不需要翻译
 //   var reg = /[\u4e00-\u9fa5]/g; // 匹配中文的正则表达式
@@ -284,6 +320,11 @@ export const canVisionModel= (model:string)=>{
     return false;
 }
 
+export const isTTS= ( model:string )=>{
+    if(model.indexOf('tts-1')===0 )return true; 
+    return false ;
+}
+
 function isStringOnlyDigits(input: string): boolean {
     // 使用正则表达式检查字符串是否只包含数字
     const regex = /^[0-9]+$/;
@@ -311,7 +352,7 @@ export const loadGallery  = async ()=>{
      return d as any[] ;
 }
 
-
+//从剪贴板中读取文件
 export   function getFileFromClipboard(event:any ){
     let rz=[];
     if ( event.clipboardData || event.originalEvent ) {

@@ -81,8 +81,9 @@ function createPrompt(rz:string){
    
     for(let v of farr){
         if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
+         mlog('k ', rz,  f.value  );
         if(v.k=='quality') rz +=`  --q ${f.value.quality}`;
-        else if(v.k=='styles') if( f.value.styles ) rz +=` ${f.value.styles}`;
+        else if(v.k=='styles') { if( f.value.styles ) rz +=` ${f.value.styles}`;}
         else if(v.k=='version') {
             st.value.bot= '';
            if(['MID_JOURNEY','NIJI_JOURNEY'].indexOf(f.value.version)>-1 ){
@@ -91,10 +92,8 @@ function createPrompt(rz:string){
         }
         else if( f.value[v.k] ) rz +=` , ${f.value[v.k]}`;
     }
-     if(f.value.bili>-1) rz +=` --ar ${vf[f.value.bili].label}`;
-    //console.log('rz ', rz );
-    //console.log('内容为：',rz, f.value );
-    //return '';
+    mlog('createPrompt ', rz,  f.value  );
+    if(f.value.bili>-1) rz +=` --ar ${vf[f.value.bili].label}`;
     return rz ;
 }
  

@@ -4,6 +4,7 @@ import { NSpin } from 'naive-ui'
 import pkg from '../../../../package.json'
 import { fetchChatConfig ,getLastVersion} from '@/api'
 import { useAuthStore } from '@/store'
+import { gptUsage  } from "@/api";
 
 interface ConfigState {
   timeoutMs?: number
@@ -12,6 +13,7 @@ interface ConfigState {
   socksProxy?: string
   httpsProxy?: string
   usage?: string
+  remaining?: string
 }
 
 const authStore = useAuthStore()
@@ -26,8 +28,19 @@ const isChatGPTAPI = computed<boolean>(() => !!authStore.isChatGPTAPI)
 async function fetchConfig() {
   try {
     loading.value = true
-    const { data } = await fetchChatConfig<ConfigState>()
-    config.value = data
+    // const { data } = await fetchChatConfig<ConfigState>()
+    // config.value = data
+    
+
+    const dd= await gptUsage();
+    config.value= {usage:dd.usage?`${dd.usage}`:'-'
+      ,remaining:dd.remaining?`${dd.remaining}`:'-'
+      , "apiModel": "ChatGPTAPI",
+        "reverseProxy": "-",
+        "timeoutMs": 100000,
+        "socksProxy": "-",
+        "httpsProxy": "-", } ;
+
   }
   finally {
     loading.value = false
@@ -83,7 +96,7 @@ const  isShow = computed(()=>{
           ，免费且基于 MIT 协议，没有任何形式的付费行为！
         </p>
         <p>
-          如果你觉得此项目对你有帮助，请在 GitHub 帮我点个 Star 或者给予一点赞助，谢谢！
+          如果你觉得此项目对你有帮助，请在 GitHub 帮我点个 Star，谢谢！
         </p>
       </div>
       <p>{{ $t("setting.api") }}：{{ config?.apiModel ?? '-' }}</p>
@@ -93,9 +106,10 @@ const  isShow = computed(()=>{
       <p v-if="!isChatGPTAPI">
         {{ $t("setting.reverseProxy") }}：{{ config?.reverseProxy ?? '-' }}
       </p>
-      <p>{{ $t("setting.timeout") }}：{{ config?.timeoutMs ?? '-' }}</p>
-      <p>{{ $t("setting.socks") }}：{{ config?.socksProxy ?? '-' }}</p>
-      <p>{{ $t("setting.httpsProxy") }}：{{ config?.httpsProxy ?? '-' }}</p>
+      <p>余额：{{ config?.remaining ?? '-' }}</p> 
+      <!-- <p>{{ $t("setting.timeout") }}：{{ config?.timeoutMs ?? '-' }}</p>  -->
+      <!-- <p>{{ $t("setting.socks") }}：{{ config?.socksProxy ?? '-' }}</p>
+      <p>{{ $t("setting.httpsProxy") }}：{{ config?.httpsProxy ?? '-' }}</p> -->
     </div>
   </NSpin>
 </template>

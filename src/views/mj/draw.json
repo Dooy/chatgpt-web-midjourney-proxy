@@ -174,7 +174,10 @@
                 "value": "moody"
             }],
      "versionList": [
-        {
+            {
+                "label": "MJ V6",
+                "value": "--v 6.0"
+            }, {
                 "label": "MJ V5.2",
                 "value": "--v 5.2"
             }, {

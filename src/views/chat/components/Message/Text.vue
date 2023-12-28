@@ -10,7 +10,10 @@ import { copyToClip } from '@/utils/copy'
 
 import mjText from '@/views/mj/mjText.vue'
 import dallText from '@/views/mj/dallText.vue'
+import ttsText from '@/views/mj/ttsText.vue'
+import whisperText from '@/views/mj/whisperText.vue'
 import MjTextAttr from '@/views/mj/mjTextAttr.vue'
+import { isTTS } from '@/api'
 
 interface Props {
   inversion?: boolean
@@ -114,11 +117,13 @@ onUnmounted(() => {
       <div v-if="!inversion">
         <dallText :chat="chat" v-if="chat.model=='dall-e-3' || chat.model=='dall-e-2'" class="whitespace-pre-wrap" />
         <mjText v-if="chat.mjID" class="whitespace-pre-wrap" :chat="chat"></mjText>
+        <ttsText v-else-if="chat.model && isTTS(chat.model) && chat.text=='ok'" :chat="chat"/>
         <template v-else>
-        <div v-if="!asRawText" class="markdown-body" :class="{ 'markdown-body-generate': loading }" v-html="text" />
-        <div v-else class="whitespace-pre-wrap" v-text="text" />
+          <div v-if="!asRawText" class="markdown-body" :class="{ 'markdown-body-generate': loading }" v-html="text" />
+          <div v-else class="whitespace-pre-wrap" v-text="text" />
         </template>
       </div>
+      <whisperText v-else-if="text=='whisper' && chat.opt?.lkey "  :chat="chat" />
       <div v-else class="whitespace-pre-wrap" v-text="text" />
       <MjTextAttr :image="chat.opt?.images[0]" v-if="chat.opt?.images"></MjTextAttr>
       <!-- <div v-if="chat.opt?.images" class="flex flex-wrap justify-start items-baseline">

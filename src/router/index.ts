@@ -60,6 +60,12 @@ const routes: RouteRecordRaw[] = [
     ],
   },
 
+  //调试
+  // {
+  //   path: '/mytest',
+  //   name: 'mytest',
+  //   component: () => import('@/views/mj/myTest.vue'),
+  // },
 
   {
     path: '/404',
