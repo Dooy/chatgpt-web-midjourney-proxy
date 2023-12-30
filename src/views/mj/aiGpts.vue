@@ -27,12 +27,12 @@ const toq=( d:any )=>{
         <!-- <SvgIcon icon="uil:search" class="pr-2 text-[28px] cursor-pointer"></SvgIcon> GPT store -->
         <div class="pr-4">GPT store</div>
         <div class=" max-w-[400px]">
-            <n-input round placeholder="GPTs名字、介绍" clearable v-model:value="st.q" @keydown.enter="search()" >
+            <n-input round :placeholder="$t('mjchat.searchPlaceholder')" clearable v-model:value="st.q" @keydown.enter="search()" >
                 <template #prefix>
                     <SvgIcon icon="uil:search"/>
                 </template>
                 <template #suffix>
-                    <div class="cursor-pointer" @click="search()">搜索</div>
+                    <div class="cursor-pointer" @click="search()">{{ $t('mjchat.search')}}</div>
                 </template>
             </n-input>
         </div>

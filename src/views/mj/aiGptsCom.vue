@@ -5,6 +5,8 @@ import { ref,computed ,watch  } from 'vue';
 import { useMessage ,NButton,NImage,NTag} from 'naive-ui';
 import { SvgIcon } from '@/components/common';
 import { useRouter } from 'vue-router';
+import { t } from '@/locales';
+
 
 const router = useRouter()
 const ms = useMessage();
@@ -25,7 +27,7 @@ const load= async ()=>{
 }
 const go= async ( item: gptsType)=>{
     gptConfigStore.setMyData({model:  `${ item.gid }`   ,gpts:item});
-    ms.success('切换成功！');
+    ms.success(t('mjchat.success2'));
     const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/use`; 
     myFetch(gptUrl,item );
     emit('close');
@@ -105,19 +107,18 @@ defineExpose({ searchQ })
             </div>
         </div>
         <div class="flex items-center justify-center py-10" v-if="st.tab=='' ">
-            <div @click="pageLoad()" v-if="st.loadPage">正在加载...</div>
-            <NButton @click="pageLoad()" v-else>加载更多</NButton>
+            <div @click="pageLoad()" v-if="st.loadPage">{{ $t('mjchat.loading2') }}</div>
+            <NButton @click="pageLoad()" v-else>{{ $t('mjchat.loadmore') }}</NButton>
         </div>
     </template>
     <div class="h-full flex items-center justify-center flex-col"  v-else-if="st.tab=='search' && !st.search">
-        <div>未能找到 <b class=" text-green-400">{{st.q}}</b>相关内容, 你可尝试以下内容</div>
+        <div>{{ $t('mjchat.nofind') }}<b class=" text-green-400">{{st.q}}</b> {{$t('mjchat.nofind2')}}</div>
         <div class="flex items-center justify-center flex-wrap">
             <div class="m-1 cursor-pointer" v-for="v in tag" @click="goSearch(v)"><n-button strong secondary round size="small" type="success" >{{ v }}</n-button></div>
         </div>
     </div>
     <div class="h-full flex items-center justify-center"  v-else>
-
-        正在载入...
+        {{ $t('mjchat.loading2') }}
     </div>
 </div>
 </template>

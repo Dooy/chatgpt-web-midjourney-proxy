@@ -195,34 +195,34 @@ load();
                     <NButton type="warning" @click="sub('VARIATION',2)"  size="small">V2</NButton>
                     <NButton type="warning" @click="sub('VARIATION',3)"  size="small">V3</NButton>
                     <NButton type="warning" @click="sub('VARIATION',4)"  size="small">V4</NButton>
-                    <NButton type="warning" @click="sub('REROLL',0)"  size="small" v-if="chat.opt?.action==='IMAGINE'">重绘</NButton>
+                    <NButton type="warning" @click="sub('REROLL',0)"  size="small" v-if="chat.opt?.action==='IMAGINE'">{{ $t('mjchat.reroll') }}</NButton>
 
                 </div>
             </template>
         </div>
-        <div v-else-if="!chat.loading"> <NButton type="primary" @click="reload()">重新获取</NButton></div>
-        <div v-else-if="chat.opt.progress" class="py-2 min-w-[200px]"> 进度：{{chat.opt.progress}}</div>
-        <div v-else class="py-2"> 任务已经提交请等待...</div>
+        <div v-else-if="!chat.loading"> <NButton type="primary" @click="reload()">{{ $t('mjchat.reload') }}</NButton></div>
+        <div v-else-if="chat.opt.progress" class="py-2 min-w-[200px]"> {{$t('mjchat.progress')}}{{chat.opt.progress}}</div>
+        <div v-else class="py-2"> {{ $t('mjchat.wait') }}</div>
         <!-- <div v-html="chat.opt?.action"></div> -->
     </template>
     <div v-else-if="chat.opt?.status=='FAILURE'"> 
-        <div>失败原因：<p>{{ chat.opt?.failReason }}</p></div>
+        <div>{{ $t('mjchat.failReason') }}<p>{{ chat.opt?.failReason }}</p></div>
     </div>
     <div v-else> 
-    任务 {{ chat.mjID }} 已经提交请等待 
-        <div v-if="!chat.loading"> <NButton type="primary" @click="reload()">重新获取</NButton></div>
+     {{ $t('mjchat.wait2',{id:chat.mjID}) }}
+        <div v-if="!chat.loading"> <NButton type="primary" @click="reload()">{{ $t('mjchat.reload') }}</NButton></div>
 
     </div>
     <div class=" hidden">{{ chat.dateTime }}</div>
 
-    <NModal v-model:show="st.isShow"   preset="card"  title="局部重绘编辑" style="max-width: 800px;" @close="st.isShow=false" >
+    <NModal v-model:show="st.isShow"   preset="card"  :title="$t('mjchat.redrawEditing')" style="max-width: 800px;" @close="st.isShow=false" >
         <aiCanvas :chat="chat" :base64="st.uri_base64" v-if="st.isShow" @success="maskOk" />
     </NModal>
 </div>
 <div v-else class="w-[200px] h-[150px] flex flex-col justify-center items-center" >
-    <div class="p-4">正在载入图片</div>
+    <div class="p-4">{{ $t('mjchat.loading') }}</div>
     
-    <NButton type="primary"  ><a :href="chat.opt?.imageUrl" target="_blank">直接打开链接</a></NButton> 
+    <NButton type="primary"  ><a :href="chat.opt?.imageUrl" target="_blank">{{ $t('mjchat.openurl') }}</a></NButton> 
 </div>
 
 

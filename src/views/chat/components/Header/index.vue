@@ -97,7 +97,7 @@ const st = ref({isShow:false});
     </div>
   </header>
 
-  <NModal v-model:show="st.isShow"   preset="card"  title="模型切换" class="!max-w-[620px]" @close="st.isShow=false" >  
+  <NModal v-model:show="st.isShow"   preset="card"  :title="$t('mjchat.modelChange')" class="!max-w-[620px]" @close="st.isShow=false" >  
         <aiModel @close="st.isShow=false"/>
   </NModal>
 </template>

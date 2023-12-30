@@ -5,6 +5,7 @@ import { gptConfigStore, gptServerStore, homeStore } from "@/store";
 import { copyToClip } from "@/utils/copy";
 import { isNumber } from "@/utils/is";
 import { localGet, localSaveAny } from "./mjsave";
+import { t } from "@/locales";
 //import { useMessage } from "naive-ui";
 export interface gptsType{
     gid:string
@@ -22,14 +23,15 @@ export function upImg(file:any   ):Promise<any>
         //console.log('selectFile', file )
         if(file.size>(1024*1024)){
             //msgRef.value.showError('图片大小不能超过1M');
-            r('图片大小不能超过1M')
+            r(t('mjchat.no1m'))
             return ;
         }
         if (! (filename.endsWith('.jpg') ||
             filename.endsWith('.gif') ||
             filename.endsWith('.png') ||
             filename.endsWith('.jpeg') )) {
-            r('图片仅支持jpg,gif,png,jpeg格式');
+            //r('图片仅支持jpg,gif,png,jpeg格式');
+            r(t('mjchat.imgExt') );
             return ;
         }
         const reader = new FileReader();
@@ -89,7 +91,7 @@ export  async function train( text:string){
 
 
         if( text.trim()  =='') {
-           reject('请填写提示词！');
+           reject( t('mjchat.placeInput'));
             return ;
         }
 
@@ -118,6 +120,14 @@ export const mlog = (msg: string, ...args: unknown[]) => {
     if( !debug  ) return ;
     const style = `${logStyles}${msg.includes('error') ? 'red' : '#dd9089'}`
     console.log(`%c[mjgpt]`,  style, msg , ...args)
+}
+
+export const myTrim = (str: string, delimiter: string)=>{
+    // 构建正则表达式，使用动态的定界符
+    const regex = new RegExp(`^${delimiter}+|${delimiter}+$`, 'g');
+    
+    // 使用正则表达式去除字符串两端的定界符
+    return str.replace(regex, '');
 }
 
 function getHeaderApiSecret(){

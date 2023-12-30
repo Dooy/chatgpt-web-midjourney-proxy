@@ -61,14 +61,14 @@ async function onConversation() {
   if (loading.value)
     return
   if( !message.drawText && dataSources.value.length==0){
-      message.drawText='AI绘图';
+      message.drawText=  t('mjset.sysname');//'AI绘图';
   }
 //   if (!message || message.trim() === '')
 //     return
 
   controller = new AbortController()
   if( message.action && message.action=='face' ){
-    let promptMsg: Chat.Chat= getInitChat('换脸');
+    let promptMsg: Chat.Chat= getInitChat( t('mjchat.face')); //'换脸'
     try{
           let images= await localSaveAny( JSON.stringify( [message.data.sourceBase64,message.data.targetBase64 ] )  ) ;
           mlog('key', images );
@@ -81,7 +81,7 @@ async function onConversation() {
 
   }else if( message.action && message.action=='blend' ){
      // promptMsg.opt={  images: message.fileBase64 }
-     let promptMsg: Chat.Chat= getInitChat('混图');
+     let promptMsg: Chat.Chat= getInitChat(t('mjchat.blend') );//'混图'
      try{
           let images= await localSaveAny( JSON.stringify( message.data.base64Array )  ) ;
           mlog('key', images );
@@ -125,12 +125,12 @@ async function onConversation() {
     options = { ...lastContext }
   let outMsg: Chat.Chat={
       dateTime: new Date().toLocaleString(),
-      text: message.action=='gpt.dall-e-3'?'请勿关闭! 图片生成中...':'提交中',
+      text: message.action=='gpt.dall-e-3'? t('mjchat.wait3'): t('mjchat.submiting'),
       loading: true,
       inversion: false,
       error: false,
       conversationOptions: null,
-      requestOptions: { prompt: '提交中', options: { ...options } },
+      requestOptions: { prompt:  t('mjchat.submiting'), options: { ...options } },
       uuid:+uuid,
       myid: `${Date.now()}`
       ,model:message.action=='gpt.dall-e-3'? message.data.model :'midjourney'

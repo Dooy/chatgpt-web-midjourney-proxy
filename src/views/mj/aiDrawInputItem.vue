@@ -12,6 +12,7 @@ import { mlog, train, upImg ,getMjAll } from '@/api'
 //import {copyText3} from "@/utils/format";
 import { homeStore ,useChatStore} from "@/store";
 const chatStore = useChatStore()
+import {t} from "@/locales"
 //import { upImg } from "./mj";
 
 const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
@@ -26,13 +27,13 @@ const st =ref({text:'',isDisabled:false,isLoad:false
     ,fileBase64:[],bot:'',showFace:false
 });
 const farr= [
-{ k:'style',v:'风格'}
-,{ k:'view',v:'视角'}
-,{ k:'shot',v:'人物镜头'}
-,{ k:'light',v:'灯光'}
-,{ k:'quality',v:'画质'}
-,{ k:'styles',v:'艺术程度'}
-,{ k:'version',v:'模型版本'}
+{ k:'style',v:t('mjchat.tStyle') }
+,{ k:'view',v: t('mjchat.tView') }
+,{ k:'shot',v: t('mjchat.tShot') }
+,{ k:'light',v: t('mjchat.tLight') }
+,{ k:'quality',v: t('mjchat.tQuality') }
+,{ k:'styles',v:t('mjchat.tStyles') }
+,{ k:'version',v:t('mjchat.tVersion') }
  ];
 
 const msgRef = ref()
@@ -74,7 +75,7 @@ function drawSent(rz:any){
 }
 function createPrompt(rz:string){
     if( rz =='') {
-        msgRef.value.showError('请填写提示词！');
+        msgRef.value.showError(t('mjchat.placeInput') );
         return '';
     }
      
@@ -105,7 +106,7 @@ function createPrompt(rz:string){
 // }
 function selectFile(input:any){
     if(st.value.fileBase64.length>=5 ) {
-        ms.error('最多上传5张图片');
+        ms.error( t('mjchat.more5sb'));
         return;
     }
     upImg(input.target.files[0]).then(d=>st.value.fileBase64.push(d) ).catch(e=>msgRef.value.showError(e));
@@ -153,7 +154,8 @@ const exportToTxt= async ()=>{
    
     let d = await getMjAll( chatStore.$state);
     if(d.length==0) {
-        ms.info('暂时没作品');
+        //ms.info('暂时没作品');
+        ms.info( t('mjchat.noproducet'));
         return;
     }
     d.forEach((v:Chat.Chat,i:number)=>{
@@ -162,15 +164,15 @@ const exportToTxt= async ()=>{
         }
     })
     if(txtContent=='') {
-         ms.info('暂时没成熟作品');
+         ms.info( t('mjchat.noproducet'));
         return;
     }
     let blob = new Blob([txtContent], { type: "text/plain" });
     let a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "ai绘画.txt";
+    a.download = t('mjchat.downloadSave') ;
     a.click();
-    ms.success('导出成功... 请看下载栏');
+    ms.success( t('mjchat.exSuccess'));
 }
 //const config=
 </script>
@@ -183,13 +185,13 @@ const exportToTxt= async ()=>{
     
     <section class="mb-4">
         <div class="mr-1  mb-2 flex justify-between items-center">
-            <div class="text-sm">图片比例</div>
+            <div class="text-sm">{{ $t('mjchat.imgBili') }}</div>
             <div>
             <NPopover trigger="hover">
                 <template #trigger>
                  <SvgIcon icon="iconoir:database-export" class="text-lg cursor-pointer" @click="exportToTxt"></SvgIcon>
                 </template>
-                <div>作品图片链接导出</div>
+                <div>{{ $t('mjchat.imagEx') }}</div>
             </NPopover>
             </div>
         </div>
@@ -216,7 +218,7 @@ const exportToTxt= async ()=>{
 
      </section> -->
     <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="st.text"   placeholder="提示词" round clearable maxlength="500" show-count 
+     <n-input    type="textarea"  v-model:value="st.text"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
       :autosize="{   minRows:2, maxRows:5 }" />
     </div>
     <div class="mb-4 flex justify-between items-center">
@@ -224,21 +226,21 @@ const exportToTxt= async ()=>{
              <NPopover trigger="hover">
                 <template #trigger>
                 <n-tag type="error" round size="small" style="cursor: pointer; " :bordered="false" @click="fsRef.click()"   v-if="st.fileBase64.length">
-                <div style="display: flex;">  <SvgIcon icon="mdi:file-chart-check-outline" />含有垫图  </div>
+                <div style="display: flex;">  <SvgIcon icon="mdi:file-chart-check-outline" /> {{ $t('mjchat.imgCYes') }} </div>
                 </n-tag>
                 <n-tag type="warning" round size="small" style="cursor: pointer; " :bordered="false" @click="fsRef.click()"   v-else="st.fileBase64">
-                <div style="display: flex;">  <SvgIcon icon="mdi:file-document-plus-outline" /> 自传垫图  </div>
+                <div style="display: flex;">  <SvgIcon icon="mdi:file-document-plus-outline" />  {{ $t('mjchat.imgCUpload') }} </div>
                 </n-tag>
                 </template>
-                <div  style="max-width: 240px;">垫图说明：<br/>
-                1.垫图可使用自己的图片作为基础，让MJ来绘图<br/>
-                2.可以使用多张垫图 最多5张， 单张图片不超过1M<br/>
-                3.<a class="text-green-500 cursor-pointer"  @click="fsRef.click()" >+添加</a><br/> 
+                <div  style="max-width: 240px;">
+                <p v-html="$t('mjchat.imgCInfo')"></p>
+                
+                3.<a class="text-green-500 cursor-pointer"  @click="fsRef.click()" v-html="$t('mjchat.imgCadd')"></a><br/> 
                 <div  v-if="st.fileBase64.length>0" class="flex justify-start items-baseline">
                     <div class="p-1" v-for="(v ) in st.fileBase64">
                         <img  class="w-[60px]" :src="v">
                         <br/> 
-                        <NButton size="small" @click="st.fileBase64= st.fileBase64.filter((item)=>item!=v) " type="warning" >删除</NButton>
+                        <NButton size="small" @click="st.fileBase64= st.fileBase64.filter((item)=>item!=v) " type="warning" >{{$t('mjchat.del')}}</NButton>
                     </div>
                     
                 </div>
@@ -249,27 +251,37 @@ const exportToTxt= async ()=>{
                <NPopover trigger="hover">
                     <template #trigger>
                         <n-tag type="warning" round size="small" style="cursor: pointer; " :bordered="false" @click="fsRef2.click()"    >
-                            <div style="display: flex;">  <SvgIcon icon="fluent:image-edit-16-regular" /> 图生文  </div>
+                            <div style="display: flex;">  <SvgIcon icon="fluent:image-edit-16-regular" />  {{$t('mjchat.img2text')}} </div>
                         </n-tag>
                     </template>
-                     <div  style="max-width: 240px;">不知如何写提示词？用图生文试试！<br/>提交图片，出提示词
+                     <div  style="max-width: 240px;" v-html="$t('mjchat.img2textinfo')">
                      </div>
                 </NPopover>
             </div>
         </div>
         
 
-        <div class="flex ">
+        <div class="flex "  v-if="$t('mjchat.imgcreate').indexOf('生成图片')!==-1">
          <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
             <SvgIcon icon="mingcute:send-plane-fill" />  
             
-            <template v-if="st.isLoad"> 翻译中...</template>
-            <template v-else> 生成图片</template>
+            <template v-if="st.isLoad">{{$t('mjchat.traning')}} </template>
+            <template v-else> {{$t('mjchat.imgcreate')}}</template>
             
         </n-button>
         </div>
 
         
+    </div>
+
+    <div class="flex "  v-if="$t('mjchat.imgcreate').indexOf('生成图片')==-1">
+        <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
+        <SvgIcon icon="mingcute:send-plane-fill" />  
+        
+        <template v-if="st.isLoad">{{$t('mjchat.traning')}} </template>
+        <template v-else> {{$t('mjchat.imgcreate')}}</template>
+        
+    </n-button>
     </div>
 
     <!-- <div>
@@ -283,12 +295,8 @@ const exportToTxt= async ()=>{
         <div @click="copy2()"  >复制2</div> 
     </div> -->
 
-   <ul class="pt-4"  v-if="!isMobile">
-    其他参数：
-    <li>1 --no 忽略 --no car 图中不出现车 </li>
-    <li>2 --seed 可先获取种子 --seed 123456 </li> 
-    <li>3 --chaos 10 混合(范围：0-100)</li> 
-    <li>4 --tile 碎片化 </li> 
+   <ul class="pt-4"  v-if="!isMobile" v-html="$t('mjchat.imginfo')">
+    
 </ul>
 
 </div>

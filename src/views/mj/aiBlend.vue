@@ -5,6 +5,8 @@ import {upImg} from '@/api'
 import { homeStore } from '@/store';
 import { SvgIcon } from '@/components/common';
 import config from "./draw.json";
+import { t } from "@/locales";
+
 const ms = useMessage();
 const fsRef= ref() ;
 const st= ref({status:'',isGo:false,dimensions:'SQUARE'})
@@ -14,7 +16,7 @@ const selectFile=(input:any)=>{
         fsRef.value.value='';
         const index = base64Array.value.findIndex(item => item == d);
         if(index>-1){
-            ms.error('请勿重复添加图片')
+            ms.error(t('mjchat.no2add') )
             return ;
         }
         base64Array.value.push(d);
@@ -24,7 +26,7 @@ const selectFile=(input:any)=>{
 }
 const send= ()=>{
     if(base64Array.value.length<2){
-        ms.error('请添加两张以上图片')
+        ms.error( t('mjchat.add2more') )
         return ;
     }
     let obj={
@@ -43,7 +45,7 @@ const send= ()=>{
 
 <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
 <section class="mb-4 flex justify-between items-center"  >
-     <div>尺寸</div>
+     <div>{{ $t('mjchat.size') }}</div>
     <n-select v-model:value="st.dimensions" :options="config.dimensionsList" size="small"  class="!w-[70%]" :clearable="true" />
 </section>
 <div class="flex justify-start items-center flex-wrap myblend">
@@ -58,12 +60,10 @@ const send= ()=>{
         <SvgIcon icon="mdi:add-bold" class="text-[40px] text-[#fff]"></SvgIcon>
     </div>
 </div>
-<div   class="flex justify-end pt-5"><NButton @click="send" type="primary" :disabled="!st.isGo">开始合成</NButton> </div>
+<div   class="flex justify-end pt-5"><NButton @click="send" type="primary" :disabled="!st.isGo">{{$t('mjchat.blendStart')}}</NButton> </div>
 
-<ul class="pt-4">
-    说明：
-    <li>1 合成至少2张图片</li>
-    <li>2 最多可传6张图</li> 
+<ul class="pt-4" v-html="$t('mjchat.blendInfo')">
+    
 </ul>
 
 </template>

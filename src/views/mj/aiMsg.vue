@@ -4,7 +4,7 @@
 <script lang="ts" setup>
 import {  ref ,h} from 'vue';
 import {useNotification} from "naive-ui";
-
+import { t } from '@/locales'
 const notification = useNotification();
 const count = ref(0);
 
@@ -13,7 +13,7 @@ function increment() {
 }
 function showMsg(str:string){
 	notification.success({
-		title: "成功",
+		title:  t('mjchat.successTitle'),//"成功",
 		//description: "From the Beach Boys",
 		content: () => h('div',{innerHTML:str,class:'ddmsg'  } ),
 		duration: 2500,

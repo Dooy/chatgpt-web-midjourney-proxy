@@ -74,33 +74,28 @@ watch(()=>f.value.model,(n)=>{
 </script>
 <template>
 <section class="mb-4 flex justify-between items-center"  >
-     <div>版本</div>
+     <div>{{ $t('mjchat.version') }} </div>
     <n-select v-model:value="f.model" :options="config.model" size="small"  class="!w-[70%]" :clearable="false" />
 </section>
 <section class="mb-4 flex justify-between items-center"  >
-     <div>尺寸</div>
+     <div>{{ $t('mjchat.size') }}</div>
     <n-select v-model:value="f.size" :options="dimensionsList" size="small"  class="!w-[70%]" :clearable="false" />
 </section>
 <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="f.prompt"   placeholder="提示词" round clearable maxlength="500" show-count 
+     <n-input    type="textarea"  v-model:value="f.prompt"   :placeholder="$t('chat.prompt')" round clearable maxlength="500" show-count 
       :autosize="{   minRows:3, maxRows:10 }" />
 </div>
 
 <div class="mb-4 flex justify-end items-center">
     <div class="flex ">
          <n-button type="primary" :block="true" :disabled="isDisabled" @click="create()"  >
-            <SvgIcon icon="mingcute:send-plane-fill" />  
-            
-             生成图片 
-            
+            <SvgIcon icon="mingcute:send-plane-fill" />   
+             {{ $t('mjchat.imgcreate') }} 
         </n-button>
     </div>
 </div>
 
-<ul class="pt-4">
-    说明：
-    <li>1 dall-e 是openAi提供的画图模型</li>
-    <li>2 openAi的图片有时效性，请做好备份</li> 
-    <li>3 注意：1790px的图片价格是双倍</li> 
+<ul class="pt-4" v-html="$t('mjchat.delleInfo')">
+   
 </ul>
 </template>
