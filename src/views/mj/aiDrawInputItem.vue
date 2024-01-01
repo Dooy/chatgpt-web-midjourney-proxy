@@ -61,7 +61,22 @@ function create( ){
     })
 
     
-} 
+}
+
+const shorten= ()=>{
+
+    if( st.value.text.trim()=='') {
+        mlog('empty');
+        msgRef.value.showError(t('mjchat.placeInput') );
+        return;
+    }
+
+    let obj={
+            action:'shorten', 
+            data:{prompt: st.value.text.trim(),botType: st.value.bot=='NIJI_JOURNEY'? 'NIJI_JOURNEY': 'MID_JOURNEY'}
+        }
+    homeStore.setMyData({act:'draw',actData:obj});
+}
 function drawSent(rz:any){
     let rz2= rz;
     if(st.value.fileBase64) {
@@ -258,10 +273,15 @@ const exportToTxt= async ()=>{
                      </div>
                 </NPopover>
             </div>
+            <div class="pl-1">
+                <n-tag type="success" round size="small" style="cursor: pointer; " :bordered="false" @click="shorten()"   >
+                     <div style="display: flex;">  <SvgIcon icon="game-icons:bouncing-spring" /> Shorten </div>
+                </n-tag>
+            </div>
         </div>
         
 
-        <div class="flex "  v-if="$t('mjchat.imgcreate').indexOf('生成图片')!==-1">
+        <!-- <div class="flex "  v-if="$t('mjchat.imgcreate').indexOf('生成图片')!==-1">
          <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
             <SvgIcon icon="mingcute:send-plane-fill" />  
             
@@ -269,20 +289,21 @@ const exportToTxt= async ()=>{
             <template v-else> {{$t('mjchat.imgcreate')}}</template>
             
         </n-button>
-        </div>
+        </div> -->
 
         
     </div>
 
-    <div class="flex "  v-if="$t('mjchat.imgcreate').indexOf('生成图片')==-1">
-        <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
-        <SvgIcon icon="mingcute:send-plane-fill" />  
-        
-        <template v-if="st.isLoad">{{$t('mjchat.traning')}} </template>
-        <template v-else> {{$t('mjchat.imgcreate')}}</template>
-        
-    </n-button>
-    </div>
+    
+          
+        <div class="flex">
+            <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
+            <SvgIcon icon="mingcute:send-plane-fill" />  
+            
+            <template v-if="st.isLoad">{{$t('mjchat.traning')}} </template>
+            <template v-else> {{$t('mjchat.imgcreate')}}</template> 
+            </n-button>
+        </div> 
 
     <!-- <div>
     <NDivider dashed>

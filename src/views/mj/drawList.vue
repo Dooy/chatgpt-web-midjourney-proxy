@@ -92,7 +92,7 @@ async function onConversation() {
      addChat(  +uuid, promptMsg );
 
     
-  }else if( message.action && message.action=='gpt.dall-e-3' ){ //gpt.dall-e-3
+  }else if( message.action && ['gpt.dall-e-3','shorten'].indexOf(message.action) >-1   ){ //gpt.dall-e-3 //subTas
     let promptMsg: Chat.Chat= getInitChat( message.data.prompt ); 
      addChat(  +uuid, promptMsg );
   }else if( message.drawText){

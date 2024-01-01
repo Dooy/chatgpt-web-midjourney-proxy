@@ -5,8 +5,11 @@ import { computed , ref,watch } from 'vue'
 import {flechTask ,localGet,mlog, url2base64 } from '@/api'
 import { homeStore } from '@/store'
 import aiCanvas from './aiCanvas.vue'
+import MarkdownIt from 'markdown-it'
+
 interface Props { 
   chat:Chat.Chat
+  ,mdi:MarkdownIt
 }
  const { isMobile } = useBasicLayout()
 const ms = useMessage();
@@ -105,6 +108,14 @@ const bt= [
         ,{k:'Job::PicReader::3',n:'T3'}
         ,{k:'Job::PicReader::4',n:'T4'}
         ,{k:'Picread::Retry',n:'重分析'}
+        
+        ,{k:'PromptAnalyzer::1',n:'T1'}
+        ,{k:'PromptAnalyzer::2',n:'T2'}
+        ,{k:'PromptAnalyzer::3',n:'T3'}
+        ,{k:'PromptAnalyzer::4',n:'T4'}
+        ,{k:'PromptAnalyzer::5',n:'T5'}
+
+        //PromptAnalyzer::1
        // ,{k:'Job::PicReader::all',n:'全4张'}
     ]
     ,[
@@ -165,12 +176,20 @@ watch(()=>homeStore.myData.act,(n)=>{
     }
 })
 load();
+const text = computed(() => {
+  const value =  props.chat.opt?.properties?.finalZhPrompt 
+ return props.mdi.render(value)
+   
+})
 </script>
 <template>
 <div v-if="st.isLoadImg">
     
     <template   v-if="chat.opt?.progress">
-        <div v-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
+        <div v-if="chat.opt?.action=='SHORTEN'" class="markdown-body" v-html="text" > 
+             
+        </div> 
+        <div v-else-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
         <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64:chat.opt.imageUrl" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
         <div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
             <template v-if="chat.opt?.buttons">

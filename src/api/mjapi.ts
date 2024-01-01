@@ -217,6 +217,8 @@ export const flechTask= ( chat:Chat.Chat)=>{
 }
 export const subTask= async (data:any, chat:Chat.Chat )=>{
    let d:any;
+   
+   //return ;
    if(  data.action &&data.action=='change' ){ //执行变化
      d=  await mjFetch('/mj/submit/change' , data.data  );
    }else if( data.action &&data.action=='mask') { //局部重绘
@@ -227,7 +229,10 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
         d=  await mjFetch('/mj/submit/modal' , bdata );
      }
    }else if( data.action &&data.action=='blend') { //blend
-       d=  await mjFetch('/mj/submit/blend' ,  data.data );
+      d=  await mjFetch('/mj/submit/blend' ,  data.data );
+   }else if( data.action &&data.action=='shorten') { //shorten 
+      d=  await mjFetch('/mj/submit/shorten' ,  data.data );
+     //  mlog('mjFetch shorten' , data );
    }else if( data.action &&data.action=='face') { //换脸 
       d=  await mjFetch('/mj/insight-face/swap' , data.data  ); 
       //mlog('换年服务', data.data );
@@ -255,7 +260,7 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
        d=  await mjFetch('/mj/submit/modal' , { taskId:d.result} );
    }
      
-    backOpt(d, chat);
+   backOpt(d, chat);
    
     
     //if( chat.uuid &&  chat.index) updateChat(chat.uuid,chat.index, chat)
