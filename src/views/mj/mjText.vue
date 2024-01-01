@@ -6,6 +6,7 @@ import {flechTask ,localGet,mlog, url2base64 } from '@/api'
 import { homeStore } from '@/store'
 import aiCanvas from './aiCanvas.vue'
 import MarkdownIt from 'markdown-it'
+import {t} from "@/locales"
 
 interface Props { 
   chat:Chat.Chat
@@ -71,7 +72,7 @@ const maskOk=(d:any)=>{
     if(chat.value.opt?.buttons ==undefined ) return;
    
    mlog('maskOk',d  );
-    let i = getIndex( chat.value.opt?.buttons, {k:':Inpaint::1',n:'局部重绘'} );
+    let i = getIndex( chat.value.opt?.buttons, {k:':Inpaint::1',n: t('mj.redraw') } );
     let obj={
         action:'mask',
         version:1, 
@@ -96,18 +97,18 @@ const bt= [
     ,{k:':upsample::2',n:'U2'}
     ,{k:':upsample::3',n:'U3'}
     ,{k:':upsample::4',n:'U4'} 
-        ,{k:'high_variation',n:'强变化'},
-        {k:'low_variation',n:'弱变化'},
-        {k:':Inpaint::1',n:'局部重绘'},
-        {k:'Outpaint::50',n:'变焦1.5倍'},
-        {k:'Outpaint::75',n:'变焦2倍'},
-        {k:'Outpaint::100',n:'方正'}
+        ,{k:'high_variation',n: t('mj.high_variation')},
+        {k:'low_variation',n:t('mj.low_variation')},
+        {k:':Inpaint::1',n:t('mj.redraw')},
+        {k:'Outpaint::50',n: t('mj.p15')},
+        {k:'Outpaint::75',n: t('mj.p20')},
+        {k:'Outpaint::100',n: t('mj.p100')}
 
         ,{k:'Job::PicReader::1',n:'T1'}
         ,{k:'Job::PicReader::2',n:'T2'}
         ,{k:'Job::PicReader::3',n:'T3'}
         ,{k:'Job::PicReader::4',n:'T4'}
-        ,{k:'Picread::Retry',n:'重分析'}
+        ,{k:'Picread::Retry',n: t('mj.retry')}
         
         ,{k:'PromptAnalyzer::1',n:'T1'}
         ,{k:'PromptAnalyzer::2',n:'T2'}
@@ -123,13 +124,13 @@ const bt= [
     ,{k:':variation::2',n:'V2'}
     ,{k:':variation::3',n:'V3'}
     ,{k:':variation::4',n:'V4'}
-    ,{k:'pan_left',n:'向左'}
-    ,{k:'pan_right',n:'向右'}
-    ,{k:'pan_up',n:'向上'}
-    ,{k:'pan_down',n:'向下'}
-    ,{k:'reroll::0',n:'重绘'}
-    ,{k:'upsample_v5_2x',n:'高清2倍'}
-    ,{k:'upsample_v5_4x',n:'高清4倍'} 
+    ,{k:'pan_left',n: t('mj.pan_left')}
+    ,{k:'pan_right',n:t('mj.pan_right') }
+    ,{k:'pan_up',n:t('mj.pan_up')}
+    ,{k:'pan_down',n:t('mj.pan_down')}
+    ,{k:'reroll::0',n: t('mjchat.reroll')}
+    ,{k:'upsample_v5_2x',n:t('mj.up2')}
+    ,{k:'upsample_v5_4x',n:t('mj.up4')} 
     ]
 ]
 
@@ -167,12 +168,12 @@ watch(()=>homeStore.myData.act,(n)=>{
     if(n=='mjReload' &&  actData.mjID== chat.value.mjID ){ //&& actData.mjID==chat.value.mjID
          mlog('mjReload', actData.mjID, chat.value.mjID , chat.value.opt?.imageUrl);
          if( !st.value.isLoadImg){
-            ms.success('客官不要太急嘛，正在加载呢');
+            ms.success( t('mj.fail1'));
             return ;
          }
          st.value.isLoadImg=false;
          load();
-         if( !actData.noShow ) ms.success('图片刷新成功！');
+         if( !actData.noShow ) ms.success( t('mj.success1'));
     }
 })
 load();

@@ -104,7 +104,22 @@ export default {
     ,"setUploader": "업로드 관련"
     ,"setUploaderUrl": "업로드 주소:"
     ,"setBtSave": "저장"
-    ,"setBtBack": "기본으로 복원"
+    ,"setBtBack": "기본으로 복원",
+  "redraw": "부분 재그림",
+  "fail1": "고객님은 너무 급해하지 마세요. 로딩 중입니다.",
+  "success1": "이미지가 성공적으로 새로고쳐졌습니다!",
+  "high_variation": "강한 변화",
+  "low_variation": "약한 변화",
+  "p15": "확대 1.5배",
+  "p20": "확대 2배",
+  "p100": "표준",
+  "retry": "분석 다시 시도",
+  "pan_left": "왼쪽으로 다시 분석",
+  "pan_right": "오른쪽으로 다시 분석",
+  "pan_up": "위로 다시 분석",
+  "pan_down": "아래로 다시 분석",
+  "up2": "고화질 2배",
+  "up4": "고화질 4배" 
   },
   "mjset": {
     "server": "서버"

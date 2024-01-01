@@ -105,7 +105,24 @@ export default {
     "setUploader": "上傳相關",
     "setUploaderUrl": "上傳地址:",
     "setBtSave": "保存",
-    "setBtBack": "恢復默認"
+    "setBtBack": "恢復默認",
+  "redraw": "局部重繪",
+  "fail1": "客官不要太急嘛，正在加載呢",
+  "success1": "圖片刷新成功！",
+  "high_variation": "強變化",
+  "low_variation": "弱變化",
+  "p15": "變焦1.5倍",
+  "p20": "變焦2倍",
+  "p100": "方正",
+  "retry": "重分析",
+  "pan_left": "重分向左析",
+  "pan_right": "向右",
+  "pan_up": "向上",
+  "pan_down": "向下",
+  "up2": "高清2倍",
+  "up4": "高清4倍"
+ 
+
   },
   "mjset": {
     "server": "服務端",

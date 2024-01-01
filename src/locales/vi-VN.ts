@@ -102,7 +102,23 @@ export default {
     "setUploader": "Tải lên liên quan",
     "setUploaderUrl": "Địa chỉ tải lên:",
     "setBtSave": "Lưu",
-    "setBtBack": "Khôi phục mặc định"
+    "setBtBack": "Khôi phục mặc định",
+
+  "redraw": "Vẽ Lại Phần",
+  "fail1": "Anh/chị đừng vội, đang tải đó.",
+  "success1": "Ảnh đã làm mới thành công!",
+  "high_variation": "Biến Động Mạnh",
+  "low_variation": "Biến Động Nhẹ",
+  "p15": "Thu Phóng 1.5 lần",
+  "p20": "Thu Phóng 2 lần",
+  "p100": "Bình thường",
+  "retry": "Thử Lại Phân Tích",
+  "pan_left": "Phân Tích Lại Bên Trái",
+  "pan_right": "Phân Tích Lại Bên Phải",
+  "pan_up": "Phân Tích Lại Lên",
+  "pan_down": "Phân Tích Lại Xuống",
+  "up2": "Độ Phân Giải Cao 2 lần",
+  "up4": "Độ Phân Giải Cao 4 lần"
   },
   "mjset": {
     "server": "Máy chủ",

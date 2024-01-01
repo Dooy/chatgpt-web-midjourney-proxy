@@ -94,19 +94,7 @@ export default {
     downloadError: '请检查网络状态与 JSON 文件有效性',
   },
 
-  mj:{
-    setOpen:'OpenAI 相关',
-    setOpenPlaceholder:'必须包含 http(s)://'
-    ,setOpenUrl:'OpenAI接口地址'
-    ,setOpenKeyPlaceholder:'使用自定义 OpenAI Key 绕过密码访问限制'
-    ,setMj:'Midjourney 相关'
-    ,setMjUrl:'Midjourney接口地址:'
-    ,setMjKeyPlaceholder:'使用自定义 Api Secret 绕过密码访问限制'
-    ,setUploader:'上传相关' 
-    ,setUploaderUrl:'上传地址:'
-    ,setBtSave:'保存'
-    ,setBtBack:'恢复默认'
-  },
+  
   mjset:{
     server:'服务端'
     ,about:'关于'
@@ -195,5 +183,35 @@ export default {
     ,add2more:'请添加两张以上图片'
     ,no1m:'图片大小不能超过1M'
     ,imgExt:'图片仅支持jpg,gif,png,jpeg格式'
+  },
+  mj:{
+    setOpen:'OpenAI 相关',
+    setOpenPlaceholder:'必须包含 http(s)://'
+    ,setOpenUrl:'OpenAI接口地址'
+    ,setOpenKeyPlaceholder:'使用自定义 OpenAI Key 绕过密码访问限制'
+    ,setMj:'Midjourney 相关'
+    ,setMjUrl:'Midjourney接口地址:'
+    ,setMjKeyPlaceholder:'使用自定义 Api Secret 绕过密码访问限制'
+    ,setUploader:'上传相关' 
+    ,setUploaderUrl:'上传地址:'
+    ,setBtSave:'保存'
+    ,setBtBack:'恢复默认'
+
+    ,
+    redraw:'局部重绘'
+    ,fail1:'客官不要太急嘛，正在加载呢'
+    ,success1:'图片刷新成功！'
+    ,high_variation:'强变化'
+    ,low_variation:'弱变化'
+    ,p15:'变焦1.5倍'
+    ,p20:'变焦2倍'
+    ,p100:'方正'
+    ,retry:'重分析'
+    ,pan_left:'重分向左析'
+    ,pan_right:'向右'
+    ,pan_up:'向上'
+    ,pan_down:'向下'
+    ,up2:'高清2倍'
+    ,up4:'高清4倍'
   }
 }

@@ -106,7 +106,24 @@ export default {
     "setUploader": "Upload Related",
     "setUploaderUrl": "Upload Address:",
     "setBtSave": "Save",
-    "setBtBack": "Restore Default"
+    "setBtBack": "Restore Default",
+
+    "redraw": "Redraw",
+  "fail1": "Please be patient, it's loading.",
+  "success1": "Image refreshed successfully!",
+  "high_variation": "Strong Variation",
+  "low_variation": "Weak Variation",
+  "p15": "Zoom 1.5x",
+  "p20": "Zoom 2x",
+  "p100": "Normal",
+  "retry": "Retry",
+  "pan_left": "Left",
+  "pan_right": "Right",
+  "pan_up": "Up",
+  "pan_down": "Down",
+  "up2": "HD 2x",
+  "up4": "HD 4x"
+
   },
   "mjset": {
     "server": "Server",
