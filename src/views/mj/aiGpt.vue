@@ -6,6 +6,7 @@ import { gptConfigStore, homeStore, useChatStore } from '@/store'
 import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, GptUploader, localGet } from '@/api'
 import { isNumber } from '@/utils/is'
 import { useMessage  } from "naive-ui";
+import { t } from "@/locales";
 
 const emit = defineEmits(['finished']);
 const { addChat , updateChatSome } = useChat() 
@@ -50,7 +51,7 @@ const getMessage= async (start=1000)=>{
                let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
                if(arr.length>0) content = arr.join(' ')+' '+ content ;
 
-               mlog('附件',o.opt.images[0] , content );
+               mlog(t('mjchat.attr') ,o.opt.images[0] , content );
             }catch(ee){
             }
         }

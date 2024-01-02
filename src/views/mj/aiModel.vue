@@ -70,45 +70,45 @@ watch(()=>gptConfigStore.myData.model,(n)=>{
 </script>
 <template>
 <section class="mb-4 flex justify-between items-center"  >
-     <div ><span class="text-red-500">*</span> 模型</div>
+     <div ><span class="text-red-500">*</span>  {{ $t('mjset.model') }}</div>
     <n-select v-model:value="gptConfigStore.myData.model" :options="modellist" size="small"  class="!w-[50%]"   />
 </section>
 <section class="mb-4 flex justify-between items-center"  >
-    <n-input   placeholder="自定义模型多个用空格隔开，不是必须" v-model:value="gptConfigStore.myData.userModel">
+    <n-input   :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
       <template #prefix>
-        自定义模型
+        {{ $t('mjchat.myModle') }}
       </template>
     </n-input>
  </section>
  <section class=" flex justify-between items-center"  >
-     <div>上下文数量 
+     <div> {{ $t('mjchat.historyCnt') }}
      </div>
      <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
         <div class=" w-[200px]"><n-slider v-model:value="gptConfigStore.myData.talkCount" :step="1" :max="50" /></div>
         <div  class="w-[40px] text-right">{{ gptConfigStore.myData.talkCount }}</div>
     </div>
 </section>
-<div class="mb-4 text-[12px] text-gray-300/20"> 更多的上下文会使记忆更精确，但会消耗更多的额度</div>
+<div class="mb-4 text-[12px] text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
 
  <section class=" flex justify-between items-center"  >
-     <div>回复数 
+     <div> {{ $t('mjchat.historyTCnt') }} 
      </div>
      <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
         <div class=" w-[200px]"><n-slider v-model:value="gptConfigStore.myData.max_tokens" :step="1" :max="config.maxToken" :min="1" /></div>
         <div  class="w-[40px] text-right">{{ gptConfigStore.myData.max_tokens }}</div>
     </div>
 </section>
-<div class="mb-4 text-[12px] text-gray-300/20"> 回复数越大 ,越有可能消耗更多的额度</div>
+<div class="mb-4 text-[12px] text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}  </div>
 
  <section class="mb-4"  >
-    <div>角色设定</div>
+    <div>{{ $t('mjchat.role') }}</div>
     <div>
-     <n-input  type="textarea"  placeholder="给你的会话设置一个专属的角色，不是必须"   v-model:value="gptConfigStore.myData.systemMessage" :autosize="{ minRows: 3 }"
+     <n-input  type="textarea"  :placeholder=" $t('mjchat.rolePlaceholder') "   v-model:value="gptConfigStore.myData.systemMessage" :autosize="{ minRows: 3 }"
     />
     </div>
  </section>
  <section class=" text-right flex justify-end space-x-2"  >
-    <NButton   @click="gptConfigStore.setInit()">恢复默认</NButton>
-    <NButton type="primary" @click="save">保存</NButton>
+    <NButton   @click="gptConfigStore.setInit()">{{ $t('mj.setBtBack') }}</NButton>
+    <NButton type="primary" @click="save">{{ $t('mj.setBtSave') }}</NButton>
  </section>
 </template>

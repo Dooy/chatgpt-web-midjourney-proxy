@@ -2,10 +2,11 @@
 //import {  NLayoutSider } from 'naive-ui'; 
 import aiDrawInput from './aiDrawInput.vue';
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import {NButton,NDrawerContent,NDrawer} from "naive-ui";
-import { computed,ref,watch  } from "vue";
-import { SvgIcon } from '@/components/common';
+import { NDrawerContent,NDrawer} from "naive-ui";
+import { computed,ref  } from "vue";
+//import { SvgIcon } from '@/components/common';
 import { homeStore } from '@/store';
+ 
 //import { homeStore } from '@/store';
 const { isMobile } = useBasicLayout()
 
@@ -27,17 +28,17 @@ function drawSent(e:any){
 //   act=='newtask' && (st.value.show=true);
 //   act=='same2' && (st.value.show=true);
 // });
+ 
 </script>
 <template>
-<div v-if="isMobile" >
-   <!-- <NButton type="primary" :block="true"  @click="st.show=true">新建任务</NButton> -->
-    <div class="fixed right-[30px] bottom-[70px] z-10">
+<div v-if="isMobile" > 
+    <!-- <div class="fixed right-[30px] bottom-[70px] z-10">
     <n-button  type="warning" circle size="large" @click="st.show=true">
       <template #icon>
         <SvgIcon icon="ic:round-add"></SvgIcon>
       </template>
     </n-button>
-    </div>
+    </div> -->
     <n-drawer v-model:show="st.show" :height="565"  placement="bottom">
     <n-drawer-content   style="--n-body-padding:0" class="h-full">
       <aiDrawInput @draw-sent="drawSent" :button-disabled="isLoading"/>

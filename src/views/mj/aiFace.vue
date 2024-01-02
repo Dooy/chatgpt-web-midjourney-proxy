@@ -35,20 +35,16 @@ const send=()=>{
 <div class="flex justify-around items-center">
     <div class="h-[80px] w-[80px] rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click="(st.status='source') && fsRef.click()">
         <img :src="f.sourceBase64" v-if="f.sourceBase64" />
-        <div class="text-center" v-else>你的头像</div> 
+        <div class="text-center" v-else>{{ $t('mjchat.yourHead') }}</div> 
     </div>
     <div>+</div>
     <div class="h-[80px] w-[80px] rounded-sm border border-gray-400/20  flex justify-center items-center cursor-pointer"  @click="(st.status='target') && fsRef.click()">
          <img :src="f.targetBase64" v-if="f.targetBase64"/>
-        <div class="text-center" v-else>明星图</div> 
+        <div class="text-center" v-else>{{ $t('mjchat.your2Head') }}</div> 
     </div>
 </div>
-<div   class="flex justify-center pt-5"><NButton @click="send" type="primary" :disabled="!st.isGo">提交</NButton> </div>
-<ul class="pt-4">
-    说明：
-    <li>1 图片都必须包含脸，否则出不来图</li>
-    <li>2 “明星图”可以先用mj绘画制作出来</li>
-    <li>3 “明星图”其实动漫图也行</li>
-    <li>4 “你的头像”建议用一寸个人照</li>
+<div   class="flex justify-center pt-5"><NButton @click="send" type="primary" :disabled="!st.isGo">{{ $t('mjchat.submit') }}</NButton> </div>
+<ul class="pt-4" v-html="$t('mjchat.tipInfo')">
+    
 </ul>
 </template>

@@ -15,15 +15,15 @@ const drawSent=(d:any )=> $emit('drawSent',d);
     <n-tab-pane name="start" tab=""> 
 
     </n-tab-pane>
-     <n-tab-pane name="draw" tab="绘图" >
+     <n-tab-pane name="draw" :tab="$t('mjchat.draw')" >
         <aiDrawInputItem @draw-sent="drawSent" @close="$emit('close')"></aiDrawInputItem>
 
     </n-tab-pane>
-    <n-tab-pane name="face" tab="换脸">
+    <n-tab-pane name="face" :tab="$t('mjchat.face')">
     <div class="p-4"><aiFace  /></div>
      
     </n-tab-pane>
-    <n-tab-pane name="blend" tab="混图">
+    <n-tab-pane name="blend" :tab="$t('mjchat.blend')">
      <div class="p-4"><aiBlend  /></div>
     </n-tab-pane>
     <n-tab-pane name="dall3" tab="Dall.E">

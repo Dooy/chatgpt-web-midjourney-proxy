@@ -58,8 +58,8 @@ load();
         <NImage   v-if="chat.opt?.imageUrl" :src="st.uri_base64?st.uri_base64:chat.opt.imageUrl" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
     </div>
     <div v-else-if="chat.opt?.imageUrl" class="w-[200px] h-[150px] flex flex-col justify-center items-center" >
-        <div class="p-4">正在载入图片</div>
-        <NButton type="primary"  ><a :href="chat.opt?.imageUrl" target="_blank">直接打开链接</a></NButton> 
+        <div class="p-4">{{ $t('mjchat.loading') }}</div>
+        <NButton type="primary"  ><a :href="chat.opt?.imageUrl" target="_blank">{{ $t('mjchat.openurl') }}</a></NButton> 
     </div>
 </div>
 </template>

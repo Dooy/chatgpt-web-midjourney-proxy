@@ -7,6 +7,7 @@ import Permission from './Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
 import { aiSider,aiGpts ,aiGallery} from '@/views/mj' 
+import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -50,7 +51,7 @@ const getContainerClass = computed(() => {
 </script>
 
 <template>
-  <div class="h-full dark:bg-[#24272e] transition-all" :class="[isMobile ? 'p-0' : 'p-0']">
+  <div class="  dark:bg-[#24272e] transition-all p-0"  :class="[isMobile ? 'h55' : 'h-full' ]">
     <div class="h-full overflow-hidden" :class="getMobileClass">
       <NLayout class="z-40 transition" :class="getContainerClass" has-sider>
         <aiSider v-if="!isMobile"/>
@@ -64,6 +65,14 @@ const getContainerClass = computed(() => {
     </div>
     <Permission :visible="needPermission" />
   </div>
+   <aiMobileMenu v-if="isMobile"   /> 
+
   <aiGpts/>
   <aiGallery/>
 </template>
+
+<style  >
+.h55{
+  height: calc(100% - 55px);
+}
+</style>

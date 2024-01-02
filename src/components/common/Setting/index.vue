@@ -54,7 +54,7 @@ const show = computed({
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:equalizer-line" />
             <!-- <span class="ml-2">{{ $t('setting.advanced') }}</span> -->
-            <span class="ml-2">模型</span>
+            <span class="ml-2">{{ $t('mjset.model') }}</span>
           </template>
           <div class="min-h-[100px]">
             <!-- <Advanced /> -->
@@ -65,7 +65,7 @@ const show = computed({
         <NTabPane name="server" tab="server" v-if=" ! homeStore.myData.session.isHideServer">
           <template #tab>
             <SvgIcon class="text-lg" icon="mingcute:server-line" />
-            <span class="ml-2">服务端</span>
+            <span class="ml-2">{{ $t('mjset.server') }}</span>
           </template>
           <aiSetServer />
         </NTabPane>
@@ -73,7 +73,7 @@ const show = computed({
           <template #tab>
             <SvgIcon class="text-lg" icon="ri:list-settings-line" />
             <!-- <span class="ml-2">{{ $t('setting.config') }}</span> -->
-            <span class="ml-2">关于</span>
+            <span class="ml-2">{{ $t('mjset.about') }}</span>
           </template>
           <About />
         </NTabPane>

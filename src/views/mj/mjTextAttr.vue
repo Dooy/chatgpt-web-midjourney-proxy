@@ -24,7 +24,7 @@ load();
             <NImage :src="img" preview class=" rounded" :class="[images.length<=1?'w-[330px]':'w-[130px]']" >
                 <template #placeholder>
                  <a class="w-full h-full flex items-center justify-center  text-neutral-500" :href="img" target="_blank" >
-                    <SvgIcon icon="mdi:download" />附{{ k+1 }}
+                    <SvgIcon icon="mdi:download" />{{$t('mjchat.attr')}} {{ k+1 }}
                 </a>
                 </template>
             </NImage>

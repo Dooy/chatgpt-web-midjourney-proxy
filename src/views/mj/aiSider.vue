@@ -33,7 +33,7 @@ const goHome =computed(  () => {
                   <template #trigger> 
                     <div  class="flex h-full justify-center items-center py-1 flex-col " :class="[ goHome =='Chat' ? 'active' : '']">
                     <SvgIcon icon="ri:wechat-line" class="text-3xl  flex-1"></SvgIcon>
-                     <span class="text-[10px]">对话</span>
+                     <span class="text-[10px]">{{$t('mjtab.chat')}}</span>
                     </div>
                  </template>
                 AI Chat
@@ -44,7 +44,7 @@ const goHome =computed(  () => {
                   <template #trigger> 
                     <div  class="flex h-full justify-center items-center   py-1 flex-col" >
                     <SvgIcon icon="ri:apps-fill" class="text-3xl flex-1"></SvgIcon>
-                     <span class="text-[10px]">GTPs</span>
+                     <span class="text-[10px]">GPTs</span>
                     </div> 
                   </template>
                     ChatGPT Store 
@@ -57,10 +57,10 @@ const goHome =computed(  () => {
                   <template #trigger> 
                     <div  class="flex h-full justify-center items-center   py-1 flex-col" :class="[goHome=='draw' ? 'active' : '']">
                     <SvgIcon icon="ic:outline-palette" class="text-3xl flex-1"></SvgIcon>
-                     <span class="text-[10px]">绘画</span>
+                     <span class="text-[10px]">{{$t('mjtab.draw')}}</span>
                     </div> 
                   </template>
-                    AI绘画 Midjourney引擎
+                    {{$t('mjtab.drawinfo')}}
                 </n-tooltip>
             </a>
 
@@ -71,10 +71,10 @@ const goHome =computed(  () => {
                   <template #trigger> 
                     <div  class="flex h-full justify-center items-center   py-1 flex-col" >
                     <SvgIcon icon="material-symbols:imagesmode-outline" class="text-3xl flex-1"></SvgIcon>
-                     <span class="text-[10px]">画廊</span>
+                     <span class="text-[10px]">{{$t('mjtab.gallery')}}</span>
                     </div> 
                   </template>
-                    我的画廊
+                    {{ $t('mjtab.galleryInfo') }}
                 </n-tooltip>
             </a>
 
