@@ -189,6 +189,11 @@ const exportToTxt= async ()=>{
     a.click();
     ms.success( t('mjchat.exSuccess'));
 }
+const clearAll=()=>{
+    //f.value
+    Object.keys(f.value).map(k=>f.value[k]='');
+    f.value.bili= -1;
+}
 //const config=
 </script>
 <template>
@@ -233,11 +238,12 @@ const exportToTxt= async ()=>{
 
      </section> -->
     <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="st.text"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
+     <n-input    type="textarea"  v-model:value="st.text"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="2000" show-count 
       :autosize="{   minRows:2, maxRows:5 }" />
     </div>
     <div class="mb-4 flex justify-between items-center">
-        <div class="flex justify-start items-center">
+        <div class="flex justify-start items-center flex-wrap">
+             <div class="pt-1 pr-1 ">
              <NPopover trigger="hover">
                 <template #trigger>
                 <n-tag type="error" round size="small" style="cursor: pointer; " :bordered="false" @click="fsRef.click()"   v-if="st.fileBase64.length">
@@ -261,8 +267,9 @@ const exportToTxt= async ()=>{
                 </div>
                 </div>
              </NPopover>
+             </div>
 
-             <div class="pl-1">
+             <div class="pr-1 pt-1">
                <NPopover trigger="hover">
                     <template #trigger>
                         <n-tag type="warning" round size="small" style="cursor: pointer; " :bordered="false" @click="fsRef2.click()"    >
@@ -273,11 +280,12 @@ const exportToTxt= async ()=>{
                      </div>
                 </NPopover>
             </div>
-            <div class="pl-1">
+            <div class="pt-1" >
                 <n-tag type="success" round size="small" style="cursor: pointer; " :bordered="false" @click="shorten()"   >
                      <div style="display: flex;">  <SvgIcon icon="game-icons:bouncing-spring" /> Shorten </div>
                 </n-tag>
             </div>
+            
         </div>
         
 
@@ -304,6 +312,14 @@ const exportToTxt= async ()=>{
             <template v-else> {{$t('mjchat.imgcreate')}}</template> 
             </n-button>
         </div> 
+        <div class="flex justify-start items-center py-1">
+            
+            <div >
+                <n-tag type="success" round size="small" style="cursor: pointer; " :bordered="false" @click="clearAll()"   >
+                     <div style="display: flex;">  <SvgIcon icon="ant-design:clear-outlined" />{{   $t('mj.clearAll')  }}  </div>
+                </n-tag>
+            </div>
+        </div>
 
     <!-- <div>
     <NDivider dashed>
@@ -316,9 +332,8 @@ const exportToTxt= async ()=>{
         <div @click="copy2()"  >复制2</div> 
     </div> -->
 
-   <ul class="pt-4"  v-if="!isMobile" v-html="$t('mjchat.imginfo')">
-    
-</ul>
+   <ul class="pt-4"  v-if="!isMobile" v-html="$t('mjchat.imginfo')"></ul>
+   
 
 </div>
 

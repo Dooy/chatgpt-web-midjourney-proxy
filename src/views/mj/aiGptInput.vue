@@ -13,7 +13,7 @@ import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
 const fsRef = ref()
-const st = ref<{fileBase64:string[]}>({fileBase64:[]})
+const st = ref<{fileBase64:string[],isLoad:number}>({fileBase64:[],isLoad:0 })
 const { isMobile } = useBasicLayout()
 const placeholder = computed(() => {
   if (isMobile.value)
@@ -96,7 +96,7 @@ function selectFile(input:any){
             upImg( file).then(d=>{
                 fsRef.value.value='';
                 if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
-                    ms.error('不能重复上传')
+                    ms.error(t('mj.noReUpload')) ;//'不能重复上传'
                     return ;
                 }
                 st.value.fileBase64.push(d)  
@@ -106,18 +106,23 @@ function selectFile(input:any){
         const formData = new FormData( );
         //const file = input.target.files[0];
         formData.append('file', file); 
-        ms.info('上传中...');
+        ms.info( t('mj.uploading') );
+        st.value.isLoad=1;
         GptUploader('/v1/upload',formData).then(r=>{
             //mlog('上传成功', r);
+             st.value.isLoad= 0 ;
             if(r.url ){
-                ms.info('上传成功');
+                ms.info(t('mj.uploadSuccess'));
                 if(r.url.indexOf('http')>-1) {
                     st.value.fileBase64.push(r.url)
                 }else{
                     st.value.fileBase64.push(location.origin +r.url)
                 }
             }else if(r.error) ms.error(r.error);
-        }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
+        }).catch(e=>{
+            st.value.isLoad= 0 ;
+            ms.error( t('mj.uploadFail')+ ( e.message?? JSON.stringify(e)) )
+        });
     }
  }
  
@@ -184,23 +189,13 @@ const paste=   (e: ClipboardEvent)=>{
                 <div  class=" relative; w-[22px]">
                     <n-tooltip trigger="hover">
                     <template #trigger>
-                    <SvgIcon icon="ri:attachment-line" class="absolute bottom-[10px] left-[8px] cursor-pointer" @click="fsRef.click()"></SvgIcon>
+                    <SvgIcon icon="line-md:uploading-loop" class="absolute bottom-[10px] left-[8px] cursor-pointer" v-if="st.isLoad==1"></SvgIcon>
+                    <SvgIcon icon="ri:attachment-line" class="absolute bottom-[10px] left-[8px] cursor-pointer" @click="fsRef.click()" v-else></SvgIcon>
                     </template>
-                    <div v-if="canVisionModel(gptConfigStore.myData.model)">
-                       <span>上传图片、附件<br/>能上传图片、PDF、EXCEL等文档</span>
-                       <p>支持拖拽</p>
+                    <div v-if="canVisionModel(gptConfigStore.myData.model)" v-html="$t('mj.upPdf')">
+                        
                     </div>
-                    <div v-else>
-                         <span><b>上传图片</b>
-                         <br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用
-                         <br/>格式: jpeg jpg png gif
-                         </span>
-                          <p>支持拖拽</p>
-                          <p class="pt-2"><b>上传MP3 MP4</b> 
-                          <br>会自动直接调用 whisper-1 模型
-                          <br>格式有：mp3 mp4 mpeg mpga m4a wav webm
-                          </p>
-
+                    <div v-else v-html="$t('mj.upImg')"> 
                     </div>
                     </n-tooltip>
                 </div>
@@ -209,10 +204,19 @@ const paste=   (e: ClipboardEvent)=>{
             <template #suffix>
                 <div  class=" relative; w-[40px] ">
                     <div class="absolute bottom-[-3px] right-[0px] ">
-                        <NButton type="primary" :disabled="disabled || homeStore.myData.isLoader "  @click="handleSubmit" >
+                         
+                        <!-- <NButton type="primary"  v-if="homeStore.myData.isLoader " >
+                            <template #icon>
+                            <span class="dark:text-black"> 
+                                <SvgIcon icon="ri:stop-circle-line" />
+                            </span>
+                            </template>
+                        </NButton> -->
+                        <NButton type="primary" :disabled="disabled || homeStore.myData.isLoader "     @click="handleSubmit" >
                             <template #icon>
                             <span class="dark:text-black">
-                                <SvgIcon icon="ri:send-plane-fill" />
+                                <SvgIcon icon="ri:stop-circle-line" v-if="homeStore.myData.isLoader" />
+                                <SvgIcon icon="ri:send-plane-fill" v-else />
                             </span>
                             </template>
                         </NButton>

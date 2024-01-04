@@ -115,12 +115,25 @@ export default {
   "p20": "變焦2倍",
   "p100": "方正",
   "retry": "重分析",
-  "pan_left": "重分向左析",
+  "pan_left": "向左",
   "pan_right": "向右",
   "pan_up": "向上",
   "pan_down": "向下",
   "up2": "高清2倍",
-  "up4": "高清4倍"
+  "up4": "高清4倍",
+  
+  "thinking": "思考中...",
+  "noReUpload": "不能重複上傳",
+  "uploading": "上傳中...",
+  "uploadSuccess": "上傳成功",
+  "uploadFail": "上傳失敗:",
+  "upPdf": "<span>上傳圖片或附件<br/>可以上傳圖片、PDF、EXCEL等文檔</span><p>支持拖放</p>",
+  "upImg": "<span><b>上傳圖片</b><br/>將自動調用 gpt-4-vision-preview 模型<br>注意：可能會有額外的圖片費用<br/>格式：jpeg、jpg、png、gif</span><p>支持拖放</p> <p class=\"pt-2\"><b>上傳MP3 MP4</b> <br>將自動直接調用 whisper-1 模型<br>格式：mp3、mp4、mpeg、mpga、m4a、wav、webm</p>",
+  "clearAll": "清參數",
+  "czoom": "自定義",
+  "customTitle": "自定義變焦",
+  "zoominfo": "修改zoom值，範圍在 1.0 到 2.0，默认设置為1.8"
+
  
 
   },

@@ -113,7 +113,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
        
         let outMsg: Chat.Chat={
             dateTime: new Date().toLocaleString(),
-            text:  '思考中...',
+            text: t('mj.thinking') ,//'思考中...',
             loading: true,
             inversion: false,
             error: false,

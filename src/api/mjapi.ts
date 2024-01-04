@@ -221,6 +221,13 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
    //return ;
    if(  data.action &&data.action=='change' ){ //执行变化
      d=  await mjFetch('/mj/submit/change' , data.data  );
+   }else if( data.action &&data.action=="CustomZoom") { //自定义变焦
+         d =  await mjFetch('/mj/submit/action' , data.data  );
+        if(d.result){
+            let bdata= data.maskData;
+            bdata.taskId= d.result;
+            d=  await mjFetch('/mj/submit/modal' , bdata );
+        }
    }else if( data.action &&data.action=='mask') { //局部重绘
      d =  await mjFetch('/mj/submit/action' , data.data  );
      if(d.result){
