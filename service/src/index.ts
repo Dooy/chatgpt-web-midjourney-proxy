@@ -146,15 +146,50 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
+
+const storage2 = multer.memoryStorage();
+const upload2 = multer({ storage: storage2 });
+
 // 处理文件上传的路由
 const isUpload= isNotEmptyString(  process.env.API_UPLOADER )
-if(isUpload){
-  app.use('/openapi/v1/upload', upload.single('file'), (req, res) => {
+if(isUpload){ 
+  if( process.env.FILE_SERVER){
+    app.use('/openapi/v1/upload',  
+    upload2.single('file'),
+      async (req, res, next) => { 
+        //console.log( "boday",req.body ,  req.body.model );
+        if(req.file.buffer) { 
+          const fileBuffer = req.file.buffer; 
+          const formData = new FormData();
+          formData.append('file',  fileBuffer,  { filename:  req.file.originalname }  );
+          //formData.append('model',  req.body.model ); 
+        try{
+          let url = process.env.FILE_SERVER ; 
+          let responseBody = await axios.post( url , formData, {
+                  headers: {  
+                  //Authorization: 'Bearer '+ process.env.OPENAI_API_KEY ,
+                  'Content-Type': 'multipart/form-data'  
+                } 
+            })   ;
+            
+          res.json(responseBody.data );
+          }catch(e){
+            res.status( 400 ).json( {error: e } );
+          }
+        }else{
+          res.status(400).json({'error':'uploader fail'});
+        } 
+      }
+    );
+  }
+  else{ 
+    app.use('/openapi/v1/upload', upload.single('file'), (req, res) => {
     //res.send('文件上传成功！');
     res.setHeader('Content-type', 'application/json' ); 
     if(req.file.filename) res.json({ url:`/uploads/${formattedDate()}/${ req.file.filename  }`,created:Date.now() })
     else res.json({ error:`uploader fail`,created:Date.now() })
   });
+  }
 }else {
   app.use('/openapi/v1/upload',  (req, res) => {
     //res.send('文件上传成功！');
@@ -163,8 +198,7 @@ if(isUpload){
 }
 app.use('/uploads', express.static('uploads'));
 
-const storage2 = multer.memoryStorage();
-const upload2 = multer({ storage: storage2 });
+
 
 app.use(
   '/openapi/v1/audio/transcriptions', 
