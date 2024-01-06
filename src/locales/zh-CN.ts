@@ -225,6 +225,9 @@ export default {
     ,clearAll:'清参数'  
     ,czoom:'自定义'
     ,customTitle:'自定义变焦'
-    ,zoominfo:'修改zoom值,范围在 1.0~2.0 默认设置为1.8'
+    ,zoominfo:'修改zoom值,范围在 1.0~2.0 默认设置为1.8',
+    
+    modleSuccess:'模型加载成功'
+    ,setingSuccess:'设置成功'
   }
 }

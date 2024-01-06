@@ -132,9 +132,10 @@ export default {
   "clearAll": "清參數",
   "czoom": "自定義",
   "customTitle": "自定義變焦",
-  "zoominfo": "修改zoom值，範圍在 1.0 到 2.0，默认设置為1.8"
+  "zoominfo": "修改zoom值，範圍在 1.0 到 2.0，默认设置為1.8",
 
- 
+ "modleSuccess": "模型成功載入",
+  "setingSuccess": "設定成功"
 
   },
   "mjset": {

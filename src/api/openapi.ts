@@ -1,9 +1,10 @@
 
 import { gptConfigStore, gptServerStore, homeStore } from "@/store";
-import { mlog } from "./mjapi";
+import { mlog,myTrim } from "./mjapi";
 import { fetchSSE } from "./sse/fetchsse";
 import axios from 'axios';
 import { localSaveAny } from "./mjsave";
+import { isObject } from "@/utils/is";
 //import FormData from 'form-data';
 
 export const KnowledgeCutOffDate: Record<string, string> = {
@@ -256,5 +257,27 @@ export const  gptUsage=async ()=>{
      //remaining = subscriptionData.system_hard_limit_usd - totalUsage;
      return {usage,remaining:Math.round(billData.system_hard_limit_usd- usageData.total_usage ) / 100 } ;
 
+}
+
+export const openaiSetting= ( q:any )=>{
+    //mlog()
+    mlog('setting', q )
+    if(isObject(q)){ 
+        mlog('setting2', q )
+        gptServerStore.setMyData(  q ) 
+        //gptServerStore.setMyData( gptServerStore.myData );
+        blurClean();
+        gptServerStore.setMyData( gptServerStore.myData );
+
+    }
+    
+}
+export const blurClean= ()=>{
+  mlog('blurClean');
+  gptServerStore.myData.OPENAI_API_BASE_URL =myTrim( myTrim(gptServerStore.myData.OPENAI_API_BASE_URL.trim(),'/'), '\\' );
+  gptServerStore.myData.OPENAI_API_KEY = gptServerStore.myData.OPENAI_API_KEY.trim();
+  gptServerStore.myData.MJ_SERVER =myTrim( myTrim( gptServerStore.myData.MJ_SERVER.trim(),'/'),'\\');
+  gptServerStore.myData.MJ_API_SECRET = gptServerStore.myData.MJ_API_SECRET.trim();
+  gptServerStore.myData.UPLOADER_URL=  myTrim( myTrim( gptServerStore.myData.UPLOADER_URL.trim(),'/'),'\\');
 }
 

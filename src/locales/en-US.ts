@@ -134,9 +134,10 @@ export default {
   "clearAll": "Clear parameters",
   "czoom": "Custom",
   "customTitle": "Custom zoom",
-  "zoominfo": "Modify zoom value, range from 1.0 to 2.0, default is set to 1.8"
+  "zoominfo": "Modify zoom value, range from 1.0 to 2.0, default is set to 1.8",
 
-
+"modleSuccess": "Model loaded successfully",
+"setingSuccess": "Settings successful"
   },
   "mjset": {
     "server": "Server",

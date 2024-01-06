@@ -131,7 +131,10 @@ export default {
   "clearAll": "매개변수 지우기",
   "czoom": "사용자 정의",
   "customTitle": "사용자 정의 줌",
-  "zoominfo": "줌 값 수정, 범위는 1.0에서 2.0까지이며 기본 설정은 1.8로 설정됩니다"
+  "zoominfo": "줌 값 수정, 범위는 1.0에서 2.0까지이며 기본 설정은 1.8로 설정됩니다",
+
+  "modleSuccess": "모델이 성공적으로 로드되었습니다",
+  "setingSuccess": "설정이 성공적으로 완료되었습니다"
 
   },
   "mjset": {

@@ -8,6 +8,9 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
 import { aiSider,aiGpts ,aiGallery} from '@/views/mj' 
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
+import { t } from '@/locales'
+import { openaiSetting } from '@/api'
+import { isObject } from '@/utils/is'
 
 const router = useRouter()
 const appStore = useAppStore()
@@ -15,16 +18,19 @@ const chatStore = useChatStore()
 const authStore = useAuthStore()
 
 const rt = useRoute();
-if(rt.name =='GPTs'){
-  const ms = useMessage();
+const ms = useMessage();
+openaiSetting( rt.query)
+if(rt.name =='GPTs'){ 
   let model= `gpt-4-gizmo-${rt.params.gid.toString()}`  ;
   gptConfigStore.setMyData({model:model});
-  ms.success(`GPTs 模型加载成功`);
-}else if(rt.name=='Model'){
-   const ms = useMessage();
+  ms.success(`GPTs ${t('mj.modleSuccess')}`);
+}else if(rt.name=='Setting'){ 
+  openaiSetting( rt.query);
+  if(isObject( rt.query ))  ms.success( t('mj.setingSuccess') ); 
+}else if(rt.name=='Model'){ 
   let model= `${rt.params.gid.toString()}`  ;
   gptConfigStore.setMyData({model:model});
-  ms.success(`模型加载成功`);
+  ms.success( t('mj.modleSuccess') );
 }
 
 router.replace({ name: 'Chat', params: { uuid: chatStore.active } })

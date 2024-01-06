@@ -130,7 +130,10 @@ export default {
   "clearAll": "Xóa tất cả các tham số",
   "czoom": "Tùy chỉnh",
   "customTitle": "Tùy chỉnh zoom",
-  "zoominfo": "Sửa giá trị zoom, khoảng từ 1.0 đến 2.0, mặc định được đặt là 1.8"
+  "zoominfo": "Sửa giá trị zoom, khoảng từ 1.0 đến 2.0, mặc định được đặt là 1.8",
+
+   "modleSuccess": "Tải mô hình thành công",
+  "setingSuccess": "Thiết lập thành công"
 
   },
   "mjset": {

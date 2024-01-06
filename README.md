@@ -28,9 +28,10 @@
 - ✅ chatgpt 支持图片上传图片 供gpt-4-vision-preview使用
 - ✅ chatgpt 支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
 - ✅ chatgpt 支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
-- ✅ chatgpt 支持超链模型切换 https://git.ddaiai.com/#/m/gpt-4-all https://git.ddaiai.com/#/m/gpt-4-gizmo-g-2fkFE8rbu
+- ✅ chatgpt 支持超链模型切换 https://vercel.ddaiai.com/#/m/gpt-4-all https://vercel.ddaiai.com/#/m/gpt-4-gizmo-g-2fkFE8rbu
 - ✅ chatgpt 支持 GPTs 多模态
 - ✅ chatgpt 支持 tts whisper
+- ✅ 支持超链 更换设置 https://vercel.ddaiai.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
 
 ## 待开发
 - ⏰ 支持 GPTs 多模态
