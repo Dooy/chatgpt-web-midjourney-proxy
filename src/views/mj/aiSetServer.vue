@@ -2,7 +2,7 @@
 import { NInput, NButton, useMessage} from "naive-ui"
  
 import {gptServerStore} from '@/store'
-import { mlog, myTrim} from "@/api";
+import { mlog, myTrim,blurClean} from "@/api";
 import { t } from '@/locales'
 
 const emit= defineEmits(['close']);
@@ -12,14 +12,14 @@ const save = ()=>{
     ms.success( t('mjchat.success'));
     emit('close');
 }
-const blurClean= ()=>{
-  mlog('blurClean');
-  gptServerStore.myData.OPENAI_API_BASE_URL =myTrim( myTrim(gptServerStore.myData.OPENAI_API_BASE_URL.trim(),'/'), '\\' );
-  gptServerStore.myData.OPENAI_API_KEY = gptServerStore.myData.OPENAI_API_KEY.trim();
-  gptServerStore.myData.MJ_SERVER =myTrim( myTrim( gptServerStore.myData.MJ_SERVER.trim(),'/'),'\\');
-  gptServerStore.myData.MJ_API_SECRET = gptServerStore.myData.MJ_API_SECRET.trim();
-  gptServerStore.myData.UPLOADER_URL=  myTrim( myTrim( gptServerStore.myData.UPLOADER_URL.trim(),'/'),'\\');
-}
+// const blurClean= ()=>{
+//   mlog('blurClean');
+//   gptServerStore.myData.OPENAI_API_BASE_URL =myTrim( myTrim(gptServerStore.myData.OPENAI_API_BASE_URL.trim(),'/'), '\\' );
+//   gptServerStore.myData.OPENAI_API_KEY = gptServerStore.myData.OPENAI_API_KEY.trim();
+//   gptServerStore.myData.MJ_SERVER =myTrim( myTrim( gptServerStore.myData.MJ_SERVER.trim(),'/'),'\\');
+//   gptServerStore.myData.MJ_API_SECRET = gptServerStore.myData.MJ_API_SECRET.trim();
+//   gptServerStore.myData.UPLOADER_URL=  myTrim( myTrim( gptServerStore.myData.UPLOADER_URL.trim(),'/'),'\\');
+// }
 </script>
 <template>
 <div id="setserver"> 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { NImage,NButton,NModal,useMessage } from 'naive-ui'
+import { NImage,NButton,NModal,useMessage,NInput } from 'naive-ui'
 import { computed , ref,watch } from 'vue'
 import {flechTask ,localGet,mlog, url2base64 } from '@/api'
 import { homeStore } from '@/store'
@@ -15,7 +15,7 @@ interface Props {
  const { isMobile } = useBasicLayout()
 const ms = useMessage();
 const props = defineProps<Props>();
-const st = ref( { isLoadImg:false, uri_base64:'', bts:[],isShow:false })
+const st = ref( { isLoadImg:false, uri_base64:'', bts:[],isShow:false, isCustom:false ,customText:''})
 
 const reload= ()=>{
     flechTask(chat.value);
@@ -56,6 +56,11 @@ const subV2= (b:{k:string,n:string})=>{
         st.value.isShow =true;
         return ;
     }
+    if(b.k=='CustomZoom::'){
+         mlog('自定义变焦' , i );
+         st.value.isCustom= true;
+        return ;
+    }
      let obj={
         action:'changeV2',
         version:1, 
@@ -66,6 +71,27 @@ const subV2= (b:{k:string,n:string})=>{
     }
     homeStore.setMyData({act:'draw',actData:obj});
 
+}
+
+const subCustom = ()=>{
+    if(chat.value.opt?.buttons ==undefined ) return;
+    let i = getIndex( chat.value.opt?.buttons, {k: 'CustomZoom::' ,n: t('mj.czoom') } );
+    let obj={
+        action:'CustomZoom',
+        version:1, 
+        data:{
+            "customId": chat.value.opt?.buttons[i].customId, 
+            "taskId":  chat.value.mjID
+            },
+        maskData:{  
+            "prompt": st.value.customText ,
+        }
+    }
+    mlog('subCustom', obj );
+    homeStore.setMyData({act:'draw',actData:obj});
+
+    st.value.isCustom= false;
+    
 }
 
 const maskOk=(d:any)=>{
@@ -101,8 +127,10 @@ const bt= [
         {k:'low_variation',n:t('mj.low_variation')},
         {k:':Inpaint::1',n:t('mj.redraw')},
         {k:'Outpaint::50',n: t('mj.p15')},
-        {k:'Outpaint::75',n: t('mj.p20')},
+        {k:'Outpaint::75',n: t('mj.p20')}
+        ,{k:'CustomZoom::',n: t('mj.czoom')},
         {k:'Outpaint::100',n: t('mj.p100')}
+        //MJ::CustomZoom
 
         ,{k:'Job::PicReader::1',n:'T1'}
         ,{k:'Job::PicReader::2',n:'T2'}
@@ -142,7 +170,7 @@ const getIndexName=  (arr:any[], ib:any )=> {
 }
 
 const load = async ()=>{
-     
+     changCustom();
      if(!chat.value.mjID) return ;
      let key= 'img:'+chat.value.mjID;
     try {
@@ -176,12 +204,21 @@ watch(()=>homeStore.myData.act,(n)=>{
          if( !actData.noShow ) ms.success( t('mj.success1'));
     }
 })
-load();
 const text = computed(() => {
   const value =  props.chat.opt?.properties?.finalZhPrompt 
  return props.mdi.render(value)
    
 })
+
+
+const changCustom = ()=>{
+    mlog('changCustom', chat.value.opt); //prompt
+    st.value.customText=chat.value.opt?.prompt??'';
+    
+    st.value.customText +="  --zoom 1.8";
+}
+
+load();
 </script>
 <template>
 <div v-if="st.isLoadImg">
@@ -237,6 +274,14 @@ const text = computed(() => {
 
     <NModal v-model:show="st.isShow"   preset="card"  :title="$t('mjchat.redrawEditing')" style="max-width: 800px;" @close="st.isShow=false" >
         <aiCanvas :chat="chat" :base64="st.uri_base64" v-if="st.isShow" @success="maskOk" />
+    </NModal>
+    <NModal v-model:show="st.isCustom"   preset="card"  :title="$t('mj.customTitle')" style="max-width: 600px;" @close="st.isCustom=false" >
+         <n-input    type="textarea"  v-model:value="st.customText"    round   maxlength="2000" show-count 
+      :autosize="{   minRows:3, maxRows:8 }" />
+           <div class="pt-2 flex justify-between items-center">  
+                <div class="text-neutral-500">{{ $t('mj.zoominfo') }}</div>   
+                <NButton type="primary"    size="small" @click="subCustom">{{ $t('mjchat.submit') }}</NButton> 
+          </div>
     </NModal>
 </div>
 <div v-else class="w-[200px] h-[150px] flex flex-col justify-center items-center" >

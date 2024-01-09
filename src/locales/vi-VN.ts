@@ -118,7 +118,29 @@ export default {
   "pan_up": "Phân Tích Lại Lên",
   "pan_down": "Phân Tích Lại Xuống",
   "up2": "Độ Phân Giải Cao 2 lần",
-  "up4": "Độ Phân Giải Cao 4 lần"
+  "up4": "Độ Phân Giải Cao 4 lần",
+  
+  "thinking": "Đang suy nghĩ...",
+  "noReUpload": "Không thể tải lên lại",
+  "uploading": "Đang tải lên...",
+  "uploadSuccess": "Tải lên thành công",
+  "uploadFail": "Tải lên thất bại:",
+  "upPdf": "<span>Tải lên hình ảnh hoặc tệp đính kèm<br/>Bạn có thể tải lên hình ảnh, PDF, EXCEL và các tài liệu khác</span><p>Hỗ trợ kéo và thả</p>",
+  "upImg": "<span><b>Tải lên hình ảnh</b><br/>Sẽ tự động gọi mô hình gpt-4-vision-preview<br>Chú ý: Có thể áp dụng phí ảnh bổ sung<br/>Định dạng: jpeg, jpg, png, gif</span><p>Hỗ trợ kéo và thả</p> <p class=\"pt-2\"><b>Tải lên MP3 MP4</b> <br>Sẽ tự động gọi mô hình whisper-1<br>Định dạng: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
+  "clearAll": "Xóa tất cả các tham số",
+  "czoom": "Tùy chỉnh",
+  "customTitle": "Tùy chỉnh zoom",
+  "zoominfo": "Sửa giá trị zoom, khoảng từ 1.0 đến 2.0, mặc định được đặt là 1.8",
+
+   "modleSuccess": "Tải mô hình thành công",
+  "setingSuccess": "Thiết lập thành công",
+
+  "tokenInfo1": "Còn lại Tokens = Độ dài mô hình - Thiết lập vai trò - Bối cảnh (Lịch sử cuộc trò chuyện) - Số phản hồi - Đầu vào hiện tại",
+"tokenInfo2": "Để trống thiết lập vai trò và hệ thống sẽ cung cấp một giá trị mặc định.",
+"noSuppertModel": "Làm mới, hiện tại mô hình này không được hỗ trợ!",
+"failOcr": "Nhận dạng thất bại",
+"remain": "Còn:"
+
   },
   "mjset": {
     "server": "Máy chủ",

@@ -45,6 +45,20 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/s',
+    name: 's',
+    component: ChatLayout,
+    redirect: '/s/t',
+    children: [
+      {
+        path: '/s/t',
+        name: 'Setting',
+        component: () => import('@/views/chat/index.vue'),
+      },
+    ],
+  },
+
 
   {
     path: '/draw',

@@ -122,7 +122,28 @@ export default {
   "pan_up": "Up",
   "pan_down": "Down",
   "up2": "HD 2x",
-  "up4": "HD 4x"
+  "up4": "HD 4x" , 
+
+  "thinking": "Thinking...",
+  "noReUpload": "Cannot re-upload",
+  "uploading": "Uploading...",
+  "uploadSuccess": "Upload successful",
+  "uploadFail": "Upload failed:",
+  "upPdf": "<span>Upload image or attachment<br/>You can upload images, PDFs, EXCEL, and other documents</span><p>Supports drag and drop</p>",
+  "upImg": "<span><b>Upload image</b><br/>Will automatically invoke the gpt-4-vision-preview model<br>Note: Additional image fees may apply<br/>Formats: jpeg, jpg, png, gif</span><p>Supports drag and drop</p> <p class=\"pt-2\"><b>Upload MP3 MP4</b> <br>Will automatically invoke the whisper-1 model<br>Formats: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
+  "clearAll": "Clear parameters",
+  "czoom": "Custom",
+  "customTitle": "Custom zoom",
+  "zoominfo": "Modify zoom value, range from 1.0 to 2.0, default is set to 1.8",
+
+  "modleSuccess": "Model loaded successfully",
+  "setingSuccess": "Settings successful",
+
+  "tokenInfo1": "Remaining Tokens = Model Length - Role Setting - Context (Conversation History) - Replies Count - Current Input",
+    "tokenInfo2": "Leave the role setting blank, and the system will provide a default one.",
+    "noSuppertModel": "Refresh, this model is not currently supported!",
+    "failOcr": "Recognition failed",
+    "remain": "Remain:"
 
   },
   "mjset": {

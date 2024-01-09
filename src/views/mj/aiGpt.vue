@@ -3,7 +3,7 @@ import { computed,   ref,watch  } from 'vue'
 import { useRoute } from 'vue-router'
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
-import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, GptUploader, localGet } from '@/api'
+import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, GptUploader, getHistoryMessage, localGet } from '@/api'
 import { isNumber } from '@/utils/is'
 import { useMessage  } from "naive-ui";
 import { t } from "@/locales";
@@ -31,37 +31,38 @@ const goFinish= (  )=>{
     // }, 200 ); 
 }
 
-const getMessage= async (start=1000)=>{
-    let i=0;
-    let rz = [];
-    let istart = (isNumber( start)&& start>=0 )? Math.min(start  ,   dataSources.value.length - 3):  dataSources.value.length - 3;
-    mlog('istart',istart, start); 
-    for( let ii=  istart  ; ii>=0 ; ii-- ){ //let o of dataSources.value
-        if(i>=gptConfigStore.myData.talkCount) break;
-        i++;
+const getMessage= async (start=1000,loadingCnt=3)=>{
+    return getHistoryMessage(dataSources.value,loadingCnt,start);
+    // let i=0;
+    // let rz = [];
+    // let istart = (isNumber( start)&& start>=0 )? Math.min(start  ,   dataSources.value.length - 3):  dataSources.value.length - 3;
+    // mlog('istart',istart, start); 
+    // for( let ii=  istart  ; ii>=0 ; ii-- ){ //let o of dataSources.value
+    //     if(i>=gptConfigStore.myData.talkCount) break;
+    //     i++;
 
-        let o = dataSources.value[ii];
-        //mlog('o',ii ,o);
-        let content= o.text;
-        if( o.inversion && o.opt?.images && o.opt.images.length>0 ){
-            //获取附件信息 比如 图片 文件等
-            try{
-               let str =  await localGet(  o.opt.images[0]) as string;
-               let fileBase64= JSON.parse(str) as string[];
-               let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
-               if(arr.length>0) content = arr.join(' ')+' '+ content ;
+    //     let o = dataSources.value[ii];
+    //     //mlog('o',ii ,o);
+    //     let content= o.text;
+    //     if( o.inversion && o.opt?.images && o.opt.images.length>0 ){
+    //         //获取附件信息 比如 图片 文件等
+    //         try{
+    //            let str =  await localGet(  o.opt.images[0]) as string;
+    //            let fileBase64= JSON.parse(str) as string[];
+    //            let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
+    //            if(arr.length>0) content = arr.join(' ')+' '+ content ;
 
-               mlog(t('mjchat.attr') ,o.opt.images[0] , content );
-            }catch(ee){
-            }
-        }
+    //            mlog(t('mjchat.attr') ,o.opt.images[0] , content );
+    //         }catch(ee){
+    //         }
+    //     }
 
-        //mlog('d',gptConfigStore.myData.talkCount ,i ,o.inversion , o.text);
-        rz.push({content , role: !o.inversion ? 'assistant' : 'user'});
-    }
-    rz.reverse();
-    mlog('rz',rz);
-    return rz ;
+    //     //mlog('d',gptConfigStore.myData.talkCount ,i ,o.inversion , o.text);
+    //     rz.push({content , role: !o.inversion ? 'assistant' : 'user'});
+    // }
+    // rz.reverse();
+    // mlog('rz',rz);
+    // return rz ;
 }
 watch( ()=>textRz.value, (n)=>{
     //mlog('🐞 textRz',n);
@@ -113,7 +114,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
        
         let outMsg: Chat.Chat={
             dateTime: new Date().toLocaleString(),
-            text:  '思考中...',
+            text: t('mj.thinking') ,//'思考中...',
             loading: true,
             inversion: false,
             error: false,
@@ -175,7 +176,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
         st.value.index = +dd.index;
 
         mlog('gpt.resubmit', dd  ) ;
-        let historyMesg= await  getMessage( (+dd.index)-1 ); //
+        let historyMesg= await  getMessage( (+dd.index)-1,1  ); //
         mlog('gpt.resubmit historyMesg', historyMesg );
         let nobj = dataSources.value[ dd.index ];
         //mlog('gpt.resubmit model', nobj.model  );
@@ -183,7 +184,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
         if(!model) model= 'gpt-3.5-turbo';
         //return ;
         if(['whisper-1','midjourney'].indexOf(model)>-1){
-            ms.error('刷新，暂不支持此模型！');
+            ms.error( t('mj.noSuppertModel') );
             return; 
         }
 
@@ -216,7 +217,7 @@ const submit= (model:string, message:any[] ,  opt?:any )=>{
                 goFinish();
             }).catch(e=>{
                 let emsg =( ( e.message?? JSON.stringify(e)) );
-                textRz.value.push("\识别失败:\n```\n"+emsg+"\n```\n");
+                textRz.value.push("\n"+t('mj.failOcr')+":\n```\n"+emsg+"\n```\n");
                 goFinish();
             });
             return ;
@@ -240,7 +241,7 @@ const submit= (model:string, message:any[] ,  opt?:any )=>{
                 }, 100);
             }).catch(e=>{
                 let  emsg =   (JSON.stringify(  e.reason? JSON.parse( e.reason ):e,null,2)); 
-                if(e.message!='canceled' && emsg.indexOf('aborted')==-1 ) textRz.value.push("\n错误:\n```\n"+emsg+"\n```\n");
+                if(e.message!='canceled' && emsg.indexOf('aborted')==-1 ) textRz.value.push("\n"+t('mjchat.failReason')+" \n```\n"+emsg+"\n```\n");
                 goFinish();
             });
 
@@ -256,7 +257,7 @@ const submit= (model:string, message:any[] ,  opt?:any )=>{
                 let  emsg =   (JSON.stringify(  e.reason? JSON.parse( e.reason ):e,null,2));
                 //if(emsg=='{}' ) emsg= JSON.stringify(e );
 
-                if(e.message!='canceled' && emsg.indexOf('aborted')==-1 ) textRz.value.push("\n错误:\n```\n"+emsg+"\n```\n");
+                if(e.message!='canceled' && emsg.indexOf('aborted')==-1 ) textRz.value.push("\n"+t('mjchat.failReason')+"\n```\n"+emsg+"\n```\n");
                 goFinish();
             }
             ,signal:controller.value.signal,

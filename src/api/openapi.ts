@@ -1,9 +1,15 @@
 
 import { gptConfigStore, gptServerStore, homeStore } from "@/store";
-import { mlog } from "./mjapi";
+import { mlog,myTrim } from "./mjapi";
 import { fetchSSE } from "./sse/fetchsse";
 import axios from 'axios';
-import { localSaveAny } from "./mjsave";
+import { localGet, localSaveAny } from "./mjsave";
+import { isNumber, isObject } from "@/utils/is";
+import { t } from "@/locales";
+import { ChatMessage } from "gpt-tokenizer/esm/GptEncoding";
+//import {encode,  encodeChat}  from "gpt-tokenizer"
+//import {encode,  encodeChat} from "gpt-tokenizer/cjs/encoding/cl100k_base.js";
+//import { get_encoding } from '@dqbd/tiktoken'
 //import FormData from 'form-data';
 
 export const KnowledgeCutOffDate: Record<string, string> = {
@@ -258,3 +264,108 @@ export const  gptUsage=async ()=>{
 
 }
 
+export const openaiSetting= ( q:any )=>{
+    //mlog()
+    mlog('setting', q )
+    if(isObject(q)){ 
+        mlog('setting2', q )
+        gptServerStore.setMyData(  q ) 
+        //gptServerStore.setMyData( gptServerStore.myData );
+        blurClean();
+        gptServerStore.setMyData( gptServerStore.myData );
+
+    }
+    
+}
+export const blurClean= ()=>{
+  mlog('blurClean');
+  gptServerStore.myData.OPENAI_API_BASE_URL =myTrim( myTrim(gptServerStore.myData.OPENAI_API_BASE_URL.trim(),'/'), '\\' );
+  gptServerStore.myData.OPENAI_API_KEY = gptServerStore.myData.OPENAI_API_KEY.trim();
+  gptServerStore.myData.MJ_SERVER =myTrim( myTrim( gptServerStore.myData.MJ_SERVER.trim(),'/'),'\\');
+  gptServerStore.myData.MJ_API_SECRET = gptServerStore.myData.MJ_API_SECRET.trim();
+  gptServerStore.myData.UPLOADER_URL=  myTrim( myTrim( gptServerStore.myData.UPLOADER_URL.trim(),'/'),'\\');
+}
+
+export const countTokens= async ( dataSources:Chat.Chat[], input:string )=>{
+    let rz={system:0,input:0 ,history:0,remain:330,modelTokens:'4k',planOuter: gptConfigStore.myData.max_tokens  }
+    const model = gptConfigStore.myData.model;
+    const max= getModelMax(model );
+    rz.modelTokens= `${max}k`
+    //cl100k_base.encode(input)
+    
+    const encode= await encodeAsync();
+    rz.input = encode(input).length;
+    rz.system = encode(getSystemMessage() ).length; 
+    const encodeChat = await encodeChatAsync(); 
+    const msg= await getHistoryMessage(  dataSources,1 ) ;
+    rz.history= msg.length==0?0: encodeChat(msg, model.indexOf('gpt-4')>-1? 'gpt-4':'gpt-3.5-turbo').length 
+    //
+    rz.remain = 1024*max- rz.history- rz.planOuter- rz.input- rz.system; 
+
+    return rz ;
+}
+const getModelMax=( model:string )=>{
+    let max=4;
+    model= model.toLowerCase();
+    if( model.indexOf('8k')>-1|| model=='gpt-3.5-turbo-1106'  ){
+        return 8;
+    }else if( model.indexOf('16k')>-1  ){
+        return 16;
+    }else if( model.indexOf('32k')>-1  ){
+        return 32;
+    }else if( model.indexOf('64k')>-1  ){
+        return 64;
+    }else if( model.indexOf('128k')>-1  ){
+        return 128; 
+    }else if( model.indexOf('gpt-4')>-1  ){  
+        max=8;
+    }
+
+    return max;
+}
+
+export const encodeAsync = async ( ) => {
+  const { encode } = await import('gpt-tokenizer');
+
+  return encode;//(str).length;
+};
+export const encodeChatAsync = async ( ) => {
+  const { encodeChat } = await import('gpt-tokenizer');
+
+  return encodeChat;//(obj,model ).length;
+};
+
+
+export const getHistoryMessage= async (dataSources:Chat.Chat[],loadingCnt=1 ,start=1000)=>{
+    let i=0;
+    let rz: ChatMessage[] = [];
+    //const loadingCnt= 1;// 1就是没有loading，3 就是有loading
+    let istart = (isNumber( start)&& start>=0 )? Math.min(start  ,   dataSources.length - loadingCnt ):  dataSources.length- loadingCnt  ;
+    mlog('istart',istart, start); 
+    for( let ii=  istart  ; ii>=0 ; ii-- ){ //let o of dataSources.value
+        if(i>=gptConfigStore.myData.talkCount) break;
+        i++;
+
+        let o = dataSources[ii];
+        //mlog('o',ii ,o);
+        let content= o.text;
+        if( o.inversion && o.opt?.images && o.opt.images.length>0 ){
+            //获取附件信息 比如 图片 文件等
+            try{
+               let str =  await localGet(  o.opt.images[0]) as string;
+               let fileBase64= JSON.parse(str) as string[];
+               let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
+               if(arr.length>0) content = arr.join(' ')+' '+ content ;
+
+               mlog(t('mjchat.attr') ,o.opt.images[0] , content );
+            }catch(ee){
+            }
+        }
+
+        //mlog('d',gptConfigStore.myData.talkCount ,i ,o.inversion , o.text);
+        rz.push({content , role: !o.inversion ? 'assistant' : 'user'});
+    }
+    rz.reverse();
+    mlog('rz',rz);
+    return rz ;
+}
