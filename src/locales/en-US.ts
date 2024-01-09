@@ -136,8 +136,15 @@ export default {
   "customTitle": "Custom zoom",
   "zoominfo": "Modify zoom value, range from 1.0 to 2.0, default is set to 1.8",
 
-"modleSuccess": "Model loaded successfully",
-"setingSuccess": "Settings successful"
+  "modleSuccess": "Model loaded successfully",
+  "setingSuccess": "Settings successful",
+
+  "tokenInfo1": "Remaining Tokens = Model Length - Role Setting - Context (Conversation History) - Replies Count - Current Input",
+    "tokenInfo2": "Leave the role setting blank, and the system will provide a default one.",
+    "noSuppertModel": "Refresh, this model is not currently supported!",
+    "failOcr": "Recognition failed",
+    "remain": "Remain:"
+
   },
   "mjset": {
     "server": "Server",

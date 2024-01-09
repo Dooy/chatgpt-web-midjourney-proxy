@@ -229,5 +229,11 @@ export default {
     
     modleSuccess:'模型加载成功'
     ,setingSuccess:'设置成功'
+
+    ,tokenInfo1:'剩余Tokens = 模型长度 - 角色设定 - 上下文(会话历史) - 回复数 - 当前输入'
+    ,tokenInfo2:'角色设定留空，系统会给一个默认的'
+    ,noSuppertModel:'刷新，暂不支持此模型！'
+    ,failOcr:'识别失败' 
+    ,remain:'剩:' 
   }
 }

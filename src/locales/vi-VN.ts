@@ -133,7 +133,13 @@ export default {
   "zoominfo": "Sửa giá trị zoom, khoảng từ 1.0 đến 2.0, mặc định được đặt là 1.8",
 
    "modleSuccess": "Tải mô hình thành công",
-  "setingSuccess": "Thiết lập thành công"
+  "setingSuccess": "Thiết lập thành công",
+
+  "tokenInfo1": "Còn lại Tokens = Độ dài mô hình - Thiết lập vai trò - Bối cảnh (Lịch sử cuộc trò chuyện) - Số phản hồi - Đầu vào hiện tại",
+"tokenInfo2": "Để trống thiết lập vai trò và hệ thống sẽ cung cấp một giá trị mặc định.",
+"noSuppertModel": "Làm mới, hiện tại mô hình này không được hỗ trợ!",
+"failOcr": "Nhận dạng thất bại",
+"remain": "Còn:"
 
   },
   "mjset": {

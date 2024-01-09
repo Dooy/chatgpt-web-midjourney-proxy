@@ -135,8 +135,13 @@ export default {
   "zoominfo": "修改zoom值，範圍在 1.0 到 2.0，默认设置為1.8",
 
  "modleSuccess": "模型成功載入",
-  "setingSuccess": "設定成功"
+  "setingSuccess": "設定成功",
 
+  "tokenInfo1": "剩餘Tokens = 模型長度 - 角色設定 - 上下文（對話歷史） - 回覆數 - 目前輸入",
+  "tokenInfo2": "保持角色設定為空，系統將提供默認值。",
+  "noSuppertModel": "刷新，目前不受此模型支持！",
+  "failOcr": "識別失敗",
+  "remain": "餘:"   
   },
   "mjset": {
     "server": "服務端",

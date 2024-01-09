@@ -134,8 +134,12 @@ export default {
   "zoominfo": "줌 값 수정, 범위는 1.0에서 2.0까지이며 기본 설정은 1.8로 설정됩니다",
 
   "modleSuccess": "모델이 성공적으로 로드되었습니다",
-  "setingSuccess": "설정이 성공적으로 완료되었습니다"
-
+  "setingSuccess": "설정이 성공적으로 완료되었습니다",
+  "tokenInfo1": "남은 토큰 = 모델 길이 - 역할 설정 - 컨텍스트 (대화 기록) - 답변 수 - 현재 입력",
+  "tokenInfo2": "역할 설정을 비워두면 시스템에서 기본 값을 제공합니다.",
+  "noSuppertModel": "새로 고침, 현재 이 모델은 지원되지 않습니다!",
+  "failOcr": "인식 실패",
+  "remain": "남:"
   },
   "mjset": {
     "server": "서버"

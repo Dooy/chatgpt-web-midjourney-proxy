@@ -1,25 +1,36 @@
 <script setup lang="ts">
-import { ref ,computed } from 'vue';
+import { ref ,computed,watch } from 'vue';
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
-import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NDivider } from 'naive-ui'
+import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NTag,NPopover,NModal } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
-import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard,isFileMp3 } from '@/api';
-import { gptConfigStore, homeStore } from '@/store';
+import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard,isFileMp3,countTokens} from '@/api';
+import { gptConfigStore, homeStore,useChatStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
+import { useRoute } from 'vue-router' 
+import aiModel from "@/views/mj/aiModel.vue"
+
 //import FormData from 'form-data'
+const route = useRoute() 
+const chatStore = useChatStore()
 
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
 const fsRef = ref()
-const st = ref<{fileBase64:string[],isLoad:number}>({fileBase64:[],isLoad:0 })
+const st = ref<{fileBase64:string[],isLoad:number,isShow:boolean}>({fileBase64:[],isLoad:0,isShow:false })
 const { isMobile } = useBasicLayout()
 const placeholder = computed(() => {
   if (isMobile.value)
     return t('chat.placeholderMobile')
   return t('chat.placeholder');//可输入说点什么，也可贴截图或拖拽文件
 })
+
+
+
+const { uuid } = route.params as { uuid: string }
+
+const dataSources = computed(() => chatStore.getChatByUuid(+uuid))
 
 const handleSubmit = ( ) => {
     if( mvalue.value==''  ) return ;
@@ -43,41 +54,21 @@ const mvalue = computed({
 function selectFile(input:any){
 
    const file = input.target.files[0];
-   upFile( file );
-/*
- if(  !canVisionModel(gptConfigStore.myData.model )  ) {
-    upImg(input.target.files[0]).then(d=>{
-        fsRef.value.value='';
-        if(st.value.fileBase64.findIndex(v=>v==d)>-1) {
-            ms.error('不能重复上传')
-            return ;
-        }
-        st.value.fileBase64.push(d)  
-    } ).catch(e=>ms.error(e));
- }else{
-    const formData = new FormData( );
-    const file = input.target.files[0];
-    formData.append('file', file); 
-    ms.info('上传中...');
-    GptUploader('/v1/upload',formData).then(r=>{
-        //mlog('上传成功', r);
-        if(r.url ){
-             ms.info('上传成功');
-            if(r.url.indexOf('http')>-1) {
-                st.value.fileBase64.push(r.url)
-            }else{
-                st.value.fileBase64.push(location.origin +r.url)
-            }
-        }else if(r.error) ms.error(r.error);
-    }).catch(e=>ms.error('上传失败:'+ ( e.message?? JSON.stringify(e)) ));
- }
- */
-
-
- 
-
+   upFile( file );  
 }
 
+const myToken =ref({remain:0,modelTokens:'4k'});
+const funt = async ()=>{
+    const d = await countTokens( dataSources.value, mvalue.value ) 
+    myToken.value=d ;
+    return d ;
+} 
+watch(()=>mvalue.value,   funt  )
+watch(()=> dataSources.value ,  funt )
+watch(()=> gptConfigStore.myData ,  funt,{deep:true} )
+watch(()=> homeStore.myData.isLoader ,  funt,{deep:true} )
+funt(); 
+ 
  const upFile= (file:any )=>{
     if(  !canVisionModel(gptConfigStore.myData.model )  ) {
         if( isFileMp3(  file.name ) ){
@@ -164,17 +155,38 @@ const paste=   (e: ClipboardEvent)=>{
 <div class="  myinputs"  @drop="drop" @paste="paste">
 
     <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
-
-    <div class="flex items-base justify-start pb-1 flex-wrap-reverse" v-if="st.fileBase64.length>0 "> 
-        <div class="w-[60px] h-[60px] rounded-sm bg-slate-50 mr-1 mt-1 text-red-300 relative group" v-for="(v,ii) in st.fileBase64">
-         <NImage :src="v" object-fit="cover" class="w-full h-full" >
-            <template #placeholder>
-                <a class="w-full h-full flex items-center justify-center  text-neutral-500" :href="v" target="_blank" >
-                    <SvgIcon icon="mdi:download" />附{{ ii+1 }}
-                </a>
-            </template>
-         </NImage> 
-         <SvgIcon icon="mdi:close" class="hidden group-hover:block absolute top-[-5px] right-[-5px] rounded-full bg-red-300 text-white cursor-pointer" @click="st.fileBase64.splice(st.fileBase64.indexOf(v),1)"></SvgIcon>
+    <div class="w-full relative">
+        <div class="flex items-base justify-start pb-1 flex-wrap-reverse" v-if="st.fileBase64.length>0 "> 
+            <div class="w-[60px] h-[60px] rounded-sm bg-slate-50 mr-1 mt-1 text-red-300 relative group" v-for="(v,ii) in st.fileBase64">
+            <NImage :src="v" object-fit="cover" class="w-full h-full" >
+                <template #placeholder>
+                    <a class="w-full h-full flex items-center justify-center  text-neutral-500" :href="v" target="_blank" >
+                        <SvgIcon icon="mdi:download" />附{{ ii+1 }}
+                    </a>
+                </template>
+            </NImage> 
+            <SvgIcon icon="mdi:close" class="hidden group-hover:block absolute top-[-5px] right-[-5px] rounded-full bg-red-300 text-white cursor-pointer" @click="st.fileBase64.splice(st.fileBase64.indexOf(v),1)"></SvgIcon>
+            </div>
+        </div>
+        <div class="absolute bottom-0 right-0 z-1">
+            <NPopover trigger="hover">
+                <template #trigger>
+                    <NTag type="info" round size="small" style="cursor: pointer; " :bordered="false" >
+                        <div class="opacity-60 flex"  >  
+                        <SvgIcon icon="material-symbols:token-outline"  /> {{ $t('mj.remain') }}{{ myToken.remain }}/{{ myToken.modelTokens }}
+                        </div>
+                    </NTag>
+                </template>
+                <div class="w-[300px]">
+                {{ $t('mj.tokenInfo1') }}
+                <p class="py-1" v-text="$t('mj.tokenInfo2')"> </p>
+                <p class=" text-right">
+                <NButton @click="st.isShow=true" type="info" size="small">{{ $t('setting.setting') }}</NButton>
+                </p>
+                </div>
+                  
+            </NPopover>
+          
         </div>
     </div>
     <NAutoComplete v-model:value="mvalue" :options="searchOptions" :render-label="renderOption">
@@ -213,12 +225,17 @@ const paste=   (e: ClipboardEvent)=>{
                             </template>
                         </NButton> -->
                         <NButton type="primary" :disabled="disabled || homeStore.myData.isLoader "     @click="handleSubmit" >
+                         
                             <template #icon>
                             <span class="dark:text-black">
-                                <SvgIcon icon="ri:stop-circle-line" v-if="homeStore.myData.isLoader" />
-                                <SvgIcon icon="ri:send-plane-fill" v-else />
+                                <SvgIcon icon="ri:stop-circle-line" v-if="homeStore.myData.isLoader" /> 
+                                <SvgIcon icon="ri:send-plane-fill"   v-else/> 
+                                
+                                 
+                                
                             </span>
                             </template>
+                            
                         </NButton>
                     </div>
                 </div>
@@ -228,6 +245,10 @@ const paste=   (e: ClipboardEvent)=>{
     </NAutoComplete>
          <!-- translate-y-[-8px]       -->
 </div>
+
+<NModal v-model:show="st.isShow"   preset="card"  :title="$t('mjchat.modelChange')" class="!max-w-[620px]" @close="st.isShow=false" >  
+        <aiModel @close="st.isShow=false"/>
+</NModal>
 </template>
 <style    >
 .myinputs .n-input .n-input-wrapper{

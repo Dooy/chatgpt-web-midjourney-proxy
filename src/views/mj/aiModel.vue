@@ -88,7 +88,7 @@ watch(()=>gptConfigStore.myData.model,(n)=>{
         <div  class="w-[40px] text-right">{{ gptConfigStore.myData.talkCount }}</div>
     </div>
 </section>
-<div class="mb-4 text-[12px] text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
+<div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
 
  <section class=" flex justify-between items-center"  >
      <div> {{ $t('mjchat.historyTCnt') }} 
@@ -98,7 +98,7 @@ watch(()=>gptConfigStore.myData.model,(n)=>{
         <div  class="w-[40px] text-right">{{ gptConfigStore.myData.max_tokens }}</div>
     </div>
 </section>
-<div class="mb-4 text-[12px] text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}  </div>
+<div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}  </div>
 
  <section class="mb-4"  >
     <div>{{ $t('mjchat.role') }}</div>
