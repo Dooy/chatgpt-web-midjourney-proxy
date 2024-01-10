@@ -141,7 +141,11 @@ export default {
   "tokenInfo2": "保持角色設定為空，系統將提供默認值。",
   "noSuppertModel": "刷新，目前不受此模型支持！",
   "failOcr": "識別失敗",
-  "remain": "餘:"   
+  "remain": "餘:",
+
+  "totalUsage": "訂閱總額",
+  "disableGpt4": "已禁用GPT4",
+  "setTextInfo": "OpenAI API Key 錯誤，點擊這裡重新"
   },
   "mjset": {
     "server": "服務端",

@@ -143,8 +143,11 @@ export default {
     "tokenInfo2": "Leave the role setting blank, and the system will provide a default one.",
     "noSuppertModel": "Refresh, this model is not currently supported!",
     "failOcr": "Recognition failed",
-    "remain": "Remain:"
-
+    "remain": "Remain:",
+  
+  "totalUsage": "Total subscription amount",
+  "disableGpt4": "GPT4 disabled",
+  "setTextInfo": "OpenAI API Key error, click here to retry"
   },
   "mjset": {
     "server": "Server",
