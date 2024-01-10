@@ -13,7 +13,8 @@ import dallText from '@/views/mj/dallText.vue'
 import ttsText from '@/views/mj/ttsText.vue'
 import whisperText from '@/views/mj/whisperText.vue'
 import MjTextAttr from '@/views/mj/mjTextAttr.vue'
-import { isTTS } from '@/api'
+import aiTextSetting from '@/views/mj/aiTextSetting.vue'
+import { isApikeyError, isTTS } from '@/api'
 
 interface Props {
   inversion?: boolean
@@ -115,6 +116,7 @@ onUnmounted(() => {
   <div class="text-black" :class="wrapClass">
     <div ref="textRef" class="leading-relaxed break-words">
       <div v-if="!inversion">
+        <aiTextSetting v-if="!inversion && isApikeyError(text)"/>
         <dallText :chat="chat" v-if="chat.model=='dall-e-3' || chat.model=='dall-e-2'" class="whitespace-pre-wrap" />
         <mjText v-if="chat.mjID" class="whitespace-pre-wrap" :chat="chat" :mdi="mdi"></mjText>
         <ttsText v-else-if="chat.model && isTTS(chat.model) && chat.text=='ok'" :chat="chat"/>
@@ -126,11 +128,8 @@ onUnmounted(() => {
       <whisperText v-else-if="text=='whisper' && chat.opt?.lkey "  :chat="chat" />
       <div v-else class="whitespace-pre-wrap" v-text="text" />
       <MjTextAttr :image="chat.opt?.images[0]" v-if="chat.opt?.images"></MjTextAttr>
-      <!-- <div v-if="chat.opt?.images" class="flex flex-wrap justify-start items-baseline">
-          <div v-for="(img,k ) of chat.opt?.images" :key="k" class="p-1" >
-            <NImage :src="img" preview class="w-[200px] rounded" />
-          </div>
-      </div> -->
+      
+
     </div>
   </div>
 </template>

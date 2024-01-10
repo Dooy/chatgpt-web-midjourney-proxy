@@ -81,7 +81,13 @@ router.post('/session', async (req, res) => {
     const baiduId=process.env.TJ_BAIDU_ID?? "" ; 
     const googleId=process.env.TJ_GOOGLE_ID?? "" ; 
     const notify = process.env.SYS_NOTIFY?? "" ;
-    res.send({  status: 'Success', message: '', data: { notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth, model: currentModel(),amodel,isApiGallery,cmodels } })
+    const disableGpt4 = process.env.DISABLE_GPT4?? "" ;
+    
+    const data= { disableGpt4,
+      notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
+      , model: currentModel(),amodel,isApiGallery,cmodels 
+    } 
+    res.send({  status: 'Success', message: '', data})
   }
   catch (error) {
     res.send({ status: 'Fail', message: error.message, data: null })

@@ -235,5 +235,9 @@ export default {
     ,noSuppertModel:'刷新，暂不支持此模型！'
     ,failOcr:'识别失败' 
     ,remain:'剩:' 
+    
+    ,totalUsage:'订阅总额' 
+    ,disableGpt4:'已禁用GPT4'
+    ,setTextInfo:'OpenAi Api Key 错误，点击这里重新'
   }
 }
