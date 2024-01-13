@@ -260,7 +260,7 @@ export const  gptUsage=async ()=>{
     const usage = Math.round(usageData.total_usage) / 100
      mlog('gpt', usage , billData  );
      //remaining = subscriptionData.system_hard_limit_usd - totalUsage;
-     return {usage,remaining:Math.round(billData.system_hard_limit_usd- usageData.total_usage ) / 100 } ;
+     return {usage,remaining:Math.round( (billData.hard_limit??billData.hard_limit_usd*100) - usageData.total_usage ) / 100 ,hard_limit_usd:billData.hard_limit_usd } ;
 
 }
 
@@ -307,15 +307,15 @@ export const countTokens= async ( dataSources:Chat.Chat[], input:string )=>{
 const getModelMax=( model:string )=>{
     let max=4;
     model= model.toLowerCase();
-    if( model.indexOf('8k')>-1|| model=='gpt-3.5-turbo-1106'  ){
+    if( model.indexOf('8k')>-1  ){
         return 8;
-    }else if( model.indexOf('16k')>-1  ){
+    }else if( model.indexOf('16k')>-1 || model=='gpt-3.5-turbo-1106' ){
         return 16;
     }else if( model.indexOf('32k')>-1  ){
         return 32;
     }else if( model.indexOf('64k')>-1  ){
         return 64;
-    }else if( model.indexOf('128k')>-1  ){
+    }else if( model.indexOf('128k')>-1 || model=='gpt-4-1106-preview' ){
         return 128; 
     }else if( model.indexOf('gpt-4')>-1  ){  
         max=8;

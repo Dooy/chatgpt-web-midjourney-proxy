@@ -139,7 +139,11 @@ export default {
 "tokenInfo2": "Để trống thiết lập vai trò và hệ thống sẽ cung cấp một giá trị mặc định.",
 "noSuppertModel": "Làm mới, hiện tại mô hình này không được hỗ trợ!",
 "failOcr": "Nhận dạng thất bại",
-"remain": "Còn:"
+"remain": "Còn:",
+
+  "totalUsage": "Tổng số tiền đăng ký",
+  "disableGpt4": "GPT4 đã tắt",
+  "setTextInfo": "Lỗi Khóa API OpenAI, nhấp vào đây để thử lại" 
 
   },
   "mjset": {

@@ -82,7 +82,7 @@ watch(()=>f.value.model,(n)=>{
     <n-select v-model:value="f.size" :options="dimensionsList" size="small"  class="!w-[70%]" :clearable="false" />
 </section>
 <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="f.prompt"   :placeholder="$t('chat.prompt')" round clearable maxlength="500" show-count 
+     <n-input    type="textarea"  v-model:value="f.prompt"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
       :autosize="{   minRows:3, maxRows:10 }" />
 </div>
 
@@ -95,7 +95,7 @@ watch(()=>f.value.model,(n)=>{
     </div>
 </div>
 
-<ul class="pt-4" v-html="$t('mjchat.delleInfo')">
+<ul class="pt-4" v-html="$t('mjchat.dalleInfo')">
    
 </ul>
 </template>

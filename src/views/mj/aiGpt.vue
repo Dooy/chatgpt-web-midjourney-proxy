@@ -3,7 +3,7 @@ import { computed,   ref,watch  } from 'vue'
 import { useRoute } from 'vue-router'
 import { useChat } from '../chat/hooks/useChat' 
 import { gptConfigStore, homeStore, useChatStore } from '@/store'
-import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, GptUploader, getHistoryMessage, localGet } from '@/api'
+import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, GptUploader, getHistoryMessage, localGet, checkDisableGpt4 } from '@/api'
 import { isNumber } from '@/utils/is'
 import { useMessage  } from "naive-ui";
 import { t } from "@/locales";
@@ -33,36 +33,6 @@ const goFinish= (  )=>{
 
 const getMessage= async (start=1000,loadingCnt=3)=>{
     return getHistoryMessage(dataSources.value,loadingCnt,start);
-    // let i=0;
-    // let rz = [];
-    // let istart = (isNumber( start)&& start>=0 )? Math.min(start  ,   dataSources.value.length - 3):  dataSources.value.length - 3;
-    // mlog('istart',istart, start); 
-    // for( let ii=  istart  ; ii>=0 ; ii-- ){ //let o of dataSources.value
-    //     if(i>=gptConfigStore.myData.talkCount) break;
-    //     i++;
-
-    //     let o = dataSources.value[ii];
-    //     //mlog('o',ii ,o);
-    //     let content= o.text;
-    //     if( o.inversion && o.opt?.images && o.opt.images.length>0 ){
-    //         //获取附件信息 比如 图片 文件等
-    //         try{
-    //            let str =  await localGet(  o.opt.images[0]) as string;
-    //            let fileBase64= JSON.parse(str) as string[];
-    //            let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
-    //            if(arr.length>0) content = arr.join(' ')+' '+ content ;
-
-    //            mlog(t('mjchat.attr') ,o.opt.images[0] , content );
-    //         }catch(ee){
-    //         }
-    //     }
-
-    //     //mlog('d',gptConfigStore.myData.talkCount ,i ,o.inversion , o.text);
-    //     rz.push({content , role: !o.inversion ? 'assistant' : 'user'});
-    // }
-    // rz.reverse();
-    // mlog('rz',rz);
-    // return rz ;
 }
 watch( ()=>textRz.value, (n)=>{
     //mlog('🐞 textRz',n);
@@ -75,6 +45,10 @@ watch( ()=>textRz.value, (n)=>{
 const { uuid } = useRoute().params as { uuid: string }
 watch(()=>homeStore.myData.act, async (n)=>{
     if(n=='gpt.submit' ||  n=='gpt.whisper'  ){
+        if(checkDisableGpt4(gptConfigStore.myData.model)){
+            ms.error( t('mj.disableGpt4') );
+            return false;
+        }
         const dd:any = homeStore.myData.actData;
         mlog('gpt.submit', dd , dd.uuid) ;
         let  uuid2 =  dd.uuid?? uuid;
@@ -170,6 +144,10 @@ watch(()=>homeStore.myData.act, async (n)=>{
     }else if(n=='abort'){
        controller.value && controller.value.abort();
     }else if(n=='gpt.resubmit'){
+         if(checkDisableGpt4(gptConfigStore.myData.model)){
+            ms.error( t('mj.disableGpt4') );
+            return false;
+        }
         const dd:any = homeStore.myData.actData;
         let  uuid2 =  dd.uuid?? uuid;
         st.value.uuid =  uuid2 ;

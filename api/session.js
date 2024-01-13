@@ -16,6 +16,8 @@ module.exports = (req, res) => {
             ,baiduId : process.env.TJ_BAIDU_ID?? "" 
             ,googleId: process.env.TJ_GOOGLE_ID?? ""
             , notify : process.env.SYS_NOTIFY?? "" 
+            ,disableGpt4 : process.env.DISABLE_GPT4?? "" 
+
         }
     }
     res.writeHead(200).end(

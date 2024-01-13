@@ -14,6 +14,7 @@ interface ConfigState {
   httpsProxy?: string
   usage?: string
   remaining?: string
+  hard_limit_usd?: string
 }
 
 const authStore = useAuthStore()
@@ -35,6 +36,7 @@ async function fetchConfig() {
     const dd= await gptUsage();
     config.value= {usage:dd.usage?`${dd.usage}`:'-'
       ,remaining:dd.remaining?`${dd.remaining}`:'-'
+      ,hard_limit_usd:dd.hard_limit_usd?`${dd.hard_limit_usd}`:'-'
       , "apiModel": "ChatGPTAPI",
         "reverseProxy": "-",
         "timeoutMs": 100000,
@@ -100,13 +102,21 @@ const  isShow = computed(()=>{
         </p>
       </div>
       <p>{{ $t("setting.api") }}：{{ config?.apiModel ?? '-' }}</p>
-      <p v-if="isChatGPTAPI">
+      <p v-if="isChatGPTAPI" class=" flex items-center justify-between">
+        <div>
         {{ $t("setting.monthlyUsage") }}：{{ config?.usage ?? '-' }}
+        </div>
+        <div>
+        {{ $t("mj.totalUsage") }}：{{ config?.hard_limit_usd ?? '-' }}
+        </div>
+        <div>
+        {{ $t("setting.balance") }}：{{ config?.remaining ?? '-' }}
+        </div>
       </p>
       <p v-if="!isChatGPTAPI">
         {{ $t("setting.reverseProxy") }}：{{ config?.reverseProxy ?? '-' }}
       </p>
-      <p>余额：{{ config?.remaining ?? '-' }}</p> 
+       
       <!-- <p>{{ $t("setting.timeout") }}：{{ config?.timeoutMs ?? '-' }}</p>  -->
       <!-- <p>{{ $t("setting.socks") }}：{{ config?.socksProxy ?? '-' }}</p>
       <p>{{ $t("setting.httpsProxy") }}：{{ config?.httpsProxy ?? '-' }}</p> -->

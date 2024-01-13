@@ -481,6 +481,7 @@ watch(()=>homeStore.myData.act,(n)=>{
     if(n=='scrollToBottom') scrollToBottom();
     if(n=='scrollToBottomIfAtBottom') scrollToBottomIfAtBottom();
     if(n=='gpt.submit' || n=='gpt.resubmit'){ loading.value = true;}
+    if(n=='stopLoading'){ loading.value = false;}
 });
 const st =ref({inputme:true});
 

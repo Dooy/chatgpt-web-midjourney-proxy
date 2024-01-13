@@ -139,7 +139,11 @@ export default {
   "tokenInfo2": "역할 설정을 비워두면 시스템에서 기본 값을 제공합니다.",
   "noSuppertModel": "새로 고침, 현재 이 모델은 지원되지 않습니다!",
   "failOcr": "인식 실패",
-  "remain": "남:"
+  "remain": "남:",
+
+  "totalUsage": "총 구독 금액",
+  "disableGpt4": "GPT4 비활성화됨",
+  "setTextInfo": "OpenAI API 키 오류, 여기를 클릭하여 다시 시도"
   },
   "mjset": {
     "server": "서버"
