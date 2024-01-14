@@ -136,6 +136,18 @@ docker run -d --name mj6013  -p 6013:8080  \
 </div>
 
 
+## 文件上传 支持cloudflare r2 存储
+
+- cloudflare r2 存储 10 GB/月 免费 https://www.cloudflare.com/zh-cn/developer-platform/r2/
+- 配置文档参考 https://zhuanlan.zhihu.com/p/658058503
+
+```yml
+R2_DOMAIN=
+R2_BUCKET_NAME=
+R2_ACCOUNT_ID=
+R2_KEY_ID=
+R2_KEY_SECRET=
+```
 
 ## License
 MIT © [Dooy](./license)
