@@ -290,6 +290,8 @@ export const countTokens= async ( dataSources:Chat.Chat[], input:string )=>{
     let rz={system:0,input:0 ,history:0,remain:330,modelTokens:'4k',planOuter: gptConfigStore.myData.max_tokens  }
     const model = gptConfigStore.myData.model;
     const max= getModelMax(model );
+    let unit= 1024;
+    if(  model=='gpt-4-1106-preview' || model=='gpt-4-vision-preview' ) unit=1000;
     rz.modelTokens= `${max}k`
     //cl100k_base.encode(input)
     
@@ -300,7 +302,7 @@ export const countTokens= async ( dataSources:Chat.Chat[], input:string )=>{
     const msg= await getHistoryMessage(  dataSources,1 ) ;
     rz.history= msg.length==0?0: encodeChat(msg, model.indexOf('gpt-4')>-1? 'gpt-4':'gpt-3.5-turbo').length 
     //
-    rz.remain = 1024*max- rz.history- rz.planOuter- rz.input- rz.system; 
+    rz.remain = unit *max- rz.history- rz.planOuter- rz.input- rz.system; 
 
     return rz ;
 }
@@ -315,7 +317,7 @@ const getModelMax=( model:string )=>{
         return 32;
     }else if( model.indexOf('64k')>-1  ){
         return 64;
-    }else if( model.indexOf('128k')>-1 || model=='gpt-4-1106-preview' ){
+    }else if( model.indexOf('128k')>-1 || model=='gpt-4-1106-preview' || model=='gpt-4-vision-preview' ){
         return 128; 
     }else if( model.indexOf('gpt-4')>-1  ){  
         max=8;

@@ -153,10 +153,10 @@ export default {
     "sysname": "Trí tuệ nhân tạo vẽ"
   },
   "mjtab": {
-    "chat": "Trò chuyện",
+    "chat": "nói",
     "draw": "Vẽ",
     "drawinfo": "Vẽ trí tuệ nhân tạo Midjourney",
-    "gallery": "Phòng trưng bày",
+    "gallery": "sách",
     "galleryInfo": "Phòng trưng bày của tôi"
   },
   "mjchat": {
