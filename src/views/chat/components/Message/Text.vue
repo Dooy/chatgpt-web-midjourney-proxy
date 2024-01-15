@@ -128,6 +128,9 @@ onUnmounted(() => {
       <whisperText v-else-if="text=='whisper' && chat.opt?.lkey "  :chat="chat" />
       <div v-else class="whitespace-pre-wrap" v-text="text" />
       <MjTextAttr :image="chat.opt?.images[0]" v-if="chat.opt?.images"></MjTextAttr>
+      <whisperText v-if="chat.model && chat.model.indexOf('whisper')>-1 && chat.opt?.lkey " :isW="true"  :chat="chat" class="w-full" />
+      <ttsText v-if="!inversion && chat.opt?.duration && chat.opt?.duration>0 && chat.opt?.lkey " :isW="true"  :chat="chat" class="w-full" />
+
       
 
     </div>

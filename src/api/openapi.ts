@@ -110,6 +110,18 @@ export const GptUploader =   ( url:string, FormData:FormData )=>{
 
 }
 
+export const whisperUpload = ( FormData:FormData )=>{
+    const url = gptGetUrl('/v1/audio/transcriptions');
+    let headers=   {'Content-Type': 'multipart/form-data' }
+    headers={...headers,...getHeaderAuthorization()}
+    return new Promise<any>((resolve, reject) => {
+            axios.post( url , FormData, {
+            headers
+        }).then(response =>  resolve(response.data )
+        ).catch(error =>reject(error)  );
+    })
+}
+
 export const subGPT= async (data:any, chat:Chat.Chat )=>{
    let d:any;
    let action= data.action;

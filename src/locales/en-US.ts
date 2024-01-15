@@ -147,7 +147,25 @@ export default {
   
   "totalUsage": "Total subscription amount",
   "disableGpt4": "GPT4 disabled",
-  "setTextInfo": "OpenAI API Key error, click here to retry"
+  "setTextInfo": "OpenAI API Key error, click here to retry",
+
+  "attr1": "Attr",
+  "ulink": "Image Link",
+  "copyFail": "Copy Failed",
+  "tts": "Text to Speech",
+  "fail": "Error",
+  "noSupperChrom": "Browser not supported!",
+  "lang": "Voice",
+  "ttsLoading": "Converting to Speech...",
+  "ttsSuccess": "Conversion successful",
+  "micIng": "Recording, say something...",
+  "mStart": "Start",
+  "mPause": "Pause",
+  "mGoon": "Continue",
+  "mRecord": "Re-record",
+  "mPlay": "Play",
+  "mCanel": "Cancel",
+  "mSent": "Send"
   },
   "mjset": {
     "server": "Server",

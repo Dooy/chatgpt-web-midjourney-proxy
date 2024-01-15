@@ -143,7 +143,26 @@ export default {
 
   "totalUsage": "총 구독 금액",
   "disableGpt4": "GPT4 비활성화됨",
-  "setTextInfo": "OpenAI API 키 오류, 여기를 클릭하여 다시 시도"
+  "setTextInfo": "OpenAI API 키 오류, 여기를 클릭하여 다시 시도",
+  
+  "attr1": "첨부",
+  "ulink": "원본 이미지 링크",
+  "copyFail": "복사 실패",
+  "tts": "텍스트 음성 변환 (TTS)",
+  "fail": "오류가 발생했습니다",
+  "noSupperChrom": "브라우저가 지원되지 않습니다!",
+  "lang": "음성",
+  "ttsLoading": "음성으로 변환 중...",
+  "ttsSuccess": "변환 성공",
+  "micIng": "녹음 중, 무엇인가 말해보세요...",
+  "mStart": "시작",
+  "mPause": "일시 정지",
+  "mGoon": "계속",
+  "mRecord": "다시 녹음",
+  "mPlay": "재생",
+  "mCanel": "취소",
+  "mSent": "전송"
+
   },
   "mjset": {
     "server": "서버"

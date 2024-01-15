@@ -143,7 +143,25 @@ export default {
 
   "totalUsage": "Tổng số tiền đăng ký",
   "disableGpt4": "GPT4 đã tắt",
-  "setTextInfo": "Lỗi Khóa API OpenAI, nhấp vào đây để thử lại" 
+  "setTextInfo": "Lỗi Khóa API OpenAI, nhấp vào đây để thử lại" ,
+
+  "attr1": "Đính",
+  "ulink": "Liên kết Ảnh gốc",
+  "copyFail": "Sao chép thất bại",
+  "tts": "Văn bản thành Tiếng nói (TTS)",
+  "fail": "Đã xảy ra lỗi",
+  "noSupperChrom": "Trình duyệt không được hỗ trợ!",
+  "lang": "Âm thanh",
+  "ttsLoading": "Đang chuyển đổi thành tiếng nói...",
+  "ttsSuccess": "Chuyển đổi thành công",
+  "micIng": "Đang ghi âm, nói điều gì đó...",
+  "mStart": "Bắt đầu",
+  "mPause": "Tạm dừng",
+  "mGoon": "Tiếp tục",
+  "mRecord": "Ghi lại",
+  "mPlay": "Phát",
+  "mCanel": "Hủy",
+  "mSent": "Gửi"
 
   },
   "mjset": {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { localGet, mlog } from '@/api';
 import { SvgIcon } from '@/components/common'; 
-import {   ref ,onUnmounted ,watch} from 'vue'
+import {   ref ,onUnmounted } from 'vue'
 const st= ref({isLoad:0, bolb:'',fileName:'',duration:0});
-const props = defineProps<{ chat:Chat.Chat}>();
+const props = defineProps<{ chat:Chat.Chat,isW?:boolean}>();
 const player = new window.Audio(); 
 const mybolb = ref<Blob>();
 const load= async ()=>{
@@ -37,16 +37,16 @@ const go= ()=>{
     if(st.value.isLoad==1 ) player.pause();
     else player.play();
 }
-const getWidth= ()=>{
-    let w=0.3;
-    if(props.chat.opt?.duration){
-        if(props.chat.opt?.duration>60) w=1;
-        else w=props.chat.opt?.duration/45;
-        w=0.3+w;
-        if(w>1) w=1;
-    }
-    return (w*280)+'px';
-}
+// const getWidth= ()=>{
+//     let w=0.3;
+//     if(props.chat.opt?.duration){
+//         if(props.chat.opt?.duration>60) w=1;
+//         else w=props.chat.opt?.duration/45;
+//         w=0.3+w;
+//         if(w>1) w=1;
+//     }
+//     return (w*280)+'px';
+// }
 const download = ()=>{
     if(!mybolb.value || !props.chat.opt?.lkey ) return ;
     const a = document.createElement('a');
@@ -61,12 +61,13 @@ load();
 
 </script>
 <template>
-<div   class="whitespace-pre-wrap"  >
-    <div class=" flex justify-between items-center " >
+<div   class="whitespace-pre-wrap " :class="[props.isW?'border-t border-neutral-400/25':'']"  >
+    <div class=" flex justify-between items-center w-full" >
         <div  class="text-blue-500 cursor-pointer mr-8" @click="download"> <SvgIcon icon="ri:download-2-fill"></SvgIcon> </div>
 
-        <div class="flex justify-start items-center flex-1" @click="go">
-            <span v-html="st.fileName"  ></span>
+        <div class="flex justify-end items-center flex-1" @click="go">
+            <span v-html="chat.opt?.duration.toFixed(2)+`s`"  v-if="chat.opt && chat.opt?.duration " ></span>
+            <span v-html="st.fileName" v-else ></span>
             <div class=" rotate-90  cursor-pointer"   >
                 <SvgIcon icon="svg-spinners:wifi" v-if="st.isLoad==1" ></SvgIcon>
                 <SvgIcon icon="mdi:wifi"  v-else></SvgIcon>

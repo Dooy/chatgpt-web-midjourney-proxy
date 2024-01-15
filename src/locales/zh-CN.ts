@@ -239,5 +239,24 @@ export default {
     ,totalUsage:'订阅总额' 
     ,disableGpt4:'已禁用GPT4'
     ,setTextInfo:'OpenAi Api Key 错误，点击这里重新'
+
+    ,attr1:'附'
+    ,ulink:'原图链接'
+    ,copyFail:'复制失败'
+    ,tts:'TTS 文本转语音'
+    ,fail:'发生错误'
+    ,noSupperChrom:'浏览器不支持！'
+    ,lang:'语音'
+    ,ttsLoading:'语音转化...'
+    ,ttsSuccess:'转化成功'
+    ,micIng:'正在录音，说点什么...'
+    ,mStart:'开始'
+    ,mPause:'暂停'
+    ,mGoon:'继续'
+    ,mRecord:'重录'
+    ,mPlay:'播放'
+    ,mCanel:'取消'
+    ,mSent:'发送'
+
   }
 }

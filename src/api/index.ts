@@ -70,5 +70,6 @@ export * from "./mjapi"
 export * from "./mjsave"
 export * from "./openapi"
 export * from "./units"
+export * from "./mic"
 export * from "./sse/fetchsse"
 
