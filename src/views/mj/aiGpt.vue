@@ -136,7 +136,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
         let historyMesg=  await getMessage();
         mlog('historyMesg', historyMesg );
         //return ;
-        let message= [ {  "role": "system", "content": getSystemMessage() },
+        let message= [ {  "role": "system", "content": getSystemMessage(  +uuid2) },
                 ...historyMesg ];
         if( dd.fileBase64 && dd.fileBase64.length>0 ){
             if(  model=='gpt-4-vision-preview' ){

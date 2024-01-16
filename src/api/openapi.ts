@@ -7,6 +7,7 @@ import { localGet, localSaveAny } from "./mjsave";
 import { isNumber, isObject } from "@/utils/is";
 import { t } from "@/locales";
 import { ChatMessage } from "gpt-tokenizer/esm/GptEncoding";
+import { chatSetting } from "./chat";
 //import {encode,  encodeChat}  from "gpt-tokenizer"
 //import {encode,  encodeChat} from "gpt-tokenizer/cjs/encoding/cl100k_base.js";
 //import { get_encoding } from '@dqbd/tiktoken'
@@ -162,9 +163,14 @@ function getHeaderAuthorization(){
     }
 }
 
-export const getSystemMessage = ()=>{
+export const getSystemMessage = (uuid?:number )=>{
     //KnowledgeCutOffDate
-    if( gptConfigStore.myData.systemMessage) return  gptConfigStore.myData.systemMessage
+    let sysTem= gptConfigStore.myData.systemMessage;
+    if( uuid ){
+        const chatS= new chatSetting(uuid);
+        sysTem= chatS.getGptConfig().systemMessage ;
+    }
+    if(  sysTem ) return sysTem;
     let model= gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo";
       const DEFAULT_SYSTEM_TEMPLATE = `You are ChatGPT, a large language model trained by OpenAI.
 Knowledge cutoff: ${KnowledgeCutOffDate[model]}
@@ -317,7 +323,22 @@ export const  gptUsage=async ()=>{
 export const openaiSetting= ( q:any )=>{
     //mlog()
     mlog('setting', q )
-    if(isObject(q)){
+    if(q.settings){
+        mlog('q.setting', q.settings )
+        try {
+            let obj = JSON.parse( q.settings );
+            const url = obj.url ?? undefined;
+            const key = obj.key ?? undefined;
+            //let setQ= { }
+            gptServerStore.setMyData(  {OPENAI_API_BASE_URL:url, MJ_SERVER:url, OPENAI_API_KEY:key,MJ_API_SECRET:key } )
+            blurClean();
+            gptServerStore.setMyData( gptServerStore.myData );
+            
+        } catch (error) {
+            
+        }
+    }
+    else if(isObject(q)){
         mlog('setting2', q )
         gptServerStore.setMyData(  q )
         //gptServerStore.setMyData( gptServerStore.myData );

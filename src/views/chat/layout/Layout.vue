@@ -33,6 +33,8 @@ if(rt.name =='GPTs'){
   ms.success( t('mj.modleSuccess') );
 }
 
+ 
+
 router.replace({ name: 'Chat', params: { uuid: chatStore.active } })
 homeStore.setMyData({local:'Chat'});
 const { isMobile } = useBasicLayout()
