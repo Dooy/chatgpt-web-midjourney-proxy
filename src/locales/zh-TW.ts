@@ -145,7 +145,31 @@ export default {
 
   "totalUsage": "訂閱總額",
   "disableGpt4": "已禁用GPT4",
-  "setTextInfo": "OpenAI API Key 錯誤，點擊這裡重新"
+  "setTextInfo": "OpenAI API Key 錯誤，點擊這裡重新",
+
+  "attr1": "附",
+  "ulink": "原圖鏈接",
+  "copyFail": "複製失敗",
+  "tts": "文字轉語音",
+  "fail": "發生錯誤",
+  "noSupperChrom": "瀏覽器不支援！",
+  "lang": "語音",
+  "ttsLoading": "轉換中...",
+  "ttsSuccess": "轉換成功",
+  "micIng": "錄音中，請說些什麼...",
+  "mStart": "開始",
+  "mPause": "暫停",
+  "mGoon": "繼續",
+  "mRecord": "重新錄製",
+  "mPlay": "播放",
+  "mCanel": "取消",
+  "mSent": "發送",
+  "findVersion": "發現更新版本",
+  "yesLastVersion": "已是最新版本",
+  "infoStar": "此專案在 <a class=\"text-blue-600 dark:text-blue-500\" href=\"https://github.com/Dooy/chatgpt-web-midjourney-proxy\" target=\"_blank\">GitHub</a> 上以 MIT 協議開源，免費且沒有任何付費行為！ </p><p>如果你覺得這個專案對你有幫助，請在 GitHub 上給它一顆星，謝謝！",
+  "setBtSaveChat": "僅保存對話",
+  "setBtSaveSys": "保存至系統"
+
   },
   "mjset": {
     "server": "服務端",

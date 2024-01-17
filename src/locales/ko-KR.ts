@@ -143,7 +143,31 @@ export default {
 
   "totalUsage": "총 구독 금액",
   "disableGpt4": "GPT4 비활성화됨",
-  "setTextInfo": "OpenAI API 키 오류, 여기를 클릭하여 다시 시도"
+  "setTextInfo": "OpenAI API 키 오류, 여기를 클릭하여 다시 시도",
+  
+  "attr1": "첨부",
+  "ulink": "원본 이미지 링크",
+  "copyFail": "복사 실패",
+  "tts": "텍스트 음성 변환 (TTS)",
+  "fail": "오류가 발생했습니다",
+  "noSupperChrom": "브라우저가 지원되지 않습니다!",
+  "lang": "음성",
+  "ttsLoading": "음성으로 변환 중...",
+  "ttsSuccess": "변환 성공",
+  "micIng": "녹음 중, 무엇인가 말해보세요...",
+  "mStart": "시작",
+  "mPause": "일시 정지",
+  "mGoon": "계속",
+  "mRecord": "다시 녹음",
+  "mPlay": "재생",
+  "mCanel": "취소",
+  "mSent": "전송",
+  "findVersion": "최신 버전 찾기",
+  "yesLastVersion": "최신 버전입니다",
+  "infoStar": "이 프로젝트는 <a class=\"text-blue-600 dark:text-blue-500\" href=\"https://github.com/Dooy/chatgpt-web-midjourney-proxy\" target=\"_blank\">GitHub</a>에서 오픈 소스로 제공되며 MIT 라이선스를 기반으로 하며 어떠한 유료 행위도 없습니다! </p><p>이 프로젝트가 도움이 되었다면 GitHub에서 별을 주시기 바랍니다. 감사합니다!",
+  "setBtSaveChat": "대화만 저장",
+  "setBtSaveSys": "시스템에 저장"
+
   },
   "mjset": {
     "server": "서버"

@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-web-midjourney-proxy",
-  "version": "2.14.1",
+  "version": "2.14.3",
   "private": false,
   "description": "ChatGPT Web Midjourney Proxy",
   "author": "Dooy <ydlhero@gmail.com>",
@@ -36,6 +36,7 @@
     "gpt-tokenizer": "^2.1.2",
     "highlight.js": "^11.7.0",
     "html2canvas": "^1.4.1",
+    "js-audio-recorder": "^1.0.7",
     "katex": "^0.16.4",
     "localforage": "^1.10.0",
     "markdown-it": "^13.0.1",

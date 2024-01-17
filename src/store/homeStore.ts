@@ -29,6 +29,7 @@ export interface gptConfigType{
     talkCount:number //联系对话
     systemMessage:string //自定义系统提示语
     gpts?:gptsType
+    uuid?:number
 }
 const getGptInt= ():gptConfigType =>{
     let v:gptConfigType=getDefault();

@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import {NSelect, NInput,NSlider, NButton, useMessage} from "naive-ui"
-import { ref ,computed,watch} from "vue";
-import {gptConfigStore, homeStore} from '@/store'
-import { mlog } from "@/api";
+import { ref ,computed,watch, onMounted} from "vue";
+import {gptConfigStore, homeStore,useChatStore} from '@/store'
+import { mlog,chatSetting } from "@/api";
+import { t } from "@/locales";
 
 const emit = defineEmits(['close']);
+const chatStore = useChatStore();
+const uuid = chatStore.active;
+//mlog('uuid', uuid );
+const chatSet = new chatSetting( uuid==null?1002:uuid);
 const config = ref({
-model:[ 'gpt-4','gpt-3.5-turbo',`gpt-4-1106-preview`,`gpt-3.5-turbo-16k`,'gpt-4-0314','gpt-4-0613','gpt-4-32k-0613' ,'gpt-4-32k','gpt-4-32k-0314',`gpt-3.5-turbo-16k-0613`
+model:[ 'gpt-4','gpt-3.5-turbo',`gpt-4-1106-preview`,`gpt-3.5-turbo-16k`,'gpt-4-0613','gpt-4-32k-0613' ,'gpt-4-32k','gpt-4-32k-0314',`gpt-3.5-turbo-16k-0613`
 ,`gpt-4-vision-preview`,`gpt-3.5-turbo-1106` 
 ,'gpt-3.5-turbo-0301','gpt-3.5-turbo-0613','gpt-4-all','gpt-3.5-net','tts-1']
 ,maxToken:2048
@@ -50,8 +55,15 @@ const modellist = computed(() => { //
 const ms= useMessage();
 const save = ()=>{ 
     gptConfigStore.setMyData( gptConfigStore.myData );
-    ms.success('保存成功');
+    ms.success( t('common.saveSuccess')); //'保存成功'
     emit('close');
+}
+const saveChat=()=>{
+     chatSet.save(  gptConfigStore.myData );
+     //gptConfigStore.setInit(); //恢复下默认
+     gptConfigStore.myData.systemMessage= '';
+     ms.success( t('common.saveSuccess'));
+     emit('close');
 }
  
 watch(()=>gptConfigStore.myData.model,(n)=>{
@@ -65,6 +77,12 @@ watch(()=>gptConfigStore.myData.model,(n)=>{
     config.value.maxToken=max/2;
     if(gptConfigStore.myData.max_tokens> config.value.maxToken ) gptConfigStore.myData.max_tokens= config.value.maxToken;
 })
+
+onMounted(() => {
+    gptConfigStore.myData= chatSet.getGptConfig();
+});
+
+
 //
 //const f= ref({model:gptConfigStore.myData.model});
 </script>
@@ -109,6 +127,7 @@ watch(()=>gptConfigStore.myData.model,(n)=>{
  </section>
  <section class=" text-right flex justify-end space-x-2"  >
     <NButton   @click="gptConfigStore.setInit()">{{ $t('mj.setBtBack') }}</NButton>
-    <NButton type="primary" @click="save">{{ $t('mj.setBtSave') }}</NButton>
+    <NButton type="primary" @click="saveChat">{{ $t('mj.setBtSaveChat') }}</NButton>
+    <NButton type="primary" @click="save">{{ $t('mj.setBtSaveSys') }}</NButton>
  </section>
 </template>
