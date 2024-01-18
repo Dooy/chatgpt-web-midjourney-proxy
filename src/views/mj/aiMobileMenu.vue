@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { SvgIcon } from '@/components/common';
-import { homeStore } from '@/store'
+import { homeStore,useChatStore} from '@/store'
 import { computed,watch ,ref  } from 'vue'
 import { router } from '@/router'
 
 import aiDrawInput from './aiDrawInput.vue'; 
 import {NDrawerContent,NDrawer} from "naive-ui";
+const chatStore = useChatStore()
 const st= ref({show:false})
 
 const goHome =computed(  () => {
@@ -20,10 +21,10 @@ function drawSent(e:any){
 
 watch(()=>homeStore.myData.act, (n:string)=>{
     if('showChat'==n){
-        router.push('/chat')
+        router.push('/chat/'+ chatStore.active??'1002')
     }
     if('showDraw'==n){
-        router.push('/draw')
+        router.push('/draw/'+ chatStore.active??'1002')
         st.value.show=true;
     }
 });
