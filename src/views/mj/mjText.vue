@@ -169,7 +169,7 @@ const getIndexName=  (arr:any[], ib:any )=> {
   return `${arr[i].emoji} ${ib.n}`;
 }
 
-const load = async ()=>{
+const load = async (isFlash=false )=>{
      changCustom();
      if(!chat.value.mjID) return ;
      let key= 'img:'+chat.value.mjID;
@@ -177,7 +177,7 @@ const load = async ()=>{
         if(chat.value.opt?.imageUrl){
             //await loadImg(chat.value.opt?.imageUrl);
             let base64 = await localGet(key );  
-            if(!base64) {
+            if(!base64 || isFlash ) {
                 const ubase64=  await url2base64(chat.value.opt?.imageUrl ,key );
                 base64= ubase64.base64;
                 mlog('图片已保存>>', ubase64.key )
@@ -200,7 +200,7 @@ watch(()=>homeStore.myData.act,(n)=>{
             return ;
          }
          st.value.isLoadImg=false;
-         load();
+         load( true );
          if( !actData.noShow ) ms.success( t('mj.success1'));
     }
 })
