@@ -6,7 +6,7 @@ import Sider from './sider/index.vue'
 import Permission from './Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
-import { aiSider,aiGpts ,aiGallery} from '@/views/mj' 
+import { aiSider,aiFooter} from '@/views/mj' 
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
 import { t } from '@/locales'
 import { openaiSetting } from '@/api'
@@ -75,8 +75,7 @@ const getContainerClass = computed(() => {
   </div>
    <aiMobileMenu v-if="isMobile"   /> 
 
-  <aiGpts/>
-  <aiGallery/>
+  <aiFooter/>
 </template>
 
 <style  >
