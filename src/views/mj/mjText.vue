@@ -2,7 +2,7 @@
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { NImage,NButton,NModal,useMessage,NInput } from 'naive-ui'
 import { computed , ref,watch } from 'vue'
-import {flechTask ,localGet,mlog, url2base64 } from '@/api'
+import {flechTask ,localGet,mlog, url2base64,mjImgUrl } from '@/api'
 import { homeStore } from '@/store'
 import aiCanvas from './aiCanvas.vue'
 import MarkdownIt from 'markdown-it'
@@ -169,7 +169,7 @@ const getIndexName=  (arr:any[], ib:any )=> {
   return `${arr[i].emoji} ${ib.n}`;
 }
 
-const load = async ()=>{
+const load = async (isFlash=false )=>{
      changCustom();
      if(!chat.value.mjID) return ;
      let key= 'img:'+chat.value.mjID;
@@ -177,7 +177,7 @@ const load = async ()=>{
         if(chat.value.opt?.imageUrl){
             //await loadImg(chat.value.opt?.imageUrl);
             let base64 = await localGet(key );  
-            if(!base64) {
+            if(!base64 || isFlash ) {
                 const ubase64=  await url2base64(chat.value.opt?.imageUrl ,key );
                 base64= ubase64.base64;
                 mlog('图片已保存>>', ubase64.key )
@@ -200,7 +200,7 @@ watch(()=>homeStore.myData.act,(n)=>{
             return ;
          }
          st.value.isLoadImg=false;
-         load();
+         load( true );
          if( !actData.noShow ) ms.success( t('mj.success1'));
     }
 })
@@ -218,6 +218,11 @@ const changCustom = ()=>{
     st.value.customText +="  --zoom 1.8";
 }
 
+// const imageUrl= computed( ()=>{
+//     if(chat.value.opt?.imageUrl) return chat.value.opt?.imageUrl;
+//     return ''
+// });
+
 load();
 </script>
 <template>
@@ -228,7 +233,7 @@ load();
              
         </div> 
         <div v-else-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
-        <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64:chat.opt.imageUrl" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
+        <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64: mjImgUrl( chat.opt.imageUrl)" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
         <div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
             <template v-if="chat.opt?.buttons">
                 <div v-for="(bts,ii) in bt" class=" flex justify-start items-center flex-wrap "> 

@@ -211,7 +211,7 @@ export const flechTask= ( chat:Chat.Chat)=>{
            
             setTimeout(() =>   check( ) , 5000 )
         } 
-        mlog('task', ts.progress,ts );
+        mlog('task', ts.progress,ts, chat.uuid,chat.index  );
     }
     check();
 }

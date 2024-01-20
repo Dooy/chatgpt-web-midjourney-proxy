@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NInput, NButton, useMessage} from "naive-ui"
+import { NInput, NButton, useMessage,NSwitch} from "naive-ui"
  
 import {gptServerStore} from '@/store'
 import { mlog, myTrim,blurClean} from "@/api";
@@ -56,6 +56,12 @@ const save = ()=>{
         <span class="text-[var(--n-tab-text-color-active)]">Midjourney Api Secret:</span>
       </template>
     </n-input>
+ </section>
+ <section class="mb-4 flex justify-start items-center">
+   <n-switch v-model:value="gptServerStore.myData.MJ_CDN_WSRV" >
+      <template #checked>  {{ $t('mj.wsrvClose') }} </template>
+      <template #unchecked> {{ $t('mj.wsrvOpen') }} </template>
+    </n-switch>
  </section>
 
  <div  class="text-right" > {{$t('mj.setUploader')}}</div>
