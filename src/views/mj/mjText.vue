@@ -2,7 +2,7 @@
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { NImage,NButton,NModal,useMessage,NInput } from 'naive-ui'
 import { computed , ref,watch } from 'vue'
-import {flechTask ,localGet,mlog, url2base64 } from '@/api'
+import {flechTask ,localGet,mlog, url2base64,mjImgUrl } from '@/api'
 import { homeStore } from '@/store'
 import aiCanvas from './aiCanvas.vue'
 import MarkdownIt from 'markdown-it'
@@ -218,6 +218,11 @@ const changCustom = ()=>{
     st.value.customText +="  --zoom 1.8";
 }
 
+// const imageUrl= computed( ()=>{
+//     if(chat.value.opt?.imageUrl) return chat.value.opt?.imageUrl;
+//     return ''
+// });
+
 load();
 </script>
 <template>
@@ -228,7 +233,7 @@ load();
              
         </div> 
         <div v-else-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
-        <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64:chat.opt.imageUrl" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
+        <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64: mjImgUrl( chat.opt.imageUrl)" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
         <div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
             <template v-if="chat.opt?.buttons">
                 <div v-for="(bts,ii) in bt" class=" flex justify-start items-center flex-wrap "> 

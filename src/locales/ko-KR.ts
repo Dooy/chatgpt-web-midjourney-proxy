@@ -166,7 +166,10 @@ export default {
   "yesLastVersion": "최신 버전입니다",
   "infoStar": "이 프로젝트는 <a class=\"text-blue-600 dark:text-blue-500\" href=\"https://github.com/Dooy/chatgpt-web-midjourney-proxy\" target=\"_blank\">GitHub</a>에서 오픈 소스로 제공되며 MIT 라이선스를 기반으로 하며 어떠한 유료 행위도 없습니다! </p><p>이 프로젝트가 도움이 되었다면 GitHub에서 별을 주시기 바랍니다. 감사합니다!",
   "setBtSaveChat": "대화만 저장",
-  "setBtSaveSys": "시스템에 저장"
+  "setBtSaveSys": "시스템에 저장",
+
+  "wsrvClose": "닫기 wsrv",
+  "wsrvOpen": "열기 wsrv"
 
   },
   "mjset": {

@@ -9,7 +9,7 @@ import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
 import { homeStore } from '@/store'
-import { getSeed, mlog } from '@/api' 
+import { getSeed, mlog ,mjImgUrl} from '@/api' 
 
 interface Props {
   dateTime?: string
@@ -141,7 +141,7 @@ function handleRegenerate2() {
             <span v-if="chat.opt?.seed">Seed:{{ chat.opt?.seed }}</span>
             <span v-else>Seed</span>
           </div>
-          <a :href="chat.opt?.imageUrl" class="hidden group-hover:block active  cursor-pointer underline " target="_blank">{{ $t('mj.ulink') }}</a>
+          <a :href=" mjImgUrl(chat.opt?.imageUrl)" class="hidden group-hover:block active  cursor-pointer underline " target="_blank">{{ $t('mj.ulink') }}</a>
         </template>
       </p>
       
