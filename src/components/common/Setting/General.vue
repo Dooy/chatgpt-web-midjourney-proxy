@@ -60,6 +60,8 @@ const languageOptions: { label: string; key: Language; value: Language }[] = [
   { label: '한국어', key: 'ko-KR', value: 'ko-KR' },
   { label: 'Русский язык', key: 'ru-RU', value: 'ru-RU' },
   { label: 'Tiếng Việt', key: 'vi-VN', value: 'vi-VN' },
+  { label: 'Français', key: 'fr-FR', value: 'fr-FR' },
+  { label: 'Türkçe', key: 'tr-TR', value: 'tr-TR' },
 ]
 
 function updateUserInfo(options: Partial<UserInfo>) {
