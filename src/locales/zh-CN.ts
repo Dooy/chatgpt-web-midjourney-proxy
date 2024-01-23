@@ -131,7 +131,7 @@ export default {
     ,myModle:'自定义模型'
     ,historyCnt:'上下文数量'
     ,historyToken:'更多的上下文会使记忆更精确，但会消耗更多的额度'
-    ,historyTCnt:'回复数'
+    ,historyTCnt:'回复数(max_tokens)'
     ,historyTCntInfo:'回复数越大 ,越有可能消耗更多的额度'
     ,role:'角色设定'
     ,rolePlaceholder:'给你的会话设置一个专属的角色，不是必须'

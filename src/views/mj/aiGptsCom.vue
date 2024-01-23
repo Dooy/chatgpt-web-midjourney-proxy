@@ -1,5 +1,5 @@
 <script setup lang="ts"> 
-import { myFetch, gptsType, mlog } from '@/api';
+import { myFetch, gptsType, mlog, chatSetting } from '@/api';
 import { homeStore,gptConfigStore,useChatStore } from '@/store';
 import { ref,computed ,watch  } from 'vue';
 import { useMessage ,NButton,NImage,NTag} from 'naive-ui';
@@ -26,7 +26,12 @@ const load= async ()=>{
     tag.value= d.tag as string[];
 }
 const go= async ( item: gptsType)=>{
-    gptConfigStore.setMyData({model:  `${ item.gid }`   ,gpts:item});
+    const saveObj= {model:  `${ item.gid }`   ,gpts:item}
+    gptConfigStore.setMyData(saveObj); 
+    if(chatStore.active){ //保存到对话框
+        const  chatSet = new chatSetting( chatStore.active );
+        if( chatSet.findIndex()>-1 ) chatSet.save( saveObj )
+    }
     ms.success(t('mjchat.success2'));
     const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/use`; 
     myFetch(gptUrl,item );

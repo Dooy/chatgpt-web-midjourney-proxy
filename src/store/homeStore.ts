@@ -30,6 +30,10 @@ export interface gptConfigType{
     systemMessage:string //自定义系统提示语
     gpts?:gptsType
     uuid?:number
+    temperature?:number // 随机性 : 值越大，回复越随机
+    top_p?:number // 核采样 : 与随机性类似，但不要和随机性一起更改
+    frequency_penalty?:number
+    presence_penalty?:number
 }
 const getGptInt= ():gptConfigType =>{
     let v:gptConfigType=getDefault();
@@ -48,7 +52,11 @@ let v:gptConfigType={
         max_tokens:1024,
         userModel:'',
         talkCount:10,
-        systemMessage:''
+        systemMessage:'',
+        temperature:0.5,
+        top_p:1,
+        presence_penalty:0,
+        frequency_penalty:0,
     }
     return v ;
 }

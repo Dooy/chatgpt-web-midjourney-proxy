@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {NSelect, NInput,NSlider, NButton, useMessage} from "naive-ui"
+import {NSelect, NInput,NSlider, NButton, useMessage,NTag} from "naive-ui"
 import { ref ,computed,watch, onMounted} from "vue";
 import {gptConfigStore, homeStore,useChatStore} from '@/store'
 import { mlog,chatSetting } from "@/api";
@@ -10,12 +10,16 @@ const chatStore = useChatStore();
 const uuid = chatStore.active;
 //mlog('uuid', uuid );
 const chatSet = new chatSetting( uuid==null?1002:uuid);
+
+const nGptStore = ref(  chatSet.getGptConfig() );
+
 const config = ref({
 model:[ 'gpt-4','gpt-3.5-turbo',`gpt-4-1106-preview`,`gpt-3.5-turbo-16k`,'gpt-4-0613','gpt-4-32k-0613' ,'gpt-4-32k','gpt-4-32k-0314',`gpt-3.5-turbo-16k-0613`
 ,`gpt-4-vision-preview`,`gpt-3.5-turbo-1106` 
-,'gpt-3.5-turbo-0301','gpt-3.5-turbo-0613','gpt-4-all','gpt-3.5-net','tts-1']
+,'gpt-3.5-turbo-0301','gpt-3.5-turbo-0613','gpt-4-all','gpt-3.5-net','gemini-pro']
 ,maxToken:2048
 }); 
+const st= ref({openMore:false });
 const modellist = computed(() => { //
     let rz =[ ];
     for(let o of config.value.model){
@@ -54,20 +58,21 @@ const modellist = computed(() => { //
 });
 const ms= useMessage();
 const save = ()=>{ 
-    gptConfigStore.setMyData( gptConfigStore.myData );
+    gptConfigStore.setMyData( nGptStore.value );
     ms.success( t('common.saveSuccess')); //'保存成功'
     emit('close');
 }
 const saveChat=()=>{
-     chatSet.save(  gptConfigStore.myData );
+     chatSet.save(  nGptStore.value );
+     homeStore.setMyData({act:'saveChat'});
      //gptConfigStore.setInit(); //恢复下默认
-     gptConfigStore.myData.systemMessage= '';
+     //gptConfigStore.myData.systemMessage= '';
      ms.success( t('common.saveSuccess'));
      emit('close');
 }
  
-watch(()=>gptConfigStore.myData.model,(n)=>{
-    gptConfigStore.myData.gpts=undefined;
+watch(()=>nGptStore.value.model,(n)=>{
+    nGptStore.value.gpts=undefined;
     let max=4096;
     if( n.indexOf('vision')>-1){
         max=4096;
@@ -75,11 +80,16 @@ watch(()=>gptConfigStore.myData.model,(n)=>{
         max=4096*2;
     }
     config.value.maxToken=max/2;
-    if(gptConfigStore.myData.max_tokens> config.value.maxToken ) gptConfigStore.myData.max_tokens= config.value.maxToken;
+    if(nGptStore.value.max_tokens> config.value.maxToken ) nGptStore.value.max_tokens= config.value.maxToken;
 })
 
+const reSet=()=>{
+    gptConfigStore.setInit();
+    nGptStore.value= gptConfigStore.myData;
+}
+
 onMounted(() => {
-    gptConfigStore.myData= chatSet.getGptConfig();
+    //gptConfigStore.myData= chatSet.getGptConfig();
 });
 
 
@@ -89,10 +99,10 @@ onMounted(() => {
 <template>
 <section class="mb-4 flex justify-between items-center"  >
      <div ><span class="text-red-500">*</span>  {{ $t('mjset.model') }}</div>
-    <n-select v-model:value="gptConfigStore.myData.model" :options="modellist" size="small"  class="!w-[50%]"   />
+    <n-select v-model:value="nGptStore.model" :options="modellist" size="small"  class="!w-[50%]"   />
 </section>
 <section class="mb-4 flex justify-between items-center"  >
-    <n-input   :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
+    <n-input   :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="nGptStore.userModel">
       <template #prefix>
         {{ $t('mjchat.myModle') }}
       </template>
@@ -102,8 +112,8 @@ onMounted(() => {
      <div> {{ $t('mjchat.historyCnt') }}
      </div>
      <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class=" w-[200px]"><n-slider v-model:value="gptConfigStore.myData.talkCount" :step="1" :max="50" /></div>
-        <div  class="w-[40px] text-right">{{ gptConfigStore.myData.talkCount }}</div>
+        <div class=" w-[200px]"><n-slider v-model:value="nGptStore.talkCount" :step="1" :max="50" /></div>
+        <div  class="w-[40px] text-right">{{ nGptStore.talkCount }}</div>
     </div>
 </section>
 <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
@@ -112,8 +122,8 @@ onMounted(() => {
      <div> {{ $t('mjchat.historyTCnt') }} 
      </div>
      <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class=" w-[200px]"><n-slider v-model:value="gptConfigStore.myData.max_tokens" :step="1" :max="config.maxToken" :min="1" /></div>
-        <div  class="w-[40px] text-right">{{ gptConfigStore.myData.max_tokens }}</div>
+        <div class=" w-[200px]"><n-slider v-model:value="nGptStore.max_tokens" :step="1" :max="config.maxToken" :min="1" /></div>
+        <div  class="w-[40px] text-right">{{ nGptStore.max_tokens }}</div>
     </div>
 </section>
 <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}  </div>
@@ -121,12 +131,60 @@ onMounted(() => {
  <section class="mb-4"  >
     <div>{{ $t('mjchat.role') }}</div>
     <div>
-     <n-input  type="textarea"  :placeholder=" $t('mjchat.rolePlaceholder') "   v-model:value="gptConfigStore.myData.systemMessage" :autosize="{ minRows: 3 }"
+     <n-input  type="textarea"  :placeholder=" $t('mjchat.rolePlaceholder') "   v-model:value="nGptStore.systemMessage" :autosize="{ minRows: 3 }"
     />
     </div>
  </section>
+
+<template v-if="st.openMore">
+    <section class=" flex justify-between items-center "  >
+        <div>随机性(temperature)</div>
+        <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
+            <div class=" w-[200px]"><n-slider v-model:value="nGptStore.temperature" :step="0.01" :max="1" /></div>
+            <div  class="w-[40px] text-right">{{ nGptStore.temperature }}</div>
+        </div>
+    </section>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20"> 值越大，回复越随机</div>
+
+
+    <section class=" flex justify-between items-center "  >
+        <div> 核采样(top_p)
+        </div>
+        <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
+            <div class=" w-[200px]"><n-slider v-model:value="nGptStore.top_p" :step="0.01" :max="1" /></div>
+            <div  class="w-[40px] text-right">{{ nGptStore.top_p }}</div>
+        </div>
+    </section>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">与随机性类似，但不要和随机性一起更改 </div>
+
+    <section class=" flex justify-between items-center "  >
+        <div> 话题新鲜度 (presence_penalty)</div>
+        <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
+            <div class=" w-[200px]"><n-slider v-model:value="nGptStore.presence_penalty" :step="0.01" :max="1" /></div>
+            <div  class="w-[40px] text-right">{{ nGptStore.presence_penalty }}</div>
+        </div>
+    </section>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">值越大，越有可能扩展到新话题 </div>
+
+
+    <section class=" flex justify-between items-center "  >
+        <div>频率惩罚度 (frequency_penalty)</div>
+        <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
+            <div class=" w-[200px]"><n-slider v-model:value="nGptStore.frequency_penalty" :step="0.01" :max="1" /></div>
+            <div  class="w-[40px] text-right">{{ nGptStore.frequency_penalty }}</div>
+        </div>
+    </section>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">值越大，越有可能降低重复字词</div>
+
+
+
+</template>
+<div v-else class="text-right cursor-pointer mb-4" @click="st.openMore=true">
+    <NTag  type="primary" round size="small" :bordered="false" class="!cursor-pointer">More...</NTag>
+</div>
+
  <section class=" text-right flex justify-end space-x-2"  >
-    <NButton   @click="gptConfigStore.setInit()">{{ $t('mj.setBtBack') }}</NButton>
+    <NButton   @click="reSet()">{{ $t('mj.setBtBack') }}</NButton>
     <NButton type="primary" @click="saveChat">{{ $t('mj.setBtSaveChat') }}</NButton>
     <NButton type="primary" @click="save">{{ $t('mj.setBtSaveSys') }}</NButton>
  </section>

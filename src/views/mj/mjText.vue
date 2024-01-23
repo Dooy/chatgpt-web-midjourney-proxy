@@ -178,7 +178,7 @@ const load = async (isFlash=false )=>{
             //await loadImg(chat.value.opt?.imageUrl);
             let base64 = await localGet(key );  
             if(!base64 || isFlash ) {
-                const ubase64=  await url2base64(chat.value.opt?.imageUrl ,key );
+                const ubase64=  await url2base64( mjImgUrl(  chat.value.opt?.imageUrl ) ,key );
                 base64= ubase64.base64;
                 mlog('图片已保存>>', ubase64.key )
             }
@@ -292,7 +292,7 @@ load();
 <div v-else class="w-[200px] h-[150px] flex flex-col justify-center items-center" >
     <div class="p-4">{{ $t('mjchat.loading') }}</div>
     
-    <NButton type="primary"  ><a :href="chat.opt?.imageUrl" target="_blank">{{ $t('mjchat.openurl') }}</a></NButton> 
+    <NButton type="primary" v-if="chat.opt?.imageUrl" ><a :href=" mjImgUrl(chat.opt?.imageUrl)" target="_blank">{{ $t('mjchat.openurl') }}</a></NButton> 
 </div>
 
 

@@ -29,7 +29,7 @@ export class chatSetting{
      if(!obj) return [];
      return obj;
   }
-  private findIndex(){ 
+  public findIndex(){ 
     return  this.getObjs().findIndex(v=>v.uuid && v.uuid==this.uuid  )
   }
   public save( obj : Partial<gptConfigType>){
