@@ -138,43 +138,42 @@ onMounted(() => {
 
 <template v-if="st.openMore">
     <section class=" flex justify-between items-center "  >
-        <div>随机性(temperature)</div>
+        <div>{{ $t('mj.temperature') }}</div>
         <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
             <div class=" w-[200px]"><n-slider v-model:value="nGptStore.temperature" :step="0.01" :max="1" /></div>
             <div  class="w-[40px] text-right">{{ nGptStore.temperature }}</div>
         </div>
     </section>
-    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20"> 值越大，回复越随机</div>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20"> {{ $t('mj.temperatureInfo') }}</div>
 
 
     <section class=" flex justify-between items-center "  >
-        <div> 核采样(top_p)
-        </div>
+        <div> {{ $t('mj.top_p') }}</div>
         <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
             <div class=" w-[200px]"><n-slider v-model:value="nGptStore.top_p" :step="0.01" :max="1" /></div>
             <div  class="w-[40px] text-right">{{ nGptStore.top_p }}</div>
         </div>
     </section>
-    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">与随机性类似，但不要和随机性一起更改 </div>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.top_pInfo') }}</div>
 
     <section class=" flex justify-between items-center "  >
-        <div> 话题新鲜度 (presence_penalty)</div>
+        <div> {{ $t('mj.presence_penalty') }}</div>
         <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
             <div class=" w-[200px]"><n-slider v-model:value="nGptStore.presence_penalty" :step="0.01" :max="1" /></div>
             <div  class="w-[40px] text-right">{{ nGptStore.presence_penalty }}</div>
         </div>
     </section>
-    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">值越大，越有可能扩展到新话题 </div>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.presence_penaltyInfo') }} </div>
 
 
     <section class=" flex justify-between items-center "  >
-        <div>频率惩罚度 (frequency_penalty)</div>
+        <div>{{ $t('mj.frequency_penalty') }}</div>
         <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
             <div class=" w-[200px]"><n-slider v-model:value="nGptStore.frequency_penalty" :step="0.01" :max="1" /></div>
             <div  class="w-[40px] text-right">{{ nGptStore.frequency_penalty }}</div>
         </div>
     </section>
-    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">值越大，越有可能降低重复字词</div>
+    <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.frequency_penaltyInfo') }}</div>
 
 
 

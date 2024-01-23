@@ -171,7 +171,17 @@ export default {
         "setBtSaveChat": "Sadece sohbeti kaydet",
         "setBtSaveSys": "Sisteme kaydet",
         "wsrvClose": "wsrv'yi kapat",
-        "wsrvOpen": "wsrv'yi aç"
+        "wsrvOpen": "wsrv'yi aç",
+        
+        "temperature": "Rastlantısallık",
+        "temperatureInfo": "(temperature) değeri arttıkça yanıtlar daha rastlantısal hale gelir",
+        "top_p": "Üst Olasılık Örnekleme",
+        "top_pInfo": "(top_p) rastlantısallığa benzer ancak sıcaklık ile birlikte değiştirilmemelidir",
+        "presence_penalty": "Konu Tazeliği",
+        "presence_penaltyInfo": "(presence_penalty) değeri arttıkça, yeni konulara genişleme olasılığı daha yüksektir",
+        "frequency_penalty": "Frekans Cezası",
+        "frequency_penaltyInfo": "(frequency_penalty) değeri arttıkça, tekrarlanan kelimelerin azaltılma olasılığı daha yüksektir"
+    
     },        
     "mjset": {
         "server": "Sunucu",

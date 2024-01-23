@@ -131,8 +131,8 @@ export default {
     ,myModle:'自定义模型'
     ,historyCnt:'上下文数量'
     ,historyToken:'更多的上下文会使记忆更精确，但会消耗更多的额度'
-    ,historyTCnt:'回复数(max_tokens)'
-    ,historyTCntInfo:'回复数越大 ,越有可能消耗更多的额度'
+    ,historyTCnt:'回复数'
+    ,historyTCntInfo:'(max_tokens)回复数越大 ,越有可能消耗更多的额度'
     ,role:'角色设定'
     ,rolePlaceholder:'给你的会话设置一个专属的角色，不是必须'
     ,loading2:'正在加载...'
@@ -266,5 +266,14 @@ export default {
 
     ,wsrvClose:'关闭 wsrv'
     ,wsrvOpen:'开启 wsrv'
+
+    ,temperature:'随机性'
+    ,temperatureInfo:'(temperature)值越大，回复越随机'
+    ,top_p:'核采样'
+    ,top_pInfo:'(top_p)与随机性类似，但不要和随机性一起更改 '
+    ,presence_penalty:'话题新鲜度  '
+    ,presence_penaltyInfo:'(presence_penalty)值越大，越有可能扩展到新话题'
+    ,frequency_penalty:'频率惩罚度'
+    ,frequency_penaltyInfo:' (frequency_penalty)值越大，越有可能降低重复字词'
   }
 }

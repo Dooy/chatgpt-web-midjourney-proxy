@@ -172,8 +172,16 @@ export default {
   "setBtSaveSys": "Сохранить в систему",
 
   "wsrvClose": "Закрыть wsrv",
-  "wsrvOpen": "Открыть wsrv"
+  "wsrvOpen": "Открыть wsrv",
 
+  "temperature": "Случайность",
+  "temperatureInfo": "При увеличении значения (temperature) ответы становятся более случайными",
+  "top_p": "Верхняя вероятность выборки",
+  "top_pInfo": "(top_p) аналогично случайности, но не следует изменять вместе с температурой",
+  "presence_penalty": "Свежесть темы",
+  "presence_penaltyInfo": "При увеличении значения (presence_penalty) увеличивается вероятность расширения на новые темы",
+  "frequency_penalty": "Частотное наказание",
+  "frequency_penaltyInfo": "При увеличении значения (frequency_penalty) увеличивается вероятность уменьшения повторяющихся слов"
   },
   "mjset": {
     "server": "Сервер",
