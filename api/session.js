@@ -17,6 +17,7 @@ module.exports = (req, res) => {
             ,googleId: process.env.TJ_GOOGLE_ID?? ""
             , notify : process.env.SYS_NOTIFY?? "" 
             ,disableGpt4 : process.env.DISABLE_GPT4?? "" 
+            ,isWsrv:  process.env.MJ_IMG_WSRV?? "" 
 
         }
     }

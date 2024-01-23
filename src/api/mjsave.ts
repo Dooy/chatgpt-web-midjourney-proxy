@@ -1,4 +1,4 @@
-import { gptServerStore } from "@/store";
+import { gptServerStore, homeStore } from "@/store";
 import localforage from "localforage"
 import { mlog } from "./mjapi";
 
@@ -69,15 +69,15 @@ export const url2base64= async (url:string,key?:string)=>{
 }
 
 export const wsrvUrl=(url:string)=>{
-    if( url.indexOf('attachments')>0 ){
-        const arr = url.split('attachments',2);
-        url= 'https://cdn.discordapp.com/attachments'+ arr[1];
+    const arr = url.split(/([a-z\-]+)ttachments/ig, 3 );
+    if( arr.length==3){
+        url= `https://cdn.discordapp.com/${arr[1]}ttachments`+ arr[2];
     }
     return `https://wsrv.nl/?url=`+ encodeURIComponent(url);
 }
 
 export const mjImgUrl= (url:string)=>{
-    if (gptServerStore.myData.MJ_CDN_WSRV) return wsrvUrl(url);
+    if (gptServerStore.myData.MJ_CDN_WSRV || homeStore.myData.session.isWsrv ) return wsrvUrl(url);
     return url;
 }
 

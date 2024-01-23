@@ -85,8 +85,9 @@ router.post('/session', async (req, res) => {
     const notify = process.env.SYS_NOTIFY?? "" ;
     const disableGpt4 = process.env.DISABLE_GPT4?? "" ;
     const isUploadR2 = isNotEmptyString(process.env.R2_DOMAIN);
+    const isWsrv =  process.env.MJ_IMG_WSRV?? "" 
 
-    const data= { disableGpt4,
+    const data= { disableGpt4,isWsrv,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2
     }
