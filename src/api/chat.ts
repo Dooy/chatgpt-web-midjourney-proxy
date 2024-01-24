@@ -24,7 +24,7 @@ export class chatSetting{
      const arr = this.getObjs();
      return arr[index];
   }
-  private getObjs():gptConfigType[]{
+  public getObjs():gptConfigType[]{
      const obj = ss.get( this.localKey ) as  undefined| gptConfigType[];
      if(!obj) return [];
      return obj;

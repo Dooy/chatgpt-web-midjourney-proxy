@@ -1,10 +1,12 @@
 <script setup lang='ts'>
-import { computed } from 'vue'
+import { computed ,watch,ref} from 'vue'
 import { NInput, NPopconfirm, NScrollbar } from 'naive-ui'
 import { SvgIcon } from '@/components/common'
-import { useAppStore, useChatStore } from '@/store'
+import { gptConfigStore, gptConfigType, homeStore, useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { debounce } from '@/utils/functions/debounce'
+import { chatSetting } from '@/api'
+import AiListText from '@/views/mj/aiListText.vue'
 
 const { isMobile } = useBasicLayout()
 
@@ -48,6 +50,20 @@ function handleEnter({ uuid }: Chat.History, isEdit: boolean, event: KeyboardEve
 function isActive(uuid: number) {
   return chatStore.active === uuid
 }
+const chatSet= new chatSetting( chatStore.active??1002);
+const myuid= ref<gptConfigType[]>( []) //computed( ()=>chatSet.getObjs() ) ;
+const toMyuid= ( )=> myuid.value= chatSet.getObjs();
+toMyuid();
+const isInObjs= (uuid:number):false|gptConfigType =>{
+  const index = myuid.value.findIndex((item:gptConfigType)=>{
+    return item.uuid==uuid
+  })
+  if(index==-1) return false;
+  return myuid.value[index];
+}
+watch(()=>homeStore.myData.act,(n:string)=>n=='saveChat' && toMyuid() , {deep:true})
+watch(()=>gptConfigStore.myData , toMyuid , {deep:true})
+
 </script>
 
 <template>
@@ -66,17 +82,14 @@ function isActive(uuid: number) {
             :class="isActive(item.uuid) && ['border-[#4b9e5f]', 'bg-neutral-100', 'text-[#4b9e5f]', 'dark:bg-[#24272e]', 'dark:border-[#4b9e5f]', 'pr-14']"
             @click="handleSelect(item)"
           >
-            <span>
-              <SvgIcon icon="ri:message-3-line" />
-            </span>
-            <div class="relative flex-1 overflow-hidden break-all text-ellipsis whitespace-nowrap">
-              <NInput
+             
+             <AiListText   :myObj="isInObjs(item.uuid)" :myItem="item">
+               <NInput
                 v-if="item.isEdit"
                 v-model:value="item.title" size="tiny"
                 @keypress="handleEnter(item, false, $event)"
               />
-              <span v-else>{{ item.title }}</span>
-            </div>
+             </AiListText>
             <div v-if="isActive(item.uuid)" class="absolute z-10 flex visible right-1">
               <template v-if="item.isEdit">
                 <button class="p-1" @click="handleEdit(item, false, $event)">

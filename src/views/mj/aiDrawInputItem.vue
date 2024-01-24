@@ -124,7 +124,15 @@ function selectFile(input:any){
         ms.error( t('mjchat.more5sb'));
         return;
     }
-    upImg(input.target.files[0]).then(d=>st.value.fileBase64.push(d) ).catch(e=>msgRef.value.showError(e));
+    upImg(input.target.files[0]).then( (d:any )=>{
+        const index = st.value.fileBase64.findIndex(v=>v==d);
+        if(index>-1) {
+            ms.error( t('mjchat.no2add'));
+            return ;
+        }
+        st.value.fileBase64.push(d);
+        fsRef.value.value='';
+    }).catch(e=>msgRef.value.showError(e));
     
 }
 
