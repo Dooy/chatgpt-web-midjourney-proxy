@@ -5,7 +5,7 @@ import { SvgIcon } from '@/components/common'
 import { gptConfigStore, gptConfigType, homeStore, useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { debounce } from '@/utils/functions/debounce'
-import { chatSetting } from '@/api'
+import { chatSetting, mlog } from '@/api'
 import AiListText from '@/views/mj/aiListText.vue'
 
 const { isMobile } = useBasicLayout()
@@ -50,16 +50,19 @@ function handleEnter({ uuid }: Chat.History, isEdit: boolean, event: KeyboardEve
 function isActive(uuid: number) {
   return chatStore.active === uuid
 }
+
 const chatSet= new chatSetting( chatStore.active??1002);
 const myuid= ref<gptConfigType[]>( []) //computed( ()=>chatSet.getObjs() ) ;
 const toMyuid= ( )=> myuid.value= chatSet.getObjs();
 toMyuid();
-const isInObjs= (uuid:number):false|gptConfigType =>{
+const isInObjs= (uuid:number):undefined|gptConfigType =>{
+  if(!myuid.value.length) return ;
   const index = myuid.value.findIndex((item:gptConfigType)=>{
     return item.uuid==uuid
   })
-  if(index==-1) return false;
-  return myuid.value[index];
+  if(index==-1) return ;
+  mlog('index',index, myuid.value[index]  );
+  return myuid.value[index] ;
 }
 watch(()=>homeStore.myData.act,(n:string)=>n=='saveChat' && toMyuid() , {deep:true})
 watch(()=>gptConfigStore.myData , toMyuid , {deep:true})

@@ -26,6 +26,9 @@ watch(()=>homeStore.myData.act, (n:string)=>{
         router.push('/draw')
         st.value.show=true;
     }
+    if(n=='draw'){
+       st.value.show=false;
+    }
 });
 </script>
 <template>
