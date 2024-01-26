@@ -402,7 +402,10 @@ const getModelMax=( model:string )=>{
         return 32;
     }else if( model.indexOf('64k')>-1  ){
         return 64;
-    }else if( model.indexOf('128k')>-1 || model=='gpt-4-1106-preview' || model=='gpt-4-vision-preview' ){
+    }else if( model.indexOf('128k')>-1 
+    || model=='gpt-4-1106-preview' 
+    || model=='gpt-4-0125-preview' 
+    || model=='gpt-4-vision-preview' ){
         return 128; 
     }else if( model.indexOf('gpt-4')>-1  ){  
         max=8;
