@@ -86,10 +86,12 @@ router.post('/session', async (req, res) => {
     const disableGpt4 = process.env.DISABLE_GPT4?? "" ;
     const isUploadR2 = isNotEmptyString(process.env.R2_DOMAIN);
     const isWsrv =  process.env.MJ_IMG_WSRV?? "" 
+    const uploadImgSize =  process.env.UPLOAD_IMG_SIZE?? "1" 
+    const gptUrl = process.env.GPT_URL?? ""; 
 
-    const data= { disableGpt4,isWsrv,
+    const data= { disableGpt4,isWsrv,uploadImgSize,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
-      , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2
+      , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
     }
     res.send({  status: 'Success', message: '', data})
   }

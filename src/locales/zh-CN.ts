@@ -181,7 +181,7 @@ export default {
     ,blendStart:'开始合成'
     ,no2add:'请勿重复添加图片'
     ,add2more:'请添加两张以上图片'
-    ,no1m:'图片大小不能超过1M'
+    ,no1m:'图片大小不能超过{m}M'
     ,imgExt:'图片仅支持jpg,gif,png,jpeg格式'
   },
   mj:{
@@ -275,5 +275,7 @@ export default {
     ,presence_penaltyInfo:'(presence_penalty)值越大，越有可能扩展到新话题'
     ,frequency_penalty:'频率惩罚度'
     ,frequency_penaltyInfo:' (frequency_penalty)值越大，越有可能降低重复字词'
+
+    ,tts_voice:'TTS 语音人物'
   }
 }

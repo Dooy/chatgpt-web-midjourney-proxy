@@ -18,6 +18,7 @@ module.exports = (req, res) => {
             , notify : process.env.SYS_NOTIFY?? "" 
             ,disableGpt4 : process.env.DISABLE_GPT4?? "" 
             ,isWsrv:  process.env.MJ_IMG_WSRV?? "" 
+            ,uploadImgSize: process.env.UPLOAD_IMG_SIZE?? "1" 
 
         }
     }

@@ -34,6 +34,7 @@ export interface gptConfigType{
     top_p?:number // 核采样 : 与随机性类似，但不要和随机性一起更改
     frequency_penalty?:number
     presence_penalty?:number
+    tts_voice?:string //TTS 人物
 }
 const getGptInt= ():gptConfigType =>{
     let v:gptConfigType=getDefault();
@@ -57,6 +58,7 @@ let v:gptConfigType={
         top_p:1,
         presence_penalty:0,
         frequency_penalty:0,
+        tts_voice:"alloy"
     }
     return v ;
 }

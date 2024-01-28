@@ -10,7 +10,7 @@ import {NSpin ,NEmpty,NImage, NTag } from 'naive-ui'
 //import AiMsg from "@/views/aidutu/aiMsg.vue";
 import { homeStore ,useChatStore} from "@/store"
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { ViewCard } from 'vue-waterfall-plugin-next/dist/types/types/waterfall'
+//import { ViewCard } from 'vue-waterfall-plugin-next/dist/types/types/waterfall'
 import { getMjAll, localGet, mlog ,loadGallery, url2base64 } from '@/api'
  
 const chatStore = useChatStore()
@@ -25,7 +25,7 @@ const st =ref({show:true ,showImg:'' ,isLoad:false });
 const showImg= ref<typeof NImage>();
  
 
-const list = ref<ViewCard[]>([])
+const list = ref<any[]>([])
 
 const breakpoints= {
   2000: { //当屏幕宽度小于等于1200
