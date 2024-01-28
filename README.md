@@ -61,6 +61,7 @@
 | SYS_NOTIFY |  系统通知，支持HTML | 无  | ✅ |  ✅|
 | DISABLE_GPT4 |  禁用GPT-4 | 无  | ✅ |  ✅|
 | GPT_URL | 自定 GPT_URL=/gpts.json  | 无 也可自己的外链 | ✅ |  ✅|
+| UPLOAD_IMG_SIZE | gpt-4-verison 上传图片大小 |  1 | ✅ |  ✅|
   
 
 ## docker 部署
