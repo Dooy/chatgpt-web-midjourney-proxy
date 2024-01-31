@@ -280,7 +280,8 @@ export const subTTS = async (tts:ttsType )=>{
       throw new Error(`API request failed with status ${response.status}`);
     }
     const audioData = await response.arrayBuffer();
-    const blob = new Blob([audioData], { type: 'audio/mp3' });
+    const contentType = response.headers.get('Content-Type')
+    const blob = new Blob([audioData], { type: contentType??'audio/mpeg' });
     mlog('blob', blob);
     const saveID = await localSaveAny( blob );
     const pp= await bolbObj(blob );

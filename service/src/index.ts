@@ -88,8 +88,9 @@ router.post('/session', async (req, res) => {
     const isWsrv =  process.env.MJ_IMG_WSRV?? "" 
     const uploadImgSize =  process.env.UPLOAD_IMG_SIZE?? "1" 
     const gptUrl = process.env.GPT_URL?? ""; 
+    const theme = process.env.SYS_THEME?? "dark"; 
 
-    const data= { disableGpt4,isWsrv,uploadImgSize,
+    const data= { disableGpt4,isWsrv,uploadImgSize,theme,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
     }

@@ -1,3 +1,4 @@
+import { homeStore } from '@/store/homeStore'
 import { ss } from '@/utils/storage'
 
 const LOCAL_NAME = 'appSetting'
@@ -13,7 +14,7 @@ export interface AppState {
 }
 
 export function defaultSetting(): AppState {
-  return { siderCollapsed: false, theme: 'dark', language: 'zh-CN' }
+  return { siderCollapsed: false, theme: homeStore.myData.session.theme=='light'?'light': 'auto', language: 'zh-CN' }
 }
 
 export function getLocalSetting(): AppState {
