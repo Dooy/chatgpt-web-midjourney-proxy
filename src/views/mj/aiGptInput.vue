@@ -2,7 +2,8 @@
 import { ref ,computed,watch } from 'vue';
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
-import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NTag,NPopover,NModal } from 'naive-ui'
+import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NTag
+,NPopover,NModal  } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
 import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard,isFileMp3,countTokens, checkDisableGpt4} from '@/api';
 import { gptConfigStore, homeStore,useChatStore } from '@/store';
@@ -10,6 +11,7 @@ import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
 import { useRoute } from 'vue-router' 
 import aiModel from "@/views/mj/aiModel.vue"
+import AiMic from './aiMic.vue';
 
 //import FormData from 'form-data'
 const route = useRoute() 
@@ -18,7 +20,7 @@ const chatStore = useChatStore()
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
 const fsRef = ref()
-const st = ref<{fileBase64:string[],isLoad:number,isShow:boolean}>({fileBase64:[],isLoad:0,isShow:false })
+const st = ref<{fileBase64:string[],isLoad:number,isShow:boolean,showMic:boolean}>({fileBase64:[],isLoad:0,isShow:false,showMic:false })
 const { isMobile } = useBasicLayout()
 const placeholder = computed(() => {
   if (isMobile.value)
@@ -63,7 +65,7 @@ function selectFile(input:any){
 
 const myToken =ref({remain:0,modelTokens:'4k'});
 const funt = async ()=>{
-    const d = await countTokens( dataSources.value, mvalue.value ) 
+    const d = await countTokens( dataSources.value, mvalue.value ,chatStore.active??1002 ) 
     myToken.value=d ;
     return d ;
 } 
@@ -154,9 +156,22 @@ const paste=   (e: ClipboardEvent)=>{
     let rz =   getFileFromClipboard(e); 
     if(rz.length>0 ) upFile(rz[0]);
 }
+ 
+
+const sendMic= (e:any )=>{
+    mlog('sendMic', e );
+    st.value.showMic=false;
+    let du = 'whisper.wav';// (e.stat && e.stat.duration)?(e.stat.duration.toFixed(2)+'s'):'whisper.wav';
+    const file = new File([e.blob], du, { type: 'audio/wav' });
+    homeStore.setMyData({act:'gpt.whisper', actData:{ file , prompt:'whisper',duration : e.stat?.duration } });
+}
+
 </script>
 <template>
-<div class="  myinputs"  @drop="drop" @paste="paste">
+<div v-if="st.showMic" class="  myinputs flex justify-center items-center" >
+    <AiMic @cancel="st.showMic=false" @send="sendMic" />
+</div>
+<div class="  myinputs"  @drop="drop" @paste="paste" v-else>
 
     <input type="file" id="fileInput"  @change="selectFile"  class="hidden" ref="fsRef"   :accept="acceptData"/>
     <div class="w-full relative">
@@ -165,7 +180,7 @@ const paste=   (e: ClipboardEvent)=>{
             <NImage :src="v" object-fit="cover" class="w-full h-full" >
                 <template #placeholder>
                     <a class="w-full h-full flex items-center justify-center  text-neutral-500" :href="v" target="_blank" >
-                        <SvgIcon icon="mdi:download" />附{{ ii+1 }}
+                        <SvgIcon icon="mdi:download" />{{ $t('mj.attr1') }} {{ ii+1 }}
                     </a>
                 </template>
             </NImage> 
@@ -193,7 +208,7 @@ const paste=   (e: ClipboardEvent)=>{
           
         </div>
     </div>
-    <NAutoComplete v-model:value="mvalue" :options="searchOptions" :render-label="renderOption">
+    <NAutoComplete v-model:value="mvalue" :options="searchOptions" :render-label="renderOption" >
         <template #default="{ handleInput, handleBlur, handleFocus }">
         <NInput ref="inputRef"  v-model:value="mvalue"    type="textarea"
             :placeholder="placeholder"  :autosize="{ minRows: 1, maxRows: isMobile ? 4 : 8 }"
@@ -215,28 +230,20 @@ const paste=   (e: ClipboardEvent)=>{
                     </div>
                     </n-tooltip>
                 </div>
+                <div  class=" relative; w-[22px]">
+                    <SvgIcon icon="bi:mic"  class="absolute bottom-[10px] left-[30px] cursor-pointer" @click="st.showMic=true"></SvgIcon>
+                </div>
                 
             </template>
             <template #suffix>
                 <div  class=" relative; w-[40px] ">
                     <div class="absolute bottom-[-3px] right-[0px] ">
-                         
-                        <!-- <NButton type="primary"  v-if="homeStore.myData.isLoader " >
-                            <template #icon>
-                            <span class="dark:text-black"> 
-                                <SvgIcon icon="ri:stop-circle-line" />
-                            </span>
-                            </template>
-                        </NButton> -->
                         <NButton type="primary" :disabled="disabled || homeStore.myData.isLoader "     @click="handleSubmit" >
                          
                             <template #icon>
                             <span class="dark:text-black">
                                 <SvgIcon icon="ri:stop-circle-line" v-if="homeStore.myData.isLoader" /> 
                                 <SvgIcon icon="ri:send-plane-fill"   v-else/> 
-                                
-                                 
-                                
                             </span>
                             </template>
                             
@@ -253,6 +260,13 @@ const paste=   (e: ClipboardEvent)=>{
 <NModal v-model:show="st.isShow"   preset="card"  :title="$t('mjchat.modelChange')" class="!max-w-[620px]" @close="st.isShow=false" >  
         <aiModel @close="st.isShow=false"/>
 </NModal>
+
+<!-- <n-drawer v-model:show="st.showMic" :width="420" :on-update:show="onShowFun">
+    <n-drawer-content title="录音" closable>
+        <AiMic />
+    </n-drawer-content>
+</n-drawer> -->
+
 </template>
 <style    >
 .myinputs .n-input .n-input-wrapper{

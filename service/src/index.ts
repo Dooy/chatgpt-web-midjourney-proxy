@@ -7,15 +7,17 @@ import { limiter } from './middleware/limiter'
 import { isNotEmptyString,formattedDate } from './utils/is'
 import multer from "multer"
 import path from "path"
-import fs from "fs" 
+import fs from "fs"
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 //import {createProxyMiddleware} from "http-proxy-middleware"
 import  proxy from "express-http-proxy"
 import bodyParser  from 'body-parser';
 import FormData  from 'form-data'
 import axios from 'axios';
+import AWS  from 'aws-sdk';
+import { v4 as uuidv4} from 'uuid';
 
- 
+
 
 const app = express()
 const router = express.Router()
@@ -75,18 +77,23 @@ router.post('/session', async (req, res) => {
     const hasAuth = isNotEmptyString(AUTH_SECRET_KEY)
     const isUpload= isNotEmptyString(  process.env.API_UPLOADER )
     const isHideServer= isNotEmptyString(  process.env.HIDE_SERVER );
-    const amodel=   process.env.OPENAI_API_MODEL?? "gpt-3.5-turbo" ; 
-    const isApiGallery=  isNotEmptyString(  process.env.MJ_API_GALLERY );  
-    const cmodels =   process.env.CUSTOM_MODELS??'' ;  
-    const baiduId=process.env.TJ_BAIDU_ID?? "" ; 
-    const googleId=process.env.TJ_GOOGLE_ID?? "" ; 
+    const amodel=   process.env.OPENAI_API_MODEL?? "gpt-3.5-turbo" ;
+    const isApiGallery=  isNotEmptyString(  process.env.MJ_API_GALLERY );
+    const cmodels =   process.env.CUSTOM_MODELS??'' ;
+    const baiduId=process.env.TJ_BAIDU_ID?? "" ;
+    const googleId=process.env.TJ_GOOGLE_ID?? "" ;
     const notify = process.env.SYS_NOTIFY?? "" ;
     const disableGpt4 = process.env.DISABLE_GPT4?? "" ;
-    
-    const data= { disableGpt4,
+    const isUploadR2 = isNotEmptyString(process.env.R2_DOMAIN);
+    const isWsrv =  process.env.MJ_IMG_WSRV?? "" 
+    const uploadImgSize =  process.env.UPLOAD_IMG_SIZE?? "1" 
+    const gptUrl = process.env.GPT_URL?? ""; 
+    const theme = process.env.SYS_THEME?? "dark"; 
+
+    const data= { disableGpt4,isWsrv,uploadImgSize,theme,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
-      , model: currentModel(),amodel,isApiGallery,cmodels 
-    } 
+      , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
+    }
     res.send({  status: 'Success', message: '', data})
   }
   catch (error) {
@@ -125,7 +132,7 @@ app.use('/mjapi', proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api
     return proxyReqOpts;
   },
   //limit: '10mb'
-  
+
 }));
 
 
@@ -143,7 +150,7 @@ const storage = multer.diskStorage({
     if(!fs.existsSync(uploadFolderPath)) {
       fs.mkdirSync(uploadFolderPath);
     }
-    cb(null, `uploads/${formattedDate()}/`); 
+    cb(null, `uploads/${formattedDate()}/`);
   },
   filename: function (req, file, cb) {
     let filename=  Date.now() + path.extname(file.originalname);
@@ -158,40 +165,40 @@ const upload2 = multer({ storage: storage2 });
 
 // 处理文件上传的路由
 const isUpload= isNotEmptyString(  process.env.API_UPLOADER )
-if(isUpload){ 
+if(isUpload){
   if( process.env.FILE_SERVER){
-    app.use('/openapi/v1/upload',  
+    app.use('/openapi/v1/upload',
     upload2.single('file'),
-      async (req, res, next) => { 
+      async (req, res, next) => {
         //console.log( "boday",req.body ,  req.body.model );
-        if(req.file.buffer) { 
-          const fileBuffer = req.file.buffer; 
+        if(req.file.buffer) {
+          const fileBuffer = req.file.buffer;
           const formData = new FormData();
           formData.append('file',  fileBuffer,  { filename:  req.file.originalname }  );
-          //formData.append('model',  req.body.model ); 
+          //formData.append('model',  req.body.model );
         try{
-          let url = process.env.FILE_SERVER ; 
+          let url = process.env.FILE_SERVER ;
           let responseBody = await axios.post( url , formData, {
-                  headers: {  
+                  headers: {
                   //Authorization: 'Bearer '+ process.env.OPENAI_API_KEY ,
-                  'Content-Type': 'multipart/form-data'  
-                } 
+                  'Content-Type': 'multipart/form-data'
+                }
             })   ;
-            
+
           res.json(responseBody.data );
           }catch(e){
             res.status( 400 ).json( {error: e } );
           }
         }else{
           res.status(400).json({'error':'uploader fail'});
-        } 
+        }
       }
     );
   }
-  else{ 
+  else{
     app.use('/openapi/v1/upload', upload.single('file'), (req, res) => {
     //res.send('文件上传成功！');
-    res.setHeader('Content-type', 'application/json' ); 
+    res.setHeader('Content-type', 'application/json' );
     if(req.file.filename) res.json({ url:`/uploads/${formattedDate()}/${ req.file.filename  }`,created:Date.now() })
     else res.json({ error:`uploader fail`,created:Date.now() })
   });
@@ -204,25 +211,73 @@ if(isUpload){
 }
 app.use('/uploads', express.static('uploads'));
 
+// R2Client function
+const R2Client = () => {
+  const accountId = process.env.R2_ACCOUNT_ID;
+  const accessKeyId = process.env.R2_KEY_ID;
+  const accessKeySecret = process.env.R2_KEY_SECRET;
+  const endpoint = new AWS.Endpoint(`https://${accountId}.r2.cloudflarestorage.com`);
+  const s3 = new AWS.S3({
+    endpoint: endpoint,
+    region: 'auto',
+    credentials: new AWS.Credentials(accessKeyId, accessKeySecret),
+		signatureVersion: 'v4',
+  });
+  return s3;
+};
 
+// cloudflare R2 upload
+app.post('/openapi/pre_signed', (req, res) => {
+  const bucketName = process.env.R2_BUCKET_NAME;
+  const domain = process.env.R2_DOMAIN;
+  const s3 = R2Client();
+  const fileName = uuidv4();
+  const saveFile = `${new Date().toISOString().split('T')[0]}/${fileName}${req.body.file_name}`;
+
+  const params = {
+    Bucket: bucketName,
+    Key: saveFile,
+    ContentType: req.body.ContentType,
+    Expires: 60 * 60, // 1 hour
+  };
+
+  s3.getSignedUrl('putObject', params, (err, url) => {
+    if (err) {
+      res.status(500).json({
+        status: 'Error',
+        message: `Couldn't get presigned URL for PutObject: ${err.message}`
+      });
+      return;
+    }
+
+    res.json({
+      status: 'Success',
+      message: '',
+      data: {
+        up: url,
+        url: `${domain}/${saveFile}`
+      }
+    });
+  });
+});
 
 app.use(
-  '/openapi/v1/audio/transcriptions', 
+  '/openapi/v1/audio/transcriptions',
   upload2.single('file'),
-  async (req, res, next) => { 
+  async (req, res, next) => {
     //console.log( "boday",req.body ,  req.body.model );
-    if(req.file.buffer) { 
-      const fileBuffer = req.file.buffer; 
+    if(req.file.buffer) {
+      const fileBuffer = req.file.buffer;
       const formData = new FormData();
       formData.append('file',  fileBuffer,  { filename:  req.file.originalname }  );
-      formData.append('model',  req.body.model ); 
+      formData.append('model',  req.body.model );
      try{
-       let url = `${API_BASE_URL}/v1/audio/transcriptions` ; 
+       let url = `${API_BASE_URL}/v1/audio/transcriptions` ;
       let responseBody = await axios.post( url , formData, {
-              headers: {  
+              headers: {
               Authorization: 'Bearer '+ process.env.OPENAI_API_KEY ,
-              'Content-Type': 'multipart/form-data'  
-            } 
+              'Content-Type': 'multipart/form-data'
+            }
         })   ;
         // console.log('responseBody', responseBody.data  );
        res.json(responseBody.data );
@@ -233,7 +288,7 @@ app.use(
 
     }else{
       res.status(400).json({'error':'uploader fail'});
-    } 
+    }
   }
 );
 
@@ -248,7 +303,7 @@ app.use('/openapi', proxy(API_BASE_URL, {
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     return proxyReqOpts;
   },
-  //limit: '10mb' 
+  //limit: '10mb'
 }));
 
 

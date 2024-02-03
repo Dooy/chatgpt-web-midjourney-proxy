@@ -211,11 +211,11 @@ watch(()=>homeStore.myData.act,(n)=>{
     }
     if(n=='updateChat'){
         let dchat= homeStore.myData.actData as Chat.Chat;
-        //mlog('updateChat', dchat );
+        mlog("动作更新",'updateChat' ,  dchat.uuid,dchat.index );
         if(  dchat.uuid && dchat.index ) {
             dchat.dateTime= new Date().toLocaleString();
             updateChat( +dchat.uuid, +dchat.index, dchat );
-            mlog('updateChat',dchat.model , dchat.opt?.progress, dchat.opt?.imageUrl  );
+            mlog('updateChat 动作更新',dchat.model , dchat.opt?.progress, dchat.opt?.imageUrl  );
             if( dchat.opt?.progress&& dchat.opt?.progress=='100%' && dchat.opt?.imageUrl ){
                // url2base64(dchat.opt?.imageUrl ,'img:'+dchat.mjID ).then(()=>{}).catch((e)=>mlog('url2base64 error',e));
                //homeStore.setMyData{{act}}
@@ -229,7 +229,7 @@ watch(()=>homeStore.myData.act,(n)=>{
         }
     }
     
-});
+},{deep:true});
 
 const toBottom= ()=>{
   setTimeout(() => {

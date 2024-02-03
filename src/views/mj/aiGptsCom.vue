@@ -1,11 +1,11 @@
 <script setup lang="ts"> 
-import { myFetch, gptsType, mlog } from '@/api';
+import { myFetch, gptsType, mlog, chatSetting,my2Fetch } from '@/api';
 import { homeStore,gptConfigStore,useChatStore } from '@/store';
 import { ref,computed ,watch  } from 'vue';
-import { useMessage ,NButton,NImage,NTag} from 'naive-ui';
+import { useMessage ,NButton,NImage,NTag,NPopover} from 'naive-ui';
 import { SvgIcon } from '@/components/common';
 import { useRouter } from 'vue-router';
-import { t } from '@/locales';
+import { t } from '@/locales'; 
 
 
 const router = useRouter()
@@ -20,13 +20,25 @@ const gptsSearchList = ref<gptsType[]>([]);
 const st= ref({loadPage:false,q:'',tab:'',search:false});
 const tag= ref(['画图','文件','发票']);
 const load= async ()=>{
-    const gptUrl= homeStore.myData.session.gptUrl??'https://gpts.ddaiai.com/open/gpts';
-    let d = await myFetch(gptUrl);
+    
+    // const gptUrl= homeStore.myData.session.gptUrl?  homeStore.myData.session.gptUrl :'';
+    // mlog('load',gptUrl );
+     let d;
+    if( homeStore.myData.session.gptUrl ){
+       d = await my2Fetch( homeStore.myData.session.gptUrl  );
+    }else {
+        d = await myFetch('https://gpts.ddaiai.com/open/gpts');
+    }
     gptsInitList.value = d.gpts as gptsType[];
     tag.value= d.tag as string[];
 }
 const go= async ( item: gptsType)=>{
-    gptConfigStore.setMyData({model:  `${ item.gid }`   ,gpts:item});
+    const saveObj= {model:  `${ item.gid }`   ,gpts:item}
+    gptConfigStore.setMyData(saveObj); 
+    if(chatStore.active){ //保存到对话框
+        const  chatSet = new chatSetting( chatStore.active );
+        if( chatSet.findIndex()>-1 ) chatSet.save( saveObj )
+    }
     ms.success(t('mjchat.success2'));
     const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/use`; 
     myFetch(gptUrl,item );
@@ -65,6 +77,15 @@ const goSearch =(q:string)=>{
     emit('toq',{q});
     searchQ(q);
 }
+
+const badgo=(item:gptsType ,e:Event )=>{
+    e.stopPropagation();
+    mlog('badgo', item );
+    const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/bad`; 
+    myFetch(gptUrl,item );
+    item.bad= item.bad?(+item.bad+1):1;
+}
+
 watch(()=>pp.q,(n)=>{
     if(n=='') st.value.tab= '';
 })
@@ -85,12 +106,11 @@ defineExpose({ searchQ })
             
             <div @click="go(v)" v-for="v in gptsList" class="group relative flex gap-3 rounded-2xl bg-[#e8eaf1] p-5 dark:bg-neutral-600 cursor-pointer ">
             
-                <div class="min-w-0 flex-1">
+                <div class="min-w-0 flex-1 mt-[-10px]">
                     <div class="flex justify-between items-center">
                         <h3 class=" transition   text-lg font-semibold line-clamp-1"> {{ v.name }}</h3>
-                        <n-tag type="success" size="small" round v-if="v.use_cnt && (+v.use_cnt)>0">
-                        <div class="flex items-center"><SvgIcon icon="mdi:hot"  ></SvgIcon>{{ v.use_cnt }}</div>
-                        </n-tag>
+                        
+                        
                     </div>
                     <div class="mt-0.5 text-zinc-400 text-md line-clamp-2">{{ v.info }}</div>
                      
@@ -104,7 +124,28 @@ defineExpose({ searchQ })
                     </template>
                 </NImage>
                 <!-- <img  class="group-hover:scale-[130%] duration-300 shrink-0 overflow-hidden bg-base object-cover rounded-full bc-avatar w-[80px] h-[80px]" :src="v.logo"/> -->
+                <div class="space-x-1 flex absolute bottom-2 left-4">
+                     <n-popover trigger="hover">
+                        <template #trigger>
+                        <n-tag type="success" size="small" round>
+                        <div class="flex items-center"><SvgIcon icon="mdi:hot"  ></SvgIcon>{{ v.use_cnt }}</div>
+                        </n-tag>
+                        </template>
+                        <span>使用热度</span>
+                    </n-popover>
+                     <n-popover trigger="hover" >
+                        <template #trigger>
+                        <n-tag type="success" size="small" round >
+                        <div class="flex items-center cursor-pointer" @click="badgo(v, $event )"><SvgIcon icon="icon-park-outline:bad-two"  ></SvgIcon>
+                        <span class="ml-[2px]" > {{ v.bad }}</span>
+                        </div>
+                        </n-tag>
+                        </template>
+                         <span>不好用或应用已不存在请点这个</span>
+                    </n-popover>
+                </div>
             </div>
+            
         </div>
         <div class="flex items-center justify-center py-10" v-if="st.tab=='' ">
             <div @click="pageLoad()" v-if="st.loadPage">{{ $t('mjchat.loading2') }}</div>
