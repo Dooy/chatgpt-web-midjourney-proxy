@@ -181,7 +181,8 @@ export default {
         "presence_penaltyInfo": "À mesure que la valeur de (presence_penalty) augmente, il y a plus de chances de s'étendre à de nouveaux sujets",
         "frequency_penalty": "Pénalité de fréquence",
         "frequency_penaltyInfo": "À mesure que la valeur de (frequency_penalty) augmente, il y a plus de chances de réduire les mots répétés"
-
+        ,"tts_voice": "Personnage vocal TTS",
+        "typing": "En train d'écrire"
 
     },    
     "mjset": {

@@ -182,6 +182,8 @@ export default {
   "presence_penaltyInfo": "При увеличении значения (presence_penalty) увеличивается вероятность расширения на новые темы",
   "frequency_penalty": "Частотное наказание",
   "frequency_penaltyInfo": "При увеличении значения (frequency_penalty) увеличивается вероятность уменьшения повторяющихся слов"
+  ,"tts_voice": "Голос TTS",
+  "typing": "Печать"
   },
   "mjset": {
     "server": "Сервер",

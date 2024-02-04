@@ -178,8 +178,9 @@ export default {
     "presence_penalty": "話題新鮮度",
     "presence_penaltyInfo": "隨著 (presence_penalty) 值的增加，擴展到新話題的機會更高",
     "frequency_penalty": "頻率懲罰",
-    "frequency_penaltyInfo": "隨著 (frequency_penalty) 值的增加，降低重複字詞的可能性更高"
-
+    "frequency_penaltyInfo": "隨著 (frequency_penalty) 值的增加，降低重複字詞的可能性更高",
+    "tts_voice": "TTS 語音角色",
+    "typing": "正在輸入"
   },
   "mjset": {
     "server": "服務端",

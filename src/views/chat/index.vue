@@ -493,7 +493,7 @@ const ychat = computed( ()=>{
   else {
     scrollToBottomIfAtBottom();
   }
-  return { text, dateTime:"预览"} as Chat.Chat;
+  return { text, dateTime: t('chat.preview')} as Chat.Chat;
 }) 
 </script>
 
@@ -537,7 +537,7 @@ const ychat = computed( ()=>{
               />
               <Message  v-if="ychat.text"
               :key="dataSources.length" :inversion="true"
-              date-time="正在输入"
+              :date-time="$t('mj.typing')"
               :chat="ychat"
               :text="ychat.text"
               :index="dataSources.length"

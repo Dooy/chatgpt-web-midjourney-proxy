@@ -182,8 +182,9 @@ export default {
   "presence_penalty": "Presence",
   "presence_penaltyInfo": "As the (presence_penalty) value increases, there is a higher chance of expanding to new topics",
   "frequency_penalty": "Frequency",
-  "frequency_penaltyInfo": "As the (frequency_penalty) value increases, there is a higher likelihood of reducing repeated words"
-
+  "frequency_penaltyInfo": "As the (frequency_penalty) value increases, there is a higher likelihood of reducing repeated words",
+  "tts_voice": "Voice Role",
+  "typing": "Typing"
   },
   "mjset": {
     "server": "Server",

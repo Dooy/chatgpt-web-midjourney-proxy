@@ -181,7 +181,8 @@ export default {
         "presence_penaltyInfo": "(presence_penalty) değeri arttıkça, yeni konulara genişleme olasılığı daha yüksektir",
         "frequency_penalty": "Frekans Cezası",
         "frequency_penaltyInfo": "(frequency_penalty) değeri arttıkça, tekrarlanan kelimelerin azaltılma olasılığı daha yüksektir"
-    
+        ,"tts_voice": "TTS Ses Karakteri",
+        "typing": "Yazıyor"
     },        
     "mjset": {
         "server": "Sunucu",

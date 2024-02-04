@@ -277,5 +277,6 @@ export default {
     ,frequency_penaltyInfo:' (frequency_penalty)值越大，越有可能降低重复字词'
 
     ,tts_voice:'TTS 语音人物'
+    ,typing:'正在输入'
   }
 }
