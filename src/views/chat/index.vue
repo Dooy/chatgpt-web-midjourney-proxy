@@ -486,6 +486,15 @@ watch(()=>homeStore.myData.act,(n)=>{
 const st =ref({inputme:true});
 
 watch( ()=>loading.value ,(n)=> homeStore.setMyData({isLoader:n }))
+
+const ychat = computed( ()=>{
+  let text= prompt.value
+  if (loading.value) text= "";
+  else {
+    scrollToBottomIfAtBottom();
+  }
+  return { text, dateTime:"预览"} as Chat.Chat;
+}) 
 </script>
 
 <template>
@@ -525,6 +534,13 @@ watch( ()=>loading.value ,(n)=> homeStore.setMyData({isLoader:n }))
                 @delete="handleDelete(index)"
                 :chat="item"
                 :index="index"
+              />
+              <Message  v-if="ychat.text"
+              :key="dataSources.length" :inversion="true"
+              date-time="正在输入"
+              :chat="ychat"
+              :text="ychat.text"
+              :index="dataSources.length"
               />
               <div class="sticky bottom-0 left-0 flex justify-center">
                 <NButton v-if="loading" type="warning" @click="handleStop">

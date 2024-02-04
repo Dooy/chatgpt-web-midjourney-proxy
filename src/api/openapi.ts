@@ -400,7 +400,7 @@ const getModelMax=( model:string )=>{
     model= model.toLowerCase();
     if( model.indexOf('8k')>-1  ){
         return 8;
-    }else if( model.indexOf('16k')>-1 || model=='gpt-3.5-turbo-1106' ){
+    }else if( model.indexOf('16k')>-1 || model=='gpt-3.5-turbo-1106' || model=='gpt-3.5-turbo-0125' ){
         return 16;
     }else if( model.indexOf('32k')>-1  ){
         return 32;

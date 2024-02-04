@@ -2,8 +2,9 @@
 import { computed,   ref,watch  } from 'vue' 
 import { useRoute } from 'vue-router'
 import { useChat } from '../chat/hooks/useChat' 
-import { gptConfigStore, homeStore, useChatStore } from '@/store'
-import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel, isTTS, subTTS, file2blob, whisperUpload, getHistoryMessage, localGet, checkDisableGpt4, chatSetting } from '@/api'
+import {  homeStore, useChatStore } from '@/store'
+import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel
+    ,isTTS, subTTS, file2blob, whisperUpload, getHistoryMessage, checkDisableGpt4, chatSetting } from '@/api'
 //import { isNumber } from '@/utils/is'
 import { useMessage  } from "naive-ui";
 import { t } from "@/locales";
@@ -133,8 +134,14 @@ watch(()=>homeStore.myData.act, async (n)=>{
             model ,
             myid: `${Date.now()}` 
         }
-        if(gptConfigStore.myData.gpts){
-            outMsg.logo= gptConfigStore.myData.gpts.logo ;
+        // if(gptConfigStore.myData.gpts){
+        //     outMsg.logo= gptConfigStore.myData.gpts.logo ;
+        // }
+        //  const chatSet = new chatSetting(   +st.value.uuid  );
+        // const nGptStore =   chatSet.getGptConfig()  ;
+        //chatSet
+        if( nGptStore.gpts ){
+            outMsg.logo= nGptStore.gpts.logo ;
         }
         addChat(  +uuid2, outMsg  )
         st.value.index= dataSources.value.length - 1;
