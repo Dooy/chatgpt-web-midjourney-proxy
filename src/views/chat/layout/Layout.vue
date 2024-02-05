@@ -9,7 +9,7 @@ import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } fr
 import { aiSider,aiFooter} from '@/views/mj' 
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
 import { t } from '@/locales'
-import { openaiSetting } from '@/api'
+import { mlog, openaiSetting } from '@/api'
 import { isObject } from '@/utils/is'
 
 const router = useRouter()
@@ -42,7 +42,11 @@ const { isMobile } = useBasicLayout()
 
 const collapsed = computed(() => appStore.siderCollapsed)
 
-const needPermission = computed(() => !!authStore.session?.auth && !authStore.token)
+const needPermission = computed(() => {
+//mlog( 'Layout token',  authStore.token   )
+   
+ return  !!authStore.session?.auth && !authStore.token
+})
 
 const getMobileClass = computed(() => {
   if (isMobile.value)
