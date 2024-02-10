@@ -1,5 +1,7 @@
 import { gptsType, mlog } from '@/api';
 import { reactive } from 'vue'
+import { ss } from '@/utils/storage'
+
 export const homeStore = reactive({
     myData:{
         act:'',//动作
@@ -30,6 +32,11 @@ export interface gptConfigType{
     systemMessage:string //自定义系统提示语
     gpts?:gptsType
     uuid?:number
+    temperature?:number // 随机性 : 值越大，回复越随机
+    top_p?:number // 核采样 : 与随机性类似，但不要和随机性一起更改
+    frequency_penalty?:number
+    presence_penalty?:number
+    tts_voice?:string //TTS 人物
 }
 const getGptInt= ():gptConfigType =>{
     let v:gptConfigType=getDefault();
@@ -48,7 +55,12 @@ let v:gptConfigType={
         max_tokens:1024,
         userModel:'',
         talkCount:10,
-        systemMessage:''
+        systemMessage:'',
+        temperature:0.5,
+        top_p:1,
+        presence_penalty:0,
+        frequency_penalty:0,
+        tts_voice:"alloy"
     }
     return v ;
 }
@@ -109,3 +121,21 @@ export const gptServerStore= reactive({
         this.setMyData(getServerDefault());
     }
 })
+
+
+const gptsUlistInit= ():gptsType[]=>{
+    const lk= ss.get('gpts-use-list');
+    if( !lk) return [];
+    return lk as gptsType[]; 
+}
+
+//使用gtps列表
+export const gptsUlistStore= reactive({
+    myData:gptsUlistInit(),
+    setMyData( v: gptsType){
+        this.myData= this.myData.filter( v2=> v2.gid!=v.gid );
+        this.myData.unshift(v);
+        ss.set('gpts-use-list', this.myData );
+        return this;
+    }
+});

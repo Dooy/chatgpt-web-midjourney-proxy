@@ -95,21 +95,40 @@ function createPrompt(rz:string){
     }
      
    
+    // for(let v of farr){
+    //     if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
+    //      mlog('k ', rz,  f.value  );
+    //     if(v.k=='quality') rz +=`  --q ${f.value.quality}`;
+    //     else if(v.k=='styles') { if( f.value.styles ) rz +=` ${f.value.styles}`;}
+    //     else if(v.k=='version') {
+    //         st.value.bot= '';
+    //        if(['MID_JOURNEY','NIJI_JOURNEY'].indexOf(f.value.version)>-1 ){
+    //              st.value.bot= f.value.version ;
+    //        } else   rz +=` ${f.value.version}`;
+    //     }
+    //     else if( f.value[v.k] ) rz +=` , ${f.value[v.k]}`;
+    // }
+    // mlog('createPrompt ', rz,  f.value  );
+    // if(f.value.bili>-1) rz +=` --ar ${vf[f.value.bili].label}`;
+    let rzp='' //参数组合字符串
+    let rzk=''; //描述词组合字符串
     for(let v of farr){
         if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
-         mlog('k ', rz,  f.value  );
-        if(v.k=='quality') rz +=`  --q ${f.value.quality}`;
-        else if(v.k=='styles') { if( f.value.styles ) rz +=` ${f.value.styles}`;}
+        mlog('k ', rz,  f.value  );
+        if(v.k=='quality') rzp +=`  --q ${f.value.quality}`;
+        else if(v.k=='styles') { if( f.value.styles ) rzp +=` ${f.value.styles} `;}
         else if(v.k=='version') {
             st.value.bot= '';
-           if(['MID_JOURNEY','NIJI_JOURNEY'].indexOf(f.value.version)>-1 ){
-                 st.value.bot= f.value.version ;
-           } else   rz +=` ${f.value.version}`;
+        if(['MID_JOURNEY','NIJI_JOURNEY'].indexOf(f.value.version)>-1 ){
+                st.value.bot= f.value.version ;
+        } else   rzp +=` ${f.value.version}`;
         }
-        else if( f.value[v.k] ) rz +=` , ${f.value[v.k]}`;
+        else if( f.value[v.k] ) rzk +=`${f.value[v.k]},`;
     }
+
     mlog('createPrompt ', rz,  f.value  );
-    if(f.value.bili>-1) rz +=` --ar ${vf[f.value.bili].label}`;
+    if(f.value.bili>-1) rzp +=` --ar ${vf[f.value.bili].label}`;
+    rz = rzk + rz +rzp; 
     return rz ;
 }
  
@@ -124,7 +143,15 @@ function selectFile(input:any){
         ms.error( t('mjchat.more5sb'));
         return;
     }
-    upImg(input.target.files[0]).then(d=>st.value.fileBase64.push(d) ).catch(e=>msgRef.value.showError(e));
+    upImg(input.target.files[0]).then( (d:any )=>{
+        const index = st.value.fileBase64.findIndex(v=>v==d);
+        if(index>-1) {
+            ms.error( t('mjchat.no2add'));
+            return ;
+        }
+        st.value.fileBase64.push(d);
+        fsRef.value.value='';
+    }).catch(e=>msgRef.value.showError(e));
     
 }
 

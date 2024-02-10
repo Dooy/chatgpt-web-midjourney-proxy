@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { SvgIcon } from '@/components/common';
-import { homeStore,useChatStore} from '@/store'
+import { homeStore } from '@/store'
 import { computed,watch ,ref  } from 'vue'
 import { router } from '@/router'
 
 import aiDrawInput from './aiDrawInput.vue'; 
 import {NDrawerContent,NDrawer} from "naive-ui";
-const chatStore = useChatStore()
-const st= ref({show:false})
+const st= ref({show:true})
 
 const goHome =computed(  () => {
   //router.push('/')
@@ -21,11 +20,14 @@ function drawSent(e:any){
 
 watch(()=>homeStore.myData.act, (n:string)=>{
     if('showChat'==n){
-        router.push('/chat/'+ chatStore.active??'1002')
+        router.push('/chat')
     }
     if('showDraw'==n){
-        router.push('/draw/'+ chatStore.active??'1002')
+        router.push('/draw')
         st.value.show=true;
+    }
+    if(n=='draw'){
+       st.value.show=false;
     }
 });
 </script>
@@ -51,7 +53,7 @@ watch(()=>homeStore.myData.act, (n:string)=>{
       </div> 
   </div>
 
-  <n-drawer v-model:show="st.show" :height="650"  placement="bottom">
+  <n-drawer v-model:show="st.show" :height="650"  placement="bottom" v-if="goHome=='draw'">
     <n-drawer-content   style="--n-body-padding:0" class="h-full">
       <aiDrawInput @draw-sent="drawSent" />
     </n-drawer-content>

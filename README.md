@@ -60,6 +60,10 @@
 | TJ_GOOGLE_ID |  谷歌统计ID | 无  | ✅ |  ✅|
 | SYS_NOTIFY |  系统通知，支持HTML | 无  | ✅ |  ✅|
 | DISABLE_GPT4 |  禁用GPT-4 | 无  | ✅ |  ✅|
+| GPT_URL | 自定 GPT_URL=/gpts.json  | 无 也可自己的外链 | ✅ |  ✅|
+| UPLOAD_IMG_SIZE | gpt4v 上传图片大小 |  1 | ✅ |  ✅|
+| SYS_THEME | 默认主题 `light`或者`dark`  | dark | ✅ |  ✅|
+  
 
 ## docker 部署
 **假设**:

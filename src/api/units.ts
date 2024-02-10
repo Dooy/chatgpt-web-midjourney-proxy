@@ -19,3 +19,8 @@ export const isApikeyError=( text:string )=>{
     )) return true ;
     return false;
 }
+export const isAuthSessionError = ( text:string )=>{
+    text= text.toLocaleLowerCase();
+    if(text.indexOf('token_check')>-1  ) return true ;
+    return false; 
+}

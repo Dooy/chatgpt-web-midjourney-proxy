@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { computed, nextTick,ref  } from 'vue'
+import { computed, nextTick,ref,watch  } from 'vue'
 import { HoverButton, SvgIcon } from '@/components/common'
-import { gptConfigStore, homeStore, useAppStore, useChatStore } from '@/store'
+import {  gptConfigStore, homeStore, useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import {NModal} from "naive-ui"
 import aiModel from "@/views/mj/aiModel.vue"
+import { chatSetting } from '@/api'
 
 const { isMobile } = useBasicLayout()
 
@@ -44,8 +45,12 @@ function handleExport() {
 function handleClear() {
   emit('handleClear')
 }
-
+const uuid = chatStore.active;
+const chatSet = new chatSetting( uuid==null?1002:uuid);
+const nGptStore = ref( chatSet.getGptConfig())  ;
 const st = ref({isShow:false});
+watch(()=>gptConfigStore.myData,()=>nGptStore.value=  chatSet.getGptConfig() , {deep:true})
+watch(()=>homeStore.myData.act,(n)=> n=='saveChat' && (nGptStore.value=  chatSet.getGptConfig() ), {deep:true})
 </script>
 
 <template>
@@ -84,13 +89,13 @@ const st = ref({isShow:false});
     
     <div @click="st.isShow=true" class="absolute left-1/2   top-full -translate-x-1/2 cursor-pointer select-none rounded-b-md border  bg-white px-2 dark:border-neutral-800 dark:bg-[#111114]">
         <div class="flex items-center   justify-center space-x-1 cursor-pointer hover:text-[#4b9e5f]" v-if="homeStore.myData.local!='draw'">
-            <template   v-if="gptConfigStore.myData.gpts">
+            <template   v-if="nGptStore.gpts">
              <SvgIcon icon="ri:apps-fill" /> 
-             <span class="line-clamp-1 overflow-hidden">{{ gptConfigStore.myData.gpts.name }}</span> 
+             <span class="line-clamp-1 overflow-hidden">{{ nGptStore.gpts.name }}</span> 
             </template>
             <template v-else >
             <SvgIcon icon="heroicons:sparkles" /> 
-            <span >{{ gptConfigStore.myData.model }}</span> 
+            <span >{{ nGptStore.model }}</span> 
             </template>
             <SvgIcon icon="icon-park-outline:right" />
         </div>

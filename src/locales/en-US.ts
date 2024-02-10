@@ -173,7 +173,18 @@ export default {
   "setBtSaveChat": "Save chat only",
   "setBtSaveSys": "Save to system",
   "wsrvClose": "Close wsrv",
-  "wsrvOpen": "Open wsrv"
+  "wsrvOpen": "Open wsrv",
+
+  "temperature": "Temperature",
+  "temperatureInfo": "As the (temperature) value increases, the responses become more random",
+  "top_p": "Top",
+  "top_pInfo": "(top_p) is similar to randomness but should not be changed together with temperature",
+  "presence_penalty": "Presence",
+  "presence_penaltyInfo": "As the (presence_penalty) value increases, there is a higher chance of expanding to new topics",
+  "frequency_penalty": "Frequency",
+  "frequency_penaltyInfo": "As the (frequency_penalty) value increases, there is a higher likelihood of reducing repeated words",
+  "tts_voice": "Voice Role",
+  "typing": "Typing"
   },
   "mjset": {
     "server": "Server",

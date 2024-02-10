@@ -132,7 +132,7 @@ export default {
     ,historyCnt:'上下文数量'
     ,historyToken:'更多的上下文会使记忆更精确，但会消耗更多的额度'
     ,historyTCnt:'回复数'
-    ,historyTCntInfo:'回复数越大 ,越有可能消耗更多的额度'
+    ,historyTCntInfo:'(max_tokens)回复数越大 ,越有可能消耗更多的额度'
     ,role:'角色设定'
     ,rolePlaceholder:'给你的会话设置一个专属的角色，不是必须'
     ,loading2:'正在加载...'
@@ -166,7 +166,7 @@ export default {
     ,img2textinfo:'不知如何写提示词？用图生文试试！<br/>提交图片，出提示词'
     ,traning:'翻译中...'
     ,imgcreate:'生成图片'
-    ,imginfo:'其他参数：  <li>1 --no 忽略 --no car 图中不出现车 </li><li>2 --seed 可先获取种子 --seed 123456 </li> <li>3 --chaos 10 混合(范围：0-100)</li> <li>4 --tile 碎片化 </li> '
+    ,imginfo:'其他参数：  <li>1 --no 忽略 --no car 图中不出现车 </li><li>2 --seed 可先获取种子 --seed 123456 </li> <li>3 --chaos 10 混合(范围：0-100)</li> <li>4 --tile 碎片化 </li>  <li>5 --sref 图片url 生成风格一致的图像  </li> '
     ,tStyle:'风格'
     ,tView:'视角'
     ,tShot:'人物镜头'
@@ -181,7 +181,7 @@ export default {
     ,blendStart:'开始合成'
     ,no2add:'请勿重复添加图片'
     ,add2more:'请添加两张以上图片'
-    ,no1m:'图片大小不能超过1M'
+    ,no1m:'图片大小不能超过{m}M'
     ,imgExt:'图片仅支持jpg,gif,png,jpeg格式'
   },
   mj:{
@@ -266,5 +266,20 @@ export default {
 
     ,wsrvClose:'关闭 wsrv'
     ,wsrvOpen:'开启 wsrv'
+
+    ,temperature:'随机性'
+    ,temperatureInfo:'(temperature)值越大，回复越随机'
+    ,top_p:'核采样'
+    ,top_pInfo:'(top_p)与随机性类似，但不要和随机性一起更改 '
+    ,presence_penalty:'话题新鲜度  '
+    ,presence_penaltyInfo:'(presence_penalty)值越大，越有可能扩展到新话题'
+    ,frequency_penalty:'频率惩罚度'
+    ,frequency_penaltyInfo:' (frequency_penalty)值越大，越有可能降低重复字词'
+
+    ,tts_voice:'TTS 语音人物'
+    ,typing:'正在输入'
+
+    ,authErro:'授权失败'
+    ,authBt:'请重新授权'
   }
 }

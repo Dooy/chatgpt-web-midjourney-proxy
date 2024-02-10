@@ -171,7 +171,19 @@ export default {
         "setBtSaveChat": "Enregistrer le chat seulement",
         "setBtSaveSys": "Enregistrer dans le système",
         "wsrvClose": "Fermer wsrv",
-        "wsrvOpen": "Ouvrir wsrv"
+        "wsrvOpen": "Ouvrir wsrv",
+
+        "temperature": "Aléatoire",
+        "temperatureInfo": "À mesure que la valeur de (temperature) augmente, les réponses deviennent plus aléatoires",
+        "top_p": "Échantillonnage de probabilité supérieure",
+        "top_pInfo": "(top_p) est similaire à l'aléatoire mais ne doit pas être modifié en même temps que la température",
+        "presence_penalty": "Fraîcheur du sujet",
+        "presence_penaltyInfo": "À mesure que la valeur de (presence_penalty) augmente, il y a plus de chances de s'étendre à de nouveaux sujets",
+        "frequency_penalty": "Pénalité de fréquence",
+        "frequency_penaltyInfo": "À mesure que la valeur de (frequency_penalty) augmente, il y a plus de chances de réduire les mots répétés"
+        ,"tts_voice": "Personnage vocal TTS",
+        "typing": "En train d'écrire"
+
     },    
     "mjset": {
         "server": "Serveur",
