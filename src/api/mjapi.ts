@@ -1,7 +1,7 @@
 
  //import { useChat } from '@/views/chat/hooks/useChat'
 
-import { gptConfigStore, gptServerStore, homeStore } from "@/store";
+import { gptConfigStore, gptServerStore, homeStore, useAuthStore } from "@/store";
 import { copyToClip } from "@/utils/copy";
 import { isNumber } from "@/utils/is";
 import { localGet, localSaveAny } from "./mjsave";
@@ -130,6 +130,8 @@ export const myTrim = (str: string, delimiter: string)=>{
 
 function getHeaderApiSecret(){
     if(!gptServerStore.myData.MJ_API_SECRET){
+        const authStore = useAuthStore()
+        if( authStore.token ) return { 'x-ptoken':  authStore.token };
         return {}
     }
     return {

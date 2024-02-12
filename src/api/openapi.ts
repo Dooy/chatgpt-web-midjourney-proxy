@@ -104,7 +104,16 @@ export const GptUploader =   ( url:string, FormData:FormData )=>{
 
 
 
-    if(gptServerStore.myData.OPENAI_API_BASE_URL && url.indexOf(gptServerStore.myData.OPENAI_API_BASE_URL)>-1  ) headers={...headers,...getHeaderAuthorization()}
+    if(gptServerStore.myData.OPENAI_API_BASE_URL && url.indexOf(gptServerStore.myData.OPENAI_API_BASE_URL)>-1  ) {
+        headers={...headers,...getHeaderAuthorization()}
+        //mlog("headers", headers );
+    }else{
+         const authStore = useAuthStore()
+        if( authStore.token ) {
+            const  header2={ 'x-ptoken':  authStore.token };
+            headers= {...headers, ...header2}
+        }
+    }
     return new Promise<any>((resolve, reject) => {
             axios.post( url , FormData, {
             headers
