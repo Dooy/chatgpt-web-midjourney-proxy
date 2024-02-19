@@ -8,7 +8,7 @@ import { isNotEmptyString,formattedDate } from './utils/is'
 import multer from "multer"
 import path from "path"
 import fs from "fs"
-import pkg from '../../package.json'
+import pkg from '../package.json'
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 //import {createProxyMiddleware} from "http-proxy-middleware"
 import  proxy from "express-http-proxy"
