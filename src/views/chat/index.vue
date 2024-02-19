@@ -1,9 +1,11 @@
+
+
 <script setup lang='ts'>
 import type { Ref } from 'vue'
-import { computed, onMounted, onUnmounted, ref,watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, onMounted, onUnmounted, ref,watch,h } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { NAutoComplete, NButton, NInput, useDialog, useMessage } from 'naive-ui'
+import { NAutoComplete, NButton, NInput, useDialog, useMessage,NAvatar } from 'naive-ui'
 import html2canvas from 'html2canvas'
 import { Message } from './components'
 import { useScroll } from './hooks/useScroll'
@@ -12,8 +14,8 @@ import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
 import {  SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { gptConfigStore, homeStore, useChatStore, usePromptStore } from '@/store'
-import { fetchChatAPIProcess } from '@/api'
+import { gptConfigStore, gptsUlistStore, homeStore, useChatStore, usePromptStore } from '@/store'
+import { chatSetting, fetchChatAPIProcess, gptsType, mlog, myFetch } from '@/api'
 import { t } from '@/locales'
 import drawListVue from '../mj/drawList.vue'
 import aiGPT from '../mj/aiGpt.vue'
@@ -27,7 +29,7 @@ const openLongReply = import.meta.env.VITE_GLOB_OPEN_LONG_REPLY === 'true'
 const route = useRoute()
 const dialog = useDialog()
 const ms = useMessage()
-
+const router = useRouter()
 const chatStore = useChatStore()
 
 const { isMobile } = useBasicLayout()
@@ -425,20 +427,61 @@ function handleStop() {
 // 理想状态下其实应该是key作为索引项,但官方的renderOption会出现问题，所以就需要value反renderLabel实现
 const searchOptions = computed(() => {
   if (prompt.value.startsWith('/')) {
-    return promptTemplate.value.filter((item: { key: string }) => item.key.toLowerCase().includes(prompt.value.substring(1).toLowerCase())).map((obj: { value: any }) => {
+    const abc= promptTemplate.value.filter((item: { key: string }) => item.key.toLowerCase().includes(prompt.value.substring(1).toLowerCase())).map((obj: { value: any }) => {
       return {
         label: obj.value,
         value: obj.value,
       }
     })
-  }
-  else {
+    mlog('搜索选项', abc);
+    return abc;
+  }else if(prompt.value=='@'){
+    const abc=  gptsUlistStore.myData.slice(0,10).map( (v:gptsType) => {
+      return {
+        label:v.info,
+        gpts:v,
+        value:v.gid
+      }
+    })
+   return abc ;
+  }else {
     return []
   }
 })
 
+const goUseGpts= async ( item: gptsType)=>{
+    const saveObj= {model:  `${ item.gid }`   ,gpts:item}
+    gptConfigStore.setMyData(saveObj); 
+    if(chatStore.active){ //保存到对话框
+        const  chatSet = new chatSetting( chatStore.active );
+        if( chatSet.findIndex()>-1 ) chatSet.save( saveObj )
+    }
+    ms.success(t('mjchat.success2'));
+    const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/use`; 
+    myFetch(gptUrl,item );
+     
+    mlog('go local ', homeStore.myData.local );
+    if(homeStore.myData.local!=='Chat') router.replace({name:'Chat',params:{uuid:chatStore.active}});
+
+    gptsUlistStore.setMyData( item );
+
+}
+
 // value反渲染key
-const renderOption = (option: { label: string }) => {
+const renderOption = (option: { label: string,gpts?:gptsType }) => {
+  if( prompt.value=='@'){
+    //return [ h( NAvatar,{src:'https://cos.aitutu.cc/gpts/gpt4all.jpg',size:"small",round:true}),option.label ]
+    return [h("div",{class:'flex justify-start items-center'
+    , onclick:()=>{  
+      if(option.gpts)   goUseGpts(option.gpts) ;
+      prompt.value='';
+      setTimeout(() =>  prompt.value='', 80);
+    }}
+    ,[h(NAvatar,{src:option.gpts?.logo, "fallback-src" : 'https://cos.aitutu.cc/gpts/3.5net.png',size:"small",round:true, class:"w-8 h-8"})
+    , h('span', { class: 'pl-1' }, option.gpts?.name  ) 
+    , h('span', { class: 'line-clamp-1 flex-1 pl-1 opacity-50' }, option.label  ) 
+    ])]
+  }
   for (const i of promptTemplate.value) {
     if (i.value === option.label)
       return [i.key]
