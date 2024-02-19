@@ -52,7 +52,7 @@
 | OPENAI_API_MODEL |  默认模型 | gpt-3.5-turbo  | ✅ |  ✅|
 | MJ_SERVER |  mj proxy 接口地址 | https://api.openai.com  | ✅ |  ✅|
 | MJ_API_SECRET |  mj proxy | 空  | ✅ |  ✅|
-| AUTH_SECRET_KEY |  验证密码 | 无  | ✅ |  ✅|
+| AUTH_SECRET_KEY |  访问授权密码 | 无  | ✅ |   x|
 | API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
 | HIDE_SERVER |  前端ui隐藏服务端|    | ✅ |  x|
 | CUSTOM_MODELS |  自定义可选模型 | 无  | ✅ |  ✅|

@@ -8,6 +8,7 @@ import { isNotEmptyString,formattedDate } from './utils/is'
 import multer from "multer"
 import path from "path"
 import fs from "fs"
+import pkg from '../../package.json'
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 //import {createProxyMiddleware} from "http-proxy-middleware"
 import  proxy from "express-http-proxy"
@@ -129,6 +130,7 @@ app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'htt
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
   },
   //limit: '10mb'
@@ -276,7 +278,8 @@ app.use(
       let responseBody = await axios.post( url , formData, {
               headers: {
               Authorization: 'Bearer '+ process.env.OPENAI_API_KEY ,
-              'Content-Type': 'multipart/form-data'
+              'Content-Type': 'multipart/form-data',
+              'Mj-Version': pkg.version
             }
         })   ;
         // console.log('responseBody', responseBody.data  );
@@ -301,6 +304,7 @@ app.use('/openapi',authV2, proxy(API_BASE_URL, {
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
   },
   //limit: '10mb'
