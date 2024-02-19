@@ -31,7 +31,7 @@ export default {
   chat: {
     newChatButton: '新建聊天',
     //placeholder: '来说点什么吧...（Shift + Enter = 换行，"/" 触发提示词）',
-    placeholder: '可输入说点什么，也可贴截图或拖拽文件（Shift + Enter = 换行，"/" 触发提示词）',
+    placeholder: '可输入说点什么，也可贴截图或拖拽文件（Shift + Enter = 换行，"/" 触发提示词，"@" 触发最近用过的GPTs）',
     placeholderMobile: '来说点什么...',
     copy: '复制',
     copied: '复制成功',
@@ -280,6 +280,6 @@ export default {
     ,typing:'正在输入'
 
     ,authErro:'授权失败'
-    ,authBt:'请重新授权'
+    ,authBt:'请重新输入授权访问密码'
   }
 }

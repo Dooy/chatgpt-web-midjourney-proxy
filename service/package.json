@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-web-service",
-  "version": "2.15.4",
+  "version": "2.15.5",
   "private": false,
   "description": "ChatGPT Web Midjourney Proxy",
   "author": "ChenZhaoYu <ydlhero@gmail.com>",
