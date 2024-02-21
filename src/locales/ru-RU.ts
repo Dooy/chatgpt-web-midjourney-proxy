@@ -183,7 +183,9 @@ export default {
   "frequency_penalty": "Частотное наказание",
   "frequency_penaltyInfo": "При увеличении значения (frequency_penalty) увеличивается вероятность уменьшения повторяющихся слов"
   ,"tts_voice": "Голос TTS",
-  "typing": "Печать"
+  "typing": "Печать",
+  "authErro": "Ошибка авторизации",
+  "authBt": "Пожалуйста, введите пароль доступа к авторизации снова"
   },
   "mjset": {
     "server": "Сервер",

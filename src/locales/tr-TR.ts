@@ -182,7 +182,9 @@ export default {
         "frequency_penalty": "Frekans Cezası",
         "frequency_penaltyInfo": "(frequency_penalty) değeri arttıkça, tekrarlanan kelimelerin azaltılma olasılığı daha yüksektir"
         ,"tts_voice": "TTS Ses Karakteri",
-        "typing": "Yazıyor"
+        "typing": "Yazıyor",
+        "authErro": "Yetkilendirme başarısız", 
+        "authBt": "Lütfen yetkilendirme erişim şifresini yeniden girin"
     },        
     "mjset": {
         "server": "Sunucu",

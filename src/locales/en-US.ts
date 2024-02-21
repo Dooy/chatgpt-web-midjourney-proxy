@@ -184,7 +184,9 @@ export default {
   "frequency_penalty": "Frequency",
   "frequency_penaltyInfo": "As the (frequency_penalty) value increases, there is a higher likelihood of reducing repeated words",
   "tts_voice": "Voice Role",
-  "typing": "Typing"
+  "typing": "Typing",
+  "authErro": "Authorization failed",
+  "authBt": "Please enter the authorization access password again" 
   },
   "mjset": {
     "server": "Server",

@@ -180,7 +180,9 @@ export default {
     "frequency_penalty": "빈도 패널티",
     "frequency_penaltyInfo": "(frequency_penalty) 값이 증가함에 따라 반복된 단어를 줄이는 가능성이 높아집니다",
     "tts_voice": "TTS 음성 캐릭터",
-    "typing": "입력 중"
+    "typing": "입력 중",
+    "authErro": "인가 실패",
+    "authBt": "인가 액세스 암호를 다시 입력하십시오"
 
   },
   "mjset": {

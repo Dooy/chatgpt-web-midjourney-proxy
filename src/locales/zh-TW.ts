@@ -180,7 +180,9 @@ export default {
     "frequency_penalty": "頻率懲罰",
     "frequency_penaltyInfo": "隨著 (frequency_penalty) 值的增加，降低重複字詞的可能性更高",
     "tts_voice": "TTS 語音角色",
-    "typing": "正在輸入"
+    "typing": "正在輸入",
+    "authErro": "授權失敗",
+    "authBt": "請重新輸入授權訪問密碼"
   },
   "mjset": {
     "server": "服務端",

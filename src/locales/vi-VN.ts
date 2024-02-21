@@ -180,8 +180,9 @@ export default {
     "frequency_penalty": "Hình Phạt Tần Số",
     "frequency_penaltyInfo": "Khi giá trị (frequency_penalty) tăng, có khả năng giảm sự lặp lại của các từ nhiều hơn"
    ,"tts_voice": "Nhân vật giọng TTS",
-    "typing": "Đang nhập"
-
+    "typing": "Đang nhập",
+    "authErro": "Xác thực không thành công",
+    "authBt": "Vui lòng nhập lại mật khẩu truy cập xác thực"
 
   },
   "mjset": {
