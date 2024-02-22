@@ -17,6 +17,10 @@ module.exports = (req, res) => {
             ,googleId: process.env.TJ_GOOGLE_ID?? ""
             , notify : process.env.SYS_NOTIFY?? "" 
             ,disableGpt4 : process.env.DISABLE_GPT4?? "" 
+            ,isWsrv:  process.env.MJ_IMG_WSRV?? "" 
+            ,uploadImgSize: process.env.UPLOAD_IMG_SIZE?? "1" 
+            ,gptUrl : process.env.GPT_URL?? ""
+            ,theme : process.env.SYS_THEME?? "dark"
 
         }
     }

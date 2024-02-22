@@ -1,3 +1,4 @@
+import { gptServerStore, homeStore } from "@/store";
 import localforage from "localforage"
 import { mlog } from "./mjapi";
 
@@ -44,7 +45,7 @@ export function img2base64(img:any) {
     return canvas.toDataURL('image/jpeg');
 }
 
-export function url2base64(url:string,key?:string){
+export function url2base64More(url:string,key?:string){
     return new Promise<{key:string,base64:string}>((resolve, reject) => {
 
         const img = new Image();
@@ -53,10 +54,31 @@ export function url2base64(url:string,key?:string){
             const base64 = img2base64(img) ; 
             localSaveAny(base64,key).then(d=>resolve({key:d, base64})).catch(e=>reject(e));
         }
-        img.onerror=(e)=> reject(e);
+        img.onerror=(e)=>reject(e);
         img.src =  url;
     });
     
+}
+
+export const url2base64= async (url:string,key?:string)=>{
+    try{
+        return await url2base64More (url,key);
+    }catch(e){
+        return await url2base64More( wsrvUrl(url) ,key);
+    }
+}
+
+export const wsrvUrl=(url:string)=>{
+    const arr = url.split(/([a-z\-]+)ttachments/ig, 3 );
+    if( arr.length==3){
+        url= `https://cdn.discordapp.com/${arr[1]}ttachments`+ arr[2];
+    }
+    return `https://wsrv.nl/?url=`+ encodeURIComponent(url);
+}
+
+export const mjImgUrl= (url:string)=>{
+    if (gptServerStore.myData.MJ_CDN_WSRV || homeStore.myData.session.isWsrv ) return wsrvUrl(url);
+    return url;
 }
 
 export const getMjAll= async ( ChatState:Chat.ChatState)=>{

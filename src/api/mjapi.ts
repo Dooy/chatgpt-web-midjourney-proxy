@@ -1,7 +1,7 @@
 
  //import { useChat } from '@/views/chat/hooks/useChat'
 
-import { gptConfigStore, gptServerStore, homeStore } from "@/store";
+import { gptConfigStore, gptServerStore, homeStore, useAuthStore } from "@/store";
 import { copyToClip } from "@/utils/copy";
 import { isNumber } from "@/utils/is";
 import { localGet, localSaveAny } from "./mjsave";
@@ -13,24 +13,22 @@ export interface gptsType{
     logo:string
     info:string
     use_cnt?:string
+    bad?:string|number
 }
  //const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 export function upImg(file:any   ):Promise<any>
 {
+    const maxSize= homeStore.myData.session.uploadImgSize? (+homeStore.myData.session.uploadImgSize):1
     return new Promise((h,r)=>{
-        //const file = input.target.files[0];
         const filename = file.name;
-        //console.log('selectFile', file )
-        if(file.size>(1024*1024)){
-            //msgRef.value.showError('图片大小不能超过1M');
-            r(t('mjchat.no1m'))
+        if(file.size>(1024*1024 * maxSize)){
+            r(t('mjchat.no1m',{m:maxSize}))
             return ;
         }
         if (! (filename.endsWith('.jpg') ||
             filename.endsWith('.gif') ||
             filename.endsWith('.png') ||
             filename.endsWith('.jpeg') )) {
-            //r('图片仅支持jpg,gif,png,jpeg格式');
             r(t('mjchat.imgExt') );
             return ;
         }
@@ -132,6 +130,8 @@ export const myTrim = (str: string, delimiter: string)=>{
 
 function getHeaderApiSecret(){
     if(!gptServerStore.myData.MJ_API_SECRET){
+        const authStore = useAuthStore()
+        if( authStore.token ) return { 'x-ptoken':  authStore.token };
         return {}
     }
     return {
@@ -186,6 +186,25 @@ export const myFetch=(url:string,data?:any)=>{
     })
      
 }
+export const my2Fetch=(url:string,data?:any)=>{
+    mlog('mjFetch', url  );
+    let header = {'Content-Type':'application/json'};
+    //header= {...header  }
+
+    return new Promise<any>((resolve, reject) => {
+        let opt:RequestInit ={method:'GET'}; 
+        opt.headers=header;
+        if(data) {
+            opt.body= JSON.stringify(data) ;
+             opt.method='POST';
+        }
+        fetch((url),  opt )
+        .then(d=>d.json().then(d=> resolve(d))
+        .catch(e=>reject(e)))
+        .catch(e=>reject(e))
+    })
+     
+}
 
 
 export const flechTask= ( chat:Chat.Chat)=>{
@@ -211,7 +230,7 @@ export const flechTask= ( chat:Chat.Chat)=>{
            
             setTimeout(() =>   check( ) , 5000 )
         } 
-        mlog('task', ts.progress,ts );
+        mlog('task', ts.progress,ts, chat.uuid,chat.index  );
     }
     check();
 }

@@ -6,10 +6,10 @@ import Sider from './sider/index.vue'
 import Permission from './Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { gptConfigStore, homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
-import { aiSider,aiGpts ,aiGallery} from '@/views/mj' 
+import { aiSider,aiFooter} from '@/views/mj' 
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
 import { t } from '@/locales'
-import { openaiSetting } from '@/api'
+import { mlog, openaiSetting } from '@/api'
 import { isObject } from '@/utils/is'
 
 const router = useRouter()
@@ -33,6 +33,8 @@ if(rt.name =='GPTs'){
   ms.success( t('mj.modleSuccess') );
 }
 
+ 
+
 router.replace({ name: 'Chat', params: { uuid: chatStore.active } })
 homeStore.setMyData({local:'Chat'});
 const { isMobile } = useBasicLayout()
@@ -40,7 +42,11 @@ const { isMobile } = useBasicLayout()
 
 const collapsed = computed(() => appStore.siderCollapsed)
 
-const needPermission = computed(() => !!authStore.session?.auth && !authStore.token)
+const needPermission = computed(() => {
+//mlog( 'Layout token',  authStore.token   )
+   
+ return  !!authStore.session?.auth && !authStore.token
+})
 
 const getMobileClass = computed(() => {
   if (isMobile.value)
@@ -73,8 +79,7 @@ const getContainerClass = computed(() => {
   </div>
    <aiMobileMenu v-if="isMobile"   /> 
 
-  <aiGpts/>
-  <aiGallery/>
+  <aiFooter/>
 </template>
 
 <style  >

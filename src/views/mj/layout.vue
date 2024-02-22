@@ -6,7 +6,7 @@ import Sider from '../chat/layout/sider/index.vue'
 import Permission from '../chat/layout/Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
-import { aiSider ,aiGpts,aiGallery} from '@/views/mj'
+import { aiSider ,aiFooter} from '@/views/mj'
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
 
 const router = useRouter()
@@ -53,8 +53,7 @@ const getContainerClass = computed(() => {
     <Permission :visible="needPermission" />
   </div>
    <aiMobileMenu v-if="isMobile"   /> 
-  <aiGpts/>
-  <aiGallery/>
+  <aiFooter/>
 </template>
 <style  >
 .h55{

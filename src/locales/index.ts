@@ -5,6 +5,9 @@ import koKR from './ko-KR'
 import zhCN from './zh-CN'
 import zhTW from './zh-TW'
 import ruRU from './ru-RU'
+import viVn from './vi-VN'
+import frFr from './fr-FR'
+import trTr from './tr-TR'
 import { useAppStoreWithOut } from '@/store/modules/app'
 import type { Language } from '@/store/modules/app/helper'
 
@@ -22,6 +25,9 @@ const i18n = createI18n({
     'zh-CN': zhCN,
     'zh-TW': zhTW,
     'ru-RU': ruRU,
+    'vi-VN': viVn,
+    'fr-FR': frFr,
+    'tr-TR': trTr,
   },
 })
 

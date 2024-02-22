@@ -9,7 +9,7 @@ import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
 import { homeStore } from '@/store'
-import { getSeed, mlog } from '@/api' 
+import { getSeed, mlog ,mjImgUrl} from '@/api' 
 
 interface Props {
   dateTime?: string
@@ -61,14 +61,22 @@ const options = computed(() => {
       label: asRawText.value ? t('chat.preview') : t('chat.showRawText'),
       key: 'toggleRenderType',
       icon: iconRender({ icon: asRawText.value ? 'ic:outline-code-off' : 'ic:outline-code' }),
+    });
+    common.unshift({
+      label: t('mj.tts'),
+      key: 'tts',
+      icon: iconRender({ icon:'mdi:tts' }),
     })
   }
 
   return common
 })
 
-function handleSelect(key: 'copyText' | 'delete' | 'toggleRenderType') {
+function handleSelect(key: 'copyText' | 'delete' | 'toggleRenderType' |'tts') {
   switch (key) {
+    case 'tts': 
+      homeStore.setMyData({act:'gpt.ttsv2', actData:{ index:props.index , uuid:props.chat.uuid, text:props.text } });
+      return;
     case 'copyText':
       handleCopy()
       return
@@ -89,44 +97,17 @@ function handleRegenerate() {
 async function handleCopy(txt?:string) {
   try {
     await copyToClip( txt|| props.text || '')
-    message.success('复制成功')
+    message.success( t('chat.copied'))
   }
   catch {
-    message.error('复制失败')
+    message.error( t('mj.copyFail') )
   }
 }
 
 const sendReload = () => {
   homeStore.setMyData({act:'mjReload', actData:{mjID:props.chat.mjID} })
 }
-// const getSeed = async ()=>{
-//    let cchat = props.chat;
-//   if(!cchat.mjID ) return ;
-//   let seed=0 ;
-//   if(props.chat.opt?.seed) seed = props.chat.opt?.seed;
-//   else{
-//    try{
-//         message.info('获取中...');
-//       const res:any  = await mjSeed( cchat.mjID);
-//       seed= res.result;
-//       if(seed>0 ) {
-       
-//         if ( cchat.opt ){
-//           cchat.opt.seed = seed;
 
-//            homeStore.setMyData({act:'updateChat', actData:cchat });
-//         }
-//         message.success('获取成功');
-//       }
-      
-//    } catch(e){
-//       message.error('获取失败')
-//    }
-//   }
-//   mlog('getSeed',seed);
-//   if(seed>0 ) await handleCopy(`${seed}`);
-  
-// }
 function handleRegenerate2() {
   messageRef.value?.scrollIntoView()
   //emit('regenerate')
@@ -149,7 +130,7 @@ function handleRegenerate2() {
       <AvatarComponent :image="inversion" :logo="chat.logo"/>
     </div>
     <div class="overflow-hidden text-sm " :class="[inversion ? 'items-end' : 'items-start']">
-      <p class="text-xs group  text-[#b4bbc4] flex justify-start items-center space-x-2 " :class="[inversion ? 'text-right' : 'text-left']">
+      <p class="text-xs group  text-[#b4bbc4] flex  items-center space-x-2 " :class="[inversion ? 'justify-end' : 'justify-start']">
         <span>{{ dateTime }}</span>
         <span v-if="chat.model"  class="text-[#b4bbc4]/50">{{ chat.model }}</span>
         <!-- <span>{{ chat.opt?.progress }}</span> -->
@@ -160,15 +141,12 @@ function handleRegenerate2() {
             <span v-if="chat.opt?.seed">Seed:{{ chat.opt?.seed }}</span>
             <span v-else>Seed</span>
           </div>
-          <a :href="chat.opt?.imageUrl" class="hidden group-hover:block active  cursor-pointer underline " target="_blank">原图链接</a>
+          <a :href=" mjImgUrl(chat.opt?.imageUrl)" class="hidden group-hover:block active  cursor-pointer underline " target="_blank">{{ $t('mj.ulink') }}</a>
         </template>
       </p>
       
-      <div
-        class="flex items-end gap-1 mt-2"
-        :class="[inversion ? 'flex-row-reverse' : 'flex-row']"
-      >
-        
+      <div  class="flex items-end gap-1 mt-2"
+        :class="[inversion ? 'flex-row-reverse' : 'flex-row']" > 
         <TextComponent 
           ref="textRef"
           :inversion="inversion"

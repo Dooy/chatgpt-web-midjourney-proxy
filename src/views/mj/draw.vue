@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import aiSiderInput from './aiSiderInput.vue';
-import drawList from './drawList.vue';
+import aiSiderInput from './aiSiderInput.vue'; 
 //import { useAppStore, useChatStore } from '@/store';
 
 import { useBasicLayout } from '@/hooks/useBasicLayout'

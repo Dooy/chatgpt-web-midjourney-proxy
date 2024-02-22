@@ -3,7 +3,7 @@ import { localGet, mlog } from '@/api';
 import { SvgIcon } from '@/components/common';
 import { homeStore } from '@/store';
 import {   ref ,onUnmounted ,watch} from 'vue'
-interface Props {   chat:Chat.Chat }
+interface Props {   chat:Chat.Chat,isW?:boolean }
 const st= ref({isLoad:0, bolb:''});
 const props = defineProps<Props>();
 const player = new window.Audio(); 
@@ -35,6 +35,7 @@ const go= ()=>{
     else player.play();
 }
 const getWidth= ()=>{
+    if(props.isW) return '100%';
     let w=0.3;
     if(props.chat.opt?.duration){
         if(props.chat.opt?.duration>60) w=1;
@@ -64,7 +65,7 @@ onUnmounted(()=>player.pause())
 load();
 </script>
 <template>
-<div  class="markdown-body"   >
+<div  class="markdown-body"  :class="[props.isW?'border-t border-neutral-400/25 ':'']" style="padding-top: 5px; margin-top: 5px;" >
     <div class=" flex justify-between items-center " :style="{width:getWidth()}">
         <div class="flex justify-start items-center flex-1" @click="go">
             <span v-html="chat.opt?.duration?.toFixed(2)"  ></span>s 

@@ -29,9 +29,11 @@
 - ✅ chatgpt 支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
 - ✅ chatgpt 支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
 - ✅ chatgpt 支持超链模型切换 https://vercel.ddaiai.com/#/m/gpt-4-all https://vercel.ddaiai.com/#/m/gpt-4-gizmo-g-2fkFE8rbu
+- ✅ 支持ChatGPT试的超链模型切换 https://chat.openai.com/g/g-2fkFE8rbu 修改为 https://vercel.ddaiai.com/#/g/g-2fkFE8rbu
 - ✅ chatgpt 支持 GPTs 多模态
 - ✅ chatgpt 支持 tts whisper
 - ✅ 支持超链更换设置，适合 one-api 部署聊天 https://vercel.ddaiai.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
+- ✅ 支持one-api部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://www.abc.com%22} `(v.2.14.3)`
 
 ## 待开发
 - ⏰ 支持 GPTs 多模态
@@ -50,7 +52,7 @@
 | OPENAI_API_MODEL |  默认模型 | gpt-3.5-turbo  | ✅ |  ✅|
 | MJ_SERVER |  mj proxy 接口地址 | https://api.openai.com  | ✅ |  ✅|
 | MJ_API_SECRET |  mj proxy | 空  | ✅ |  ✅|
-| AUTH_SECRET_KEY |  验证密码 | 无  | ✅ |  ✅|
+| AUTH_SECRET_KEY |  访问授权密码 | 无  | ✅ |   x|
 | API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
 | HIDE_SERVER |  前端ui隐藏服务端|    | ✅ |  x|
 | CUSTOM_MODELS |  自定义可选模型 | 无  | ✅ |  ✅|
@@ -58,6 +60,11 @@
 | TJ_GOOGLE_ID |  谷歌统计ID | 无  | ✅ |  ✅|
 | SYS_NOTIFY |  系统通知，支持HTML | 无  | ✅ |  ✅|
 | DISABLE_GPT4 |  禁用GPT-4 | 无  | ✅ |  ✅|
+| GPT_URL | 自定 GPT_URL=/gpts.json  | 无 也可自己的外链 | ✅ |  ✅|
+| UPLOAD_IMG_SIZE | gpt4v 上传图片大小 |  1 | ✅ |  ✅|
+| SYS_THEME | 默认主题 `light`或者`dark`  | dark | ✅ |  ✅|
+| MJ_IMG_WSRV | 是否开启 `wsrv`图床  | 无(关闭)  | ✅ |  ✅|
+  
 
 ## docker 部署
 **假设**:
@@ -114,8 +121,8 @@ docker run -d --name mj6013  -p 6013:8080  \
 ![多模态](./docs/gpts.jpg)
 ![多模态](./docs/gpts1.jpg)
 
-### tts 和 whisper
-![whisper--tts](./docs/tts.jpg)
+### 录音 whisper  和  tts
+![whisper--tts](./docs/tts-whisper.png)
 
 ### 局部重绘：
 [![局部重绘](./docs/mj2.jpg)](./docs/mj2.jpg)
@@ -136,6 +143,18 @@ docker run -d --name mj6013  -p 6013:8080  \
 </div>
 
 
+## 文件上传 支持cloudflare r2 存储
+
+- cloudflare r2 存储 10 GB/月 免费 https://www.cloudflare.com/zh-cn/developer-platform/r2/
+- 配置文档参考 https://zhuanlan.zhihu.com/p/658058503
+
+```yml
+R2_DOMAIN=
+R2_BUCKET_NAME=
+R2_ACCOUNT_ID=
+R2_KEY_ID=
+R2_KEY_SECRET=
+```
 
 ## License
 MIT © [Dooy](./license)
