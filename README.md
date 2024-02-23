@@ -147,7 +147,7 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 - cloudflare r2 存储 10 GB/月 免费 https://www.cloudflare.com/zh-cn/developer-platform/r2/
 - 配置文档参考 https://zhuanlan.zhihu.com/p/658058503
-
+- vercel 不支持 r2 存储
 ```yml
 R2_DOMAIN=
 R2_BUCKET_NAME=
