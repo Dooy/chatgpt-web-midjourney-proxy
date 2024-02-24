@@ -155,6 +155,9 @@ R2_ACCOUNT_ID=
 R2_KEY_ID=
 R2_KEY_SECRET=
 ```
+## 文件服务器请求优先顺序
+
+R2> 前端UI设置文件服务> 后端文件服务 >跟随中转
 
 ## License
 MIT © [Dooy](./license)
