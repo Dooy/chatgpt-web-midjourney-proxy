@@ -2,7 +2,7 @@
 
 #  计划
 # 2.15.6
-- 🐞 修复：微信绘图弹窗兼容问题 #177
+- 🐞 修复：微信绘图弹窗兼容问题 #177 
 - 😄 新增：环境变量控制 `CLOSE_MD_PREVIEW=1`，是否开启输入MD预览 #124
 - 😄 新增：防爆破验证 相关变量 `AUTH_SECRET_ERROR_COUNT=3` `AUTH_SECRET_ERROR_TIME=10`
 
