@@ -2,7 +2,7 @@ import express from 'express'
 import type { RequestProps } from './types'
 import type { ChatMessage } from './chatgpt'
 import { chatConfig, chatReplyProcess, currentModel } from './chatgpt'
-import { auth, authV2 } from './middleware/auth'
+import { auth, authV2, verify } from './middleware/auth'
 import { limiter } from './middleware/limiter'
 import { isNotEmptyString,formattedDate } from './utils/is'
 import multer from "multer"
@@ -90,8 +90,9 @@ router.post('/session', async (req, res) => {
     const uploadImgSize =  process.env.UPLOAD_IMG_SIZE?? "1" 
     const gptUrl = process.env.GPT_URL?? ""; 
     const theme = process.env.SYS_THEME?? "dark"; 
+    const isCloseMdPreview = process.env.CLOSE_MD_PREVIEW?true:false
 
-    const data= { disableGpt4,isWsrv,uploadImgSize,theme,
+    const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
     }
@@ -102,21 +103,7 @@ router.post('/session', async (req, res) => {
   }
 })
 
-router.post('/verify', async (req, res) => {
-  try {
-    const { token } = req.body as { token: string }
-    if (!token)
-      throw new Error('Secret key is empty')
-
-    if (process.env.AUTH_SECRET_KEY !== token)
-      throw new Error('密钥无效 | Secret key is invalid')
-
-    res.send({ status: 'Success', message: 'Verify successfully', data: null })
-  }
-  catch (error) {
-    res.send({ status: 'Fail', message: error.message, data: null })
-  }
-})
+router.post('/verify', verify)
 
  const API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
     ? process.env.OPENAI_API_BASE_URL
@@ -295,8 +282,10 @@ app.use(
   }
 );
 
+ 
+
 //代理openai 接口
-app.use('/openapi',authV2, proxy(API_BASE_URL, {
+app.use('/openapi' ,authV2, proxy(API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return req.originalUrl.replace('/openapi', '') // 将URL中的 `/openapi` 替换为空字符串

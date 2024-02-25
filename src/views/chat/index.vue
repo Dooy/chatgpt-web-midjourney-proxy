@@ -578,7 +578,7 @@ const ychat = computed( ()=>{
                 :chat="item"
                 :index="index"
               />
-              <Message  v-if="ychat.text"
+              <Message  v-if="ychat.text && !homeStore.myData.session.isCloseMdPreview"
               :key="dataSources.length" :inversion="true"
               :date-time="$t('mj.typing')"
               :chat="ychat"
