@@ -3,16 +3,19 @@ import { ref ,computed,watch } from 'vue';
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NTag
-,NPopover,NModal  } from 'naive-ui'
+,NPopover,NModal, NDropdown  } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
-import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard,isFileMp3,countTokens, checkDisableGpt4} from '@/api';
+import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard,isFileMp3
+    ,countTokens, checkDisableGpt4, Recognition } from '@/api';
 import { gptConfigStore, homeStore,useChatStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
 import { useRoute } from 'vue-router' 
 import aiModel from "@/views/mj/aiModel.vue"
 import AiMic from './aiMic.vue';
+import { useIconRender } from '@/hooks/useIconRender'
 
+const { iconRender } = useIconRender()
 //import FormData from 'form-data'
 const route = useRoute() 
 const chatStore = useChatStore()
@@ -20,7 +23,8 @@ const chatStore = useChatStore()
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
 const fsRef = ref()
-const st = ref<{fileBase64:string[],isLoad:number,isShow:boolean,showMic:boolean}>({fileBase64:[],isLoad:0,isShow:false,showMic:false })
+const st = ref<{fileBase64:string[],isLoad:number,isShow:boolean,showMic:boolean,micStart:boolean}>({fileBase64:[],isLoad:0
+    ,isShow:false,showMic:false , micStart:false})
 const { isMobile } = useBasicLayout()
 const placeholder = computed(() => {
   if (isMobile.value)
@@ -166,6 +170,43 @@ const sendMic= (e:any )=>{
     homeStore.setMyData({act:'gpt.whisper', actData:{ file , prompt:'whisper',duration : e.stat?.duration } });
 }
 
+//语音识别ASR
+const goASR=()=>{
+    const olod = mvalue.value;
+    const rec= new Recognition();
+    let rz= '';
+    rec.setListener( (r:string)=>{
+        //mlog('result ', r  );
+        rz= r ; 
+        mvalue.value= r;
+        st.value.micStart= true 
+    }).setOnEnd( ( )=>{
+        //mlog('rec end');
+        mvalue.value= olod+rz;
+        ms.info( t('mj.micRecEnd'));
+        st.value.micStart= false 
+    }).setOpt({
+        timeOut:2000,
+        onStart:()=>{ ms.info( t('mj.micRec')); st.value.micStart= true },
+    }).start();
+}
+
+const drOption=[
+    {
+        label:  t('mj.micWhisper'),
+        key: "whisper",
+        icon:iconRender({ icon: 'ri:openai-fill' }),
+    },{
+        label:  t('mj.micAsr'),
+        icon:iconRender({ icon: 'ri:chrome-line' }),
+        key: "asr"
+    }
+]
+const handleSelectASR = ( key: string | number )=>{ 
+    if(key=='asr')    goASR(); 
+    if(key=='whisper')   st.value.showMic=true; 
+}
+
 </script>
 <template>
 <div v-if="st.showMic" class="  myinputs flex justify-center items-center" >
@@ -230,9 +271,21 @@ const sendMic= (e:any )=>{
                     </div>
                     </n-tooltip>
                 </div>
-                <div  class=" relative; w-[22px]">
+                <!-- <div  class=" relative; w-[22px]">
                     <SvgIcon icon="bi:mic"  class="absolute bottom-[10px] left-[30px] cursor-pointer" @click="st.showMic=true"></SvgIcon>
-                </div>
+                </div> -->
+                <n-dropdown trigger="hover" :options="drOption" @select="handleSelectASR">
+                    <div  class=" relative; w-[22px]">
+                        <div class="absolute bottom-[14px] left-[31px]" v-if="st.micStart">
+                            <span class="relative flex h-3 w-3" >
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-400"></span>
+                            </span>
+                        </div>
+                        <!-- <SvgIcon icon="bi:mic"  class="absolute bottom-[10px] left-[55px] cursor-pointer" @click="goASR()"></SvgIcon> -->
+                        <SvgIcon icon="bi:mic"  class="absolute bottom-[10px] left-[30px] cursor-pointer"></SvgIcon>
+                    </div>
+                </n-dropdown>
                 
             </template>
             <template #suffix>
