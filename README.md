@@ -159,18 +159,19 @@ R2_KEY_ID=
 R2_KEY_SECRET=
 ```
 ## 文件服务器请求优先顺序
-
 R2> 前端UI设置文件服务> 后端文件服务 >跟随中转
 ## 防爆破验证设置
+
+![防爆破](./docs/check_error.jpg)
 - vercel 不支持；仅支持Docker化部署
-- 参数如下
+- 参数如下: 错误验证3次，只能在10分钟后再验证
 ```yml
 # Secret key 注意: 只能拿事英文+数字
-AUTH_SECRET_KEY=
+AUTH_SECRET_KEY=my888god
 #爆破：验证次数 注意: 数字 ；nginx 请设置  proxy_set_header   X-Forwarded-For  $remote_addr;
-AUTH_SECRET_ERROR_COUNT=
+AUTH_SECRET_ERROR_COUNT=3
 #爆破：验证停留时间 单位分钟 注意: 是数字
-AUTH_SECRET_ERROR_TIME=
+AUTH_SECRET_ERROR_TIME=10
 ```
 - 脚本如下
 ```shell
