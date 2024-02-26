@@ -163,8 +163,8 @@ R2> 前端UI设置文件服务> 后端文件服务 >跟随中转
 ## 防爆破验证设置
 
 ![防爆破](./docs/check_error.jpg)
-- [*] vercel 不支持；仅支持Docker化部署
-- [*] 参数如下: 错误验证3次，只能在10分钟后再验证
+- [x] vercel 不支持；仅支持Docker化部署
+- [x] 参数如下: 错误验证3次，只能在10分钟后再验证
 ```yml
 # Secret key 注意: 只能拿事英文+数字
 AUTH_SECRET_KEY=my888god
@@ -173,7 +173,7 @@ AUTH_SECRET_ERROR_COUNT=3
 #爆破：验证停留时间 单位分钟 注意: 是数字
 AUTH_SECRET_ERROR_TIME=10
 ```
-- [*] 脚本如下
+- [x] 脚本如下
 ```shell
 docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
