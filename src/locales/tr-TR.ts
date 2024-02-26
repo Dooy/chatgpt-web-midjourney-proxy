@@ -184,7 +184,11 @@ export default {
         ,"tts_voice": "TTS Ses Karakteri",
         "typing": "Yazıyor",
         "authErro": "Yetkilendirme başarısız", 
-        "authBt": "Lütfen yetkilendirme erişim şifresini yeniden girin"
+        "authBt": "Lütfen yetkilendirme erişim şifresini yeniden girin",
+        "micWhisper": "Fısıltı konuşma tanıma",
+        "micAsr": "Anında tanıma",
+        "micRec": "Kayıt başlat, lütfen konuşun! 2 saniye boyunca ses yoksa otomatik olarak duracaktır.",
+        "micRecEnd": "Kayıt sona erdi"
     },        
     "mjset": {
         "server": "Sunucu",

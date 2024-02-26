@@ -186,7 +186,11 @@ export default {
   "tts_voice": "Voice Role",
   "typing": "Typing",
   "authErro": "Authorization failed",
-  "authBt": "Please enter the authorization access password again" 
+  "authBt": "Please enter the authorization access password again" ,
+  "micWhisper": "Whisper speech recognition",
+  "micAsr": "Instant recognition",
+  "micRec": "Start recording, please speak! It will automatically stop if there is no sound for 2 seconds.",
+  "micRecEnd": "Recording has ended"
   },
   "mjset": {
     "server": "Server",

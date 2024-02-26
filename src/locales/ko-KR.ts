@@ -182,7 +182,11 @@ export default {
     "tts_voice": "TTS 음성 캐릭터",
     "typing": "입력 중",
     "authErro": "인가 실패",
-    "authBt": "인가 액세스 암호를 다시 입력하십시오"
+    "authBt": "인가 액세스 암호를 다시 입력하십시오",
+    "micWhisper": "속삭임 음성 인식",
+    "micAsr": "즉시 인식",
+    "micRec": "녹음 시작, 말씀하세요! 2초 동안 소리가 없으면 자동으로 중지됩니다.",
+    "micRecEnd": "녹음이 종료되었습니다"
 
   },
   "mjset": {
