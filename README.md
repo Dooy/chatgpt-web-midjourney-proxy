@@ -164,6 +164,7 @@ R2> 前端UI设置文件服务> 后端文件服务 >跟随中转
 
 ![防爆破](./docs/check_error.jpg)
 - [x] vercel 不支持；仅支持Docker化部署
+- [x] 如果前面挂载 `nginx` 请配置 `proxy_set_header   X-Forwarded-For  $remote_addr;`
 - [x] 参数如下: 错误验证3次，只能在10分钟后再验证
 ```yml
 # Secret key 注意: 只能拿事英文+数字
