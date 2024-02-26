@@ -32,9 +32,9 @@
 - ✅ 支持ChatGPT试的超链模型切换 https://chat.openai.com/g/g-2fkFE8rbu 修改为 https://vercel.ddaiai.com/#/g/g-2fkFE8rbu
 - ✅ chatgpt 支持 GPTs 多模态
 - ✅ chatgpt 支持 tts whisper
+- ✅ 即时语音识别(浏览器自带语音识别 ASR) `v2.15.7`以上版本
 - ✅ 支持超链更换设置，适合 one-api 部署聊天 https://vercel.ddaiai.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
 - ✅ 支持one-api部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://www.abc.com%22} `(v.2.14.3)`
-- ✅ 即时语音识别(浏览器自带语音识别 ASR)
 ## 待开发
 - ⏰ 支持 GPTs 多模态
 
