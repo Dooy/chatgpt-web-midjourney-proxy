@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+  gptweb:
+    container_name: chatgpt-web-midjourney-proxy
+    image: ydlhero/chatgpt-web-midjourney-proxy # 总是使用latest,更新时重新pull该tag镜像即可
+    ports:
+      - 6050:3002
+    environment:
+      TZ: Asia/Shanghai # 指定时区
+      # 必选
+      OPENAI_API_KEY: sk-xxxx
+      # API接口地址，可选，设置 OPENAI_API_KEY 时可用
+      OPENAI_API_BASE_URL:
+      # 访问权限密钥，可选 注意修改
+      AUTH_SECRET_KEY: mygod
+      # midjourney 服务器地址，可选 可用下面的 http://midjourney-proxy:8080
+      MJ_SERVER: http://midjourney-proxy:8080
+      # midjourney API密钥，可选
+      MJ_API_SECRET: mygod
+      #API_UPLOADER 是否可以上传 1 可以其他都不可以，可选
+      API_UPLOADER: 1
+      #FILE_SERVER 文件服务器，可选 可以用下面的 http://fileserver:3012
+      FILE_SERVER: http://fileserver:3012
+      #爆破：验证次数 注意: vercel 不支持 nginx 请设置  proxy_set_header   X-Forwarded-For  $remote_addr;
+      AUTH_SECRET_ERROR_COUNT: 3
+      #爆破：验证停留时间 单位分钟 注意: vercel 不支持
+      AUTH_SECRET_ERROR_TIME: 10
+
+  # midjourney服务 可选
+  midjourney-proxy:
+    image: novicezk/midjourney-proxy:2.5.5
+    restart: always
+    # ports:
+    #   - 6013:8080 #映射端口
+    environment:
+      TZ: Asia/Shanghai # 指定时区
+      mj.discord.guild-id: xxx # xxx 如何获取
+      mj.discord.channel-id: xxx
+      mj.discord.user-token: xxx
+      mj.api-secret: mygod # MJ_API_SECRET
+  
+  #文件服务 可选
+  fileserver:
+    image: ydlhero/file-server:latest
+    restart: always
+    environment:
+      TZ: Asia/Shanghai # 指定时区
+      #对外显示的域名
+      SERVER_NAME: http://myip:3102
+    ports:
+      - "3102:3102"
+    volumes:
+      - /data/uploads:/app/uploads
+
