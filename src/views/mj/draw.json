@@ -184,6 +184,9 @@
                 "label": "MJ V5.1",
                 "value": "--v 5.1" 
             }, {
+                "label": "二次元 niji V6",
+                "value": "--niji 6"
+            }, {
                 "label": "二次元 niji V5",
                 "value": "--niji 5"
             }, {

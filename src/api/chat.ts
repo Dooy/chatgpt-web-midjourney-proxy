@@ -2,6 +2,7 @@
 
 import { gptConfigStore, gptConfigType } from "@/store";
 import { ss } from '@/utils/storage'
+import { mlog } from "./mjapi";
 
 export class chatSetting{
   private uuid: number;
@@ -33,6 +34,7 @@ export class chatSetting{
     return  this.getObjs().findIndex(v=>v.uuid && v.uuid==this.uuid  )
   }
   public save( obj : Partial<gptConfigType>){
+    mlog("chatsave","gogo")
     let  sobj ={ ...gptConfigStore.myData , ...obj };
     sobj.uuid= this.uuid;
     const index = this.findIndex();

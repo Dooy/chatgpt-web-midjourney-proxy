@@ -179,8 +179,15 @@ export default {
     "presence_penaltyInfo": "Khi giá trị (presence_penalty) tăng, có khả năng mở rộng đến các chủ đề mới cao hơn",
     "frequency_penalty": "Hình Phạt Tần Số",
     "frequency_penaltyInfo": "Khi giá trị (frequency_penalty) tăng, có khả năng giảm sự lặp lại của các từ nhiều hơn"
- 
+   ,"tts_voice": "Nhân vật giọng TTS",
+    "typing": "Đang nhập",
+    "authErro": "Xác thực không thành công",
+    "authBt": "Vui lòng nhập lại mật khẩu truy cập xác thực",
 
+    "micWhisper": "Nhận diện giọng nói thì thầm",
+    "micAsr": "Nhận diện ngay lập tức",
+    "micRec": "Bắt đầu ghi âm, vui lòng nói chuyện! Sẽ tự động dừng nếu không có âm thanh trong vòng 2 giây.",
+    "micRecEnd": "Ghi âm đã kết thúc"
 
   },
   "mjset": {

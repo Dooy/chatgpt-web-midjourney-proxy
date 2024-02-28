@@ -1,5 +1,7 @@
 import { gptsType, mlog } from '@/api';
 import { reactive } from 'vue'
+import { ss } from '@/utils/storage'
+
 export const homeStore = reactive({
     myData:{
         act:'',//动作
@@ -119,3 +121,21 @@ export const gptServerStore= reactive({
         this.setMyData(getServerDefault());
     }
 })
+
+
+const gptsUlistInit= ():gptsType[]=>{
+    const lk= ss.get('gpts-use-list');
+    if( !lk) return [];
+    return lk as gptsType[]; 
+}
+
+//使用gtps列表
+export const gptsUlistStore= reactive({
+    myData:gptsUlistInit(),
+    setMyData( v: gptsType){
+        this.myData= this.myData.filter( v2=> v2.gid!=v.gid );
+        this.myData.unshift(v);
+        ss.set('gpts-use-list', this.myData );
+        return this;
+    }
+});

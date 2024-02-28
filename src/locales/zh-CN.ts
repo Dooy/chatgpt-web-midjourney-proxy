@@ -166,7 +166,7 @@ export default {
     ,img2textinfo:'不知如何写提示词？用图生文试试！<br/>提交图片，出提示词'
     ,traning:'翻译中...'
     ,imgcreate:'生成图片'
-    ,imginfo:'其他参数：  <li>1 --no 忽略 --no car 图中不出现车 </li><li>2 --seed 可先获取种子 --seed 123456 </li> <li>3 --chaos 10 混合(范围：0-100)</li> <li>4 --tile 碎片化 </li> '
+    ,imginfo:'其他参数：  <li>1 --no 忽略 --no car 图中不出现车 </li><li>2 --seed 可先获取种子 --seed 123456 </li> <li>3 --chaos 10 混合(范围：0-100)</li> <li>4 --tile 碎片化 </li>  <li>5 --sref 图片url 生成风格一致的图像  </li> '
     ,tStyle:'风格'
     ,tView:'视角'
     ,tShot:'人物镜头'
@@ -277,5 +277,15 @@ export default {
     ,frequency_penaltyInfo:' (frequency_penalty)值越大，越有可能降低重复字词'
 
     ,tts_voice:'TTS 语音人物'
+    ,typing:'正在输入'
+
+    ,authErro:'授权失败'
+    ,authBt:'请重新输入授权访问密码'
+
+    ,micWhisper:'Whisper语音识别'
+    ,micAsr:'即时识别'
+    ,micRec:'开始录音,请说话！2秒内无声音将自动关闭'
+    ,micRecEnd:'录音已结束'
+    
   }
 }

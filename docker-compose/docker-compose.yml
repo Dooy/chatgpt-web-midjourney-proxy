@@ -7,15 +7,16 @@ services:
     ports:
       - 6050:3002
     environment:
+      TZ: Asia/Shanghai # 指定时区
       # 必选
-      OPENAI_API_KEY:
+      OPENAI_API_KEY: sk-xxxx
       # API接口地址，可选，设置 OPENAI_API_KEY 时可用
       OPENAI_API_BASE_URL:
       # API模型，可选，设置 OPENAI_API_KEY 时可用
       OPENAI_API_MODEL:
       # 访问权限密钥，可选
       AUTH_SECRET_KEY:
-      # midjourney 服务器地址，可选
+      # midjourney 服务器地址，可选 可用下面的 http://midjourney-proxy:8080
       MJ_SERVER:
       # midjourney API密钥，可选
       MJ_API_SECRET:
@@ -31,8 +32,8 @@ services:
       TJ_GOOGLE_ID:
       #SYS_NOTIFY 系统通知 支持HTML ，可选
       SYS_NOTIFY:
-      #FILE_SERVER 文件服务器，可选
-      FILE_SERVER:
+      #FILE_SERVER 文件服务器，可选 可以用下面的 http://fileserver:3012
+      FILE_SERVER: 
       #DISABLE_GPT4=1 前端限制GPT4调用，可选
       DISABLE_GPT4:
       # cloudflare r2 存储 10 GB/月 免费 https://www.cloudflare.com/zh-cn/developer-platform/r2/
@@ -41,4 +42,16 @@ services:
       R2_ACCOUNT_ID:
       R2_KEY_ID:
       R2_KEY_SECRET:
+      ## UPLOAD_IMG_SIZE gpt-4-version 图片上传大小 单位是兆 注意别带单位 最好别超过10 
+      UPLOAD_IMG_SIZE: 1
+      # GPT_URL=/gpts.json  自定义GPTs模型
+      GPT_URL:
+      # SYS_THEME 主题 theme   light 或者 dark 
+      SYS_THEME: dark
+      #关闭MD预览  CLOSE_MD_PREVIEW=1
+      CLOSE_MD_PREVIEW:
+      #爆破：验证次数 注意: vercel 不支持 nginx 请设置  proxy_set_header   X-Forwarded-For  $remote_addr;
+      AUTH_SECRET_ERROR_COUNT: 3
+      #爆破：验证停留时间 单位分钟 注意: vercel 不支持
+      AUTH_SECRET_ERROR_TIME: 10
 

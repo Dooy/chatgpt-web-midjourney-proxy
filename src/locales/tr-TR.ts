@@ -181,7 +181,14 @@ export default {
         "presence_penaltyInfo": "(presence_penalty) değeri arttıkça, yeni konulara genişleme olasılığı daha yüksektir",
         "frequency_penalty": "Frekans Cezası",
         "frequency_penaltyInfo": "(frequency_penalty) değeri arttıkça, tekrarlanan kelimelerin azaltılma olasılığı daha yüksektir"
-    
+        ,"tts_voice": "TTS Ses Karakteri",
+        "typing": "Yazıyor",
+        "authErro": "Yetkilendirme başarısız", 
+        "authBt": "Lütfen yetkilendirme erişim şifresini yeniden girin",
+        "micWhisper": "Fısıltı konuşma tanıma",
+        "micAsr": "Anında tanıma",
+        "micRec": "Kayıt başlat, lütfen konuşun! 2 saniye boyunca ses yoksa otomatik olarak duracaktır.",
+        "micRecEnd": "Kayıt sona erdi"
     },        
     "mjset": {
         "server": "Sunucu",

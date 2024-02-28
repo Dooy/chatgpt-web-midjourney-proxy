@@ -181,6 +181,14 @@ export const useChatStore = defineStore('chat-store', {
         this.chat[index].data = []
         this.recordState()
       }
+
+      //清空标题
+      const i2= this.history.findIndex( v=>v.uuid===uuid )
+      if (i2 !== -1) {
+        this.history[i2].title= "New Chat"
+         this.recordState()
+      }
+      //end 清空标题
     },
 
     clearHistory() {

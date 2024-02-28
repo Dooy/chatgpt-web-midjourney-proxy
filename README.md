@@ -32,9 +32,9 @@
 - ✅ 支持ChatGPT试的超链模型切换 https://chat.openai.com/g/g-2fkFE8rbu 修改为 https://vercel.ddaiai.com/#/g/g-2fkFE8rbu
 - ✅ chatgpt 支持 GPTs 多模态
 - ✅ chatgpt 支持 tts whisper
+- ✅ 即时语音识别(浏览器自带语音识别 ASR) `v2.15.7`以上版本
 - ✅ 支持超链更换设置，适合 one-api 部署聊天 https://vercel.ddaiai.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
 - ✅ 支持one-api部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://www.abc.com%22} `(v.2.14.3)`
-
 ## 待开发
 - ⏰ 支持 GPTs 多模态
 
@@ -52,7 +52,7 @@
 | OPENAI_API_MODEL |  默认模型 | gpt-3.5-turbo  | ✅ |  ✅|
 | MJ_SERVER |  mj proxy 接口地址 | https://api.openai.com  | ✅ |  ✅|
 | MJ_API_SECRET |  mj proxy | 空  | ✅ |  ✅|
-| AUTH_SECRET_KEY |  验证密码 | 无  | ✅ |  ✅|
+| AUTH_SECRET_KEY |  访问授权密码 | 无  | ✅ |   x|
 | API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
 | HIDE_SERVER |  前端ui隐藏服务端|    | ✅ |  x|
 | CUSTOM_MODELS |  自定义可选模型 | 无  | ✅ |  ✅|
@@ -62,6 +62,11 @@
 | DISABLE_GPT4 |  禁用GPT-4 | 无  | ✅ |  ✅|
 | GPT_URL | 自定 GPT_URL=/gpts.json  | 无 也可自己的外链 | ✅ |  ✅|
 | UPLOAD_IMG_SIZE | gpt4v 上传图片大小 |  1 | ✅ |  ✅|
+| SYS_THEME | 默认主题 `light`或者`dark`  | dark | ✅ |  ✅|
+| MJ_IMG_WSRV | 是否开启 `wsrv`图床  | 无(关闭)  | ✅ |  ✅|
+| AUTH_SECRET_ERROR_COUNT | 防爆破验证：验证次数触发 NGINX 请设置 `proxy_set_header   X-Forwarded-For  $remote_addr`  | 无  | ✅ |  x|
+| AUTH_SECRET_ERROR_TIME | 防爆破验证：停留时间 单位分钟  | 无  | ✅ |  x|
+| CLOSE_MD_PREVIEW | 是否不关闭输入预览 | 无  | ✅ |  ✅|
   
 
 ## docker 部署
@@ -145,7 +150,7 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 - cloudflare r2 存储 10 GB/月 免费 https://www.cloudflare.com/zh-cn/developer-platform/r2/
 - 配置文档参考 https://zhuanlan.zhihu.com/p/658058503
-
+- vercel 不支持 r2 存储
 ```yml
 R2_DOMAIN=
 R2_BUCKET_NAME=
@@ -153,11 +158,51 @@ R2_ACCOUNT_ID=
 R2_KEY_ID=
 R2_KEY_SECRET=
 ```
+## 文件服务器请求优先顺序
+R2> 前端UI设置文件服务> 后端文件服务 >跟随中转
+## 防爆破验证设置
 
+![防爆破](./docs/check_error.jpg)
+- [x] vercel 不支持；仅支持Docker化部署
+- [x] 如果前面挂载 `nginx` 请配置 `proxy_set_header   X-Forwarded-For  $remote_addr;`
+- [x] 参数如下: 错误验证3次，只能在10分钟后再验证
+```yml
+# Secret key 注意: 只能拿事英文+数字
+AUTH_SECRET_KEY=my888god
+#爆破：验证次数 注意: 数字 ；nginx 请设置  proxy_set_header   X-Forwarded-For  $remote_addr;
+AUTH_SECRET_ERROR_COUNT=3
+#爆破：验证停留时间 单位分钟 注意: 是数字
+AUTH_SECRET_ERROR_TIME=10
+```
+- [x] 脚本如下
+```shell
+docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
+-e OPENAI_API_KEY=sk-xxxxx \
+-e OPENAI_API_BASE_URL=https://api.openai.com  \
+-e MJ_SERVER=https://172.17.0.1:6013  \
+-e MJ_API_SECRET=abc123456 \
+-e API_UPLOADER=1  -v /data/uploads:/app/uploads \
+-e AUTH_SECRET_KEY=你的英文密码 -e AUTH_SECRET_ERROR_COUNT=3 \
+-e AUTH_SECRET_ERROR_TIME=10 ydlhero/chatgpt-web-midjourney-proxy
+```
+- 
 ## License
 MIT © [Dooy](./license)
 
 ## 其他
-如果觉得这个项目对您有所帮助，请帮忙点个star
+如果觉得这个项目对您有所帮助，请帮忙点个star 或者捐助我们
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Dooy/chatgpt-web-midjourney-proxy&type=Date)](https://star-history.com/#Dooy/chatgpt-web-midjourney-proxy&Date)
+
+## 捐助
+如果我的开源项目对你有帮助，请考虑通过以下任意一种方式赞助: 
+<div style="display: flex; flex-wrap: wrap">
+    <div style="width:200px">
+        <img src="./docs/wxpay.jpg"  style="width:200px">
+        <div>微信捐助</div>
+    </div>
+    <div style="width:200px">
+        <img src="./docs/alipay.jpg"  style="width:200px"> 
+        <div>支付宝捐助</div>
+    </div>
+</div>

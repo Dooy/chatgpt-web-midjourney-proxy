@@ -1,12 +1,11 @@
 <script setup lang="ts"> 
 import { myFetch, gptsType, mlog, chatSetting,my2Fetch } from '@/api';
-import { homeStore,gptConfigStore,useChatStore } from '@/store';
+import { homeStore,gptConfigStore,useChatStore, gptsUlistStore } from '@/store';
 import { ref,computed ,watch  } from 'vue';
 import { useMessage ,NButton,NImage,NTag,NPopover} from 'naive-ui';
 import { SvgIcon } from '@/components/common';
 import { useRouter } from 'vue-router';
 import { t } from '@/locales'; 
-
 
 const router = useRouter()
 const ms = useMessage();
@@ -45,6 +44,8 @@ const go= async ( item: gptsType)=>{
     emit('close');
     mlog('go local ', homeStore.myData.local );
     if(homeStore.myData.local!=='Chat') router.replace({name:'Chat',params:{uuid:chatStore.active}});
+
+    gptsUlistStore.setMyData( item );
 
 }
 const pageLoad= async ()=>{

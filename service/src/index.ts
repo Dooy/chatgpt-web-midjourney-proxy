@@ -2,12 +2,13 @@ import express from 'express'
 import type { RequestProps } from './types'
 import type { ChatMessage } from './chatgpt'
 import { chatConfig, chatReplyProcess, currentModel } from './chatgpt'
-import { auth } from './middleware/auth'
+import { auth, authV2, verify } from './middleware/auth'
 import { limiter } from './middleware/limiter'
 import { isNotEmptyString,formattedDate } from './utils/is'
 import multer from "multer"
 import path from "path"
 import fs from "fs"
+import pkg from '../package.json'
 // const { createProxyMiddleware } = require('http-proxy-middleware');
 //import {createProxyMiddleware} from "http-proxy-middleware"
 import  proxy from "express-http-proxy"
@@ -35,7 +36,7 @@ app.all('*', (_, res, next) => {
   next()
 })
 
-router.post('/chat-process', [auth, limiter], async (req, res) => {
+router.post('/chat-process',authV2 , async (req, res) => { //[authV2, limiter]
   res.setHeader('Content-type', 'application/octet-stream')
 
   try {
@@ -88,8 +89,10 @@ router.post('/session', async (req, res) => {
     const isWsrv =  process.env.MJ_IMG_WSRV?? "" 
     const uploadImgSize =  process.env.UPLOAD_IMG_SIZE?? "1" 
     const gptUrl = process.env.GPT_URL?? ""; 
+    const theme = process.env.SYS_THEME?? "dark"; 
+    const isCloseMdPreview = process.env.CLOSE_MD_PREVIEW?true:false
 
-    const data= { disableGpt4,isWsrv,uploadImgSize,
+    const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
     }
@@ -100,27 +103,13 @@ router.post('/session', async (req, res) => {
   }
 })
 
-router.post('/verify', async (req, res) => {
-  try {
-    const { token } = req.body as { token: string }
-    if (!token)
-      throw new Error('Secret key is empty')
-
-    if (process.env.AUTH_SECRET_KEY !== token)
-      throw new Error('密钥无效 | Secret key is invalid')
-
-    res.send({ status: 'Success', message: 'Verify successfully', data: null })
-  }
-  catch (error) {
-    res.send({ status: 'Fail', message: error.message, data: null })
-  }
-})
+router.post('/verify', verify)
 
  const API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
 
-app.use('/mjapi', proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
+app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api.openai.com', {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return req.originalUrl.replace('/mjapi', '') // 将URL中的 `/mjapi` 替换为空字符串
@@ -128,6 +117,7 @@ app.use('/mjapi', proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'https://api
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
   },
   //limit: '10mb'
@@ -195,7 +185,7 @@ if(isUpload){
     );
   }
   else{
-    app.use('/openapi/v1/upload', upload.single('file'), (req, res) => {
+    app.use('/openapi/v1/upload', authV2, upload.single('file'), (req, res) => {
     //res.send('文件上传成功！');
     res.setHeader('Content-type', 'application/json' );
     if(req.file.filename) res.json({ url:`/uploads/${formattedDate()}/${ req.file.filename  }`,created:Date.now() })
@@ -208,7 +198,7 @@ if(isUpload){
      res.json({ error:`server is no open uploader `,created:Date.now() })
   });
 }
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads',authV2 , express.static('uploads'));
 
 // R2Client function
 const R2Client = () => {
@@ -261,7 +251,7 @@ app.post('/openapi/pre_signed', (req, res) => {
 });
 
 app.use(
-  '/openapi/v1/audio/transcriptions',
+  '/openapi/v1/audio/transcriptions',authV2,
   upload2.single('file'),
   async (req, res, next) => {
     //console.log( "boday",req.body ,  req.body.model );
@@ -275,7 +265,8 @@ app.use(
       let responseBody = await axios.post( url , formData, {
               headers: {
               Authorization: 'Bearer '+ process.env.OPENAI_API_KEY ,
-              'Content-Type': 'multipart/form-data'
+              'Content-Type': 'multipart/form-data',
+              'Mj-Version': pkg.version
             }
         })   ;
         // console.log('responseBody', responseBody.data  );
@@ -291,8 +282,10 @@ app.use(
   }
 );
 
+ 
+
 //代理openai 接口
-app.use('/openapi', proxy(API_BASE_URL, {
+app.use('/openapi' ,authV2, proxy(API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return req.originalUrl.replace('/openapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -300,6 +293,7 @@ app.use('/openapi', proxy(API_BASE_URL, {
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     proxyReqOpts.headers['Authorization'] ='Bearer '+ process.env.OPENAI_API_KEY;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
   },
   //limit: '10mb'
