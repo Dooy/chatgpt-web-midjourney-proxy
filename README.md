@@ -67,7 +67,7 @@
 | AUTH_SECRET_ERROR_COUNT | 防爆破验证：验证次数触发 NGINX 请设置 `proxy_set_header   X-Forwarded-For  $remote_addr`  | 无  | ✅ |  x|
 | AUTH_SECRET_ERROR_TIME | 防爆破验证：停留时间 单位分钟  | 无  | ✅ |  x|
 | CLOSE_MD_PREVIEW | 是否不关闭输入预览 | 无  | ✅ |  ✅|
-| UPLOAD_TYPE | 指定上传方式 ['R2' R2上传] ['API' 跟随UI前端中转]、['Container' 本地容器]、['MyUrl' 自定义链接]  |  空 | ✅ |  x|
+| UPLOAD_TYPE | 指定上传方式 [`R2` R2上传] [`API` 跟随UI前端中转]、[`Container` 本地容器]、[`MyUrl` 自定义链接]  |  空 | ✅ |  x|
 
   
 
