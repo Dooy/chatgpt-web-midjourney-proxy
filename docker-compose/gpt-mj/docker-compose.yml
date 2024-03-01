@@ -1,0 +1,32 @@
+version: '3'
+services:
+  gptweb:
+    image: ydlhero/chatgpt-web-midjourney-proxy # 总是使用latest,更新时重新pull该tag镜像即可
+    ports:
+      - 6055:3002
+    environment:
+      TZ: Asia/Shanghai # 指定时区
+      # 必选
+      OPENAI_API_KEY: sk-xxxx
+      # API接口地址，可选，设置 OPENAI_API_KEY 时可用
+      OPENAI_API_BASE_URL:
+      # midjourney 服务器地址，可选 
+      MJ_SERVER: http://midjourney-proxy:8080
+      # midjourney API密钥，可选
+      MJ_API_SECRET: mjpassword
+
+  # midjourney服务 可选
+  midjourney-proxy:
+    image: novicezk/midjourney-proxy:2.5.5
+    restart: always
+    # ports:
+    #   - 6013:8080 #映射端口
+    environment:
+      TZ: Asia/Shanghai # 指定时区
+      mj.discord.guild-id: xxxx
+      mj.discord.channel-id: xxx
+      mj.discord.user-token: tooken-xxx
+      mj.api-secret: mjpassword
+
+
+
