@@ -91,8 +91,9 @@ router.post('/session', async (req, res) => {
     const gptUrl = process.env.GPT_URL?? ""; 
     const theme = process.env.SYS_THEME?? "dark"; 
     const isCloseMdPreview = process.env.CLOSE_MD_PREVIEW?true:false
+    const uploadType= process.env.UPLOAD_TYPE
 
-    const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,
+    const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,uploadType,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
     }

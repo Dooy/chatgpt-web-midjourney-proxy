@@ -22,7 +22,7 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 ,{s:'width: 50%; height: 100%;',label:'9:16'}
  ];
 
-const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 5.2'});
+const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 6.0'});
 const st =ref({text:'',isDisabled:false,isLoad:false
     ,fileBase64:[],bot:'',showFace:false
 });

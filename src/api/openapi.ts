@@ -89,38 +89,74 @@ function uploadR2(file: File) {
 	});
 }
 
-export const GptUploader =   ( url:string, FormData:FormData )=>{
-	 if(homeStore.myData.session.isUploadR2){
-			const file = FormData.get('file') as File;
-			return uploadR2(file);
-	 }
+export const GptUploader =   ( _url :string, FormData:FormData )=>{
 
-    // if(gptServerStore.myData.OPENAI_API_BASE_URL){
-    //     return `${ gptServerStore.myData.OPENAI_API_BASE_URL}${url}`;
-    // }
-    url= gptServerStore.myData.UPLOADER_URL? gptServerStore.myData.UPLOADER_URL :  gptGetUrl( url );
+    //R2上传
+    const upLoaderR2= ()=>{
+        const file = FormData.get('file') as File;
+		return uploadR2(file);
+    }
+
+    //执行上传
+    const uploadNomalDo = (url:string, headers:any)=>{
+        return new Promise<any>((resolve, reject) => {
+                axios.post( url , FormData, {
+                headers
+            }).then(response =>  resolve(response.data )
+            ).catch(error =>reject(error)  );
+        })
+    }
+
+    //除R2外默认流程
+    const uploadNomal= (url:string)=>{ 
+        url= gptServerStore.myData.UPLOADER_URL? gptServerStore.myData.UPLOADER_URL :  gptGetUrl( url );
+        let headers=   {'Content-Type': 'multipart/form-data' } 
+        if(gptServerStore.myData.OPENAI_API_BASE_URL && url.indexOf(gptServerStore.myData.OPENAI_API_BASE_URL)>-1  ) {
+            headers={...headers,...getHeaderAuthorization()}
+            
+        }else{
+            const authStore = useAuthStore()
+            if( authStore.token ) {
+                const  header2={ 'x-ptoken':  authStore.token };
+                headers= {...headers, ...header2}
+            }
+        }
+        return  uploadNomalDo(url,headers );
+        
+    }
+
+    //处理上传流程 
+    const uploadType=   ( (homeStore.myData.session.uploadType??'') as string).toLocaleLowerCase() ;
     let headers=   {'Content-Type': 'multipart/form-data' }
-    //
-
-
-
-    if(gptServerStore.myData.OPENAI_API_BASE_URL && url.indexOf(gptServerStore.myData.OPENAI_API_BASE_URL)>-1  ) {
-        headers={...headers,...getHeaderAuthorization()}
-        //mlog("headers", headers );
-    }else{
+    //R2
+    if(uploadType=='r2' ){
+        return upLoaderR2(); 
+    //容器
+    }else if( uploadType=='container' ) { 
          const authStore = useAuthStore()
         if( authStore.token ) {
             const  header2={ 'x-ptoken':  authStore.token };
             headers= {...headers, ...header2}
         }
-    }
-    return new Promise<any>((resolve, reject) => {
-            axios.post( url , FormData, {
-            headers
-        }).then(response =>  resolve(response.data )
-        ).catch(error =>reject(error)  );
-    })
+        let url= `/openapi${_url}`
+        return  uploadNomalDo(url,headers );
 
+    //前端API
+    }else if( uploadType=='api' ) { 
+        headers={...headers,...getHeaderAuthorization()}
+        let url= `${ gptServerStore.myData.OPENAI_API_BASE_URL}${_url}`
+        return  uploadNomalDo(url,headers );
+    
+    //自定义链接
+    }else if( uploadType=='myurl' ) { 
+        return  uploadNomalDo(_url,headers );
+    }
+
+    //默认上传流程
+    if(homeStore.myData.session.isUploadR2){
+    return upLoaderR2();
+    }
+    return uploadNomal( _url);
 }
 
 export const whisperUpload = ( FormData:FormData )=>{
