@@ -1,8 +1,6 @@
-
-
 <script setup lang='ts'>
 import type { Ref } from 'vue'
-import { computed, onMounted, onUnmounted, ref,watch,h } from 'vue'
+import { computed, h, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { NAutoComplete, NButton, NInput, useDialog, useMessage,NAvatar } from 'naive-ui'
@@ -384,6 +382,35 @@ function handleDelete(index: number) {
   })
 }
 
+function handleEdit(index: number) {
+  if (loading.value)
+    return
+
+  const editedMessage = ref(dataSources.value[index].text.slice())
+
+  const inputNode = () => {
+    return h(NInput, {
+      'value': editedMessage.value,
+      'type': 'textarea',
+      'autosize': { minRows: 1, maxRows: 8 },
+      'showCount': true,
+      'onUpdate:value': (v: string) => {
+        editedMessage.value = v
+      },
+    })
+  }
+
+  dialog.warning({
+    title: t('common.edit'),
+    content: inputNode,
+    positiveText: t('common.yes'),
+    negativeText: t('common.no'),
+    onPositiveClick: () => {
+      updateChatSome(+uuid, index, { text: editedMessage.value })
+    },
+  })
+}
+
 function handleClear() {
   if (loading.value)
     return
@@ -575,6 +602,7 @@ const ychat = computed( ()=>{
                 :loading="item.loading"
                 @regenerate="onRegenerate(index)"
                 @delete="handleDelete(index)"
+                @edit="handleEdit(index)"
                 :chat="item"
                 :index="index"
               />
