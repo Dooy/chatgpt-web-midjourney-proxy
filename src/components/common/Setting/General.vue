@@ -119,9 +119,8 @@ function clearData(): void {
 }
 
 function handleImportButtonClick(): void {
-  const fileInput = document.getElementById('fileInput') as HTMLElement
-  if (fileInput)
-    fileInput.click()
+  const fileInput = document.getElementById('fileInput2') as HTMLElement
+  if (fileInput)   fileInput.click()
 }
 </script>
 
@@ -169,7 +168,7 @@ function handleImportButtonClick(): void {
             {{ $t('common.export') }}
           </NButton>
 
-          <input id="fileInput" type="file" style="display:none" @change="importData">
+          <input id="fileInput2" type="file" style="display:none" @change="importData">
           <NButton size="small" @click="handleImportButtonClick">
             <template #icon>
               <SvgIcon icon="ri:upload-2-fill" />
