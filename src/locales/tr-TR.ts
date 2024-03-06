@@ -51,7 +51,7 @@ export default {
         clearHistoryConfirm: 'Bu sohbet geçmişini silmek istediğinizden emin misiniz?',
         preview: 'Önizleme',
         showRawText: 'Ham metin olarak göster',
-    },    
+    },
     setting: {
         setting: 'Ayarlar',
         general: 'Genel',
@@ -74,7 +74,7 @@ export default {
         httpsProxy: 'HTTPS Proxy',
         balance: 'API Bakiyesi',
         monthlyUsage: 'Aylık Kullanım',
-    },       
+    },
     store: {
         siderButton: 'Prompt Mağazası',
         local: 'Yerel',
@@ -92,7 +92,7 @@ export default {
         importRepeatContent: 'İçerik tekrarlı olarak atlandı: {msg}',
         onlineImportWarning: 'Not: Lütfen JSON dosyası kaynağını kontrol edin!',
         downloadError: 'Lütfen ağ durumunu ve JSON dosyasının geçerliliğini kontrol edin',
-    },      
+    },
     "mj": {
         "setOpen": "OpenAI İlişkilendirilmiş",
         "setOpenPlaceholder": "http(s):// içermelidir",
@@ -105,7 +105,7 @@ export default {
         "setUploaderUrl": "Yükleme Adresi:",
         "setBtSave": "Kaydet",
         "setBtBack": "Varsayılanı Geri Yükle",
-    
+
         "redraw": "Yeniden Çiz",
         "fail1": "Lütfen sabırlı olun, yükleniyor.",
         "success1": "Resim başarıyla yenilendi!",
@@ -121,7 +121,7 @@ export default {
         "pan_down": "Aşağı",
         "up2": "HD 2x",
         "up4": "HD 4x" ,
-    
+
         "thinking": "Düşünüyor...",
         "noReUpload": "Yeniden yüklenemiyor",
         "uploading": "Yükleniyor...",
@@ -133,20 +133,20 @@ export default {
         "czoom": "Özel",
         "customTitle": "Özel zoom",
         "zoominfo": "Zoom değerini değiştirin, 1.0 ile 2.0 arasında, varsayılan 1.8 olarak ayarlanmıştır",
-    
+
         "modleSuccess": "Model başarıyla yüklendi",
         "setingSuccess": "Ayarlar başarılı",
-    
+
         "tokenInfo1": "Kalan Jetonlar = Model Uzunluğu - Rol Ayarı - Bağlam (Sohbet Geçmişi) - Yanıt Sayısı - Mevcut Giriş",
         "tokenInfo2": "Rol ayarı boş bırakılırsa, sistem varsayılan bir tane sağlar.",
         "noSuppertModel": "Yenile, bu model şu anda desteklenmiyor!",
         "failOcr": "Tanıma başarısız",
         "remain": "Kalan:",
-    
+
         "totalUsage": "Toplam abonelik miktarı",
         "disableGpt4": "GPT4 devre dışı",
         "setTextInfo": "OpenAI API Anahtarı hatası, buraya tıklayarak yeniden deneyin",
-    
+
         "attr1": "Attr",
         "ulink": "Resim Bağlantısı",
         "copyFail": "Kopyalama Başarısız",
@@ -164,7 +164,7 @@ export default {
         "mPlay": "Oynat",
         "mCanel": "İptal",
         "mSent": "Gönder",
-    
+
         "findVersion": "Güncellenmiş sürümü keşfet",
         "yesLastVersion": "Zaten en son sürümde",
         "infoStar": 'Bu proje <a class="text-blue-600 dark:text-blue-500" href="https://github.com/Dooy/chatgpt-web-midjourney-proxy\" target="_blank">GitHub</a> üzerinde açık kaynaklı, ücretsiz ve MIT lisansına dayanmaktadır, herhangi bir ödeme şekli yoktur! </p><p>Bu projeyi yararlı bulursanız, lütfen GitHub üzerinde yıldız verin, teşekkür ederim!',
@@ -172,7 +172,7 @@ export default {
         "setBtSaveSys": "Sisteme kaydet",
         "wsrvClose": "wsrv'yi kapat",
         "wsrvOpen": "wsrv'yi aç",
-        
+
         "temperature": "Rastlantısallık",
         "temperatureInfo": "(temperature) değeri arttıkça yanıtlar daha rastlantısal hale gelir",
         "top_p": "Üst Olasılık Örnekleme",
@@ -183,13 +183,13 @@ export default {
         "frequency_penaltyInfo": "(frequency_penalty) değeri arttıkça, tekrarlanan kelimelerin azaltılma olasılığı daha yüksektir"
         ,"tts_voice": "TTS Ses Karakteri",
         "typing": "Yazıyor",
-        "authErro": "Yetkilendirme başarısız", 
+        "authErro": "Yetkilendirme başarısız",
         "authBt": "Lütfen yetkilendirme erişim şifresini yeniden girin",
         "micWhisper": "Fısıltı konuşma tanıma",
         "micAsr": "Anında tanıma",
         "micRec": "Kayıt başlat, lütfen konuşun! 2 saniye boyunca ses yoksa otomatik olarak duracaktır.",
         "micRecEnd": "Kayıt sona erdi"
-    },        
+    },
     "mjset": {
         "server": "Sunucu",
         "about": "Hakkında",
@@ -202,7 +202,7 @@ export default {
         "drawinfo": "Midjourney Motoru ile Yapay Zeka Çizimi",
         "gallery": "Galeri",
         "galleryInfo": "Benim Galerim"
-    },        
+    },
     "mjchat": {
         "loading": "Resim Yükleniyor",
         "openurl": "Bağlantıyı Doğrudan Aç",
@@ -277,7 +277,93 @@ export default {
         "add2more": "Lütfen iki veya daha fazla resim ekleyin",
         "no1m": "Resim boyutu 1M'yi aşamaz",
         "imgExt": "Resimler sadece jpg, gif, png, jpeg formatlarını destekler"
-    }
-    
+    },
+	draw: {
+		qualityList: {
+			general: "General",
+			clear: "Clear",
+			hd: "HD",
+			ultraHd: "Ultra HD",
+		},
+		styleList: {
+			cyberpunk: "Cyberpunk",
+			star: "Star",
+			anime: "Anime",
+			japaneseComicsManga: "Japanese Comics/Manga",
+			inkWashPaintingStyle: "Ink Wash Painting Style",
+			original: "Original",
+			landscape: "Landscape",
+			illustration: "Illustration",
+			manga: "Manga",
+			modernOrganic: "Modern Organic",
+			genesis: "Genesis",
+			posterstyle: "Poster Style",
+			surrealism: "Surrealism",
+			sketch: "Sketch",
+			realism: "Realism",
+			watercolorPainting: "Watercolor Painting",
+			cubism: "Cubism",
+			blackAndWhite: "Black and White",
+			fmPhotography: "Film Photography Style",
+			cinematic: "Cinematic",
+			clearFacialFeatures: "Clear Facial Features",
+		},
+		viewList: {
+			wideView: "Wide View",
+			birdView: "Bird's Eye View",
+			topView: "Top View",
+			upview: "Upview",
+			frontView: "Front View",
+			headshot: "Headshot",
+			ultrawideshot: "Ultrawide Shot",
+			mediumShot: "Medium Shot (MS)",
+			longShot: "Long Shot (LS)",
+			depthOfField: "Depth of Field (DOF)",
+		},
+		shotList: {
+			faceShot: "Face Shot (VCU)",
+			bigCloseUp: "Big Close-Up (BCU)",
+			closeUp: "Close-Up (CU)",
+			waistShot: "Waist Shot (WS)",
+			kneeShot: "Knee Shot (KS)",
+			fullLengthShot: "Full Length Shot (FLS)",
+			extraLongShot: "Extra Long Shot (ELS)",
+		},
+		stylesList: {
+			styleLow: "Style Low",
+			styleMed: "Style Medium",
+			styleHigh: "Style High",
+			styleVeryHigh: "Style Very High",
+		},
+		lightList: {
+			coldLight: "Cold Light",
+			warmLight: "Warm Light",
+			hardLighting: "Hard Lighting",
+			dramaticLight: "Dramatic Light",
+			reflectionLight: "Reflection Light",
+			mistyFoggy: "Misty/Foggy",
+			naturalLight: "Natural Light",
+			sunLight: "Sun Light",
+			moody: "Moody",
+		},
+		versionList: {
+			mjV6: "MJ V6",
+			mjV52: "MJ V5.2",
+			mjV51: "MJ V5.1",
+			nijiV6: "Niji V6",
+			nijiV5: "Niji V5",
+			nijiV4: "Niji V4",
+			nijiJourney: "Niji Journey",
+		},
+		botList: {
+			midjourneyBot: "Midjourney Bot",
+			nijiJourney: "Niji Journey",
+		},
+		dimensionsList: {
+			square: "Square (1:1)",
+			portrait: "Portrait (2:3)",
+			landscape: "Landscape (3:2)",
+		},
+	}
+
   }
-  
