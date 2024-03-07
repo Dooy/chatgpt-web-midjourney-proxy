@@ -1,14 +1,15 @@
 <script setup lang="ts">
 //boy, Cyberpunk , Top view , Face Shot (VCU) , Warm light  --style raw  --ar 3:4 --q 0.5 --v 5.2
 import { ref,computed,watch,onMounted } from "vue";
+import { useI18n } from 'vue-i18n';
 import config from "./draw.json";
-import {  NSelect,NInput,NButton,NTag,NPopover, useMessage,NDivider} from 'naive-ui'; 
+import {  NSelect,NInput,NButton,NTag,NPopover, useMessage,NDivider} from 'naive-ui';
 import {  SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 const { isMobile } = useBasicLayout()
-import AiMsg from './aiMsg.vue' 
-//import aiFace from './aiFace.vue' 
-import { mlog, train, upImg ,getMjAll } from '@/api' 
+import AiMsg from './aiMsg.vue'
+//import aiFace from './aiFace.vue'
+import { mlog, train, upImg ,getMjAll } from '@/api'
 //import {copyText3} from "@/utils/format";
 import { homeStore ,useChatStore} from "@/store";
 const chatStore = useChatStore()
@@ -36,8 +37,24 @@ const farr= [
 ,{ k:'version',v:t('mjchat.tVersion') }
  ];
 
+const drawlocalized = computed(() => {
+	let localizedConfig = {};
+	Object.keys(config).forEach((key) => {
+		localizedConfig[key] = config[key].map((option) => {
+			// 假设 labelKey 如 "draw.qualityList.general"
+			let path = option.labelKey; // 直接使用 labelKey 作为路径
+			return {
+				...option,
+				label: t(path), // 从 i18n 中获取本地化的标签
+			};
+		});
+	});
+	return localizedConfig;
+});
+
+
 const msgRef = ref()
-const fsRef= ref() 
+const fsRef= ref()
 const fsRef2 = ref()
 const $emit=defineEmits(['drawSent','close']);
 const props = defineProps({buttonDisabled:Boolean});
@@ -47,8 +64,8 @@ const isDisabled = computed(() => {
 })
 const ms=   useMessage();
 function create( ){
-   
-   
+
+
     st.value.isLoad=true
     train( st.value.text.trim()).then(ps=>{
         const rz={ prompt: st.value.text.trim() , drawText: createPrompt( ps) }
@@ -60,7 +77,7 @@ function create( ){
         st.value.isLoad=false
     })
 
-    
+
 }
 
 const shorten= ()=>{
@@ -72,7 +89,7 @@ const shorten= ()=>{
     }
 
     let obj={
-            action:'shorten', 
+            action:'shorten',
             data:{prompt: st.value.text.trim(),botType: st.value.bot=='NIJI_JOURNEY'? 'NIJI_JOURNEY': 'MID_JOURNEY'}
         }
     homeStore.setMyData({act:'draw',actData:obj});
@@ -93,8 +110,8 @@ function createPrompt(rz:string){
         msgRef.value.showError(t('mjchat.placeInput') );
         return '';
     }
-     
-   
+
+
     // for(let v of farr){
     //     if( ! f.value[v.k] || f.value[v.k]==null || f.value[v.k]=='' ) continue;
     //      mlog('k ', rz,  f.value  );
@@ -128,10 +145,10 @@ function createPrompt(rz:string){
 
     mlog('createPrompt ', rz,  f.value  );
     if(f.value.bili>-1) rzp +=` --ar ${vf[f.value.bili].label}`;
-    rz = rzk + rz +rzp; 
+    rz = rzk + rz +rzp;
     return rz ;
 }
- 
+
 // const copy=()=>{
 //     copyText3( '哦们sd').then(()=>msgRef.value.showMsg('复制成功345！'));
 // }
@@ -152,16 +169,16 @@ function selectFile(input:any){
         st.value.fileBase64.push(d);
         fsRef.value.value='';
     }).catch(e=>msgRef.value.showError(e));
-    
+
 }
 
 //图生文
 function selectFile2(input:any){
-     
+
     upImg(input.target.files[0]).then(d=>{
         mlog('f2base64>> ',d );
         let obj={
-            action:'img2txt', 
+            action:'img2txt',
             data:{
                 "base64":d
                 ,"botType": "MID_JOURNEY"
@@ -170,7 +187,7 @@ function selectFile2(input:any){
         homeStore.setMyData({act:'draw',actData:obj});
         //input.value.value='';
         fsRef2.value.value='';
-       
+
     })
     .catch(e=>msgRef.value.showError(e))
 }
@@ -193,7 +210,7 @@ onMounted(()=>{
 const exportToTxt= async ()=>{
     let txtContent ='';
     mlog('sss',txtContent,chatStore.$state.chat.length  );
-   
+
     let d = await getMjAll( chatStore.$state);
     if(d.length==0) {
         //ms.info('暂时没作品');
@@ -216,11 +233,6 @@ const exportToTxt= async ()=>{
     a.click();
     ms.success( t('mjchat.exSuccess'));
 }
-const clearAll=()=>{
-    //f.value
-    Object.keys(f.value).map(k=>f.value[k]='');
-    f.value.bili= -1;
-}
 //const config=
 </script>
 <template>
@@ -229,7 +241,7 @@ const clearAll=()=>{
 <input type="file"  @change="selectFile2" ref="fsRef2" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
 
 <div class="overflow-y-auto bg-[#fafbfc] px-4 dark:bg-[#18181c] h-full ">
-    
+
     <section class="mb-4">
         <div class="mr-1  mb-2 flex justify-between items-center">
             <div class="text-sm">{{ $t('mjchat.imgBili') }}</div>
@@ -251,21 +263,20 @@ const clearAll=()=>{
                 <p class="mb-1 text-center text-sm">{{ item.label }}</p>
             </section>
             </template>
-             
+
         </div>
     </section>
     <section class="mb-4 flex justify-between items-center" v-for=" v in farr">
      <div>{{ v.v }}</div>
-     
-    <n-select v-model:value="f[v.k]" :options="config[v.k+'List']" size="small"  class="!w-[60%]" :clearable="true" />
-    </section>
+    <n-select v-model:value="f[v.k]" :options="drawlocalized[v.k+'List']" size="small"  class="!w-[60%]" :clearable="true" />
+		</section>
     <!-- <section class="mb-4 flex justify-between items-center"  >
      <div>机器人</div>
     <n-select v-model:value="st.bot" :options="config.botList" size="small"  class="!w-[60%]" :clearable="true" />
 
      </section> -->
     <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="st.text"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="2000" show-count 
+     <n-input    type="textarea"  v-model:value="st.text"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="2000" show-count
       :autosize="{   minRows:2, maxRows:5 }" />
     </div>
     <div class="mb-4 flex justify-between items-center">
@@ -282,15 +293,15 @@ const clearAll=()=>{
                 </template>
                 <div  style="max-width: 240px;">
                 <p v-html="$t('mjchat.imgCInfo')"></p>
-                
-                3.<a class="text-green-500 cursor-pointer"  @click="fsRef.click()" v-html="$t('mjchat.imgCadd')"></a><br/> 
+
+                3.<a class="text-green-500 cursor-pointer"  @click="fsRef.click()" v-html="$t('mjchat.imgCadd')"></a><br/>
                 <div  v-if="st.fileBase64.length>0" class="flex justify-start items-baseline">
                     <div class="p-1" v-for="(v ) in st.fileBase64">
                         <img  class="w-[60px]" :src="v">
-                        <br/> 
+                        <br/>
                         <NButton size="small" @click="st.fileBase64= st.fileBase64.filter((item)=>item!=v) " type="warning" >{{$t('mjchat.del')}}</NButton>
                     </div>
-                    
+
                 </div>
                 </div>
              </NPopover>
@@ -312,35 +323,35 @@ const clearAll=()=>{
                      <div style="display: flex;">  <SvgIcon icon="game-icons:bouncing-spring" /> Shorten </div>
                 </n-tag>
             </div>
-            
+
         </div>
-        
+
 
         <!-- <div class="flex "  v-if="$t('mjchat.imgcreate').indexOf('生成图片')!==-1">
          <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
-            <SvgIcon icon="mingcute:send-plane-fill" />  
-            
+            <SvgIcon icon="mingcute:send-plane-fill" />
+
             <template v-if="st.isLoad">{{$t('mjchat.traning')}} </template>
             <template v-else> {{$t('mjchat.imgcreate')}}</template>
-            
+
         </n-button>
         </div> -->
 
-        
+
     </div>
 
-    
-          
+
+
         <div class="flex">
             <n-button type="primary" :block="true" :disabled="isDisabled"  @click="create()">
-            <SvgIcon icon="mingcute:send-plane-fill" />  
-            
+            <SvgIcon icon="mingcute:send-plane-fill" />
+
             <template v-if="st.isLoad">{{$t('mjchat.traning')}} </template>
-            <template v-else> {{$t('mjchat.imgcreate')}}</template> 
+            <template v-else> {{$t('mjchat.imgcreate')}}</template>
             </n-button>
-        </div> 
+        </div>
         <div class="flex justify-start items-center py-1">
-            
+
             <div >
                 <n-tag type="success" round size="small" style="cursor: pointer; " :bordered="false" @click="clearAll()"   >
                      <div style="display: flex;">  <SvgIcon icon="ant-design:clear-outlined" />{{   $t('mj.clearAll')  }}  </div>
@@ -356,11 +367,11 @@ const clearAll=()=>{
     </div> -->
     <!-- <div class="mb-4 flex justify-between items-center">
         <div @click="copy()" ref="copyRef">复制</div>
-        <div @click="copy2()"  >复制2</div> 
+        <div @click="copy2()"  >复制2</div>
     </div> -->
 
    <ul class="pt-4"  v-if="!isMobile" v-html="$t('mjchat.imginfo')"></ul>
-   
+
 
 </div>
 
@@ -370,6 +381,6 @@ const clearAll=()=>{
 <style>
     .aspect-item.active, .aspect-item.active .aspect-box{
         border-color:#86dfba ;
-         
+
     }
 </style>
