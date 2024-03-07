@@ -1,6 +1,11 @@
 # 功能升级日志
 
 #  计划
+# 2.15.10
+- 🐞 修复：Midjourney Proxy v2.5.5 API后端不接受 index为0的重绘提交 #209 #210 感谢 @hugoshao PR
+- 🐞 修复：Drawing 多语言本地化问题  #201 感谢 @hugoshao PR
+- 😄 新增：`claude-3-sonnet-20240229` `claude-3-opus-20240229` 而 `claude-3-opus-20240229` 可支持传图 #207
+
 # 2.15.9
 - 🐞 修复：聊天记录能导出，但是导入没成功 #197
 - 😄 PR：编辑对话内容 感谢 PR人 @bigQY
