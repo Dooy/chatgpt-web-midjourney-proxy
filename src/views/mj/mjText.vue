@@ -257,7 +257,7 @@ load();
                     <NButton type="warning" @click="sub('VARIATION',2)"  size="small">V2</NButton>
                     <NButton type="warning" @click="sub('VARIATION',3)"  size="small">V3</NButton>
                     <NButton type="warning" @click="sub('VARIATION',4)"  size="small">V4</NButton>
-                    <NButton type="warning" @click="sub('REROLL',0)"  size="small" v-if="chat.opt?.action==='IMAGINE'">{{ $t('mjchat.reroll') }}</NButton>
+                    <NButton type="warning" @click="sub('REROLL',1)"  size="small" v-if="chat.opt?.action==='IMAGINE'">{{ $t('mjchat.reroll') }}</NButton>
 
                 </div>
             </template>
