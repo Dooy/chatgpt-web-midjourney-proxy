@@ -6,6 +6,8 @@ const { isMobile } = useBasicLayout()
 import { NAvatar,NTooltip } from 'naive-ui'
 import { homeStore, useUserStore,useChatStore } from '@/store'
 const chatStore = useChatStore()
+import defaultAvatar from '@/assets/avatar.jpg'
+
 //import gallery from '@/views/gallery/index.vue'
 
 const Setting = defineAsyncComponent(() => import('@/components/common/Setting/index.vue'))
@@ -108,7 +110,7 @@ const chatId= computed(()=>chatStore.active??'1002' );
         <div class="flex flex-col  space-y-2 "> 
 
             
-            <NAvatar  size="large"  round  :src="userInfo.avatar"   v-if="userInfo.avatar"
+            <NAvatar  size="large"  round  :src="userInfo.avatar"   v-if="userInfo.avatar"  :fallback-src="defaultAvatar"
              class=" cursor-pointer"  />
             
             <HoverButton>
