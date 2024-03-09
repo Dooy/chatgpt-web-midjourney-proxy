@@ -1,6 +1,10 @@
 # 功能升级日志
 
 #  计划
+# 2.16.1
+- 🐞 修复：头像链接加载很慢 #212
+- 🐞 修复：关于模型`claude-3`  `max_tokens` 增加为 4k #214
+
 # 2.15.10
 - 🐞 修复：Midjourney Proxy v2.5.5 API后端不接受 index为0的重绘提交 #209 #210 感谢 @hugoshao PR
 - 🐞 修复：Drawing 多语言本地化问题  #201 感谢 @hugoshao PR
