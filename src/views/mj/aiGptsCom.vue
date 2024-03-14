@@ -36,7 +36,12 @@ const go= async ( item: gptsType)=>{
     gptConfigStore.setMyData(saveObj); 
     if(chatStore.active){ //保存到对话框
         const  chatSet = new chatSetting( chatStore.active );
-        if( chatSet.findIndex()>-1 ) chatSet.save( saveObj )
+        // if( chatSet.findIndex()>-1 ){
+        //    mlog('含有： ', chatSet.findIndex()  );
+          
+        // }
+        //全保存
+        chatSet.save( saveObj )
     }
     ms.success(t('mjchat.success2'));
     const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/use`; 

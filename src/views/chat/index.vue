@@ -481,7 +481,8 @@ const goUseGpts= async ( item: gptsType)=>{
     gptConfigStore.setMyData(saveObj); 
     if(chatStore.active){ //保存到对话框
         const  chatSet = new chatSetting( chatStore.active );
-        if( chatSet.findIndex()>-1 ) chatSet.save( saveObj )
+        //if( chatSet.findIndex()>-1 ) chatSet.save( saveObj )
+        chatSet.save( saveObj )
     }
     ms.success(t('mjchat.success2'));
     const gptUrl= `https://gpts.ddaiai.com/open/gptsapi/use`; 
@@ -550,7 +551,15 @@ watch(()=>homeStore.myData.act,(n)=>{
     if(n=='draw')  scrollToBottom();
     if(n=='scrollToBottom') scrollToBottom();
     if(n=='scrollToBottomIfAtBottom') scrollToBottomIfAtBottom();
-    if(n=='gpt.submit' || n=='gpt.resubmit'){ loading.value = true;}
+    if(n=='gpt.submit' || n=='gpt.resubmit'){ 
+      loading.value = true;
+      if(chatStore.active){ 
+        const  chatSet = new chatSetting( chatStore.active );
+        if( chatSet.findIndex()==-1 ) { //如果是空保存到对话框
+          chatSet.save( chatSet.getGptConfig() )
+        }
+      }
+    }
     if(n=='stopLoading'){ loading.value = false;}
 });
 const st =ref({inputme:true});
