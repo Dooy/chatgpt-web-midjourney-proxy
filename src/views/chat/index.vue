@@ -557,6 +557,7 @@ watch(()=>homeStore.myData.act,(n)=>{
         const  chatSet = new chatSetting( chatStore.active );
         if( chatSet.findIndex()==-1 ) { //如果是空保存到对话框
           chatSet.save( chatSet.getGptConfig() )
+          setTimeout( ()=>homeStore.setMyData({act:'saveChat'}),600) ;
         }
       }
     }
