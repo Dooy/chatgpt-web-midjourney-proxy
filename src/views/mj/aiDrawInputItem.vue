@@ -1,9 +1,7 @@
-<script setup lang="ts">
-//boy, Cyberpunk , Top view , Face Shot (VCU) , Warm light  --style raw  --ar 3:4 --q 0.5 --v 5.2
-import { ref,computed,watch,onMounted } from "vue";
-import { useI18n } from 'vue-i18n';
+<script setup lang="ts"> 
+import { ref,computed,watch,onMounted } from "vue"; 
 import config from "./draw.json";
-import {  NSelect,NInput,NButton,NTag,NPopover, useMessage,NDivider} from 'naive-ui';
+import {  NSelect,NInput,NButton,NTag,NPopover, useMessage,NInputNumber} from 'naive-ui';
 import {  SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 const { isMobile } = useBasicLayout()
@@ -23,7 +21,7 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 ,{s:'width: 50%; height: 100%;',label:'9:16'}
  ];
 
-const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 6.0'});
+const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 6.0',sref:'',cref:'',cw:'',});
 const st =ref({text:'',isDisabled:false,isLoad:false
     ,fileBase64:[],bot:'',showFace:false
 });
@@ -144,7 +142,10 @@ function createPrompt(rz:string){
     }
 
     mlog('createPrompt ', rz,  f.value  );
-    if(f.value.bili>-1) rzp +=` --ar ${vf[f.value.bili].label}`;
+    if( f.value.sref.trim() != '' ) rzp += ` --sref ${f.value.sref}`
+    if( f.value.cref.trim() != '' ) rzp += ` --cref ${f.value.cref}`
+    if( f.value.cw && f.value.cw!='' ) rzp += ` --cw ${f.value.cw}`
+    if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}` 
     rz = rzk + rz +rzp;
     return rz ;
 }
@@ -233,6 +234,23 @@ const exportToTxt= async ()=>{
     a.click();
     ms.success( t('mjchat.exSuccess'));
 }
+
+const clearAll=()=>{
+  st.value.fileBase64=[];
+  st.value.text='';
+  f.value.bili=-1;
+  f.value.version='';
+  f.value.quality='';
+  f.value.shot='';
+  f.value.light='';
+  f.value.style='';
+  f.value.styles='';
+  f.value.view='';
+  f.value.cref='';
+  f.value.cw='';
+  f.value.sref='';
+}
+
 //const config=
 </script>
 <template>
@@ -267,14 +285,25 @@ const exportToTxt= async ()=>{
         </div>
     </section>
     <section class="mb-4 flex justify-between items-center" v-for=" v in farr">
-     <div>{{ v.v }}</div>
-    <n-select v-model:value="f[v.k]" :options="drawlocalized[v.k+'List']" size="small"  class="!w-[60%]" :clearable="true" />
-		</section>
-    <!-- <section class="mb-4 flex justify-between items-center"  >
-     <div>机器人</div>
-    <n-select v-model:value="st.bot" :options="config.botList" size="small"  class="!w-[60%]" :clearable="true" />
-
-     </section> -->
+        <div>{{ v.v }}</div>
+        <n-select v-model:value="f[v.k]" :options="drawlocalized[v.k+'List']" size="small"  class="!w-[60%]" :clearable="true" />
+	</section>
+    <template v-if="!isMobile"> 
+        <section class="mb-4 flex justify-between items-center"  >
+        <div  >cw(0-100)</div>
+        <NInputNumber :min="0" :max="100" v-model:value="f.cw" class="!w-[60%]" size="small" clearable placeholder="0-100 角色参考程度" />
+        </section >
+    
+        <section class="mb-4 flex justify-between items-center"  >
+        <div class="w-[60px]">sref</div>
+        <NInput v-model:value="f.sref" size="small" placeholder="图片url 生成风格一致的图像" clearable />
+        </section>
+        <section class="mb-4 flex justify-between items-center"  >
+        <div class="w-[60px]">cref</div>
+        <NInput  v-model:value="f.cref" size="small" placeholder="图片url 生成角色一致的图像" clearable/>
+        </section>
+    </template>
+    
     <div class="mb-1">
      <n-input    type="textarea"  v-model:value="st.text"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="2000" show-count
       :autosize="{   minRows:2, maxRows:5 }" />

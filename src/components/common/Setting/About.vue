@@ -94,7 +94,7 @@ const  isShow = computed(()=>{
         {{ $t("setting.monthlyUsage") }}：{{ config?.usage ?? '-' }}
         </div>
         <div>
-        {{ $t("mj.totalUsage") }}：{{ config?.hard_limit_usd ?? '-' }}
+        {{ $t("mj.totalUsage") }}：{{ config?.hard_limit_usd ?(+config?.hard_limit_usd).toFixed(2): '-' }}
         </div>
         <div>
         {{ $t("setting.balance") }}：{{ config?.remaining ?? '-' }}
