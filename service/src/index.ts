@@ -2,7 +2,7 @@ import express from 'express'
 import type { RequestProps } from './types'
 import type { ChatMessage } from './chatgpt'
 import { chatConfig, chatReplyProcess, currentModel } from './chatgpt'
-import { auth, authV2, turnstileCheck, verify } from './middleware/auth'
+import { auth, authV2, regCookie, turnstileCheck, verify } from './middleware/auth'
 import { limiter } from './middleware/limiter'
 import { isNotEmptyString,formattedDate } from './utils/is'
 import multer from "multer"
@@ -17,7 +17,6 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
-
 
 
 const app = express()
@@ -107,6 +106,7 @@ router.post('/session', async (req, res) => {
 })
 
 router.post('/verify', verify)
+router.get('/reg', regCookie )
 
  const API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
     ? process.env.OPENAI_API_BASE_URL

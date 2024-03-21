@@ -71,9 +71,8 @@ const save = ()=>{
 }
 const saveChat=()=>{
      chatSet.save(  nGptStore.value );
-     homeStore.setMyData({act:'saveChat'});
-     //gptConfigStore.setInit(); //恢复下默认
-     //gptConfigStore.myData.systemMessage= '';
+     gptConfigStore.setMyData( nGptStore.value );
+     homeStore.setMyData({act:'saveChat'}); 
      ms.success( t('common.saveSuccess'));
      emit('close');
 }

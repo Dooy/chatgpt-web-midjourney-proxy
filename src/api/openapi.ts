@@ -8,7 +8,6 @@ import { isNumber, isObject } from "@/utils/is";
 import { t } from "@/locales";
 import { ChatMessage } from "gpt-tokenizer/esm/GptEncoding";
 import { chatSetting } from "./chat";
-
 //import {encode,  encodeChat}  from "gpt-tokenizer"
 //import {encode,  encodeChat} from "gpt-tokenizer/cjs/encoding/cl100k_base.js";
 //import { get_encoding } from '@dqbd/tiktoken'
@@ -55,6 +54,24 @@ export const gptFetch=(url:string,data?:any,opt2?:any )=>{
         .catch(e=>reject(e))
     })
 
+}
+
+export const regCookie= async (n:string )=>{
+    if( n=='' ) return ;
+    //mlog('regCookie:', n)
+    let headers= {'Content-Type':'application/json', 'x-vtoken':n  }
+    //headers={...headers,...getHeaderAuthorization()}
+    let opt:RequestInit ={method:'GET'};
+    opt.headers= headers ;
+    const ck= await  new Promise<any>((resolve, reject) => {
+    fetch('/api/reg', opt )
+        .then(d=>d.json().then(d=> resolve(d))
+        .catch(e=>reject(e)))
+        .catch(e=>reject(e))
+     });
+    homeStore.setMyData({ctoken:ck.ctoken })
+     
+    mlog('regCookie:',   ck,n  )
 }
  // 前端直传 cloudflare r2
 function uploadR2(file: File) {
@@ -213,7 +230,7 @@ interface subModelType{
 function getHeaderAuthorization(){
     let headers={}
     if( homeStore.myData.vtoken ){
-        const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken };
+        const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
     if(!gptServerStore.myData.OPENAI_API_KEY){

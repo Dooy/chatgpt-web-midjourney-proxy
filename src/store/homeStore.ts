@@ -10,6 +10,7 @@ export const homeStore = reactive({
         ,session:{} as any
         ,isLoader:false
         ,vtoken:'' //turnstile token
+        ,ctoken:'' //cookie
        
     }
     
