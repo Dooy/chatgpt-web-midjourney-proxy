@@ -10,7 +10,18 @@ const ipErrorCount = {};
 // 存储被禁止登录的IP地址及禁止结束时间的字典
 const bannedIPs = {};
 
-
+export const mlog =(...arg)=>{
+  //const M_DEBUG = process.env.M_DEBUG
+  // if(['error','log'].indexOf( arg[0] )>-1 ){ //必须显示的
+  // }else  if(! isNotEmptyString(process.env.M_DEBUG) ) return ;
+  
+  const currentDate = new Date();
+  const hours = currentDate.getHours().toString().padStart(2, '0');
+  const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+  const seconds = currentDate.getSeconds().toString().padStart(2, '0');
+  const currentTime = `${hours}:${minutes}:${seconds}`;
+  console.log( currentTime,...arg)
+}
 
 export const verify=  async ( req :Request , res:Response ) => {
   try {
@@ -120,6 +131,11 @@ export const turnstileCheck= async ( req :Request , res:Response , next:NextFunc
       next();
       return ;
     }
+    //TURNSTILE_NO_CHECK
+    if ( isNotEmptyString( process.env.TURNSTILE_NO_CHECK)) { //前端显示当时后端不check
+       next();
+       return ;
+    }
     try{
       if( checkCookie( req ) ) {
         next();
@@ -146,6 +162,7 @@ export const turnstileCheck= async ( req :Request , res:Response , next:NextFunc
       next();
     }catch (error) { 
       res.status(422);
+      mlog( 'Turnstile_Error')
       res.send({ code: 'Turnstile_Error', message: error.message ?? 'Please authenticate.'  })
     }
     
@@ -185,6 +202,7 @@ export const regCookie= async( req :Request , res:Response , next:NextFunction )
       res.send({ok:'ok' ,ctoken: getCookie( now ) })
     }catch (error) { 
       res.status(422);
+       mlog('reg_cookie error ');
       res.send({ code: 'reg_cookie', message: error.message ?? 'Please authenticate.'  })
     }
 }
@@ -194,7 +212,7 @@ const checkCookie= ( req :Request ):boolean=>{
    if( ! req.header('X-Ctoken')) return false; 
    const gptmj =  req.header('X-Ctoken') as string;
    if( gptmj==getCookie(  gptmj.split('_')[0]) ) {
-      console.log('cookie ok ');
+     mlog('cookie ok ');
      return true; 
    }
    return false;
