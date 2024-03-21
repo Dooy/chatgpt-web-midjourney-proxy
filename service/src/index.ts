@@ -201,7 +201,7 @@ if(isUpload){
      res.json({ error:`server is no open uploader `,created:Date.now() })
   });
 }
-app.use('/uploads',authV2 , express.static('uploads'));
+app.use('/uploads' , express.static('uploads'));
 
 // R2Client function
 const R2Client = () => {
