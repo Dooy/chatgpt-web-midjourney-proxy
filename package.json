@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-web-midjourney-proxy",
-  "version": "2.16.3", 
+  "version": "2.16.4",
   "private": false,
   "description": "ChatGPT Web Midjourney Proxy",
   "author": "Dooy <ydlhero@gmail.com>",
@@ -45,6 +45,7 @@
     "vue": "^3.2.47",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6",
+    "vue-turnstile": "^1.0.8",
     "vue-waterfall-plugin-next": "^2.3.1"
   },
   "devDependencies": {

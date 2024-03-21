@@ -1,5 +1,7 @@
 import { isNotEmptyString } from '../utils/is'
 import { Request, Response, NextFunction } from 'express';
+import FormData from 'form-data';
+import fetch from 'node-fetch';
 
 // 存储IP地址和错误计数的字典
 const ipErrorCount = {};
@@ -108,6 +110,44 @@ export const authV2 = async ( req :Request , res:Response , next:NextFunction ) 
   else {
     next()
   }
+}
+
+export const turnstileCheck= async ( req :Request , res:Response , next:NextFunction ) => {
+
+   const TURNSTILE_SITE = process.env.TURNSTILE_SITE
+    if (!isNotEmptyString(TURNSTILE_SITE)) {
+      next();
+      return ;
+    }
+    try{
+      const Authorization = req.header('X-Vtoken')
+        if ( !Authorization ) throw new Error('Error: 无访问权限 | No access rights by Turnstile')
+
+      const SECRET_KEY=  process.env.TURNSTILE_SECRET_KEY
+      let formData = new FormData();
+      formData.append('secret', SECRET_KEY);
+      formData.append('response', Authorization);
+      //formData.append('remoteip', ip);
+
+      const result = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          body: formData,
+          method: 'POST',
+      });
+
+      const outcome:any = await result.json();
+      //console.log('outcome>> ', outcome );
+      if (!outcome.success)   throw new Error('Error: 无访问权限 | No access rights by Turnstile')
+       
+      next();
+    }catch (error) { 
+      res.status(422);
+      res.send({ code: 'Turnstile_Error', message: error.message ?? 'Please authenticate.'  })
+    }
+    
+    //throw new Error('Error: 无访问权限 | No access rights by Turnstile')
+   
+
+   
 }
 
 ///export { auth }

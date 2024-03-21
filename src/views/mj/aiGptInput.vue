@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref ,computed,watch } from 'vue';
+import { ref ,computed,watch, onMounted } from 'vue';
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
 import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NTag
@@ -14,6 +14,7 @@ import { useRoute } from 'vue-router'
 import aiModel from "@/views/mj/aiModel.vue"
 import AiMic from './aiMic.vue';
 import { useIconRender } from '@/hooks/useIconRender'
+import VueTurnstile from 'vue-turnstile';
 
 const { iconRender } = useIconRender()
 //import FormData from 'form-data'
@@ -206,9 +207,17 @@ const handleSelectASR = ( key: string | number )=>{
     if(key=='asr')    goASR(); 
     if(key=='whisper')   st.value.showMic=true; 
 }
-
+const appearance = computed(() => {
+   return homeStore.myData.vtoken?'interaction-only':'always'
+})
+const tRef= ref();
+onMounted( ()=> { 
+   if(homeStore.myData.session.turnstile) setTimeout( tRef.value.render , 5300)
+});
 </script>
 <template>
+<vue-turnstile ref="tRef"  :site-key="homeStore.myData.session.turnstile" :appearance="appearance" :reset-interval="245000"   v-model="homeStore.myData.vtoken" v-if="homeStore.myData.session.turnstile" />
+<!-- <div>{{ homeStore.myData.vtoken }}</div> -->
 <div v-if="st.showMic" class="  myinputs flex justify-center items-center" >
     <AiMic @cancel="st.showMic=false" @send="sendMic" />
 </div>

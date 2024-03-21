@@ -23,7 +23,10 @@ export class chatSetting{
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
      const arr = this.getObjs();
-     return arr[index];
+     const rz=  arr[index];
+     //gptConfigStore.setMyData( rz );
+     gptConfigStore.myData.model= rz.model;
+     return rz;
   }
   public getObjs():gptConfigType[]{
      const obj = ss.get( this.localKey ) as  undefined| gptConfigType[];

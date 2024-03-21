@@ -123,6 +123,10 @@ export const GptUploader =   ( _url :string, FormData:FormData )=>{
                 headers= {...headers, ...header2}
             }
         }
+        if( homeStore.myData.vtoken ){
+            const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken };
+             headers= {...headers, ...vtokenh}
+        }
         return  uploadNomalDo(url,headers );
         
     }
@@ -130,6 +134,7 @@ export const GptUploader =   ( _url :string, FormData:FormData )=>{
     //处理上传流程 
     const uploadType=   ( (homeStore.myData.session.uploadType??'') as string).toLocaleLowerCase() ;
     let headers=   {'Content-Type': 'multipart/form-data' }
+    
     //R2
     if(uploadType=='r2' ){
         return upLoaderR2(); 
@@ -206,14 +211,25 @@ interface subModelType{
     uuid?:string|number
 }
 function getHeaderAuthorization(){
+    let headers={}
+    if( homeStore.myData.vtoken ){
+        const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken };
+        headers= {...headers, ...vtokenh}
+    }
     if(!gptServerStore.myData.OPENAI_API_KEY){
         const authStore = useAuthStore()
-        if( authStore.token ) return { 'x-ptoken':  authStore.token };
-        return {}
+        if( authStore.token ) {
+            const bmi= { 'x-ptoken':  authStore.token };
+            headers= {...headers, ...bmi }
+            return headers;
+        }
+        return headers
     }
-    return {
+    const bmi={
         'Authorization': 'Bearer ' +gptServerStore.myData.OPENAI_API_KEY
     }
+    headers= {...headers, ...bmi }
+    return headers
 }
 
 export const getSystemMessage = (uuid?:number )=>{
