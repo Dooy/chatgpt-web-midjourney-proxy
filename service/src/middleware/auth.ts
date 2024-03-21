@@ -121,7 +121,7 @@ export const turnstileCheck= async ( req :Request , res:Response , next:NextFunc
     }
     try{
       const Authorization = req.header('X-Vtoken')
-        if ( !Authorization ) throw new Error('Error: 无权限,请刷新重试 | No access rights by Turnstile')
+        if ( !Authorization ) throw new Error('无权限访问,请刷新重试 | No access rights by Turnstile')
 
       const SECRET_KEY=  process.env.TURNSTILE_SECRET_KEY
       let formData = new FormData();
@@ -136,7 +136,7 @@ export const turnstileCheck= async ( req :Request , res:Response , next:NextFunc
 
       const outcome:any = await result.json();
       //console.log('outcome>> ', outcome );
-      if (!outcome.success)   throw new Error('Error: 无权限,请刷新重试 | No access rights by Turnstile')
+      if (!outcome.success)   throw new Error('无权限访问,请刷新重试 | No access rights by Turnstile')
        
       next();
     }catch (error) { 
