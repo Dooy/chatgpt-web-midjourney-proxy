@@ -22,7 +22,12 @@ import { v4 as uuidv4} from 'uuid';
 const app = express()
 const router = express.Router()
 
-app.use(express.static('public'))
+app.use(express.static('public' ,{
+  // 设置响应头，允许带有查询参数的请求访问静态文件
+  setHeaders: (res, path, stat) => {
+    res.set('Cache-Control', 'public, max-age=1');
+  }
+} ))
 //app.use(express.json())
 app.use(bodyParser.json({ limit: '10mb' })); //大文件传输
 
