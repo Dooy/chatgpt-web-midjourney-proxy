@@ -3,10 +3,19 @@ import type { PluginOption } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 function setupPlugins(env: ImportMetaEnv): PluginOption[] {
   return [
     vue(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: path.resolve(__dirname, './src/static/mitf') + '/[!.]*', // 1️⃣
+          dest: './mitf/', // 2️⃣
+        },
+      ],
+    }),
     VitePWA({ // env.VITE_GLOB_APP_PWA === 'true' &&
       injectRegister: 'auto',
       manifest: {

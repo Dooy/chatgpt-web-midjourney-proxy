@@ -38,7 +38,7 @@ const modellist = computed(() => { //
         //     return self.indexOf(value) === index;
         // });
         for(let o of arr ){
-             rz.push({label:o,value:o})
+            o && rz.push({label:o,value:o})
         }
     }
     //服务端的 CUSTOM_MODELS 设置
@@ -64,16 +64,16 @@ const modellist = computed(() => { //
     return uniqueArray ;
 });
 const ms= useMessage();
-const save = ()=>{ 
-    gptConfigStore.setMyData( nGptStore.value );
-    ms.success( t('common.saveSuccess')); //'保存成功'
-    emit('close');
-}
-const saveChat=()=>{
+// const save = ()=>{ 
+//     gptConfigStore.setMyData( nGptStore.value );
+//     ms.success( t('common.saveSuccess')); //'保存成功'
+//     emit('close');
+// }
+const saveChat=(type:string)=>{
      chatSet.save(  nGptStore.value );
      gptConfigStore.setMyData( nGptStore.value );
      homeStore.setMyData({act:'saveChat'}); 
-     ms.success( t('common.saveSuccess'));
+     if(type!='hide')ms.success( t('common.saveSuccess'));
      emit('close');
 }
  
@@ -100,6 +100,9 @@ onMounted(() => {
     //gptConfigStore.myData= chatSet.getGptConfig();
 });
 
+//数组去重
+
+
 
 //
 //const f= ref({model:gptConfigStore.myData.model});
@@ -110,7 +113,7 @@ onMounted(() => {
     <n-select v-model:value="nGptStore.model" :options="modellist" size="small"  class="!w-[50%]"   />
 </section>
 <section class="mb-4 flex justify-between items-center"  >
-    <n-input   :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="nGptStore.userModel">
+    <n-input   :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
       <template #prefix>
         {{ $t('mjchat.myModle') }}
       </template>
@@ -198,6 +201,6 @@ onMounted(() => {
     <NButton   @click="reSet()">{{ $t('mj.setBtBack') }}</NButton>
     <!-- <NButton type="primary" @click="saveChat">{{ $t('mj.setBtSaveChat') }}</NButton>
     <NButton type="primary" @click="save">{{ $t('mj.setBtSaveSys') }}</NButton> -->
-    <NButton type="primary" @click="saveChat">{{ $t('common.save') }}</NButton>
+    <NButton type="primary" @click="saveChat('no')">{{ $t('common.save') }}</NButton>
  </section>
 </template>

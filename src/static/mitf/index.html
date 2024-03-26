@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>局部绘画组件</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=0, shrink-to-fit=0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body style="overflow:hidden;">
+
+<script type="text/javascript" nonce="">
+  RTCPeerConnection = null;
+  WebTransport = null;
+</script>
+<script type="text/javascript" nonce="">
+  // Set the theme based on the parent iframe's colorScheme. This is how
+  // Discord communicates the user's theme to us.
+  if (window.parent) {
+    let iframes = window.parent.document.getElementsByTagName('iframe');
+    for (var i = 0; i < iframes.length; i++) {
+      if (iframes[i].contentWindow === window) {
+        var myMetadata = iframes[i];
+
+        document.documentElement.setAttribute(
+          "data-theme",
+          myMetadata.style.colorScheme || "dark"
+        );
+      }
+    }
+  }
+</script>
+<h1 hidden=""></h1> <!-- Necessary for lighthouse score -->
+<div id="popover-container"><div class="popover">Drag to select the area to be changed</div></div>
+
+<div id="container" class="center">
+  <canvas id="InpaintingEditorCanvas" hidpi="on" width="1920" height="1616" resize="" style="padding: 0px; margin: 0px; width: 100%; max-width: 960px; -webkit-user-drag: none; user-select: none; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" oncontextmenu="return false;"></canvas>
+</div>
+
+<div class="undoButtons">
+  <button title="Undo" id="Undo">
+    <svg width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20.298 20.298" xml:space="preserve">
+                    <path fill="currentColor" d="M0.952,11.102c0-0.264,0.213-0.474,0.475-0.474h2.421c0.262,0,0.475,0.21,0.475,0.474 c0,3.211,2.615,5.826,5.827,5.826s5.827-2.615,5.827-5.826c0-3.214-2.614-5.826-5.827-5.826c-0.34,0-0.68,0.028-1.016,0.089 v1.647c0,0.193-0.116,0.367-0.291,0.439C8.662,7.524,8.46,7.482,8.322,7.347L3.49,4.074c-0.184-0.185-0.184-0.482,0-0.667 l4.833-3.268c0.136-0.136,0.338-0.176,0.519-0.104c0.175,0.074,0.291,0.246,0.291,0.438V1.96c0.34-0.038,0.68-0.057,1.016-0.057 c5.071,0,9.198,4.127,9.198,9.198c0,5.07-4.127,9.197-9.198,9.197C5.079,20.299,0.952,16.172,0.952,11.102z"></path>
+                </svg>
+  </button>
+  <button title="Redo" id="Redo" style="display: none;">
+    <svg width="20px" height="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 20.298 20.298" xml:space="preserve">
+                    <g transform="scale(-1, 1) translate(-20, 0)">
+                        <path d="M0.952,11.102c0-0.264,0.213-0.474,0.475-0.474h2.421c0.262,0,0.475,0.21,0.475,0.474 c0,3.211,2.615,5.826,5.827,5.826s5.827-2.615,5.827-5.826c0-3.214-2.614-5.826-5.827-5.826c-0.34,0-0.68,0.028-1.016,0.089 v1.647c0,0.193-0.116,0.367-0.291,0.439C8.662,7.524,8.46,7.482,8.322,7.347L3.49,4.074c-0.184-0.185-0.184-0.482,0-0.667 l4.833-3.268c0.136-0.136,0.338-0.176,0.519-0.104c0.175,0.074,0.291,0.246,0.291,0.438V1.96c0.34-0.038,0.68-0.057,1.016-0.057 c5.071,0,9.198,4.127,9.198,9.198c0,5.07-4.127,9.197-9.198,9.197C5.079,20.299,0.952,16.172,0.952,11.102z" fill="currentColor"></path>
+                    </g>
+                </svg>
+  </button>
+</div>
+
+<div id="appbody" class="center">
+  <div class="hstack">
+    <button title="Rectangle Tool" id="Rect Tool" class="toolButton selected">
+      <svg class="svg-icon" width="20px" height="20px" style="vertical-align: middle;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <path d="M768 42.65984l85.34016 0q53.00224 0 90.50112 37.49888t37.49888 90.50112l0 85.34016q0 17.67424-12.4928 30.16704t-30.16704 12.4928-30.16704-12.4928-12.4928-30.16704l0-85.34016q0-17.67424-12.4928-30.16704t-30.16704-12.4928l-85.34016 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928zM85.34016 725.34016q17.67424 0 30.16704 12.4928t12.4928 30.16704l0 85.34016q0 17.67424 12.4928 30.16704t30.16704 12.4928l85.34016 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-85.34016 0q-53.00224 0-90.50112-37.49888t-37.49888-90.50112l0-85.34016q0-17.67424 12.4928-30.16704t30.16704-12.4928zM85.34016 384q17.67424 0 30.16704 12.4928t12.4928 30.16704l0 170.65984q0 17.67424-12.4928 30.16704t-30.16704 12.4928-30.16704-12.4928-12.4928-30.16704l0-170.65984q0-17.67424 12.4928-30.16704t30.16704-12.4928zM426.65984 896l170.65984 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-170.65984 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928zM170.65984 42.65984l85.34016 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-85.34016 0q-17.67424 0-30.16704 12.4928t-12.4928 30.16704l0 85.34016q0 17.67424-12.4928 30.16704t-30.16704 12.4928-30.16704-12.4928-12.4928-30.16704l0-85.34016q0-53.00224 37.49888-90.50112t90.50112-37.49888zM938.65984 725.34016q17.67424 0 30.16704 12.4928t12.4928 30.16704l0 85.34016q0 53.00224-37.49888 90.50112t-90.50112 37.49888l-85.34016 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928l85.34016 0q17.67424 0 30.16704-12.4928t12.4928-30.16704l0-85.34016q0-17.67424 12.4928-30.16704t30.16704-12.4928zM938.65984 384q17.67424 0 30.16704 12.4928t12.4928 30.16704l0 170.65984q0 17.67424-12.4928 30.16704t-30.16704 12.4928-30.16704-12.4928-12.4928-30.16704l0-170.65984q0-17.67424 12.4928-30.16704t30.16704-12.4928zM426.65984 42.65984l170.65984 0q17.67424 0 30.16704 12.4928t12.4928 30.16704-12.4928 30.16704-30.16704 12.4928l-170.65984 0q-17.67424 0-30.16704-12.4928t-12.4928-30.16704 12.4928-30.16704 30.16704-12.4928z" fill="currentColor"></path>
+      </svg>
+    </button>
+    <button title="Lasso Tool" id="Lasso Tool" class="toolButton">
+      <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.00001 10C5.00001 8.75523 5.7133 7.52938 7.06628 6.57433C8.41665 5.62113 10.3346 5 12.5 5C14.6654 5 16.5834 5.62113 17.9337 6.57433C19.2867 7.52938 20 8.75523 20 10C20 11.2448 19.2867 12.4706 17.9337 13.4257C16.5834 14.3789 14.6654 15 12.5 15C11.9849 15 11.4828 14.9648 10.9982 14.898C10.934 13.1045 9.18159 12 7.50001 12C6.92753 12 6.37589 12.1176 5.88506 12.3351C5.30127 11.6111 5.00001 10.8126 5.00001 10ZM12.5 17C11.7421 17 11.0036 16.9352 10.2949 16.8124C10.2111 16.9074 10.1215 16.9971 10.027 17.0814C10.0324 17.1351 10.0364 17.1937 10.0381 17.2566C10.0459 17.5458 10.0053 17.9424 9.80913 18.3641C9.38923 19.2667 8.42683 19.9562 6.7537 20.2187C4.68005 20.544 4.14608 21.1521 4.01748 21.3745C3.95033 21.4906 3.94254 21.5823 3.94406 21.6357C3.94468 21.6576 3.94702 21.6739 3.94861 21.6827C3.96296 21.7256 3.97448 21.7699 3.98295 21.8152C4.03316 22.0804 3.97228 22.3491 3.826 22.5638C3.74444 22.6836 3.63632 22.7865 3.50609 22.8627C3.40769 22.9205 3.29851 22.962 3.1823 22.9834C3.06521 23.0053 2.94748 23.0055 2.83406 22.9863C2.687 22.9617 2.55081 22.9051 2.43293 22.8238C2.31589 22.7434 2.21506 22.6375 2.13982 22.5103C2.1012 22.4453 2.06973 22.3756 2.0465 22.3023C2.04333 22.2927 2.04 22.2823 2.03655 22.2711C2.02484 22.2331 2.01167 22.1856 1.99902 22.1296C1.97383 22.0181 1.94991 21.8695 1.94487 21.6927C1.93466 21.3347 2.00276 20.8633 2.28609 20.3733C2.85846 19.3834 4.12384 18.6068 6.4437 18.2429C6.8529 18.1787 7.15489 18.0908 7.37778 17.9981C5.70287 17.9451 4.00001 16.8095 4.00001 15C4.00001 14.4998 4.14018 14.0417 4.37329 13.6452C3.52173 12.6101 3.00001 11.3665 3.00001 10C3.00001 7.93106 4.18951 6.15691 5.91292 4.94039C7.63895 3.72202 9.97098 3 12.5 3C15.029 3 17.3611 3.72202 19.0871 4.94039C20.8105 6.15691 22 7.93106 22 10C22 12.0689 20.8105 13.8431 19.0871 15.0596C17.3611 16.278 15.029 17 12.5 17ZM6.34227 14.3786C6.60474 14.1624 7.01132 14 7.50001 14C8.5482 14 9.00001 14.6444 9.00001 15C9.00001 15.0929 8.97952 15.185 8.9364 15.2772C8.85616 15.4487 8.687 15.6381 8.41217 15.7841C8.16534 15.9153 7.85219 16 7.50001 16C6.45182 16 6.00001 15.3556 6.00001 15C6.00001 14.8092 6.09212 14.5846 6.34227 14.3786Z" fill="currentColor"></path>
+      </svg>
+    </button>
+  </div>
+  <div id="bottomBar" class="bottomBarWrapper">
+    <div title="Write a prompt here" class="textarea" role="textbox" contenteditable="true" id="Prompt" placeholder="用英文描述要修改的要求 如: sunglasses "></div>
+    <button id="Submit" class="Submit" title="点我提交" disabled="">
+      <div id="submit-label"></div>
+      <svg width="502" height="496" viewBox="0 0 502 496" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M176.518 454.8V361.136H29.9841C13.5252 361.136 0 347.598 0 331.102V164.89C0 148.437 13.4821 134.878 29.9841 134.878H176.496V41.1489C176.496 5.0694 219.423 -13.0675 245.438 10.8127L487.144 218.113C506.817 234.393 506.817 264.125 487.942 280.815L244.618 485.849C217.805 509.232 176.561 489.433 176.518 454.8Z" fill="currentColor"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div id="modal-container"></div>
+
+<div id="splashPageModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div style="align-items: center; padding-bottom: 16px; ">
+      <h1>Midjourney Inpainting Editor</h1>
+    </div>
+    <div>
+      <!--<p>Drag to highlight regions of the image to be replaced with new content from the prompt.</p>-->
+      <p>Use the controls below to select parts of the image to edit, and describe the entire image (including edits).</p>
+      <!--<p>For example, if you want to add a mouse to a cat image, select the part of the image you want to add the mouse and enter 'cat chasing a mouse'.</p>
+      <video width="444" height="308" autoplay loop muted playsinline>
+          <source src="./assets/Tutorial.webm" type="video/webm" />
+          <source src="./assets/Tutorial.mp4" type="video/mp4" />-->
+      Your browser does not support the video tag.
+
+      <hr>
+      <p>Click anywhere to begin!</p>
+    </div>
+  </div>
+</div>
+
+<div id="jobSubmittedModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div style="align-items: center; padding-bottom: 16px">
+      <svg style="display:inline-block;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      <h1 style="display:inline-block;">Image submitted</h1>
+    </div>
+  </div>
+</div>
+
+<div id="jobErroredModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div style="align-items: center; padding-bottom: 16px">
+      <h1>❌ Submission Error!</h1>
+    </div>
+    <div>
+      <p>Something went wrong when submitting this inpainting job!</p>
+      <hr>
+      <p id="errorMessage"></p>
+    </div>
+  </div>
+</div>
+<script type="module" src="assets/mj.js"></script>
+
+
+</body></html>

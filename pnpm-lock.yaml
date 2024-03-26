@@ -135,6 +135,9 @@ devDependencies:
   vite-plugin-pwa:
     specifier: ^0.14.4
     version: 0.14.4(vite@4.2.0)(workbox-build@6.5.4)(workbox-window@6.5.4)
+  vite-plugin-static-copy:
+    specifier: ^0.17.0
+    version: 0.17.0(vite@4.2.0)
   vue-tsc:
     specifier: ^1.2.0
     version: 1.2.0(typescript@4.9.5)
@@ -6782,6 +6785,19 @@ packages:
       workbox-window: 6.5.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /vite-plugin-static-copy@0.17.0(vite@4.2.0):
+    resolution: {integrity: sha512-2HpNbHfDt8SDy393AGXh9llHkc8FJMQkI8s3T5WsH3SWLMO+f5cFIyPErl4yGKU9Uh3Vaqsd4lHZYTf042fQ2A==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0
+    dependencies:
+      chokidar: 3.5.3
+      fast-glob: 3.3.2
+      fs-extra: 11.1.0
+      picocolors: 1.0.0
+      vite: 4.2.0(@types/node@18.14.6)(less@4.1.3)
     dev: true
 
   /vite@4.2.0(@types/node@18.14.6)(less@4.1.3):
