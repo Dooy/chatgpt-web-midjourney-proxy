@@ -1,6 +1,10 @@
 # 功能升级日志
 
 #  计划
+# 2.16.5
+- 🐞 修复：nPaint image editor sources availability #248
+- 🐞 修复：Bugs in supporing customer models #235
+
 # 2.16.4
 - 😄 新增：turnstile 安全认证
 - 🐞 修复：模型切换导致模型错乱
