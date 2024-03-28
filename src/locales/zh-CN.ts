@@ -260,7 +260,7 @@ export default {
 
     ,findVersion:'发现更新版本'
     ,yesLastVersion:'已是最新版本'
-    ,infoStar:'此项目开源于 <a  class="text-blue-600 dark:text-blue-500" href="https://github.com/Dooy/chatgpt-web-midjourney-proxy" target="_blank"> GitHub </a>，免费且基于 MIT 协议，没有任何形式的付费行为！ </p><p>如果你觉得此项目对你有帮助，请在 GitHub 帮我点个 Star，谢谢！'
+    ,infoStar:'LinkWe-联袂科技,一站式提供AIGC解决方案,此站点仅用作展示、交流和学习'
     ,setBtSaveChat:'仅保存会话'
     ,setBtSaveSys: '保存至系统'
 

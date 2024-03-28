@@ -11,8 +11,8 @@ const { language } = useLanguage()
 <template>
   <NConfigProvider
     class="h-full"
-    :theme="theme"
-    :theme-overrides="themeOverrides"
+    :theme="null"
+    :theme-overrides="null"
     :locale="language"
   >
     <NaiveProvider>
