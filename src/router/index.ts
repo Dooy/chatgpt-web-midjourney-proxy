@@ -74,6 +74,20 @@ const routes: RouteRecordRaw[] = [
     ],
   },
 
+    {
+    path: '/music',
+    name: 'music',
+    component: mjlayout,
+    redirect: '/music/index',
+    children: [
+      {
+        path: '/music/:uuid?',
+        name: 'music',
+        component: () => import('@/views/suno/music.vue'),
+      },
+    ],
+  },
+
   //调试
   // {
   //   path: '/mytest',

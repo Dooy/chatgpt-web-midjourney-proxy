@@ -2,6 +2,11 @@
 
 #  计划
 # 2.16.5
+- 🐞 修复：手机端不支持 `sref` `cref`
+- 😄 新增：`sref` `cref` 上传至discord做为图床 
+- 😄 新增：新模型 `suno-v3`
+
+# 2.16.5
 - 🐞 修复：nPaint image editor sources availability #248
 - 🐞 修复：Bugs in supporing customer models #235
 
