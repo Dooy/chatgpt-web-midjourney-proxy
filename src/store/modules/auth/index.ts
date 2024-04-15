@@ -33,6 +33,7 @@ export const useAuthStore = defineStore('auth-store', {
       try {
         const { data } = await fetchSession<SessionResponse>()
         this.session = { ...data }
+        
         homeStore.setMyData({session: data });
         if(appStore.$state.theme=='auto' ){
             appStore.setTheme(  data.theme && data.theme=='light' ?'light':'dark')

@@ -11,6 +11,7 @@ export const homeStore = reactive({
         ,isLoader:false
         ,vtoken:'' //turnstile token
         ,ctoken:'' //cookie
+        ,isClient: typeof window !== 'undefined' && window.__TAURI__
        
     }
     

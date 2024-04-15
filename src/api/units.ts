@@ -16,6 +16,7 @@ export const isApikeyError=( text:string )=>{
     text.indexOf('error') && ( 
     text.indexOf('无效的令牌')>-1  //one-api 错误
     || text.indexOf('incorrect api key')>-1  //原生
+    || text.indexOf('key error')>-1 
     )) return true ;
     return false;
 }

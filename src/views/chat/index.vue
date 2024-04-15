@@ -12,13 +12,14 @@ import { useUsingContext } from './hooks/useUsingContext'
 import HeaderComponent from './components/Header/index.vue'
 import {  SvgIcon } from '@/components/common'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-import { gptConfigStore, gptsUlistStore, homeStore, useChatStore, usePromptStore } from '@/store'
+import { gptConfigStore, gptServerStore, gptsUlistStore, homeStore, useChatStore, usePromptStore } from '@/store'
 import { chatSetting, fetchChatAPIProcess, gptsType, mlog, myFetch } from '@/api'
 import { t } from '@/locales'
 import drawListVue from '../mj/drawList.vue'
 import aiGPT from '../mj/aiGpt.vue'
 import AiSiderInput from '../mj/aiSiderInput.vue'
 import aiGptInput from '../mj/aiGptInput.vue'
+import AiTextSetting from '../mj/aiTextSetting.vue'
 
 let controller = new AbortController()
 
@@ -594,7 +595,10 @@ const ychat = computed( ()=>{
           :class="[isMobile ? 'p-2' : 'p-4']"
         >
           <template v-if="!dataSources.length">
-            <div v-if="homeStore.myData.session.notify" v-html="homeStore.myData.session.notify" class="text-neutral-300 mt-4"></div>
+            <div class="text-center pt-10" v-if="homeStore.myData.isClient && ( !gptServerStore.myData.OPENAI_API_BASE_URL || !gptServerStore.myData.OPENAI_API_KEY)">
+              <AiTextSetting/>
+            </div>
+            <div v-else-if="homeStore.myData.session.notify" v-html="homeStore.myData.session.notify" class="text-neutral-300 mt-4"></div>
             <div class="flex items-center justify-center mt-4 text-center text-neutral-300" v-else>
               <SvgIcon icon="ri:bubble-chart-fill" class="mr-2 text-3xl" />
               <span>Aha~</span>
