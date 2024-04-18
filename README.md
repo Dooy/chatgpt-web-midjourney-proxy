@@ -38,6 +38,10 @@
 ## 待开发
 - ⏰ 支持 GPTs 多模态
 
+## 无服务器-个人桌面安装
+- 请到 https://github.com/Dooy/chatgpt-web-midjourney-proxy/releases 下载最新版本安装(选择合适你的操作系统)
+- 选择一个合适的中转服务商( 最好都支持 `gpt`, `gpts`, `midjourney`, `claude`, `suno` )
+![多模态](./docs/desk.jpg)
 
 ## Vercel 一键部署
 
