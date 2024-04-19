@@ -6,35 +6,35 @@
 
 ![cover](./docs/mj2a1.jpg)
 ## 支持功能
-- ✅ 原chatgpt web 所有功能
-- ✅ chatgpt web 支持自定义api key、base_url
-- ✅ midjourney 文生图
-- ✅ midjourney 垫图+文生图  
-- ✅ midjourney 图变 U1到U4 、 V1到V4、重绘等操作
-- ✅ midjourney 支持局部重绘
-- ✅ midjourney 支持1.5倍变焦 2倍变焦
-- ✅ midjourney 支持2倍高清 4倍高清
-- ✅ midjourney 支持左、右、上、下延伸变化
-- ✅ midjourney 同时支持[midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 接口 和 [midjourney-proxy-plus](https://github.com/litter-coder/midjourney-proxy-plus) 接口
-- ✅ midjourney 图生文
-- ✅ 图片使用localforage实现本地存储
-- ✅ 支持midjourney、niji 不同机器人
-- ✅ 支持[InsightFace 人脸替换](https://discord.com/api/oauth2/authorize?client_id=1090660574196674713&permissions=274877945856&scope=bot)
-- ✅ midjourney 混图
-- ✅ midjourney 获取 seed
-- ✅ dall-e-3 画图
-- ✅ chatgpt 前端选择模型
-- ✅ chatgpt 前端支持自定义模型、上下文对话数、回复数
-- ✅ chatgpt 支持图片上传图片 供gpt-4-vision-preview使用
-- ✅ chatgpt 支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
-- ✅ chatgpt 支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
-- ✅ chatgpt 支持超链模型切换 https://vercel.ddaiai.com/#/m/gpt-4-all https://vercel.ddaiai.com/#/m/gpt-4-gizmo-g-2fkFE8rbu
-- ✅ 支持ChatGPT试的超链模型切换 https://chat.openai.com/g/g-2fkFE8rbu 修改为 https://vercel.ddaiai.com/#/g/g-2fkFE8rbu
-- ✅ chatgpt 支持 GPTs 多模态
-- ✅ chatgpt 支持 tts whisper
-- ✅ 即时语音识别(浏览器自带语音识别 ASR) `v2.15.7`以上版本
-- ✅ 支持超链更换设置，适合 one-api 部署聊天 https://vercel.ddaiai.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
-- ✅ 支持one-api部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://www.abc.com%22} `(v.2.14.3)`
+- [x]  原chatgpt web 所有功能
+- [x] chatgpt web 支持自定义api key、base_url
+- [x] midjourney 文生图
+- [x] midjourney 垫图+文生图  
+- [X] midjourney 图变 U1到U4 、 V1到V4、重绘等操作
+- [X] midjourney 支持局部重绘
+- [X] midjourney 支持1.5倍变焦 2倍变焦
+- [X] midjourney 支持2倍高清 4倍高清
+- [X] midjourney 支持左、右、上、下延伸变化
+- [X] midjourney 同时支持[midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 接口 和 [midjourney-proxy-plus](https://github.com/litter-coder/midjourney-proxy-plus) 接口
+- [X] midjourney 图生文
+- [X] 图片使用localforage实现本地存储
+- [X] 支持midjourney、niji 不同机器人
+- [X] 支持[InsightFace 人脸替换](https://discord.com/api/oauth2/authorize?client_id=1090660574196674713&permissions=274877945856&scope=bot)
+- [X] midjourney 混图
+- [X] midjourney 获取 seed
+- [X] dall-e-3 画图
+- [X] chatgpt 前端选择模型
+- [X] chatgpt 前端支持自定义模型、上下文对话数、回复数
+- [X] chatgpt 支持图片上传图片 供gpt-4-vision-preview使用
+- [X] chatgpt 支持文件后端上传（供给gpt-4-all gpt-4-gizmo-xxx 模型）！ 默认是关闭的 打开需要环境变量 API_UPLOADER=1
+- [X] chatgpt 支持逆向模型 gpt-4-all gpt-4-v gpt-4-gizmo-(gizmo_id)
+- [X] chatgpt 支持超链模型切换 https://vercel.ddaiai.com/#/m/gpt-4-all https://vercel.ddaiai.com/#/m/gpt-4-gizmo-g-2fkFE8rbu
+- [X] 支持ChatGPT试的超链模型切换 https://chat.openai.com/g/g-2fkFE8rbu 修改为 https://vercel.ddaiai.com/#/g/g-2fkFE8rbu
+- [X] chatgpt 支持 GPTs 多模态
+- [X] chatgpt 支持 tts whisper
+- [X] 即时语音识别(浏览器自带语音识别 ASR) `v2.15.7`以上版本
+- [X] 支持超链更换设置，适合 one-api 部署聊天 https://vercel.ddaiai.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
+- [X] 支持one-api部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://www.abc.com%22} `(v.2.14.3)`
 ## 待开发
 - ⏰ 支持 suno 单独模块，可歌词调整 曲风调整
 
