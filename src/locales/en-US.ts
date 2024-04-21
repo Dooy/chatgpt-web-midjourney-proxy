@@ -369,7 +369,34 @@ export default {
 		},
 	}
 
+  ,suno:{
+    "description": "Description",
+    "custom": "Custom",
+    "style": "Song Style",
+    "stylepls": "Song Name, e.g., Pop Music",
+    "emputy": "No content available",
+    "noly": "No lyrics available",
+    "inputly": "Please enter the song name or lyrics",
+    "doingly": "In progress, please wait.",
+    "doingly2": "Fetching lyrics...",
+    "title": "Song Name",
+    "titlepls": "Song Name, e.g., Vacation",
+    "desc": "Song Description",
+    "descpls": "Song description, e.g., Original pop music about vacation",
+    "noneedly": "No lyrics needed",
+    "rank": "Random selection",
+    "ly": "Lyrics",
+    "lypls": "Lyrics: with a certain format",
+    "generate": "Compose Song",
+    "generately": "Generate Lyrics",
+    "nodata": "Please compose first to have a list of songs",
 
+    "menu": "Music",
+    "menuinfo": "Suno Music Creation",
+    "server": "Suno API Endpoint",
+    "serverabout": "Suno Related",
+    "setOpenKeyPlaceholder": "Related KEY for Suno API; optional"
+  }
 
 
 

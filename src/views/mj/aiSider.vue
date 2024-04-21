@@ -91,18 +91,18 @@ const chatId= computed(()=>chatStore.active??'1002' );
             </a>
 
 
-            <!-- <section  class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]"
+            <a  :href="`#/music`"    @click="st.active='music'" class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]"
              >
                 <n-tooltip placement="right" trigger="hover">
                   <template #trigger> 
-                    <div  class="flex  h-full justify-center items-center py-1 flex-col ">
-                      <SvgIcon icon="mingcute:grid-2-line" class="text-3xl flex-1"></SvgIcon>
-                      <span class="text-[10px]">画廊</span>
+                    <div  class="flex  h-full justify-center items-center py-1 flex-col " :class="[ goHome =='music' ? 'active' : '']">
+                      <SvgIcon icon="arcticons:wynk-music" class="text-3xl flex-1"></SvgIcon>
+                      <span class="text-[10px]">{{ $t('suno.menu') }}</span>
                     </div>  
                   </template>
-                    画廊:看看别人是如何画的
+                    {{ $t('suno.menuinfo') }}
                 </n-tooltip>                
-            </section> -->
+            </a>
 
              
 

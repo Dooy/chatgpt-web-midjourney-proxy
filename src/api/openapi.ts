@@ -24,6 +24,7 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4-turbo-preview": "2023-12",
   "claude-3-opus-20240229": "2023-08",
   "claude-3-sonnet-20240229": "2023-08",
+  "claude-3-haiku-20240229": "2023-08",
 };
 
 const getUrl=(url:string)=>{

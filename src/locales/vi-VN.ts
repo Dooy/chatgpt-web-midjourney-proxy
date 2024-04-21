@@ -365,4 +365,32 @@ export default {
 			landscape: "Landscape (3:2)",
 		},
 	}
+  ,suno:{
+    "description": "Chế độ mô tả",
+    "custom": "Chế độ chuyên nghiệp",
+    "style": "Phong cách bài hát",
+    "stylepls": "Tên bài hát, ví dụ: Nhạc Pop",
+    "emputy": "Không có nội dung",
+    "noly": "Không có lời bài hát",
+    "inputly": "Vui lòng nhập tên bài hát hoặc lời bài hát",
+    "doingly": "Đang tiến hành, vui lòng đợi.",
+    "doingly2": "Đang lấy lời bài hát...",
+    "title": "Tên bài hát",
+    "titlepls": "Tên bài hát, ví dụ: Kỳ nghỉ",
+    "desc": "Mô tả bài hát",
+    "descpls": "Mô tả bài hát, ví dụ: Nhạc pop gốc về kỳ nghỉ",
+    "noneedly": "Không cần lời bài hát",
+    "rank": "Lựa chọn ngẫu nhiên",
+    "ly": "Lời bài hát",
+    "lypls": "Lời bài hát: với một định dạng nhất định",
+    "generate": "Sáng tác bài hát",
+    "generately": "Tạo lời bài hát",
+    "nodata": "Vui lòng sáng tạo trước để có danh sách bài hát",
+
+    "menu": "Âm nhạc",
+    "menuinfo": "Sáng tạo âm nhạc Suno",
+    "server": "Điểm cuối API Suno",
+    "serverabout": "Liên quan đến Suno",
+    "setOpenKeyPlaceholder": "Khóa liên quan cho API Suno; tùy chọn"
+   }
 }

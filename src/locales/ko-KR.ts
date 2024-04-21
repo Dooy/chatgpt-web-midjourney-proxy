@@ -364,4 +364,32 @@ export default {
 			landscape: "Landscape (3:2)",
 		},
 	}
+  ,suno:{
+    "description": "설명 모드",
+    "custom": "전문가 모드",
+    "style": "노래 스타일",
+    "stylepls": "노래 이름, 예: 팝 음악",
+    "emputy": "내용 없음",
+    "noly": "가사 없음",
+    "inputly": "노래 이름 또는 가사를 입력하세요",
+    "doingly": "진행 중입니다. 잠시 기다려주세요.",
+    "doingly2": "가사 가져오는 중...",
+    "title": "노래 제목",
+    "titlepls": "노래 이름, 예: 휴가",
+    "desc": "노래 설명",
+    "descpls": "노래 설명, 예: 휴가에 관한 오리지널 팝 음악",
+    "noneedly": "가사 필요 없음",
+    "rank": "랜덤 선택",
+    "ly": "가사",
+    "lypls": "가사: 일정한 형식으로",
+    "generate": "노래 만들기",
+    "generately": "가사 생성",
+    "nodata": "곡 목록을 보려면 먼저 곡을 작성하세요",
+    
+    "menu": "음악",
+    "menuinfo": "Suno 음악 생성",
+    "server": "Suno API 엔드포인트",
+    "serverabout": "Suno 관련",
+    "setOpenKeyPlaceholder": "Suno API에 대한 관련 키; 선택 사항"
+   }
 }

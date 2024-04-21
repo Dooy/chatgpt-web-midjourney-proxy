@@ -5,6 +5,7 @@ import { ss } from '@/utils/storage'
 export const homeStore = reactive({
     myData:{
         act:'',//动作
+        act2:'',//动作
         actData:{} //动作类别 
         ,local:'' //当前所处的版本
         ,session:{} as any
@@ -12,6 +13,7 @@ export const homeStore = reactive({
         ,vtoken:'' //turnstile token
         ,ctoken:'' //cookie
         ,isClient: typeof window !== 'undefined' && window.__TAURI__
+        ,ms:{} as any
        
     }
     
@@ -22,6 +24,12 @@ export const homeStore = reactive({
                 this.myData.act=''
                 this.myData.actData=''
             }, 2000 );
+        }
+        if( Object.keys(v).indexOf('act2')>-1){ 
+            setTimeout(()=> {
+                this.myData.act2=''
+                this.myData.actData=''
+            }, 500 );
         }
     }
  
@@ -90,6 +98,8 @@ export interface gptServerType{
     MJ_API_SECRET:string
     UPLOADER_URL:string
     MJ_CDN_WSRV?:boolean //wsrv.nl
+    SUNO_SERVER:string
+    SUNO_KEY:string
 
 }
 
@@ -100,6 +110,8 @@ let v:gptServerType={
         MJ_SERVER:'',
         UPLOADER_URL:'',
         MJ_API_SECRET:'',
+        SUNO_KEY:'',
+        SUNO_SERVER:'',
         MJ_CDN_WSRV:false
     }
     return v ;

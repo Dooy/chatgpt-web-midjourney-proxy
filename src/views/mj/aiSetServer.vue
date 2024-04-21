@@ -64,7 +64,26 @@ const save = ()=>{
     </n-switch>
  </section>
 
- <div  class="text-right" > {{$t('mj.setUploader')}}</div>
+
+
+ <div class="text-right">{{$t('suno.serverabout')}}</div>
+<section class="mb-4 flex justify-between items-center"  >
+    <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.SUNO_SERVER" clearable>
+      <template #prefix>
+        <span class="text-[var(--n-tab-text-color-active)]">{{$t('suno.server')}}:</span>
+      </template>
+    </n-input>
+ </section>
+
+<section class="mb-4 flex justify-between items-center"  >
+    <n-input  @blur="blurClean" type="password"  :placeholder="$t('suno.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.SUNO_KEY" clearable>
+      <template #prefix>
+        <span class="text-[var(--n-tab-text-color-active)]">Suno Key:</span>
+      </template>
+    </n-input>
+ </section>
+
+  <div  class="text-right" > {{$t('mj.setUploader')}}</div>
 <section class="mb-4 flex justify-between items-center"  >
     <n-input  :placeholder="$t('mj.setOpenPlaceholder')"  v-model:value="gptServerStore.myData.UPLOADER_URL" clearable>
       <template #prefix>
@@ -72,6 +91,7 @@ const save = ()=>{
       </template>
     </n-input>
  </section>
+
 
 <section class=" text-right flex justify-end space-x-2"  >
     <NButton   @click="gptServerStore.setInit()">{{$t('mj.setBtBack')}}</NButton>

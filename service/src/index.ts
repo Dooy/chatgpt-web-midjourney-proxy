@@ -2,7 +2,7 @@ import express from 'express'
 import type { RequestProps } from './types'
 import type { ChatMessage } from './chatgpt'
 import { chatConfig, chatReplyProcess, currentModel } from './chatgpt'
-import { auth, authV2, regCookie, turnstileCheck, verify } from './middleware/auth'
+import { auth, authV2, mlog, regCookie, turnstileCheck, verify } from './middleware/auth'
 import { limiter } from './middleware/limiter'
 import { isNotEmptyString,formattedDate } from './utils/is'
 import multer from "multer"
@@ -305,6 +305,22 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
     return proxyReqOpts;
   },
   //limit: '10mb'
+}));
+
+//代理sunoApi 接口 
+app.use('/sunoapi' ,authV2, proxy(process.env.SUNO_SERVER??'https://suno-api.suno.ai', {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    //mlog("sunoapi")
+    if ( process.env.SUNO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.SUNO_KEY;
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+  
 }));
 
 

@@ -365,5 +365,32 @@ export default {
 			landscape: "Landscape (3:2)",
 		},
 	}
+  ,suno:{
+    "description": "Açıklama Modu",
+    "custom": "Profesyonel Mod",
+    "style": "Şarkı Tarzı",
+    "stylepls": "Şarkı Adı, örneğin: Pop Müzik",
+    "emputy": "Mevcut içerik yok",
+    "noly": "Söz yok",
+    "inputly": "Lütfen şarkı adını veya sözleri girin",
+    "doingly": "Devam ediyor, lütfen bekleyin.",
+    "doingly2": "Sözler getiriliyor...",
+    "title": "Şarkı Adı",
+    "titlepls": "Şarkı Adı, örneğin: Tatil",
+    "desc": "Şarkı Açıklaması",
+    "descpls": "Şarkı açıklaması, örneğin: Tatil hakkında orijinal pop müziği",
+    "noneedly": "Söz gerekli değil",
+    "rank": "Rastgele seçim",
+    "ly": "Sözler",
+    "lypls": "Sözler: belirli bir formatta",
+    "generate": "Şarkı Oluştur",
+    "generately": "Sözler Oluştur",
+    "nodata": "Lütfen önce şarkı oluşturun ki şarkı listesi olsun",
+    "menu": "Müzik",
+    "menuinfo": "Suno Müzik Oluşturma",
+    "server": "Suno API Uç Noktası",
+    "serverabout": "Suno İlgili",
+    "setOpenKeyPlaceholder": "Suno API için İlgili Anahtar; isteğe bağlı"
+   }
 
   }

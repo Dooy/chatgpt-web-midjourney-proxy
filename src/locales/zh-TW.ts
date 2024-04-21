@@ -361,4 +361,33 @@ export default {
 			landscape: "風景 (3:2)",
 		},
 	}
+  ,suno:{
+    "description": "描述模式",
+    "custom": "專業模式",
+    "style": "歌曲風格",
+    "stylepls": "歌曲名稱，例如：流行音樂",
+    "emputy": "暫無內容",
+    "noly": "無歌詞",
+    "inputly": "請輸入歌曲名稱或歌詞",
+    "doingly": "正在進行中，請稍候。",
+    "doingly2": "正在獲取歌詞...",
+    "title": "歌曲名稱",
+    "titlepls": "歌曲名稱，例如：假期",
+    "desc": "歌曲描述",
+    "descpls": "歌曲描述，例如：關於假期的原聲流行音樂",
+    "noneedly": "無需歌詞",
+    "rank": "隨機獲取",
+    "ly": "歌詞",
+    "lypls": "歌詞：有一定的格式",
+    "generate": "創作歌曲",
+    "generately": "生成歌詞",
+    "nodata": "請先創作才有歌曲列表",
+
+    "menu": "音樂",
+    "menuinfo": "Suno 音樂創作",
+    "server": "Suno API 端點",
+    "serverabout": "Suno 相關",
+    "setOpenKeyPlaceholder": "Suno API 的相關KEY；可不填"
+
+   }
 }
