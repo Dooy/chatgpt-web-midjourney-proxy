@@ -80,15 +80,17 @@
   
 
 ## docker 部署
-**假设**:
-- 你已经搭建好 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 服务，开发端口服务器地址为 https://172.17.0.1:6013
-- [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 服务 的 API_SECRET  为 abc123456
+ 
+> - [x] 需 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy)   支持
+> - [x] 需 [Suno-API](https://github.com/SunoAI-API/Suno-API)  支持
+
+
 ```bash
 docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
 -e OPENAI_API_BASE_URL=https://api.openai.com  \
--e MJ_SERVER=https://172.17.0.1:6013  \
--e MJ_API_SECRET=abc123456  \
+-e MJ_SERVER=https://your-mj-server:6013  \
+-e MJ_API_SECRET=your-mj-api-secret  \
 -e SUNO_SERVER=https://your-mj-server:8000  \
 -e SUNO_KEY=you-suno-key  ydlhero/chatgpt-web-midjourney-proxy
 ```
