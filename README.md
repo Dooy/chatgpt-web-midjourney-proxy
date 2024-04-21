@@ -5,7 +5,8 @@
 
 
 ![cover](./docs/mj2a1.jpg)
-## 支持功能
+## 支持功能 
+- [x]  suno 音乐制作
 - [x]  原chatgpt web 所有功能
 - [x] chatgpt web 支持自定义api key、base_url
 - [x] midjourney 文生图
@@ -57,6 +58,8 @@
 | OPENAI_API_MODEL |  默认模型 | gpt-3.5-turbo  | ✅ |  ✅|
 | MJ_SERVER |  mj proxy 接口地址 | https://api.openai.com  | ✅ |  ✅|
 | MJ_API_SECRET |  mj proxy | 空  | ✅ |  ✅|
+| SUNO_SERVER |  SUNO API 接口地址 | - | ✅ |  ✅|
+| SUNO_KEY |  SUNO API 的key | 空  | ✅ |  ✅|
 | AUTH_SECRET_KEY |  访问授权密码 | 无  | ✅ |   x|
 | API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
 | HIDE_SERVER |  前端ui隐藏服务端|    | ✅ |  x|
