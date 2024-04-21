@@ -134,6 +134,10 @@ docker run -d --name mj6013  -p 6013:8080  \
 ![多模态](./docs/gpts.jpg)
 ![多模态](./docs/gpts1.jpg)
 
+### suno 音乐制作
+![suno](./docs/suno.jpg)
+
+
 ### 录音 whisper  和  tts
 ![whisper--tts](./docs/tts-whisper.png)
 
