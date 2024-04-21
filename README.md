@@ -56,9 +56,9 @@
 | OPENAI_API_BASE_URL | OpenAI API 接口地址 | https://api.openai.com | ✅ |  ✅|
 | OPENAI_API_KEY | OpenAI API 密钥 |  sk-xxxxx | ✅ |  ✅|
 | OPENAI_API_MODEL |  默认模型 | gpt-3.5-turbo  | ✅ |  ✅|
-| MJ_SERVER |  mj proxy 接口地址 [搭建参考](https://github.com/novicezk/midjourney-proxy) | https://api.openai.com  | ✅ |  ✅|
+| MJ_SERVER |  mj proxy 接口地址  |[搭建参考](https://github.com/novicezk/midjourney-proxy) | ✅ |  ✅|
 | MJ_API_SECRET |  mj proxy | 空  | ✅ |  ✅|
-| SUNO_SERVER |  SUNO API 接口地址 [搭建参考](https://github.com/SunoAI-API/Suno-API) | - | ✅ |  ✅|
+| SUNO_SERVER |  SUNO API 接口地址  | [搭建参考](https://github.com/SunoAI-API/Suno-API) | ✅ |  ✅|
 | SUNO_KEY |  SUNO API 的key | 空  | ✅ |  ✅|
 | AUTH_SECRET_KEY |  访问授权密码 | 无  | ✅ |   x|
 | API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
