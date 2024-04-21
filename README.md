@@ -88,7 +88,9 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
 -e OPENAI_API_BASE_URL=https://api.openai.com  \
 -e MJ_SERVER=https://172.17.0.1:6013  \
--e MJ_API_SECRET=abc123456  ydlhero/chatgpt-web-midjourney-proxy
+-e MJ_API_SECRET=abc123456  \
+-e SUNO_SERVER=https://your-mj-server:8000  \
+-e SUNO_KEY=you-suno-key  ydlhero/chatgpt-web-midjourney-proxy
 ```
 访问 http://ip:6015 
 
