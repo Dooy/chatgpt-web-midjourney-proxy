@@ -63,10 +63,9 @@ const wrapClass = computed(() => {
 
 const text = computed(() => {
   const value = props.text ?? ''
-  // if (!props.asRawText)
-  //   return mdi.render(value)
-  // return value
-  return mdi.render(value)
+  if (!props.asRawText)
+    return mdi.render(value)
+  return value
 })
 
 function highlightBlock(str: string, lang?: string) {
@@ -130,6 +129,7 @@ onUnmounted(() => {
         </template>
       </div>
       <whisperText v-else-if="text=='whisper' && chat.opt?.lkey "  :chat="chat" />
+      <div v-else-if="asRawText" class="whitespace-pre-wrap" v-text="text" />
       <div v-else class="markdown-body "  style="--color-fg-default:#24292f"  v-html="text" />
       <!-- <div v-else class="whitespace-pre-wrap" v-text="text" /> -->
       <MjTextAttr :image="chat.opt?.images[0]" v-if="chat.opt?.images"></MjTextAttr>
