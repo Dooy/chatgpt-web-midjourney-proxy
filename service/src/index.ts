@@ -123,7 +123,7 @@ app.use('/mjapi',authV2 , proxy(process.env.MJ_SERVER?process.env.MJ_SERVER:'htt
     return req.originalUrl.replace('/mjapi', '') // 将URL中的 `/mjapi` 替换为空字符串
   },
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
+    if(  process.env.MJ_API_SECRET ) proxyReqOpts.headers['mj-api-secret'] = process.env.MJ_API_SECRET;
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
