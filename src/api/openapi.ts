@@ -568,5 +568,6 @@ export const getHistoryMessage= async (dataSources:Chat.Chat[],loadingCnt=1 ,sta
 
 
 export const isDisableMenu=(menu:string)=>{
- return (homeStore.myData.session && homeStore.myData.session.menuDisable.indexOf( menu)>-1 )
+
+ return (homeStore.myData.session  && homeStore.myData.session.menuDisable && homeStore.myData.session.menuDisable.indexOf( menu)>-1 )
 }
