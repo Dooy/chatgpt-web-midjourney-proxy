@@ -276,8 +276,9 @@ export default {
     "no2add": "Vui lòng không thêm hình ảnh giống nhau",
     "add2more": "Vui lòng thêm ít nhất hai hình ảnh",
     "no1m": "Kích thước hình ảnh không quá 1M",
-    "imgExt": "Chỉ hỗ trợ định dạng jpg, gif, png, jpeg cho hình ảnh"
-    },
+    "imgExt": "Chỉ hỗ trợ định dạng jpg, gif, png, jpeg cho hình ảnh",
+    "setSync": "Đồng bộ hóa Midjourney và Suno"
+  },
 	draw: {
 		qualityList: {
 			general: "General",

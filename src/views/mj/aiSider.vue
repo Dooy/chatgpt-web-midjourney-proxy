@@ -18,7 +18,7 @@ const st= ref({'show':false,showImg:false, menu:[],active:'chat'})
 
 const userInfo = computed(() => userStore.userInfo)
 import { router } from '@/router'
-import { mlog } from "@/api";
+import { isDisableMenu } from "@/api";
 
 const goHome =computed(  () => {
   //router.push('/')
@@ -51,7 +51,7 @@ const chatId= computed(()=>chatStore.active??'1002' );
                 AI Chat
                 </n-tooltip>
             </a> 
-            <a   @click="homeStore.setMyData({act:'showgpts'}) " class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
+            <a  v-if="!isDisableMenu ( 'gpts')"   @click="homeStore.setMyData({act:'showgpts'}) " class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
                 <n-tooltip placement="right" trigger="hover">
                   <template #trigger> 
                     <div  class="flex h-full justify-center items-center   py-1 flex-col" >
@@ -64,7 +64,7 @@ const chatId= computed(()=>chatStore.active??'1002' );
             </a>
 
 
-            <a :href="`#/draw/${chatId}`" @click="st.active='draw'" class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
+            <a v-if="!isDisableMenu ( 'draws')" :href="`#/draw/${chatId}`" @click="st.active='draw'" class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
                 <n-tooltip placement="right" trigger="hover">
                   <template #trigger> 
                     <div  class="flex h-full justify-center items-center   py-1 flex-col" :class="[goHome=='draw' ? 'active' : '']">
@@ -78,7 +78,7 @@ const chatId= computed(()=>chatStore.active??'1002' );
 
 
 
-             <a   @click="homeStore.setMyData({act:'gallery'}) " class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
+             <a  v-if="!isDisableMenu ( 'gallery')"  @click="homeStore.setMyData({act:'gallery'}) " class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
                 <n-tooltip placement="right" trigger="hover">
                   <template #trigger> 
                     <div  class="flex h-full justify-center items-center   py-1 flex-col" >
@@ -91,7 +91,7 @@ const chatId= computed(()=>chatStore.active??'1002' );
             </a>
 
 
-            <a  :href="`#/music`"    @click="st.active='music'" class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]"
+            <a v-if="!isDisableMenu ( 'music')"  :href="`#/music`"    @click="st.active='music'" class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]"
              >
                 <n-tooltip placement="right" trigger="hover">
                   <template #trigger> 

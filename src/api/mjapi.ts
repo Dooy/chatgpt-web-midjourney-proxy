@@ -372,6 +372,13 @@ export const canVisionModel= (model:string)=>{
      
     return false;
 }
+export const isCanBase64Model=(model:string)=>{
+    return ['gemini-pro-vision','gemini-pro-1.5','gpt-4-turbo','gpt-4-turbo-2024-04-09','gpt-4-vision-preview'].indexOf(model)>-1
+}
+export const canBase64Model= (model:string)=>{
+    if( isCanBase64Model(model)) return model; 
+    return 'gpt-4-vision-preview'
+}
 
 export const isTTS= ( model:string )=>{
     if(model.indexOf('tts-1')===0 )return true; 

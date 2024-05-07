@@ -4,7 +4,9 @@ import { useRoute } from 'vue-router'
 import { useChat } from '../chat/hooks/useChat' 
 import {  homeStore, useChatStore } from '@/store'
 import { getInitChat, mlog, subModel,getSystemMessage , localSaveAny, canVisionModel
-    ,isTTS, subTTS, file2blob, whisperUpload, getHistoryMessage, checkDisableGpt4, chatSetting } from '@/api'
+    ,isTTS, subTTS, file2blob, whisperUpload, getHistoryMessage, checkDisableGpt4, chatSetting, 
+    canBase64Model,
+    isCanBase64Model} from '@/api'
 //import { isNumber } from '@/utils/is'
 import { useMessage  } from "naive-ui";
 import { t } from "@/locales";
@@ -66,7 +68,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
         
         let promptMsg = getInitChat(dd.prompt );
         if( dd.fileBase64 && dd.fileBase64.length>0 ){ 
-            if( !canVisionModel(model)  ) model='gpt-4-vision-preview';
+            if( !canVisionModel(model)  )  model= canBase64Model(model)//model='gpt-4-vision-preview';
         
             try{
                     let images= await localSaveAny( JSON.stringify( dd.fileBase64)  ) ;
@@ -154,7 +156,8 @@ watch(()=>homeStore.myData.act, async (n)=>{
         let message= [ {  "role": "system", "content": getSystemMessage(  +uuid2) },
                 ...historyMesg ];
         if( dd.fileBase64 && dd.fileBase64.length>0 ){
-            if(  model=='gpt-4-vision-preview' ){
+            //if(  model=='gpt-4-vision-preview' || model=='gemini-pro-1.5'){
+            if( isCanBase64Model(model) ){ 
                 let obj={
                         "role": "user",
                         "content": [] as any

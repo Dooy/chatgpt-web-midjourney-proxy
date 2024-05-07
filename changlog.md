@@ -1,6 +1,11 @@
 # 功能升级日志
 
 #  计划
+# 2.17.1
+- 😄 优化：设置服务端设置 填写key 一键同步mj，suno
+- 😄 优化：左侧菜单栏可以配置 通过环境变量调整 `MENU_DISABLE="gpts,music,gallery"` #308
+- 😄 新增：gemini-pro-1.5 模型 #326
+- 😄 优化：`gemini-pro-vision` `gemini-pro-1.5`   `gpt-4-turbo`,`gpt-4-turbo-2024-04-09`  模型 可读base64图 #326
 
 # 2.17.1
 - 😄 优化：模型选择可搜索

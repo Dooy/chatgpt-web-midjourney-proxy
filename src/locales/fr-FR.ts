@@ -277,7 +277,8 @@ export default {
         "no2add": "Ne pas ajouter d'images en double",
         "add2more": "Veuillez ajouter deux images ou plus",
         "no1m": "La taille de l'image ne peut pas dépasser 1 Mo",
-        "imgExt": "Les images ne supportent que les formats jpg, gif, png, jpeg"
+        "imgExt": "Les images ne supportent que les formats jpg, gif, png, jpeg",
+        "setSync": "Synchroniser Midjourney et Suno",
     },
 	draw: {
 		qualityList: {

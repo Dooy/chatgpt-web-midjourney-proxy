@@ -272,7 +272,8 @@ export default {
     "no2add": "請勿重複添加圖片",
     "add2more": "請添加兩張以上圖片",
     "no1m": "圖片大小不能超過1M",
-    "imgExt": "圖片僅支持jpg,gif,png,jpeg格式"
+    "imgExt": "圖片僅支持jpg,gif,png,jpeg格式",
+    "setSync": "同步Midjourney和Suno",
   },
 	draw: {
 		qualityList: {

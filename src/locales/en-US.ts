@@ -279,6 +279,7 @@ export default {
     "add2more": "Please add two or more images",
     "no1m": "Image size cannot exceed 1M",
     "imgExt": "Images support only jpg, gif, png, jpeg formats"
+    ,"setSync": "Synchronize Midjourney and Suno"
   },
 
 	draw: {

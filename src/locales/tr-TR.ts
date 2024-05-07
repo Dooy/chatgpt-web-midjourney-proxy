@@ -276,7 +276,8 @@ export default {
         "no2add": "Çift resim ekleme",
         "add2more": "Lütfen iki veya daha fazla resim ekleyin",
         "no1m": "Resim boyutu 1M'yi aşamaz",
-        "imgExt": "Resimler sadece jpg, gif, png, jpeg formatlarını destekler"
+        "imgExt": "Resimler sadece jpg, gif, png, jpeg formatlarını destekler",
+        "setSync": "Midjourney ve Suno'yu senkronize et"
     },
 	draw: {
 		qualityList: {

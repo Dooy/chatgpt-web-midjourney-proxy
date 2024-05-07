@@ -183,6 +183,7 @@ export default {
     ,add2more:'请添加两张以上图片'
     ,no1m:'图片大小不能超过{m}M'
     ,imgExt:'图片仅支持jpg,gif,png,jpeg格式'
+    ,setSync:'同步Midjourney、Suno设置'
   },
   mj:{
     setOpen:'OpenAI 相关',
@@ -286,6 +287,8 @@ export default {
     ,micAsr:'即时识别'
     ,micRec:'开始录音,请说话！2秒内无声音将自动关闭'
     ,micRecEnd:'录音已结束'
+
+    
 
   },
 

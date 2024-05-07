@@ -98,6 +98,7 @@ const generate= async ()=>{
         <!-- <n-tab-pane name="start" tab=""> 
 
         </n-tab-pane> -->
+        <!-- <NText depth="3" class="text-center">{{ $t('suno.mic') }}</NText> -->
         <n-tab-pane name="description" :tab="$t('suno.description')">
             <div class="pt-1">
                 <n-input :placeholder="$t('suno.titlepls')" v-model:value="cs.title">

@@ -25,6 +25,9 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "claude-3-opus-20240229": "2023-08",
   "claude-3-sonnet-20240229": "2023-08",
   "claude-3-haiku-20240229": "2023-08",
+  "gemini-pro": "2023-12",
+  "gemini-pro-vision": "2023-12",
+  "gemini-pro-1.5": "2024-04"
 };
 
 const getUrl=(url:string)=>{
@@ -263,9 +266,10 @@ export const getSystemMessage = (uuid?:number )=>{
     if(  sysTem ) return sysTem;
     let model= gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo";
     let producer= 'You are ChatGPT, a large language model trained by OpenAI.'
-    if(model.includes('claude-3')) producer=  'You are Claude, a large language model trained by Anthropic.';
+    if(model.includes('claude')) producer=  'You are Claude, a large language model trained by Anthropic.';
+    if(model.includes('gemini')) producer=  'You are Gemini, a large language model trained by Google.';
       const DEFAULT_SYSTEM_TEMPLATE = `${producer}
-Knowledge cutoff: ${KnowledgeCutOffDate[model]}
+Knowledge cutoff: ${KnowledgeCutOffDate[model]??KnowledgeCutOffDate.default}
 Current model: ${model}
 Current time: ${ new Date().toLocaleString()}
 Latex inline: $x^2$
@@ -560,4 +564,9 @@ export const getHistoryMessage= async (dataSources:Chat.Chat[],loadingCnt=1 ,sta
     rz.reverse();
     mlog('rz',rz);
     return rz ;
+}
+
+
+export const isDisableMenu=(menu:string)=>{
+ return (homeStore.myData.session && homeStore.myData.session.menuDisable.indexOf( menu)>-1 )
 }
