@@ -24,7 +24,7 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4-turbo-preview": "2023-12",
   "claude-3-opus-20240229": "2023-08",
   "claude-3-sonnet-20240229": "2023-08",
-  "claude-3-haiku-20240229": "2023-08",
+  "claude-3-haiku-20240307": "2023-08",
   "gemini-pro": "2023-12",
   "gemini-pro-vision": "2023-12",
   "gemini-pro-1.5": "2024-04"
