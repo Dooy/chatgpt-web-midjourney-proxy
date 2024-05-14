@@ -503,7 +503,7 @@ const getModelMax=( model:string )=>{
         return 16;
     }else if( model.indexOf('32k')>-1  ){
         return 32;
-    }else if( model.indexOf('gpt-4-turbo')>-1  ){
+    }else if( model.indexOf('gpt-4-turbo')>-1||  model.indexOf('gpt-4o')>-1 ){
         return 128; 
     }else if( model.indexOf('64k')>-1  ){
         return 64;

@@ -19,7 +19,7 @@ model:[ 'gpt-4-turbo-2024-04-09','gpt-4o-2024-05-13','gpt-4o','gpt-4-0125-previe
 ,'gpt-3.5-turbo-0301','gpt-3.5-turbo-0613','gpt-4-all','gpt-3.5-net','gemini-pro','gemini-pro-1.5'
 ,'claude-3-sonnet-20240229','claude-3-opus-20240229','claude-3-haiku-20240307','suno-v3'
 ]
-,maxToken:2048
+,maxToken:4096
 }); 
 const st= ref({openMore:false });
 const voiceList= computed(()=>{
