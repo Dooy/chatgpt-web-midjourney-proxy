@@ -288,8 +288,9 @@ export default {
     ,micRec:'开始录音,请说话！2秒内无声音将自动关闭'
     ,micRecEnd:'录音已结束'
 
-    
-
+    ,subtle:'高清2倍'
+    ,creative:'高清2倍.创意'
+    ,gpt_gx:'GPTs用g-*'
   },
 
 	draw: {

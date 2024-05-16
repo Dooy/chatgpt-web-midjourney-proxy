@@ -63,6 +63,22 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
  </section>
 
 
+ <div class="flex justify-between items-baseline ">
+  <section class="mb-4 flex justify-start items-center">
+    <n-switch v-model:value="gptServerStore.myData.GPTS_GX" >
+        <template #checked>{{ $t('mj.gpt_gx') }}</template>
+        <template #unchecked>{{ $t('mj.gpt_gx') }}</template>
+      </n-switch>
+  </section>
+  <section class="mb-4 flex justify-start items-center">
+    <n-switch v-model:value="gptServerStore.myData.MJ_CDN_WSRV" >
+        <template #checked>  {{ $t('mj.wsrvClose') }} </template>
+        <template #unchecked> {{ $t('mj.wsrvOpen') }} </template>
+      </n-switch>
+  </section>
+ </div>
+
+
 <div  class="text-right" >{{$t('mj.setMj')}}</div>
 <section class="mb-4 flex justify-between items-center"  >
     <n-input    :placeholder="$t('mj.setOpenPlaceholder') "  v-model:value="gptServerStore.myData.MJ_SERVER" clearable>
@@ -78,12 +94,6 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
         <span class="text-[var(--n-tab-text-color-active)]">Midjourney Api Secret:</span>
       </template>
     </n-input>
- </section>
- <section class="mb-4 flex justify-start items-center">
-   <n-switch v-model:value="gptServerStore.myData.MJ_CDN_WSRV" >
-      <template #checked>  {{ $t('mj.wsrvClose') }} </template>
-      <template #unchecked> {{ $t('mj.wsrvOpen') }} </template>
-    </n-switch>
  </section>
 
 

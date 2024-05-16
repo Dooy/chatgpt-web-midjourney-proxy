@@ -188,7 +188,11 @@ export default {
         "micWhisper": "Fısıltı konuşma tanıma",
         "micAsr": "Anında tanıma",
         "micRec": "Kayıt başlat, lütfen konuşun! 2 saniye boyunca ses yoksa otomatik olarak duracaktır.",
-        "micRecEnd": "Kayıt sona erdi"
+        "micRecEnd": "Kayıt sona erdi",
+
+        subtle: 'Haute définition 2x'
+        ,creative: 'Haute définition 2x. Créatif'
+        ,gpt_gx: 'Les GPT utilisent g-*'
     },
     "mjset": {
         "server": "Sunucu",

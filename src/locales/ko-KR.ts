@@ -186,7 +186,11 @@ export default {
     "micWhisper": "속삭임 음성 인식",
     "micAsr": "즉시 인식",
     "micRec": "녹음 시작, 말씀하세요! 2초 동안 소리가 없으면 자동으로 중지됩니다.",
-    "micRecEnd": "녹음이 종료되었습니다"
+    "micRecEnd": "녹음이 종료되었습니다",
+
+    subtle: '고화질 2배'
+    ,creative: '고화질 2배. 창의적'
+    ,gpt_gx: 'GPTs는 g-*를 사용합니다'
 
   },
   "mjset": {

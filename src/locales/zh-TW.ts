@@ -186,7 +186,10 @@ export default {
     "micWhisper": "Whisper語音識別",
     "micAsr": "即時識別",
     "micRec": "開始錄音，請說話！2秒內無聲音將自動關閉",
-    "micRecEnd": "錄音已結束"
+    "micRecEnd": "錄音已結束",
+    subtle: '高清2倍'
+    ,creative: '高清2倍. 創意'
+    ,gpt_gx: 'GPTs 用 g-*'
   },
   "mjset": {
     "server": "服務端",

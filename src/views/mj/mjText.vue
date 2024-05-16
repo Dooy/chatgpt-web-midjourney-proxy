@@ -158,16 +158,21 @@ const bt= [
     ,{k:'pan_down',n:t('mj.pan_down')}
     ,{k:'reroll::0',n: t('mjchat.reroll')}
     ,{k:'upsample_v5_2x',n:t('mj.up2')}
-    ,{k:'upsample_v6_2x',n:t('mj.up2')}
     ,{k:'upsample_v5_4x',n:t('mj.up4')} 
-    ,{k:'upsample_v6_4x',n:t('mj.up4')} 
+    ,{k:'upsample_v6_2x_subtle',n:t('mj.subtle')}//t('mj.up2') 'Subtle'
+    ,{k:'upsample_v6_2x_creative',n:t('mj.creative')}  //'Creative'
     ]
 ]
 
 const getIndex = (arr:any[], ib:any )=> arr.findIndex( (v9:any)=>v9.customId.indexOf(ib.k)>-1 ) ;
 const getIndexName=  (arr:any[], ib:any )=> {
   const i= getIndex( arr,ib);
-  if(ib.k=='upsample_v5_2x') return ib.n;
+  if(ib.k=='upsample_v5_2x') return ib.n; 
+
+  if(ib.k=='upsample_v5_4x') return ib.n;
+  //if(ib.k=='upsample_v6_4x') return ib.n;
+  if(ib.k.indexOf('upsample_v6_2x')>-1 ) return ib.n;
+
   return `${arr[i].emoji} ${ib.n}`;
 }
 

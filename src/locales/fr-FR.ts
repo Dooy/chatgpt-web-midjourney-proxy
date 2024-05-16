@@ -188,7 +188,11 @@ export default {
         "micWhisper": "Reconnaissance vocale chuchotement",
         "micAsr": "Reconnaissance instantanée",
         "micRec": "Commencer l'enregistrement, s'il vous plaît parlez ! Il s'arrêtera automatiquement s'il n'y a pas de son pendant 2 secondes.",
-        "micRecEnd": "L'enregistrement est terminé"
+        "micRecEnd": "L'enregistrement est terminé",
+
+        subtle: 'Haute définition 2x'
+        ,creative: 'Haute définition 2x. Créatif'
+        ,gpt_gx: 'Les GPT utilisent g-*'
 
     },
     "mjset": {

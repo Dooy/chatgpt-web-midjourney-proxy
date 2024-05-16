@@ -191,6 +191,11 @@ export default {
   "micAsr": "Instant recognition",
   "micRec": "Start recording, please speak! It will automatically stop if there is no sound for 2 seconds.",
   "micRecEnd": "Recording has ended"
+
+  ,subtle: 'High definition 2x'
+  ,creative: 'High definition 2x. Creative'
+  ,gpt_gx: 'GPTs use g-*'
+  
   },
   "mjset": {
     "server": "Server",

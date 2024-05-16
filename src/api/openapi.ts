@@ -281,7 +281,7 @@ return DEFAULT_SYSTEM_TEMPLATE;
 }
 export const subModel= async (opt: subModelType)=>{
     //
-    const model= opt.model?? ( gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo");
+    let model= opt.model?? ( gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo");
     let max_tokens= gptConfigStore.myData.max_tokens;
     let temperature= 0.5;
     let top_p= 1;
@@ -296,6 +296,11 @@ export const subModel= async (opt: subModelType)=>{
         max_tokens= gStore.max_tokens;
     }
     if(model=='gpt-4-vision-preview' && max_tokens>2048) max_tokens=2048;
+
+    //gptServerStore.myData.GPTS_GX
+    if( gptServerStore.myData.GPTS_GX ){
+        model= model.replace('gpt-4-gizmo-','')
+    }
 
     let body ={
             max_tokens ,

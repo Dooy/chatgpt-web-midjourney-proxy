@@ -101,6 +101,7 @@ export interface gptServerType{
     SUNO_SERVER:string
     SUNO_KEY:string
     IS_SET_SYNC?:boolean
+    GPTS_GX?:boolean
 
 }
 
