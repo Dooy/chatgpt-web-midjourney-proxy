@@ -65,9 +65,10 @@ const text = computed(() => {
   let value = props.text ?? ''
   if (!props.asRawText){
     value = value.replace(/\\\((.*?)\\\)/g, '$$$1$$');
-    value = value.replace(/\\\[(.*?)\\\]/g, '$$$$1$$$$');
-    value= value.replaceAll('\\[','$$')
-    value= value.replaceAll('\\]','$$')   
+    value = value.replace(/\\\[(.*?)\\\]/g, '$$$$$1$$$$');
+    //mlog('replace', value)
+    value= value.replaceAll('\\[',"$$")
+    value= value.replaceAll('\\]',"$$")   
     return mdi.render(value)
   }
   return value
