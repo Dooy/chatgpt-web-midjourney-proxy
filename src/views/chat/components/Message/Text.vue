@@ -15,7 +15,7 @@ import whisperText from '@/views/mj/whisperText.vue'
 import MjTextAttr from '@/views/mj/mjTextAttr.vue'
 import aiTextSetting from '@/views/mj/aiTextSetting.vue'
 import aiSetAuth from '@/views/mj/aiSetAuth.vue'
-import { isApikeyError, isAuthSessionError, isTTS } from '@/api'
+import { isApikeyError, isAuthSessionError, isTTS, mlog } from '@/api'
 
 interface Props {
   inversion?: boolean
@@ -64,11 +64,10 @@ const wrapClass = computed(() => {
 const text = computed(() => {
   let value = props.text ?? ''
   if (!props.asRawText){
-    value= value.replaceAll('\\( ','$')
-    value= value.replaceAll(' \\)','$');
-     
-    value= value.replaceAll('\\[ ','$$')
-    value= value.replaceAll(' \\]','$$') 
+    value = value.replace(/\\\((.*?)\\\)/g, '$$$1$$');
+    value = value.replace(/\\\[(.*?)\\\]/g, '$$$$1$$$$');
+    value= value.replaceAll('\\[','$$')
+    value= value.replaceAll('\\]','$$')   
     return mdi.render(value)
   }
   return value
