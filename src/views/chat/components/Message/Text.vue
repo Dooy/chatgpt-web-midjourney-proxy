@@ -67,9 +67,10 @@ const text = computed(() => {
     value = value.replace(/\\\( *(.*?) *\\\)/g, '$$$1$$');
     //value = value.replace(/\\\((.*?)\\\)/g, '$$$1$$');
     value = value.replace(/\\\[ *(.*?) *\\\]/g, '$$$$$1$$$$');
+    //
+    value= value.replaceAll('\\[',"$$$$")
+    value= value.replaceAll('\\]',"$$$$")   
     //mlog('replace', value)
-    value= value.replaceAll('\\[',"$$")
-    value= value.replaceAll('\\]',"$$")   
     return mdi.render(value)
   }
   return value

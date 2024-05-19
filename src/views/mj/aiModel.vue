@@ -45,16 +45,22 @@ const modellist = computed(() => { //
     if( homeStore.myData.session.cmodels ){
         let delModel:string[] = [];
         let addModel:string[]=[];
+        let isDelAll= false
         homeStore.myData.session.cmodels.split(/[ ,]+/ig).map( (v:string)=>{
             if(v.indexOf('-')==0){
                 delModel.push(v.substring(1))
+                if( v=='-all') isDelAll=true;
             }else{
                 addModel.push(v);
             }
         });
         mlog('cmodels',delModel,addModel);
+        if( isDelAll  )rz=[];
         rz= rz.filter(v=> delModel.indexOf(v.value)==-1 );
         addModel.map(o=>rz.push({label:o,value:o}) )
+        if (rz.length==0){
+            rz.push({label:'gpt-3.5-turbo',value:'gpt-3.5-turbo'}) 
+        }
     }
 
     let uniqueArray: { label: string, value: string }[] = Array.from(
