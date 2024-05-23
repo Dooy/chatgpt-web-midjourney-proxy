@@ -302,8 +302,8 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
     //if( chat.uuid &&  chat.index) updateChat(chat.uuid,chat.index, chat)
 }
 const backOpt= (d:any, chat:Chat.Chat )=>{
-     if(d.code==1){
-        chat.text='提交成功！';
+     if(d.code==1 || d.code==22){
+        chat.text= d.code==22? d.description :'提交成功！';
         chat.mjID= d.result;
         flechTask( chat )
         chat.loading=true;
