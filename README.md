@@ -78,6 +78,7 @@
 | UPLOAD_TYPE | 指定上传方式 [`R2` R2上传] [`API` 跟随UI前端中转]、[`Container` 本地容器]、[`MyUrl` 自定义链接]  |  空 | ✅ |  x|
 | MENU_DISABLE  | 菜单禁用 可选:gpts,draws,gallery,music |  空 | ✅ |  ✅|
 | VISION_MODEL  | 默认使用的识图 可选:`gpt-4o`,`gpt-4-turb`,`gpt-4-vision-preview`等 |  空 | ✅ |  ✅|
+| SYSTEM_MESSAGE  | 自定义默认角色消息 |  空 | ✅ |  ✅|
 
   
 

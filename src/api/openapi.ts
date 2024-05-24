@@ -270,6 +270,9 @@ export const getSystemMessage = (uuid?:number )=>{
     let producer= 'You are ChatGPT, a large language model trained by OpenAI.'
     if(model.includes('claude')) producer=  'You are Claude, a large language model trained by Anthropic.';
     if(model.includes('gemini')) producer=  'You are Gemini, a large language model trained by Google.';
+    //用户自定义系统
+    if(homeStore.myData.session.systemMessage )  producer= homeStore.myData.session.systemMessage
+    
       const DEFAULT_SYSTEM_TEMPLATE = `${producer}
 Knowledge cutoff: ${KnowledgeCutOffDate[model]??KnowledgeCutOffDate.default}
 Current model: ${model}

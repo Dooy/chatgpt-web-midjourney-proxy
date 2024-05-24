@@ -99,11 +99,12 @@ router.post('/session', async (req, res) => {
     const turnstile= process.env.TURNSTILE_SITE
     const menuDisable= process.env.MENU_DISABLE??""
     const visionModel= process.env.VISION_MODEL??""
+    const systemMessage= process.env.SYSTEM_MESSAGE??""
 
     const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,uploadType,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
-      ,turnstile,menuDisable,visionModel
+      ,turnstile,menuDisable,visionModel,systemMessage
     }
     res.send({  status: 'Success', message: '', data})
   }

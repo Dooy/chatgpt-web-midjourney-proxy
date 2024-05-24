@@ -24,6 +24,7 @@ module.exports = (req, res) => {
             ,isCloseMdPreview : process.env.CLOSE_MD_PREVIEW?true:false
             ,menuDisable: process.env.MENU_DISABLE??""
             ,visionModel: process.env.VISION_MODEL??""
+            ,systemMessage: process.env.SYSTEM_MESSAGE??""
 
         }
     }

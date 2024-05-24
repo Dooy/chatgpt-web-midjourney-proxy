@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "ChatGPT-MJ",
-    "version": "2.17.8"
+    "version": "2.17.9"
   },
   "tauri": {
     "allowlist": {
