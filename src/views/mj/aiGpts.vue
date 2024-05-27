@@ -20,8 +20,8 @@ const toq=( d:any )=>{
 }
 </script>
 <template>
- <n-drawer v-model:show="st.showImg"  :placement="isMobile?'bottom':'right'"  :class="isMobile?['!h-[90vh]']: ['!w-[80vw]']" style="--n-body-padding:0">
-    <n-drawer-content  class="mydrawer">
+ <n-drawer v-model:show="st.showImg"   :placement="isMobile?'bottom':'right'"  :class="isMobile?['!h-[90vh]']: ['!w-[80vw]']" style="--n-body-padding:0">
+    <n-drawer-content  class="mydrawer" :closable="isMobile">
       <template #header>
         <div class="flex justify-between items-center w-full">
         <!-- <SvgIcon icon="uil:search" class="pr-2 text-[28px] cursor-pointer"></SvgIcon> GPT store -->

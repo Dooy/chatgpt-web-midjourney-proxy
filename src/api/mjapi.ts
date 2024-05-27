@@ -374,7 +374,14 @@ export const canVisionModel= (model:string)=>{
 }
 export const isCanBase64Model=(model:string)=>{
     //gpt-4o
-    return ['gemini-pro-vision','gpt-4o','gpt-4o-2024-05-13','gemini-pro-1.5','gpt-4-turbo','gpt-4-turbo-2024-04-09','gpt-4-vision-preview', defaultVisionModel() ].indexOf(model)>-1
+    //customVisionModel
+    let visionArr=['gemini-pro-vision','gpt-4o','gpt-4o-2024-05-13','gemini-pro-1.5','gpt-4-turbo','gpt-4-turbo-2024-04-09','gpt-4-vision-preview', defaultVisionModel() ]
+    if( homeStore.myData.session.customVisionModel ){ 
+        homeStore.myData.session.customVisionModel.split(/[ ,]+/ig).map( (v:string)=>{
+            visionArr.push( v.toLocaleLowerCase() )
+        });
+    }
+    return visionArr.indexOf(model)>-1
 }
 export const canBase64Model= (model:string)=>{
     if( isCanBase64Model(model)) return model; 

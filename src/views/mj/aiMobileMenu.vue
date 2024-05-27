@@ -54,9 +54,9 @@ watch(()=>homeStore.myData.act, (n:string)=>{
       </div> 
   </div>
 
-  <n-drawer v-model:show="st.show"  class="!h-[90vh] !max-h-[660px]"  placement="bottom" v-if="goHome=='draw'">
+  <n-drawer v-model:show="st.show"  class="!h-[90vh] !max-h-[660px]"     placement="bottom" v-if="goHome=='draw'">
     <n-drawer-content   style="--n-body-padding:0" class="h-full">
-      <aiDrawInput @draw-sent="drawSent" />
+      <aiDrawInput @draw-sent="drawSent" @close="st.show=false"  />
     </n-drawer-content>
   </n-drawer>
 </template>
