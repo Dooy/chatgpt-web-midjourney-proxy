@@ -26,7 +26,7 @@ spec:
             - name: OPENAI_API_KEY
               value: sk-xxx
             - name: OPENAI_API_BASE_URL
-              value: 'https://api.openai.com'
+              value: 'https://api.chatanywhere.tech'
             - name: OPENAI_API_MODEL
               value: gpt-3.5-turbo
             - name: API_REVERSE_PROXY
