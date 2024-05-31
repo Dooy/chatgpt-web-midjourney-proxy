@@ -7,6 +7,8 @@ import { SvgIcon } from '@/components/common';
 import { useRouter } from 'vue-router';
 import { t } from '@/locales'; 
 import aiGptsAdd  from "./aiGptsAdd.vue"
+import { time } from 'console';
+import { sleep } from '@/api/suno';
 
 const router = useRouter()
 const ms = useMessage();
@@ -40,6 +42,7 @@ const go= async ( item: gptsType)=>{
        if( chat.length>0){
             uuid=  Date.now()
             chatStore.addHistory({ title: 'New Chat', uuid, isEdit: false })
+            await sleep(500);
        }
     }
 
