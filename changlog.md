@@ -2,6 +2,10 @@
 
 #  计划
 
+# 2.18.1
+- 🐞 修复：GPTS页面不支持一个页面一个模型 #378
+- 😄 新增：GPTs页 可以新增gpts
+
 # 2.17.10 
 - 😄 新增：新增自定义可视化模型 #338 参数 `CUSTOM_VISION_MODELS`
 - 🐞 修复：Bug: 设置SYSTEM_MESSAGE后模型依然对KnowledgeCutOffDate有误解 #370

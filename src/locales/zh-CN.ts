@@ -184,6 +184,11 @@ export default {
     ,no1m:'图片大小不能超过{m}M'
     ,imgExt:'图片仅支持jpg,gif,png,jpeg格式'
     ,setSync:'同步Midjourney、Suno设置'
+
+    ,addGPTS:'新增GPTs'
+    ,addPlaceholder:'将GPTs的gid贴这儿 也可直接贴gpts的链接'
+    ,gidError:'未找到有效的gid，请重新填写'
+    ,success3:'新增GPTs成功！'
   },
   mj:{
     setOpen:'OpenAI 相关',

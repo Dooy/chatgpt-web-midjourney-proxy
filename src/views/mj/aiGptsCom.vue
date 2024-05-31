@@ -6,6 +6,7 @@ import { useMessage ,NButton,NImage,NTag,NPopover} from 'naive-ui';
 import { SvgIcon } from '@/components/common';
 import { useRouter } from 'vue-router';
 import { t } from '@/locales'; 
+import aiGptsAdd  from "./aiGptsAdd.vue"
 
 const router = useRouter()
 const ms = useMessage();
@@ -16,7 +17,7 @@ const pp= defineProps<{q:string}>( );
 const gptsPageList = ref<gptsType[]>([]);
 const gptsInitList = ref<gptsType[]>([]);
 const gptsSearchList = ref<gptsType[]>([]);
-const st= ref({loadPage:false,q:'',tab:'',search:false});
+const st= ref({loadPage:false,q:'',tab:'',search:false,showAdd:false});
 const tag= ref(['画图','文件','发票']);
 const load= async ()=>{
     
@@ -32,10 +33,20 @@ const load= async ()=>{
     tag.value= d.tag as string[];
 }
 const go= async ( item: gptsType)=>{
+    
+    let uuid=  chatStore.active
+    if( uuid ){
+       const chat= chatStore.getChatByUuid( uuid );
+       if( chat.length>0){
+            uuid=  Date.now()
+            chatStore.addHistory({ title: 'New Chat', uuid, isEdit: false })
+       }
+    }
+
     const saveObj= {model:  `${ item.gid }`   ,gpts:item}
     gptConfigStore.setMyData(saveObj); 
-    if(chatStore.active){ //保存到对话框
-        const  chatSet = new chatSetting( chatStore.active );
+    if( uuid ){ //保存到对话框
+        const  chatSet = new chatSetting(uuid );
         // if( chatSet.findIndex()>-1 ){
         //    mlog('含有： ', chatSet.findIndex()  );
           
@@ -48,7 +59,7 @@ const go= async ( item: gptsType)=>{
     myFetch(gptUrl,item );
     emit('close');
     mlog('go local ', homeStore.myData.local );
-    if(homeStore.myData.local!=='Chat') router.replace({name:'Chat',params:{uuid:chatStore.active}});
+    if(homeStore.myData.local!=='Chat') router.replace({name:'Chat',params:{uuid: uuid }});
 
     gptsUlistStore.setMyData( item );
 
@@ -107,7 +118,14 @@ defineExpose({ searchQ })
             <n-button strong   round size="small" type="success" v-if="v==pp.q">{{ v }}</n-button>
             <n-button strong secondary round size="small" type="success" v-else>{{ v }}</n-button>
             </div>
+            <div  class="m-1 cursor-pointer">
+                 <n-button strong secondary round size="small" type="success" @click="st.showAdd=!st.showAdd"> {{ $t('mjchat.addGPTS') }}</n-button>
+            </div>
         </div>
+        <div class="pb-4" v-if="st.showAdd">
+            <div class="w-[400px]"><aiGptsAdd/></div> 
+        </div>
+
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3"  >
             
             <div @click="go(v)" v-for="v in gptsList" class="group relative flex gap-3 rounded-2xl bg-[#e8eaf1] p-5 dark:bg-neutral-600 cursor-pointer ">
@@ -162,6 +180,9 @@ defineExpose({ searchQ })
         <div>{{ $t('mjchat.nofind') }}<b class=" text-green-400">{{st.q}}</b> {{$t('mjchat.nofind2')}}</div>
         <div class="flex items-center justify-center flex-wrap">
             <div class="m-1 cursor-pointer" v-for="v in tag" @click="goSearch(v)"><n-button strong secondary round size="small" type="success" >{{ v }}</n-button></div>
+        </div>
+        <div class="p-10" >
+            <div class="w-[400px]"><aiGptsAdd/></div> 
         </div>
     </div>
     <div class="h-full flex items-center justify-center"  v-else>
