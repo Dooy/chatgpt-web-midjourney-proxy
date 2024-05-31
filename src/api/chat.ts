@@ -28,6 +28,7 @@ export class chatSetting{
      gptConfigStore.myData.model= rz.model;
      return rz;
   }
+  //卡死 可疑点
   public getObjs():gptConfigType[]{
      mlog("toMyuid7","gogo")
      const obj = ss.get( this.localKey ) as  undefined| gptConfigType[];
