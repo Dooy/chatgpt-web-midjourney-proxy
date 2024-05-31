@@ -284,7 +284,10 @@ export default {
     "no1m": "Размер изображения не должен превышать 1 Мб",
     "imgExt": "Формат изображения должен быть jpg, gif, png, jpeg",
     "setSync": "Синхронизировать Midjourney и Suno"
-
+    ,"addGPTS": "Добавить GPTs",
+    "addPlaceholder": "Вставьте GID GPTs сюда или прямо вставьте ссылку на GPTs",
+    "gidError": "Не найден действительный GID, пожалуйста, заполните еще раз",
+    "success3": "GPTs успешно добавлены!"
   },
 	draw: {
 		qualityList: {

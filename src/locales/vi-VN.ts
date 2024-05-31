@@ -281,7 +281,11 @@ export default {
     "add2more": "Vui lòng thêm ít nhất hai hình ảnh",
     "no1m": "Kích thước hình ảnh không quá 1M",
     "imgExt": "Chỉ hỗ trợ định dạng jpg, gif, png, jpeg cho hình ảnh",
-    "setSync": "Đồng bộ hóa Midjourney và Suno"
+    "setSync": "Đồng bộ hóa Midjourney và Suno",
+    "addGPTS": "Thêm GPTs",
+    "addPlaceholder": "Dán GID của GPTs vào đây hoặc dán trực tiếp liên kết của GPTs",
+    "gidError": "Không tìm thấy GID hợp lệ, vui lòng điền lại",
+    "success3": "Thêm GPTs thành công!"
   },
 	draw: {
 		qualityList: {

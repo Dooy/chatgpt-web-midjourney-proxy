@@ -189,6 +189,7 @@ export default {
     ,addPlaceholder:'将GPTs的gid贴这儿 也可直接贴gpts的链接'
     ,gidError:'未找到有效的gid，请重新填写'
     ,success3:'新增GPTs成功！'
+    
   },
   mj:{
     setOpen:'OpenAI 相关',

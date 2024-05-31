@@ -281,6 +281,10 @@ export default {
     ,"no1m": "이미지 크기는 1M를 초과할 수 없습니다."
     ,"setSync": "Midjourney와 Suno를 동기화하십시오"
     ,"imgExt": "이미지는 jpg, gif, png, jpeg 형식만 지원됩니다."
+    ,"addGPTS": "GPTs 추가",
+    "addPlaceholder": "여기에 GPTs의 GID를 붙이거나 GPTs의 링크를 직접 붙여 넣을 수 있습니다.",
+    "gidError": "유효한 GID를 찾을 수 없습니다. 다시 작성해주세요.",
+    "success3": "GPTs 추가 성공!"
     
   },
 	draw: {

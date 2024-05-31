@@ -277,6 +277,10 @@ export default {
     "no1m": "圖片大小不能超過1M",
     "imgExt": "圖片僅支持jpg,gif,png,jpeg格式",
     "setSync": "同步Midjourney和Suno",
+    "addGPTS": "新增 GPTs",
+    "addPlaceholder": "將 GPTs 的 gid 貼這裡 也可直接貼 GPTs 的鏈接",
+    "gidError": "未找到有效的 gid，请重新填寫",
+    "success3": "新增 GPTs 成功！"
   },
 	draw: {
 		qualityList: {

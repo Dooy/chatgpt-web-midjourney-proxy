@@ -285,6 +285,11 @@ export default {
     "no1m": "Image size cannot exceed 1M",
     "imgExt": "Images support only jpg, gif, png, jpeg formats"
     ,"setSync": "Synchronize Midjourney and Suno"
+
+    ,"addGPTS": "Add GPTs",
+    "addPlaceholder": "Paste the GID of the GPTs here or directly paste the link of the GPTs",
+    "gidError": "Valid GID not found, please fill in again",
+    "success3": "GPTs added successfully!"
   },
 
 	draw: {

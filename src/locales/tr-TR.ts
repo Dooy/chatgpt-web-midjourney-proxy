@@ -281,7 +281,11 @@ export default {
         "add2more": "Lütfen iki veya daha fazla resim ekleyin",
         "no1m": "Resim boyutu 1M'yi aşamaz",
         "imgExt": "Resimler sadece jpg, gif, png, jpeg formatlarını destekler",
-        "setSync": "Midjourney ve Suno'yu senkronize et"
+        "setSync": "Midjourney ve Suno'yu senkronize et",
+        "addGPTS": "GPT'ler Ekle",
+        "addPlaceholder": "GPT'lerin GID'sini buraya yapıştırın veya GPT'lerin bağlantısını doğrudan yapıştırın",
+        "gidError": "Geçerli GID bulunamadı, lütfen tekrar doldurun",
+        "success3": "GPT'ler başarıyla eklendi!"
     },
 	draw: {
 		qualityList: {
