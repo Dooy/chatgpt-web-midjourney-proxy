@@ -56,11 +56,11 @@ const chatSet= new chatSetting( chatStore.active??1002);
 const myuid= ref<gptConfigType[]>( []) //computed( ()=>chatSet.getObjs() ) ;
 
 //找假死的原因了 修复卡死
-const toMyuid=  debounce( async ()=>{
-    mlog('toMyuid5' );
-    await sleep(500);
+const toMyuid=  debounce(  ()=>{
+    mlog('toMyuid6' );
+   // await sleep(500);
     myuid.value= chatSet.getObjs(); //用了 这个就会卡死？
-   },1600);
+   },600);
 
 toMyuid();
 const isInObjs= (uuid:number):undefined|gptConfigType =>{

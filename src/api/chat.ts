@@ -29,6 +29,7 @@ export class chatSetting{
      return rz;
   }
   public getObjs():gptConfigType[]{
+     mlog("getObjs","gogo")
      const obj = ss.get( this.localKey ) as  undefined| gptConfigType[];
      if(!obj) return [];
      return obj;
