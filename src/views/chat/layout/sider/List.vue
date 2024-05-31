@@ -7,6 +7,7 @@ import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { debounce } from '@/utils/functions/debounce'
 import { chatSetting, mlog } from '@/api'
 import AiListText from '@/views/mj/aiListText.vue'
+import { sleep } from '@/api/suno'
 
 const { isMobile } = useBasicLayout()
 
@@ -55,10 +56,11 @@ const chatSet= new chatSetting( chatStore.active??1002);
 const myuid= ref<gptConfigType[]>( []) //computed( ()=>chatSet.getObjs() ) ;
 
 //找假死的原因了 修复卡死
-const toMyuid=  debounce(()=>{
-    mlog('toMyuid4' );
-    myuid.value=[];//chatSet.getObjs(); 用了 这个就会卡死？
-   },600);
+const toMyuid=  debounce( async ()=>{
+    mlog('toMyuid5' );
+    await sleep(500);
+    myuid.value= chatSet.getObjs(); //用了 这个就会卡死？
+   },1600);
 
 toMyuid();
 const isInObjs= (uuid:number):undefined|gptConfigType =>{
