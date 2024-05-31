@@ -7,7 +7,8 @@ import { SvgIcon } from '@/components/common';
 import { useRouter } from 'vue-router';
 import { t } from '@/locales'; 
 import aiGptsAdd  from "./aiGptsAdd.vue"
-
+import { time } from 'console';
+import { sleep } from '@/api/suno';
 
 const router = useRouter()
 const ms = useMessage();
@@ -33,14 +34,15 @@ const load= async ()=>{
     gptsInitList.value = d.gpts as gptsType[];
     tag.value= d.tag as string[];
 }
-const go=  ( item: gptsType)=>{
+const go= async ( item: gptsType)=>{
     
     let uuid=  chatStore.active
     if( uuid ){
        const chat= chatStore.getChatByUuid( uuid );
        if( chat.length>0){
             uuid=  Date.now()
-            chatStore.addHistory({ title: 'New Chat', uuid, isEdit: false }) 
+            chatStore.addHistory({ title: 'New Chat', uuid, isEdit: false })
+            await sleep(500);
        }
     }
 

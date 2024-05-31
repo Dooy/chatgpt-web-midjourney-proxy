@@ -56,8 +56,8 @@ const myuid= ref<gptConfigType[]>( []) //computed( ()=>chatSet.getObjs() ) ;
 
 //找假死的原因了 修复卡死
 const toMyuid=  debounce(()=>{
-    mlog('toMyuid3' );
-    myuid.value=[];//chatSet.getObjs();
+    mlog('toMyuid4' );
+    myuid.value=[];//chatSet.getObjs(); 用了 这个就会卡死？
    },600);
 
 toMyuid();
