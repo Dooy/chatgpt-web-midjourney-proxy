@@ -11,12 +11,14 @@ export function setupPageGuard(router: Router) {
           authStore.removeToken()
         if (to.path === '/500')
           next({ name: 'Root' })
+          // next()
         else
           next()
       }
       catch (error) {
         if (to.path !== '/500')
           next({ name: '500' })
+          // next()
         else
           next()
       }

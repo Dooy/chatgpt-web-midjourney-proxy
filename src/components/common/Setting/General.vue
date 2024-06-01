@@ -145,7 +145,7 @@ function handleImportButtonClick(): void {
           {{ $t('common.save') }}
         </NButton>
       </div>
-      <div class="flex items-center space-x-4">
+      <!-- <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.description') }}</span>
         <div class="flex-1">
           <NInput v-model:value="description" placeholder="" />
@@ -153,8 +153,8 @@ function handleImportButtonClick(): void {
         <NButton size="tiny" text type="primary" @click="updateUserInfo({ description })">
           {{ $t('common.save') }}
         </NButton>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         class="flex items-center space-x-4"
         :class="isMobile && 'items-start'"
       >
@@ -188,7 +188,7 @@ function handleImportButtonClick(): void {
             {{ $t('chat.clearHistoryConfirm') }}
           </NPopconfirm>
         </div>
-      </div>
+      </div> -->
       <div class="flex items-center space-x-4">
         <span class="flex-shrink-0 w-[100px]">{{ $t('setting.theme') }}</span>
         <div class="flex flex-wrap items-center gap-4">

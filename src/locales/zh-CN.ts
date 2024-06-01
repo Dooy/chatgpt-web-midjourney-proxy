@@ -31,7 +31,7 @@ export default {
   chat: {
     newChatButton: '新建聊天',
     //placeholder: '来说点什么吧...（Shift + Enter = 换行，"/" 触发提示词）',
-    placeholder: '可输入说点什么，也可贴截图或拖拽文件（Shift + Enter = 换行，"/" 触发提示词）',
+    placeholder: '请输入要查询的内容，也可贴截图或拖拽文件（Shift + Enter = 换行，"/" 触发提示词）',
     placeholderMobile: '来说点什么...',
     copy: '复制',
     copied: '复制成功',
@@ -96,7 +96,7 @@ export default {
 
 
   mjset:{
-    server:'服务端'
+    server:'密钥'
     ,about:'关于'
     ,model:'模型'
     ,sysname:'AI绘图'

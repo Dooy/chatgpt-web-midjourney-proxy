@@ -53,7 +53,7 @@
 
 | 环境变量 | 说明 | 默认值 |docker等部署| vercel 部署|
 | --- | --- | --- | --- | --- |
-| OPENAI_API_BASE_URL | OpenAI API 接口地址 | https://api.chatanywhere.tech | ✅ |  ✅|
+| OPENAI_API_BASE_URL | OpenAI API 接口地址 | https://api.openai-hk.com | ✅ |  ✅|
 | OPENAI_API_KEY | OpenAI API 密钥 |  sk-xxxxx | ✅ |  ✅|
 | OPENAI_API_MODEL |  默认模型 | gpt-3.5-turbo  | ✅ |  ✅|
 | MJ_SERVER |  mj proxy 接口地址  |[搭建参考](https://github.com/novicezk/midjourney-proxy) | ✅ |  ✅|
@@ -92,7 +92,7 @@
 ```bash
 docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
--e OPENAI_API_BASE_URL=https://api.chatanywhere.tech  \
+-e OPENAI_API_BASE_URL=https://api.openai-hk.com  \
 -e MJ_SERVER=https://your-mj-server:6013  \
 -e MJ_API_SECRET=your-mj-api-secret  \
 -e SUNO_SERVER=https://your-suno-server:8000  \
@@ -104,7 +104,7 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 ```bash
 docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
--e OPENAI_API_BASE_URL=https://api.chatanywhere.tech  \
+-e OPENAI_API_BASE_URL=https://api.openai-hk.com  \
 -e MJ_SERVER=https://172.17.0.1:6013  \
 -e API_UPLOADER=1  -v /data/uploads:/app/uploads \
 -e MJ_API_SECRET=abc123456  ydlhero/chatgpt-web-midjourney-proxy
@@ -200,7 +200,7 @@ AUTH_SECRET_ERROR_TIME=10
 ```shell
 docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e OPENAI_API_KEY=sk-xxxxx \
--e OPENAI_API_BASE_URL=https://api.chatanywhere.tech  \
+-e OPENAI_API_BASE_URL=https://api.openai-hk.com  \
 -e MJ_SERVER=https://172.17.0.1:6013  \
 -e MJ_API_SECRET=abc123456 \
 -e API_UPLOADER=1  -v /data/uploads:/app/uploads \

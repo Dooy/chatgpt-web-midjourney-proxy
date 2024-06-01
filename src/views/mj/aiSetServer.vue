@@ -36,7 +36,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
 </script>
 <template>
 <div id="setserver"> 
-<div class="flex justify-between items-baseline ">
+<!-- <div class="flex justify-between items-baseline ">
   <div class="pb-1">
    <n-switch v-model:value="gptServerStore.myData.IS_SET_SYNC" size="small" >
       <template #checked>{{ $t('mjchat.setSync') }}</template>
@@ -44,15 +44,15 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     </n-switch>
   </div>
   <div class="text-right">{{ $t('mj.setOpen') }}</div>
-</div>
+</div> -->
 
-<section class="mb-4 flex justify-between items-center"  >
+<!-- <section class="mb-4 flex justify-between items-center"  >
     <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.OPENAI_API_BASE_URL" clearable>
       <template #prefix>
         <span class="text-[var(--n-tab-text-color-active)]">{{ $t('mj.setOpenUrl') }}:</span>
       </template>
     </n-input>
- </section>
+ </section> -->
 
 <section class="mb-4 flex justify-between items-center"  >
     <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.OPENAI_API_KEY" clearable>
@@ -63,7 +63,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
  </section>
 
 
- <div class="flex justify-between items-baseline ">
+ <!-- <div class="flex justify-between items-baseline ">
   <section class="mb-4 flex justify-start items-center">
     <n-switch v-model:value="gptServerStore.myData.GPTS_GX" >
         <template #checked>{{ $t('mj.gpt_gx') }}</template>
@@ -122,7 +122,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
         <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.setUploaderUrl')}}</span>
       </template>
     </n-input>
- </section>
+ </section> -->
 
 
 <section class=" text-right flex justify-end space-x-2"  >

@@ -169,7 +169,7 @@
 - 🐞 修复：midjourney 强制刷新不起作用
 # 2.14.3
 - 😄 新增： 角色自定到会话 #75 #40
-- 😄 新增： 支持one-api部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://api.chatanywhere.tech%22}
+- 😄 新增： 支持one-api部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://api.openai-hk.com%22}
 
 # 2.14.2
 - 🐞 修复： gpt-4-1106-preview 模型 128000 #66

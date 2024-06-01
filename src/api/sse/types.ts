@@ -7,7 +7,7 @@ export type FetchFn = typeof fetch
 export type ChatGPTAPIOptions = {
   apiKey: string
 
-  /** @defaultValue `'https://api.chatanywhere.tech'` **/
+  /** @defaultValue `'https://api.openai-hk.com'` **/
   apiBaseUrl?: string
 
   apiOrg?: string
