@@ -234,8 +234,10 @@ load();
 </script>
 <template>
 <div v-if="st.isLoadImg">
-    
-    <template   v-if="chat.opt?.progress">
+    <div v-if="chat.opt?.status=='FAILURE'"> 
+        <div>{{ $t('mjchat.failReason') }}<p>{{ chat.opt?.failReason }}</p></div>
+    </div>
+    <template  v-else-if="chat.opt?.progress">
         <div v-if="chat.opt?.action=='SHORTEN'" class="markdown-body" v-html="text" > 
              
         </div> 
@@ -274,9 +276,6 @@ load();
         <div v-else class="py-2"> {{ $t('mjchat.wait') }}</div>
         <!-- <div v-html="chat.opt?.action"></div> -->
     </template>
-    <div v-else-if="chat.opt?.status=='FAILURE'"> 
-        <div>{{ $t('mjchat.failReason') }}<p>{{ chat.opt?.failReason }}</p></div>
-    </div>
     <div v-else> 
      {{ $t('mjchat.wait2',{id:chat.mjID}) }}
         <div v-if="!chat.loading"> <NButton type="primary" @click="reload()">{{ $t('mjchat.reload') }}</NButton></div>
