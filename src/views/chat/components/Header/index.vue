@@ -5,7 +5,7 @@ import {  gptConfigStore, homeStore, useAppStore, useChatStore } from '@/store'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import {NModal} from "naive-ui"
 import aiModel from "@/views/mj/aiModel.vue"
-import { chatSetting } from '@/api'
+import { chatSetting, mlog } from '@/api'
 
 const { isMobile } = useBasicLayout()
 
@@ -47,9 +47,13 @@ function handleClear() {
 }
 const uuid = chatStore.active;
 const chatSet = new chatSetting( uuid==null?1002:uuid);
-const nGptStore = ref( chatSet.getGptConfig())  ;
+const nGptStore = ref()  ;
+nGptStore.value=  chatSet.getGptConfig() ;
 const st = ref({isShow:false});
-watch(()=>gptConfigStore.myData,()=>nGptStore.value=  chatSet.getGptConfig() , {deep:true})
+watch(()=>gptConfigStore.myData,()=>{
+  mlog("toMyuid16","watch gptConfigStore.myData "  )
+  nGptStore.value=  chatSet.getGptConfig() 
+}, {deep:true})
 watch(()=>homeStore.myData.act,(n)=> n=='saveChat' && (nGptStore.value=  chatSet.getGptConfig() ), {deep:true})
 </script>
 
