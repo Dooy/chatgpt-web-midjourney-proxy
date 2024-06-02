@@ -10,7 +10,8 @@ import { debounce } from "@/utils/functions/debounce";
 export class chatSetting{
   private uuid: number;
   private localKey='chat-setting';
-  private time_limit=0
+  private time_limit=0;
+  private mObj:gptConfigType[]=[];
   
   //private gptConfig: gptConfigType
     // 构造函数
@@ -26,10 +27,7 @@ export class chatSetting{
     return this
   }
   public getGptConfig():gptConfigType {
-     const now=  Math.floor(Date.now() / 1)
-     const dt= now- this.time_limit;
-     mlog("toMyuid12","getGptConfig", this.uuid , dt )
-     this.time_limit=now ;
+    mlog("toMyuid12","getGptConfig", this.uuid )
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
      const arr = this.getObjs();
@@ -41,10 +39,17 @@ export class chatSetting{
   public getObjsDebounce=debounce(  this.getObjs ,600);
   //卡死 可疑点
   public getObjs():gptConfigType[]{
-     mlog("toMyuid8","getObjs")
+     const now=  Math.floor(Date.now() / 1)
+     const dt= now- this.time_limit;
+     if(dt<600){
+      return this.mObj ;
+     }
+     this.time_limit=now ;
+     mlog("toMyuid12","getObjs", this.uuid , dt)
      const obj = ss.get( this.localKey ) as  undefined| gptConfigType[];
-     if(!obj) return [];
-     return obj;
+   
+    this.mObj= obj? obj:[]
+    return this.mObj;
   }
   public findIndex(){ 
     mlog("toMyuid8","findIndex")
