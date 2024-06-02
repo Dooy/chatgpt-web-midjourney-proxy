@@ -17,7 +17,6 @@ export class chatSetting{
     // 构造函数
   constructor(uuid: number) {
     this.uuid = uuid;
-    //this.time_limit=  Math.floor(Date.now() / 1)
     //this.gptConfig = gptConfigStore.myData;
     //this.init();
   }
@@ -27,7 +26,7 @@ export class chatSetting{
     return this
   }
   public getGptConfig():gptConfigType {
-    mlog("toMyuid13","getGptConfig", this.uuid )
+    mlog("toMyuid14","getGptConfig", this.uuid )
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
      const arr = this.getObjs();
@@ -41,7 +40,7 @@ export class chatSetting{
   public getObjs():gptConfigType[]{
      const now=  Math.floor(Date.now() / 1)
      const dt= now- this.time_limit;
-    mlog("toMyuid13","getObjs", this.uuid , dt)
+    mlog("toMyuid14","getObjs", this.uuid , dt)
      if(dt<600  ){
       return this.mObj ;
      }
