@@ -27,7 +27,7 @@ export class chatSetting{
     return this
   }
   public getGptConfig():gptConfigType {
-    mlog("toMyuid12","getGptConfig", this.uuid )
+    mlog("toMyuid13","getGptConfig", this.uuid )
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
      const arr = this.getObjs();
