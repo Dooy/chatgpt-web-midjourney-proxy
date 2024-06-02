@@ -127,7 +127,7 @@ export default {
     "uploadSuccess": "업로드 성공",
     "uploadFail": "업로드 실패:",
     "upPdf": "<span>이미지 또는 첨부 파일 업로드<br/>이미지, PDF, EXCEL 및 기타 문서를 업로드할 수 있습니다</span><p>드래그 앤 드롭 지원</p>",
-    "upImg": "<span><b>이미지 업로드</b><br/>자동으로 gpt-4-vision-preview 모델을 호출합니다<br>참고: 추가 이미지 비용이 발생할 수 있습니다<br/>포맷: jpeg, jpg, png, gif</span><p>드래그 앤 드롭 지원</p> <p class=\"pt-2\"><b>MP3 MP4 업로드</b> <br>자동으로 whisper-1 모델을 호출합니다<br>포맷: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
+    "upImg": "<span><b>이미지 업로드</b><br/>자동으로 gpt-4o 모델을 호출합니다<br>참고: 추가 이미지 비용이 발생할 수 있습니다<br/>포맷: jpeg, jpg, png, gif</span><p>드래그 앤 드롭 지원</p> <p class=\"pt-2\"><b>MP3 MP4 업로드</b> <br>자동으로 whisper-1 모델을 호출합니다<br>포맷: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
     "clearAll": "매개변수 지우기",
     "czoom": "사용자 정의",
     "customTitle": "사용자 정의 줌",

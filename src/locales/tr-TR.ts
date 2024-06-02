@@ -128,7 +128,7 @@ export default {
         "uploadSuccess": "Yükleme başarılı",
         "uploadFail": "Yükleme başarısız:",
         "upPdf": "<span>Resim veya ek yükleyin<br/>Resimler, PDF'ler, EXCEL ve diğer belgeleri yükleyebilirsiniz</span><p>Sürükle ve bırak desteği</p>",
-        "upImg": "<span><b>Resim yükleyin</b><br/>Otomatik olarak gpt-4-vision-preview modelini çağırır<br>Not: Ek resim ücretleri uygulanabilir<br/>Formatlar: jpeg, jpg, png, gif</span><p>Sürükle ve bırak desteği</p> <p class=\"pt-2\"><b>MP3 MP4 Yükle</b> <br>Otomatik olarak whisper-1 modelini çağırır<br>Formatlar: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
+        "upImg": "<span><b>Resim yükleyin</b><br/>Otomatik olarak gpt-4o modelini çağırır<br>Not: Ek resim ücretleri uygulanabilir<br/>Formatlar: jpeg, jpg, png, gif</span><p>Sürükle ve bırak desteği</p> <p class=\"pt-2\"><b>MP3 MP4 Yükle</b> <br>Otomatik olarak whisper-1 modelini çağırır<br>Formatlar: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
         "clearAll": "Parametreleri Temizle",
         "czoom": "Özel",
         "customTitle": "Özel zoom",

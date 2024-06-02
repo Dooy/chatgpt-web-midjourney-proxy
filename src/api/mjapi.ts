@@ -392,7 +392,7 @@ export const defaultVisionModel=()=>{
     if( homeStore.myData.session && homeStore.myData.session.visionModel ){
         return  homeStore.myData.session.visionModel
     }
-    return 'gpt-4-vision-preview'
+    return 'gpt-4o'
 }
 
 export const isTTS= ( model:string )=>{

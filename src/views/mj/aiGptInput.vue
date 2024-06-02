@@ -146,7 +146,7 @@ function handleEnter(event: KeyboardEvent) {
 
 const acceptData = computed(() => {
   if(  canVisionModel(gptConfigStore.myData.model) ) return "*/*";
-  return  "image/jpeg, image/jpg, image/png, image/gif, .mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm"
+  return  "image/jpeg, image/jpg, image/png"
 })
 
 const drop = (e: DragEvent) => {

@@ -10,15 +10,15 @@ export function setupPageGuard(router: Router) {
         if (String(data.auth) === 'false' && authStore.token)
           authStore.removeToken()
         if (to.path === '/500')
-          // next({ name: 'Root' })
-          next()
+          next({ name: 'Root' })
+          // next()
         else
           next()
       }
       catch (error) {
         if (to.path !== '/500')
-          // next({ name: '500' })
-          next()
+          next({ name: '500' })
+          // next()
         else
           next()
       }

@@ -126,7 +126,7 @@ export default {
     "uploadSuccess": "Tải lên thành công",
     "uploadFail": "Tải lên thất bại:",
     "upPdf": "<span>Tải lên hình ảnh hoặc tệp đính kèm<br/>Bạn có thể tải lên hình ảnh, PDF, EXCEL và các tài liệu khác</span><p>Hỗ trợ kéo và thả</p>",
-    "upImg": "<span><b>Tải lên hình ảnh</b><br/>Sẽ tự động gọi mô hình gpt-4-vision-preview<br>Chú ý: Có thể áp dụng phí ảnh bổ sung<br/>Định dạng: jpeg, jpg, png, gif</span><p>Hỗ trợ kéo và thả</p> <p class=\"pt-2\"><b>Tải lên MP3 MP4</b> <br>Sẽ tự động gọi mô hình whisper-1<br>Định dạng: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
+    "upImg": "<span><b>Tải lên hình ảnh</b><br/>Sẽ tự động gọi mô hình gpt-4o<br>Chú ý: Có thể áp dụng phí ảnh bổ sung<br/>Định dạng: jpeg, jpg, png, gif</span><p>Hỗ trợ kéo và thả</p> <p class=\"pt-2\"><b>Tải lên MP3 MP4</b> <br>Sẽ tự động gọi mô hình whisper-1<br>Định dạng: mp3, mp4, mpeg, mpga, m4a, wav, webm</p>",
     "clearAll": "Xóa tất cả các tham số",
     "czoom": "Tùy chỉnh",
     "customTitle": "Tùy chỉnh zoom",

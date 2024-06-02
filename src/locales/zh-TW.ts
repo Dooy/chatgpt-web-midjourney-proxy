@@ -128,7 +128,7 @@ export default {
     "uploadSuccess": "上傳成功",
     "uploadFail": "上傳失敗:",
     "upPdf": "<span>上傳圖片或附件<br/>可以上傳圖片、PDF、EXCEL等文檔</span><p>支持拖放</p>",
-    "upImg": "<span><b>上傳圖片</b><br/>將自動調用 gpt-4-vision-preview 模型<br>注意：可能會有額外的圖片費用<br/>格式：jpeg、jpg、png、gif</span><p>支持拖放</p> <p class=\"pt-2\"><b>上傳MP3 MP4</b> <br>將自動直接調用 whisper-1 模型<br>格式：mp3、mp4、mpeg、mpga、m4a、wav、webm</p>",
+    "upImg": "<span><b>上傳圖片</b><br/>將自動調用 gpt-4o 模型</p>",
     "clearAll": "清參數",
     "czoom": "自定義",
     "customTitle": "自定義變焦",
