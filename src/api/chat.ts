@@ -26,14 +26,13 @@ export class chatSetting{
   public getGptConfig():gptConfigType {
      const now=  Math.floor(Date.now() / 1)
      mlog("toMyuid9","getGptConfig", this.uuid , now)
-     
+     time_limit=now ;
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
      const arr = this.getObjs();
      const rz=  arr[index];
      //gptConfigStore.setMyData( rz );
      gptConfigStore.myData.model= rz.model;
-     time_limit=now ;
      return rz;
   }
   public getObjsDebounce=debounce(  this.getObjs ,600);
