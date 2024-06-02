@@ -53,7 +53,7 @@ nGptStore.value=  chatSet.getGptConfig() ;
 const st = ref({isShow:false});
 //导致卡死的原因 当删除时触发 切换 uuid 这个地方会删除的uuid 跟新uuid 一直却换
 watch(()=>gptConfigStore.myData,debounce( ()=>{
-  mlog("toMyuid18","watch gptConfigStore.myData ",  chatStore.active  )
+  mlog("toMyuid19","watch gptConfigStore.myData ",  chatStore.active  )
   nGptStore.value=  chatSet.getGptConfig() 
 },600 ), {deep:true})
 watch(()=>homeStore.myData.act,debounce( (n)=> n=='saveChat' && (nGptStore.value=  chatSet.getGptConfig() ),600), {deep:true})
