@@ -59,7 +59,7 @@ const myuid= ref<gptConfigType[]>( []) //computed( ()=>chatSet.getObjs() ) ;
 const toMyuid=  debounce(  ()=>{
     mlog('toMyuid7' );
    // await sleep(500);
-    myuid.value=[]// chatSet.getObjs(); //用了 这个就会卡死？
+    myuid.value= chatSet.getObjs(); //用了 这个就会卡死？
    },600);
 
 toMyuid();
