@@ -41,7 +41,7 @@ export class chatSetting{
      const now=  Math.floor(Date.now() / 1)
      const dt= now- this.time_limit;
     mlog("toMyuid14","getObjs", this.uuid , dt)
-     if(dt<600  ){
+     if(dt<500  ){
       return this.mObj ;
      }
      this.time_limit=now ;
