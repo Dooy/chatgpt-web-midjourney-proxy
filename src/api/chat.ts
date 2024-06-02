@@ -5,9 +5,12 @@ import { ss } from '@/utils/storage'
 import { mlog } from "./mjapi";
 import { debounce } from "@/utils/functions/debounce";
 
+let time_limit= 0
+
 export class chatSetting{
   private uuid: number;
   private localKey='chat-setting';
+  
   //private gptConfig: gptConfigType
     // 构造函数
   constructor(uuid: number) {
@@ -21,13 +24,16 @@ export class chatSetting{
     return this
   }
   public getGptConfig():gptConfigType {
+     const now=  Math.floor(Date.now() / 1)
+     mlog("toMyuid9","getGptConfig", this.uuid , now)
+     
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
-      mlog("toMyuid8","getGptConfig")
      const arr = this.getObjs();
      const rz=  arr[index];
      //gptConfigStore.setMyData( rz );
      gptConfigStore.myData.model= rz.model;
+     time_limit=now ;
      return rz;
   }
   public getObjsDebounce=debounce(  this.getObjs ,600);
