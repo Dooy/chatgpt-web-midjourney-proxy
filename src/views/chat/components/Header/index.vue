@@ -55,7 +55,7 @@ watch(()=>gptConfigStore.myData,debounce( ()=>{
   mlog("toMyuid18","watch gptConfigStore.myData ",  chatStore.active  )
   nGptStore.value=  chatSet.getGptConfig() 
 },600 ), {deep:true})
-watch(()=>homeStore.myData.act,(n)=> n=='saveChat' && (nGptStore.value=  chatSet.getGptConfig() ), {deep:true})
+watch(()=>homeStore.myData.act,debounce( (n)=> n=='saveChat' && (nGptStore.value=  chatSet.getGptConfig() ),600), {deep:true})
 </script>
 
 <template>
