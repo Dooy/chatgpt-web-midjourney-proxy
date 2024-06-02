@@ -3,6 +3,7 @@
 import { gptConfigStore, gptConfigType } from "@/store";
 import { ss } from '@/utils/storage'
 import { mlog } from "./mjapi";
+import { debounce } from "@/utils/functions/debounce";
 
 export class chatSetting{
   private uuid: number;
@@ -22,24 +23,27 @@ export class chatSetting{
   public getGptConfig():gptConfigType {
      const index = this.findIndex();
      if( index<=-1) return gptConfigStore.myData;
+      mlog("toMyuid8","getGptConfig")
      const arr = this.getObjs();
      const rz=  arr[index];
      //gptConfigStore.setMyData( rz );
      gptConfigStore.myData.model= rz.model;
      return rz;
   }
+  public getObjsDebounce=debounce(  this.getObjs ,600);
   //卡死 可疑点
   public getObjs():gptConfigType[]{
-     mlog("toMyuid7","gogo")
+     mlog("toMyuid8","getObjs")
      const obj = ss.get( this.localKey ) as  undefined| gptConfigType[];
      if(!obj) return [];
      return obj;
   }
   public findIndex(){ 
+    mlog("toMyuid8","findIndex")
     return  this.getObjs().findIndex(v=>v.uuid && v.uuid==this.uuid  )
   }
   public save( obj : Partial<gptConfigType>){
-    mlog("chatsave","gogo")
+    mlog("toMyuid8","save")
     let  sobj ={ ...gptConfigStore.myData , ...obj };
     sobj.uuid= this.uuid;
     const index = this.findIndex();
