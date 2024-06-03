@@ -27,6 +27,10 @@ export function useTheme() {
           primaryColorHover: '#b076ff',
           primaryColorPressed: '#b076ff'
         },
+        Slider: {
+          "fillColor": "rgba(176, 118, 255, 1)",
+          "fillColorHover": "rgba(176, 118, 255, 1)"
+        }
       }
     }
     return {
@@ -35,6 +39,10 @@ export function useTheme() {
         primaryColorHover: '#b076ff',
         primaryColorPressed: '#b076ff'
       },
+      Slider: {
+        "fillColor": "rgba(176, 118, 255, 1)",
+        "fillColorHover": "rgba(176, 118, 255, 1)"
+      }
     }
   })
 

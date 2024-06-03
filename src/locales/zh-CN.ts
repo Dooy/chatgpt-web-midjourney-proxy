@@ -99,7 +99,7 @@ export default {
     server:'密钥'
     ,about:'关于'
     ,model:'模型'
-    ,sysname:'AI绘图'
+    ,sysname:'ChatGPT'
   }
 
   ,mjtab:{

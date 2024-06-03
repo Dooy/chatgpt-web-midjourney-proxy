@@ -15,12 +15,12 @@ import aiModel from "@/views/mj/aiModel.vue"
 import AiMic from './aiMic.vue';
 import { useIconRender } from '@/hooks/useIconRender'
 import VueTurnstile from 'vue-turnstile';
-
+import {gptServerStore} from '@/store'
 const { iconRender } = useIconRender()
 //import FormData from 'form-data'
 const route = useRoute() 
 const chatStore = useChatStore()
-
+const ms= useMessage();
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
 const fsRef = ref()
@@ -41,6 +41,11 @@ const dataSources = computed(() => chatStore.getChatByUuid(+uuid))
 
 const handleSubmit = ( ) => {
     if( mvalue.value==''  ) return ;
+    // 如果模型不是gpt-3.5,且key!=hk-74kq4t10000330742260613d771f7f4b07fe072a9c8bf97d则不允许提交
+    if(gptServerStore.myData.OPENAI_API_KEY!='hk-74kq4t10000330742260613d771f7f4b07fe072a9c8bf97d' && gptConfigStore.myData.model!='gpt-3.5-turbo' ){
+        ms.error('请选择gpt-3.5-turbo模型或者设置正确的API_KEY');
+        return false;
+    }
     if(checkDisableGpt4(gptConfigStore.myData.model)){
         ms.error( t('mj.disableGpt4') );
         return false;
@@ -57,7 +62,7 @@ const handleSubmit = ( ) => {
     st.value.fileBase64=[];
     return false;
 }
-const ms= useMessage();
+
 const mvalue = computed({
   get() { return props.modelValue  },
   set(value) {  emit('update:modelValue', value) }

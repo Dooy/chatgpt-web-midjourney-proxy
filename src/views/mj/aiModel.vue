@@ -129,7 +129,7 @@ onMounted(() => {
      <div> {{ $t('mjchat.historyCnt') }}
      </div>
      <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class=" w-[200px]"><n-slider v-model:value="nGptStore.talkCount" :step="1" :max="50" /></div>
+        <div class=" w-[200px] fill-color-[#b076ff]"><n-slider class="fill-color-[#b076ff]" v-model:value="nGptStore.talkCount" :step="1" :max="50" /></div>
         <div  class="w-[40px] text-right">{{ nGptStore.talkCount }}</div>
     </div>
 </section>
