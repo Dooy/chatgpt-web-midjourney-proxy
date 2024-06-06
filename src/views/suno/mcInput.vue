@@ -11,12 +11,12 @@ const st = ref({type:'custom',isLoading:false})
 const des= ref( {
   "gpt_description_prompt": "",
   "make_instrumental": false,
-  "mv": "chirp-v3-0",
+  "mv": "chirp-v3-5",
   "prompt": ""
 });
 const cs= ref({
   "prompt": "",
-  "mv": "chirp-v3-0",
+  "mv": "chirp-v3-5",
   "title": "",
   "tags": "",
   "continue_at": 120,
