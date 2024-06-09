@@ -67,7 +67,7 @@ export const FeedTask= async (ids:string[])=>{
     mlog('FeedTask',d )
     d.forEach( (item:SunoMedia) =>{
          sunoS.save( item)
-        if(item.status== "complete"){
+        if(item.status== "complete" || item.status== "error" ){
             ids= ids.filter(v=>v!=item.id )
         }
     });

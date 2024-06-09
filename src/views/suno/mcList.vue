@@ -7,12 +7,14 @@ import {   sunoStore, SunoMedia} from '@/api/sunoStore';
 import playui from './playui.vue';
 import { homeStore } from '@/store';
 import { mlog } from '@/api';
-import {NEmpty, NImage } from "naive-ui"
+import {NEmpty, NImage ,useMessage} from "naive-ui"
 import { FeedTask } from '@/api/suno';
 
 const list= ref<SunoMedia[]>([]);
 const csuno= new sunoStore()
 const st= ref({playid:''});
+
+const ms = useMessage();
 const initLoad=()=>{
     let arr = csuno.getObjs();
     list.value= arr.reverse()
@@ -25,8 +27,13 @@ const getNowCls=(v:any)=>{
     return [];
 }
 const goPlay=(v:SunoMedia)=>{
+    if(v.status=='error'){
+        ms.info("这首歌生成失败！")
+        return ;
+    }
     st.value.playid=v.id
     homeStore.setMyData({act:'goPlay',actData:v})
+    
     if(v.status!='complete'){
         FeedTask([v.id ])
     }
@@ -95,7 +102,10 @@ initLoad();
              {{$t('suno.noly')}}
               </div>
             <div class="text-right text-[14px] flex justify-end items-center space-x-2  ">
-                <div class="text-[10px] flex items-center border-[1px] border-gray-500/30 px-0.5 list-none rounded-md" v-if="item.metadata && item.metadata.duration"> {{item.metadata.duration.toFixed(1)}}s</div>
+             
+                <div v-if="item.status=='error'" class="text-[8px] flex items-center border-[1px] border-red-500/80 px-1 list-none rounded-md ">失败</div>
+                <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.major_model_version"> {{item.major_model_version}}</div>
+                <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.metadata && item.metadata.duration"> {{item.metadata.duration.toFixed(1)}}s</div>
                 <SvgIcon icon="mdi:play-circle-outline" class="cursor-pointer"  @click="goPlay( item )" />
                 <a :href="item.audio_url" download  target="_blank"><SvgIcon icon="mdi:download" class="cursor-pointer"/></a>
             </div>
