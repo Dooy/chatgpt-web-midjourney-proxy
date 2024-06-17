@@ -189,7 +189,7 @@ export default {
     ,addPlaceholder:'将GPTs的gid贴这儿 也可直接贴gpts的链接'
     ,gidError:'未找到有效的gid，请重新填写'
     ,success3:'新增GPTs成功！'
-    
+
   },
   mj:{
     setOpen:'OpenAI 相关',
@@ -414,6 +414,13 @@ export default {
     ,server:'Suno 接口地址'
     ,serverabout:'Suno 相关'
     ,setOpenKeyPlaceholder:'Suno API 的相关KEY；可不填'
+
+    ,upMps:'上传音频'
+    ,extend:'延伸'
+    ,extendFrom:'延伸于'
+    ,extendAt:'延伸开始于'
+    ,fail:'失败'
+    ,info:'说明:<br>上传音频时长必须在6s-60s内'
   }
 
 

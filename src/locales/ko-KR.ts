@@ -400,6 +400,14 @@ export default {
     "menuinfo": "Suno 음악 생성",
     "server": "Suno API 엔드포인트",
     "serverabout": "Suno 관련",
-    "setOpenKeyPlaceholder": "Suno API에 대한 관련 키; 선택 사항"
+    "setOpenKeyPlaceholder": "Suno API에 대한 관련 키; 선택 사항",
+
+    upMps: '오디오 업로드',
+    extend: '확장',
+    extendFrom: '출처',
+    extendAt: '시작',
+    fail: '실패',
+    info: '설명:<br>오디오 업로드 시간은 6초에서 60초 사이여야 합니다'
+
    }
 }

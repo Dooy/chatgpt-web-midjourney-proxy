@@ -399,7 +399,14 @@ export default {
     "menuinfo": "Suno Müzik Oluşturma",
     "server": "Suno API Uç Noktası",
     "serverabout": "Suno İlgili",
-    "setOpenKeyPlaceholder": "Suno API için İlgili Anahtar; isteğe bağlı"
+    "setOpenKeyPlaceholder": "Suno API için İlgili Anahtar; isteğe bağlı",
+
+    upMps: 'Ses yükle',
+    extend: 'Genişlet',
+    extendFrom: 'Şundan genişlet',
+    extendAt: 'Genişletmeyi başlat',
+    fail: 'Başarısız',
+    info: 'Açıklamalar:<br>Yüklenen sesin süresi 6 saniye ile 60 saniye arasında olmalıdır'
    }
 
   }

@@ -401,7 +401,14 @@ export default {
     "menuinfo": "Création musicale Suno",
     "server": "Point de terminaison de l'API Suno",
     "serverabout": "Lié à Suno",
-    "setOpenKeyPlaceholder": "Clé associée pour l'API Suno ; facultatif"
+    "setOpenKeyPlaceholder": "Clé associée pour l'API Suno ; facultatif",
+
+    upMps: 'Télécharger l\'audio',
+    extend: 'Étendre',
+    extendFrom: 'Étendre depuis',
+    extendAt: 'Commencer l\'extension à',
+    fail: 'Échec',
+    info: 'Instructions :<br>La durée de l\'audio téléchargé doit être comprise entre 6s et 60s'
 
    }
   }

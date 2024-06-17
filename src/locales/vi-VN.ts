@@ -400,6 +400,14 @@ export default {
     "menuinfo": "Sáng tạo âm nhạc Suno",
     "server": "Điểm cuối API Suno",
     "serverabout": "Liên quan đến Suno",
-    "setOpenKeyPlaceholder": "Khóa liên quan cho API Suno; tùy chọn"
+    "setOpenKeyPlaceholder": "Khóa liên quan cho API Suno; tùy chọn",
+
+    upMps: 'Tải lên âm thanh',
+    extend: 'Mở rộng',
+    extendFrom: 'Mở rộng từ',
+    extendAt: 'Bắt đầu mở rộng từ',
+    fail: 'Thất bại',
+    info: 'Hướng dẫn:<br>Thời lượng tải lên âm thanh phải từ 6 giây đến 60 giây'
+
    }
 }

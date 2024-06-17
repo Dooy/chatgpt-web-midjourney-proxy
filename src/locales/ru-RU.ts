@@ -402,7 +402,15 @@ export default {
     "menuinfo": "Создание музыки Suno",
     "server": "Конечная точка API Suno",
     "serverabout": "Связанные с Suno",
-    "setOpenKeyPlaceholder": "Связанный ключ для API Suno; необязательно"
+    "setOpenKeyPlaceholder": "Связанный ключ для API Suno; необязательно",
+
+    upMps: 'Загрузить аудио',
+    extend: 'Расширить',
+    extendFrom: 'Расширить от',
+    extendAt: 'Расширение начинается с',
+    fail: 'Неудача',
+    info: 'Инструкции:<br>Длительность загружаемого аудио должна быть от 6 до 60 секунд'
+
     
    }
 }

@@ -407,6 +407,13 @@ export default {
     "server": "Suno API Endpoint",
     "serverabout": "Suno Related",
     "setOpenKeyPlaceholder": "Related KEY for Suno API; optional"
+
+    ,upMps:'Upload'
+    ,extend:'Extend'
+    ,extendFrom:'Extend From'
+    ,extendAt:'Extend at'
+    ,fail:'Fail'
+    ,info:'Note: <br> Uploaded audio must be between 6 seconds and 60 seconds in duration.'
   }
 
 

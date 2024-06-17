@@ -395,7 +395,14 @@ export default {
     "menuinfo": "Suno 音樂創作",
     "server": "Suno API 端點",
     "serverabout": "Suno 相關",
-    "setOpenKeyPlaceholder": "Suno API 的相關KEY；可不填"
+    "setOpenKeyPlaceholder": "Suno API 的相關KEY；可不填",
+
+    upMps: '上載音頻',
+    extend: '擴展',
+    extendFrom: '擴展自',
+    extendAt: '擴展始於',
+    fail: '失敗',
+    info: '說明：<br>上載音頻的持續時間必須在6秒到60秒之間'
 
    }
 }

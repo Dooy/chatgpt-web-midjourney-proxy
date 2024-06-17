@@ -39,6 +39,12 @@ const goPlay=(v:SunoMedia)=>{
     }
 }
 
+const extend=(v:SunoMedia)=>{
+    mlog("extend", extend )
+    //homeStore.myData.actData
+    homeStore.setMyData({act:"suno.extend", actData: v  })
+}
+
 const sp= ref({v:10, max:0 ,status:'',idDrop:false });
  
 watch(()=>homeStore.myData.act, (n)=>{
@@ -54,6 +60,15 @@ watch(()=>homeStore.myData.act, (n)=>{
      }
 });
 
+const getExSuno=(id:string)=>{
+    id= id.replace("m_",'');
+    let index= list.value.findIndex(v=>v.id==id);
+     
+    if (index<0){
+      return null ;
+    }
+    return list.value[index];
+}
 const update = (v:any )=>{
      sp.value=v
       
@@ -92,7 +107,10 @@ initLoad();
         </div> 
         <div class="flex-1  pl-2"> 
             <div class="flex justify-between line-clamp-1 w-full cursor-pointer"  @click="goPlay( item )">
-                <h3>{{item.title}}</h3>
+                <div class="flex justify-start items-center"> 
+                    <h3 >{{item.title}}</h3>
+                    <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 ml-1 list-none rounded-md" v-if="item.metadata?.type=='upload'" >Uploaded</div>
+                </div>
                 <div class="opacity-80"  >{{item.metadata.tags}}</div>
             </div>
             <div class="opacity-60 line-clamp-1 w-full text-[12px] cursor-pointer"  @click="goPlay( item )" v-if="item.metadata && item.metadata.prompt">
@@ -102,10 +120,15 @@ initLoad();
              {{$t('suno.noly')}}
               </div>
             <div class="text-right text-[14px] flex justify-end items-center space-x-2  ">
-             
-                <div v-if="item.status=='error'" class="text-[8px] flex items-center border-[1px] border-red-500/80 px-1 list-none rounded-md ">失败</div>
+                <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.metadata?.audio_prompt_id">
+                    {{ $t('suno.extendFrom') }}:{{ getExSuno(item.metadata?.audio_prompt_id)?.title }}
+                </div>
+                <div v-if="item.status=='error'" class="text-[8px] flex items-center border-[1px] border-red-500/80 px-1 list-none rounded-md ">{{ $t('suno.fail') }}</div>
+                <template v-if="item.metadata && item.metadata.duration">
+                    <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" > {{item.metadata.duration.toFixed(1)}}s</div>
+                    <div @click="extend(item)" class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md cursor-pointer">{{ $t('suno.extend') }}</div>
+                </template>
                 <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.major_model_version"> {{item.major_model_version}}</div>
-                <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.metadata && item.metadata.duration"> {{item.metadata.duration.toFixed(1)}}s</div>
                 <SvgIcon icon="mdi:play-circle-outline" class="cursor-pointer"  @click="goPlay( item )" />
                 <a :href="item.audio_url" download  target="_blank"><SvgIcon icon="mdi:download" class="cursor-pointer"/></a>
             </div>
