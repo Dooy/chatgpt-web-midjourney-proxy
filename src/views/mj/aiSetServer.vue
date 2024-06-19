@@ -27,11 +27,13 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
    if(!gptServerStore.myData.IS_SET_SYNC) return  ;
     gptServerStore.myData.MJ_SERVER= n
     gptServerStore.myData.SUNO_SERVER=n;
+    gptServerStore.myData.LUMA_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
     gptServerStore.myData.MJ_API_SECRET= n
     gptServerStore.myData.SUNO_KEY=n;
+    gptServerStore.myData.LUMA_KEY=n;
 });
 </script>
 <template>
@@ -98,14 +100,14 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
 
 
 
- <div class="text-right">{{$t('suno.serverabout')}}</div>
+<div class="text-right">{{$t('suno.serverabout')}}</div>
 <section class="mb-4 flex justify-between items-center"  >
     <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.SUNO_SERVER" clearable>
       <template #prefix>
         <span class="text-[var(--n-tab-text-color-active)]">{{$t('suno.server')}}:</span>
       </template>
     </n-input>
- </section>
+</section>
 
 <section class="mb-4 flex justify-between items-center"  >
     <n-input  @blur="blurClean" type="password"  :placeholder="$t('suno.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.SUNO_KEY" clearable>
@@ -113,7 +115,27 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
         <span class="text-[var(--n-tab-text-color-active)]">Suno Key:</span>
       </template>
     </n-input>
- </section>
+</section>
+
+
+<div class="text-right">{{$t('video.lumaabout')}}</div>
+<section class="mb-4 flex justify-between items-center"  >
+    <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.LUMA_SERVER" clearable>
+      <template #prefix>
+        <span class="text-[var(--n-tab-text-color-active)]">{{$t('video.lumaserver')}}:</span>
+      </template>
+    </n-input>
+</section>
+
+<section class="mb-4 flex justify-between items-center"  >
+    <n-input  @blur="blurClean" type="password"  :placeholder="$t('video.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.LUMA_KEY" clearable>
+      <template #prefix>
+        <span class="text-[var(--n-tab-text-color-active)]">Luma Key:</span>
+      </template>
+    </n-input>
+</section>
+
+
 
   <div  class="text-right" > {{$t('mj.setUploader')}}</div>
 <section class="mb-4 flex justify-between items-center"  >
