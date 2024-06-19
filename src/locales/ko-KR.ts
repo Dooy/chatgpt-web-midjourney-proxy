@@ -410,4 +410,21 @@ export default {
     info: '설명:<br>오디오 업로드 시간은 6초에서 60초 사이여야 합니다'
 
    }
+   ,video:{
+    "menu": "비디오",
+    "menuinfo": "Luam 및 다른 비디오 제작",
+    "descpls": "비디오 제작 설명",
+    "lumaabout": "Luma에 대해",
+    "lumaserver": "Luma API 엔드포인트",
+    "setOpenKeyPlaceholder": "Luma API 키, 선택 사항",
+    "generate": "비디오 생성",
+    "nodata": "사용할 수 있는 비디오가 없습니다. 먼저 생성하세요!",
+    "selectimg": "이미지 선택",
+    "clear": "지우기",
+    "plsInput": "내용을 입력하세요!",
+    "submitSuccess": "성공적으로 제출되었습니다!",
+    "process": "비디오 생성 중...",
+    "repeat": "재시도"
+  }
+
 }

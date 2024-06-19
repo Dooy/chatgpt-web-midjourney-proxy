@@ -411,4 +411,21 @@ export default {
     info: 'Instructions :<br>La durée de l\'audio téléchargé doit être comprise entre 6s et 60s'
 
    }
+   ,video:{
+    "menu": "Vidéos",
+    "menuinfo": "Création de vidéos Luam et autres",
+    "descpls": "Description de création de vidéos",
+    "lumaabout": "À propos de Luma",
+    "lumaserver": "Adresse de l'API Luma",
+    "setOpenKeyPlaceholder": "Clé API Luma, facultatif",
+    "generate": "Générer la vidéo",
+    "nodata": "Aucune vidéo disponible, veuillez d'abord générer !",
+    "selectimg": "Sélectionner une image",
+    "clear": "Effacer",
+    "plsInput": "Veuillez saisir du contenu !",
+    "submitSuccess": "Soumis avec succès !",
+    "process": "Génération de la vidéo...",
+    "repeat": "Réessayer"
+    }
+
   }

@@ -405,4 +405,21 @@ export default {
     info: '說明：<br>上載音頻的持續時間必須在6秒到60秒之間'
 
    }
+   ,video:{
+    "menu": "視頻",
+    "menuinfo": "Luam及其他視頻創作",
+    "descpls": "視頻創作描述",
+    "lumaabout": "關於Luma",
+    "lumaserver": "Luma API端點",
+    "setOpenKeyPlaceholder": "Luma API金鑰，選填",
+    "generate": "生成視頻",
+    "nodata": "暫無可用視頻，請先生成！",
+    "selectimg": "選擇圖片",
+    "clear": "清除",
+    "plsInput": "請輸入內容！",
+    "submitSuccess": "提交成功！",
+    "process": "視頻生成中...",
+    "repeat": "重新獲取"
+  }
+
 }

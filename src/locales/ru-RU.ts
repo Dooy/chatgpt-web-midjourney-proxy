@@ -413,4 +413,21 @@ export default {
 
     
    }
+   ,video:{
+    "menu": "Видео",
+    "menuinfo": "Создание видео Luam и других",
+    "descpls": "Описание создания видео",
+    "lumaabout": "О Luma",
+    "lumaserver": "Адрес API Luma",
+    "setOpenKeyPlaceholder": "Ключ API Luma, необязательно",
+    "generate": "Создать видео",
+    "nodata": "Нет доступных видео, сначала сгенерируйте!",
+    "selectimg": "Выберите изображение",
+    "clear": "Очистить",
+    "plsInput": "Введите содержимое!",
+    "submitSuccess": "Успешно отправлено!",
+    "process": "Создание видео...",
+    "repeat": "Повторить"
+  }
+
 }

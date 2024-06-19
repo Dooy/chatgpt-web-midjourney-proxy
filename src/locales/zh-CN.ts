@@ -431,6 +431,12 @@ export default {
     setOpenKeyPlaceholder:'Luma API 的key, 可不填',
     generate:'生成视频',
     nodata:'暂无可用视频，请先生成！',
+    selectimg:'参考图片',
+    clear:'清除',
+    plsInput:'请输入内容！',
+    submitSuccess:'已提交成功！',
+    process:'视频生成中...',
+    repeat:'重新获取',
   }
 
 

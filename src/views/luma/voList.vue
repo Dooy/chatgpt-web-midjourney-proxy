@@ -30,8 +30,8 @@ initLoad();
                 <video v-if="item.video" :src="item.video?.url" loop  playsinline  :controls="st.pIndex==index" class="w-full h-full object-cover"></video>
                 <div class=" text-center" v-else>
                     
-                    <NButton  size="small" type="primary" @click="FeedLumaTask( item.id )"   v-if="!item.last_feed|| ((new Date().getTime())-item.last_feed)>20*1000" >重新获取</NButton>
-                    <div class="pt-2" v-else>视频生成中...{{ new Date(item.last_feed).toLocaleString() }}</div>
+                    <NButton  size="small" type="primary" @click="FeedLumaTask( item.id )"   v-if="!item.last_feed|| ((new Date().getTime())-item.last_feed)>20*1000" >{{$t('video.repeat')}}</NButton>
+                    <div class="pt-2" v-else>{{$t('video.process')}}{{ new Date(item.last_feed).toLocaleString() }}</div>
                    
                 </div>
             </div>

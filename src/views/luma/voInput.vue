@@ -4,6 +4,7 @@ import { NInput,NButton, useMessage,NTag } from 'naive-ui';
 import {SvgIcon} from '@/components/common'
 import { FeedLumaTask, lumaFetch, mlog, upImg } from '@/api';
 import { homeStore } from '@/store';
+import { t } from '@/locales';
 
 const luma= ref({ "aspect_ratio": "16:9", "expand_prompt": true,  "image_url": "",  "user_prompt": "" });
 const st= ref({isDo:false})
@@ -20,14 +21,14 @@ const generate= async ()=>{
     mlog("generate", luma.value )
     st.value.isDo= true
     if(!canPost){
-        ms.error("请输入内容！")
+        ms.error( t('video.plsInput') )
         return ;
     }
     try{
         const d:any=  await lumaFetch('/generations/', luma.value);
         mlog("d", d )
         FeedLumaTask(d.id )
-        ms.success("已提交成功！")
+        ms.success( t('video.submitSuccess'))
     }catch(e){
         
     }
@@ -38,8 +39,8 @@ const generate= async ()=>{
 function selectFile(input:any){
      
     upImg(input.target.files[0]).then(d=>{
-        fsRef.value=''
         luma.value.image_url= d;
+        fsRef.value=''
     }).catch(e=>ms.error(e));
     
 }
@@ -58,28 +59,19 @@ const clearInput = ()=>{
                 :placeholder="$t('video.descpls')"  type="textarea"  size="small"   
                 :autosize="{ minRows: 3, maxRows: 12  }"  />
     </div>
-    <!-- <div class="pt-1">
-        <NInput  v-model:value="luma.image_url" size="small" placeholder="参考图片" clearable>
-                <template #suffix>
-                    <SvgIcon icon="ri:upload-line" class="cursor-pointer"  @click="uploader('cref')"></SvgIcon>
-                </template>
-                <template #prefix>
-                    <div>图</div>
-                </template>
-            </NInput>
-    </div> -->
+    
     <div class="pt-1">
         <div class="flex justify-between  items-end">
             <div> 
                 <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
                 <div class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click=" fsRef.click()">
                     <img :src="luma.image_url" v-if="luma.image_url" />
-                    <div class="text-center" v-else>参考图片</div> 
+                    <div class="text-center" v-else>{{ $t('video.selectimg') }}</div> 
                 </div>
             </div>
             <div>
                 <div class="pb-1 text-right">
-                  <NTag v-if="luma.user_prompt!=''||luma.image_url!=''" type="success" size="small" round  ><span class="cursor-pointer" @click="clearInput()" >清除</span></NTag>
+                  <NTag v-if="luma.user_prompt!=''||luma.image_url!=''" type="success" size="small" round  ><span class="cursor-pointer" @click="clearInput()" >{{$t('video.clear')}}</span></NTag>
                 </div>
                 <div>
                     <NButton :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 

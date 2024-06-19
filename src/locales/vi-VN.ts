@@ -410,4 +410,21 @@ export default {
     info: 'Hướng dẫn:<br>Thời lượng tải lên âm thanh phải từ 6 giây đến 60 giây'
 
    }
+   ,video:{
+    "menu": "Video",
+    "menuinfo": "Tạo video Luam và các video khác",
+    "descpls": "Mô tả tạo video",
+    "lumaabout": "Về Luma",
+    "lumaserver": "Địa chỉ API Luma",
+    "setOpenKeyPlaceholder": "Khóa API Luma, không bắt buộc",
+    "generate": "Tạo video",
+    "nodata": "Không có video có sẵn, vui lòng tạo trước!",
+    "selectimg": "Chọn ảnh",
+    "clear": "Xóa",
+    "plsInput": "Vui lòng nhập nội dung!",
+    "submitSuccess": "Đã gửi thành công!",
+    "process": "Đang tạo video...",
+    "repeat": "Thử lại"
+  }
+
 }
