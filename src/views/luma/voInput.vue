@@ -27,7 +27,8 @@ const generate= async ()=>{
     try{
         const d:any=  await lumaFetch('/generations/', luma.value);
         mlog("d", d )
-        FeedLumaTask(d.id )
+        if(d.id ) FeedLumaTask(d.id )
+        else FeedLumaTask(d[0].id )
         ms.success( t('video.submitSuccess'))
     }catch(e){
         
