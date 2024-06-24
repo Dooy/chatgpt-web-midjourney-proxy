@@ -19,13 +19,13 @@ const authStore = useAuthStore()
 
 const rt = useRoute();
 const ms = useMessage();
-openaiSetting( rt.query)
+openaiSetting( rt.query, ms )
 if(rt.name =='GPTs'){ 
   let model= `gpt-4-gizmo-${rt.params.gid.toString()}`  ;
   gptConfigStore.setMyData({model:model});
   ms.success(`GPTs ${t('mj.modleSuccess')}`);
 }else if(rt.name=='Setting'){ 
-  openaiSetting( rt.query);
+  openaiSetting( rt.query,ms );
   if(isObject( rt.query ))  ms.success( t('mj.setingSuccess') ); 
 }else if(rt.name=='Model'){ 
   let model= `${rt.params.gid.toString()}`  ;

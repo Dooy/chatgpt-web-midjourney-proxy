@@ -5,7 +5,9 @@ import { sunoStore,SunoMedia } from "./sunoStore";
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
     if(gptServerStore.myData.SUNO_SERVER){
-        return `${ gptServerStore.myData.SUNO_SERVER}${url}`;
+        if( gptServerStore.myData.SUNO_SERVER.indexOf('suno')>0 ) return `${ gptServerStore.myData.SUNO_SERVER}${url}`;
+
+        return `${ gptServerStore.myData.SUNO_SERVER}/suno${url}`;
     }
     return `/sunoapi${url}`;
 }

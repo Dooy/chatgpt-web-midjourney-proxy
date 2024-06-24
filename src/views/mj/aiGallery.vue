@@ -51,7 +51,7 @@ initLoad();
 </script>
 
 <template>
-<n-drawer v-model:show="st.showImg" :placement="isMobile?'bottom':'right'"  :class="isMobile?['!h-[90vh]']: ['!w-[80vw]']" style="--n-body-padding:0">
+<n-drawer v-model:show="st.showImg" :placement="isMobile?'bottom':'right'"  :class="isMobile?['!h-[80vh]']: ['!w-[80vw]']" style="--n-body-padding:0">
     <n-drawer-content :title="$t('mjchat.myGallery')" closable>
       <gallery @close="st.showImg=false" v-if="st.showImg"/>
     </n-drawer-content>

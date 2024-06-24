@@ -8,6 +8,7 @@ import { isNumber, isObject } from "@/utils/is";
 import { t } from "@/locales";
 import { ChatMessage } from "gpt-tokenizer/esm/GptEncoding";
 import { chatSetting } from "./chat";
+import { MessageApiInjection } from "naive-ui/es/message/src/MessageProvider";
 //import {encode,  encodeChat}  from "gpt-tokenizer"
 //import {encode,  encodeChat} from "gpt-tokenizer/cjs/encoding/cl100k_base.js";
 //import { get_encoding } from '@dqbd/tiktoken'
@@ -27,6 +28,7 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "claude-3-opus-20240229": "2023-08",
   "claude-3-sonnet-20240229": "2023-08",
   "claude-3-haiku-20240307": "2023-08",
+  "claude-3-5-sonnet-20240620": "2024-04",
   "gemini-pro": "2023-12",
   "gemini-pro-vision": "2023-12",
   "gemini-pro-1.5": "2024-04"
@@ -443,7 +445,7 @@ export const  gptUsage=async ()=>{
 
 }
 
-export const openaiSetting= ( q:any )=>{
+export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
     //mlog()
     mlog('setting', q )
     if(q.settings){
@@ -453,9 +455,19 @@ export const openaiSetting= ( q:any )=>{
             const url = obj.url ?? undefined;
             const key = obj.key ?? undefined;
             //let setQ= { }
-            gptServerStore.setMyData(  {OPENAI_API_BASE_URL:url, MJ_SERVER:url, OPENAI_API_KEY:key,MJ_API_SECRET:key } )
+            gptServerStore.setMyData(  {
+                OPENAI_API_BASE_URL:url, 
+                MJ_SERVER:url, 
+                SUNO_SERVER:url,
+                LUMA_SERVER:url,
+                OPENAI_API_KEY:key,
+                MJ_API_SECRET:key, 
+                SUNO_KEY:key,
+                LUMA_KEY:key
+             } )
             blurClean();
             gptServerStore.setMyData( gptServerStore.myData );
+            ms.success("设置服务端成功！")
             
         } catch (error) {
             
