@@ -95,7 +95,7 @@ export const FeedLumaTask= async(id:string)=>{
             d.last_feed = new Date().getTime()
             lumaS.save(d);
             homeStore.setMyData({act:'FeedLumaTask'});
-            if( d.state=='completed'){
+            if( d.state=='completed' && d.video && d.video?.download_url  ){ //有的时候  completed 但是 没链接
                 break;
             }
         }

@@ -44,8 +44,8 @@
 
 ## 无服务器-个人桌面安装
 > - [x] 请到 https://github.com/Dooy/chatgpt-web-midjourney-proxy/releases 下载最新版本安装(选择合适你操作系统的版本)
-> - [x] 选择一个合适的中转服务商( 最好都支持 `gpt`, `gpts`, `midjourney`, `claude`, `suno` )
-> - [x] 中转服务商推荐 https://www.openai-hk.com 一个`key`和`api接口地址` 同时支持 `gpt` `midjourney` `claude` `suno`，mj-fast最低能到0.12rmb/张
+> - [x] 选择一个合适的中转服务商( 最好都支持 `gpt`  `gpts` `midjourney` `claude`  `suno` `luma` )
+> - [x] 中转服务商推荐 https://www.openai-hk.com 一个`key`和`api接口地址` 同时支持 `gpt` `midjourney` `claude` `suno` `luma`，mj-fast最低能到0.12rmb/张,`suno` 最低能到0.08rmb/首歌曲, `luma`最低能到0.16rmb/次
 ![多模态](./docs/suno-ds.jpg)
 
 ## Vercel 一键部署
