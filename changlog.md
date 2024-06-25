@@ -3,6 +3,7 @@
 #  计划
 # 2.18.9
 - 🐞 修复：luma download_url bug
+- 🐞 修复：claude-3-5-sonnet-20240620传图片直接给我调用gpt-4-vision-preview #423
 
 # 2.18.8
 - 🐞 修复：无法通过?settings={"key":"{key}","url":"{server}"}设置Suno和Luma #412
