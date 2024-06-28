@@ -424,7 +424,7 @@ export default {
   }
   ,video:{
     menu:"视频",
-    menuinfo:'Luam等 视频创作',
+    menuinfo:'Luma等 视频创作',
     descpls:'视频创作描述',
     lumaabout:"Luma 相关",
     lumaserver:"Luma 接口地址",

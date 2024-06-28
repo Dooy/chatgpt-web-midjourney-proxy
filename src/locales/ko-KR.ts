@@ -412,7 +412,7 @@ export default {
    }
    ,video:{
     "menu": "비디오",
-    "menuinfo": "Luam 및 다른 비디오 제작",
+    "menuinfo": "Luma 및 다른 비디오 제작",
     "descpls": "비디오 제작 설명",
     "lumaabout": "Luma에 대해",
     "lumaserver": "Luma API 엔드포인트",

@@ -407,7 +407,7 @@ export default {
    }
    ,video:{
     "menu": "視頻",
-    "menuinfo": "Luam及其他視頻創作",
+    "menuinfo": "Luma及其他視頻創作",
     "descpls": "視頻創作描述",
     "lumaabout": "關於Luma",
     "lumaserver": "Luma API端點",

@@ -412,7 +412,7 @@ export default {
    }
    ,video:{
     "menu": "Video",
-    "menuinfo": "Tạo video Luam và các video khác",
+    "menuinfo": "Tạo video Luma và các video khác",
     "descpls": "Mô tả tạo video",
     "lumaabout": "Về Luma",
     "lumaserver": "Địa chỉ API Luma",

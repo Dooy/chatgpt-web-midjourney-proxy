@@ -1,6 +1,9 @@
 # 功能升级日志
 
 #  计划
+# 2.18.10
+- 🐞 修复：视频按钮提示词，有个小错别字。 #424
+
 # 2.18.9
 - 🐞 修复：luma download_url bug
 - 🐞 修复：claude-3-5-sonnet-20240620传图片直接给我调用gpt-4-vision-preview #423

@@ -410,7 +410,7 @@ export default {
    }
    ,video:{
     "menu": "Videolar",
-    "menuinfo": "Luam ve diğer video oluşturma",
+    "menuinfo": "Luma ve diğer video oluşturma",
     "descpls": "Video oluşturma açıklaması",
     "lumaabout": "Luma Hakkında",
     "lumaserver": "Luma API adresi",

@@ -415,7 +415,7 @@ export default {
    }
    ,video:{
     "menu": "Видео",
-    "menuinfo": "Создание видео Luam и других",
+    "menuinfo": "Создание видео Luma и других",
     "descpls": "Описание создания видео",
     "lumaabout": "О Luma",
     "lumaserver": "Адрес API Luma",
