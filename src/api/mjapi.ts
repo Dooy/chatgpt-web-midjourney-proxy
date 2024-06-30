@@ -368,14 +368,14 @@ export const canVisionModel= (model:string)=>{
     mlog('canVisionModel ',model );
     //['gpt-4-all','gpt-4-v'].indexOf(model)==-1 && model.indexOf('gpt-4-gizmo')==-1
     if( ['gpt-4-all','gpt-4-v','gpt-4v','gpt-3.5-net','gpt-4o-all'].indexOf(model)>-1 ) return true;
-    if(model.indexOf('gpt-4-gizmo')>-1 || model.indexOf('claude-3-opus')>-1 )return true; 
+    if(model.indexOf('gpt-4-gizmo')>-1 )return true;  // || model.indexOf('claude-3-opus')>-1cha
      
     return false;
 }
 export const isCanBase64Model=(model:string)=>{
     //gpt-4o
     //customVisionModel
-    let visionArr=['gemini-pro-vision','gpt-4o','gpt-4o-2024-05-13','gemini-pro-1.5','gpt-4-turbo','gpt-4-turbo-2024-04-09','gpt-4-vision-preview','luma-video','claude-3-5-sonnet-20240620', defaultVisionModel() ]
+    let visionArr=['gemini-pro-vision','gpt-4o','gpt-4o-2024-05-13','gemini-pro-1.5','gpt-4-turbo','gpt-4-turbo-2024-04-09','gpt-4-vision-preview','luma-video','claude-3-5-sonnet-20240620' ,'claude-3-sonnet-20240229','claude-3-opus-20240229', defaultVisionModel() ]
     if( homeStore.myData.session.customVisionModel ){ 
         homeStore.myData.session.customVisionModel.split(/[ ,]+/ig).map( (v:string)=>{
             visionArr.push( v.toLocaleLowerCase() )

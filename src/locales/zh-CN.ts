@@ -437,6 +437,12 @@ export default {
     submitSuccess:'已提交成功！',
     process:'视频生成中...',
     repeat:'重新获取',
+
+    pending:'状态:队列中',
+    processing:'状态:队列中',
+    download:'下载',
+    extend:'延展',
+
   }
 
 
