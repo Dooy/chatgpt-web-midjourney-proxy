@@ -66,7 +66,7 @@
 | AUTH_SECRET_KEY |  访问授权密码 | 无  | ✅ |   x|
 | API_UPLOADER |  支持上传 | 关闭  | ✅ |  x|
 | HIDE_SERVER |  前端ui隐藏服务端|    | ✅ |  x|
-| CUSTOM_MODELS |  自定义可选模型 | 无  | ✅ |  ✅|
+| CUSTOM_MODELS |  自定义可选模型 `CUSTOM_MODELS=-all,gpt-3.5` | 无  | ✅ |  ✅|
 | TJ_BAIDU_ID |  百度统计ID | 无  | ✅ |  ✅|
 | TJ_GOOGLE_ID |  谷歌统计ID | 无  | ✅ |  ✅|
 | SYS_NOTIFY |  系统通知，支持HTML | 无  | ✅ |  ✅|
