@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
-import { NInput,NButton, useMessage,NTag ,NPopover} from 'naive-ui';
+import { NInput,NButton, useMessage,NTag ,NPopover,NSelect} from 'naive-ui';
 import {SvgIcon} from '@/components/common'
 import { FeedLumaTask, lumaFetch, mlog, upImg } from '@/api';
-import { homeStore } from '@/store';
+import { gptServerStore, homeStore } from '@/store';
 import { t } from '@/locales';
 import { LumaMedia } from '@/api/lumaStore';
 
 const luma= ref({ "aspect_ratio": "16:9", "expand_prompt": true,  "image_url": "",  "user_prompt": "" });
-const st= ref({isDo:false})
+const st= ref({isDo:false,version:'relax'})
 const ms = useMessage();
 const fsRef= ref() ;
 const exLuma= ref<LumaMedia>()
@@ -76,6 +76,28 @@ watch(()=>homeStore.myData.act, (n)=>{
         // cs.value.continue_at= Math.ceil(s.metadata.duration/2) 
     }
 });
+
+const isHK= computed(()=> {
+    const url= gptServerStore.myData.LUMA_SERVER.toLocaleLowerCase();
+    if(url!=''){
+     return (url.indexOf('hk')>-1 &&  url.indexOf('pro')==-1 ) ;
+    }
+   
+    return (homeStore.myData.session && homeStore.myData.session.isHk) ;
+    
+} );
+
+watch(()=>isHK.value , (n)=>{
+    //gptServerStore.setMyData({IS_LUMA_PRO:n && st.value.version=='pro'})
+    homeStore.setMyData({is_luma_pro:  n && st.value.version=='pro'  })
+});
+watch(()=>st.value.version , ()=>  homeStore.setMyData({is_luma_pro: isHK.value && st.value.version=='pro'  }) );
+
+const mvOption= [
+{label: '版本: relax, 价格实惠',value: 'relax'}
+,{label:'版本: pro, 快且无水印',value: 'pro'}
+ ]
+
 </script>
 
 <template>
@@ -111,6 +133,10 @@ watch(()=>homeStore.myData.act, (n)=>{
                 <video v-if="exLuma.video?.url|| exLuma.video?.download_url" :src="exLuma.video?.download_url? exLuma.video?.download_url:exLuma.video?.url" @error="$event.target.src=exLuma.video?.url" loop  playsinline  controls class="w-full h-full object-cover"></video>    
         </div>
             
+    </div>
+
+     <div  class="pt-1" v-if="isHK">
+        <n-select v-model:value="st.version" :options="mvOption" size="small" />
     </div>
     
     <div class="pt-1">

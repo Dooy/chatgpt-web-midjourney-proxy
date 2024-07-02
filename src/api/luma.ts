@@ -30,10 +30,11 @@ function getHeaderAuthorization(){
 
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
+    const pro_prefix= homeStore.myData.is_luma_pro?'/pro':''
     if(gptServerStore.myData.LUMA_SERVER){
-        return `${ gptServerStore.myData.LUMA_SERVER}/luma${url}`;
+        return `${ gptServerStore.myData.LUMA_SERVER}${pro_prefix}/luma${url}`;
     }
-    return `/luma${url}`;
+    return `${pro_prefix}/luma${url}`;
 }
 
 export const lumaFetch=(url:string,data?:any,opt2?:any )=>{

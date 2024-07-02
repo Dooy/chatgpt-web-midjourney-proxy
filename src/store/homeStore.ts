@@ -14,6 +14,7 @@ export const homeStore = reactive({
         ,ctoken:'' //cookie
         ,isClient: typeof window !== 'undefined' && window.__TAURI__
         ,ms:{} as any
+        ,is_luma_pro:false
        
     }
     
@@ -104,6 +105,7 @@ export interface gptServerType{
     LUMA_KEY:string
     IS_SET_SYNC?:boolean
     GPTS_GX?:boolean
+    IS_LUMA_PRO?:boolean
 
 }
 
