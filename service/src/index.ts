@@ -338,7 +338,7 @@ app.use('/luma' ,authV2, proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
     //mlog("sunoapi")
     if ( process.env.LUMA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.LUMA_KEY;
-    //else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
     proxyReqOpts.headers['Content-Type'] = 'application/json';
     proxyReqOpts.headers['Mj-Version'] = pkg.version;
     return proxyReqOpts;
