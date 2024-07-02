@@ -364,13 +364,9 @@ export const getLastVersion=  async ()=>{
     
 }
 
-export const canVisionModel= (model:string)=>{
-    mlog('canVisionModel ',model );
-    //['gpt-4-all','gpt-4-v'].indexOf(model)==-1 && model.indexOf('gpt-4-gizmo')==-1
-    if( ['gpt-4-all','gpt-4-v','gpt-4v','gpt-3.5-net','gpt-4o-all'].indexOf(model)>-1 ) return true;
-    if(model.indexOf('gpt-4-gizmo')>-1 )return true;  // || model.indexOf('claude-3-opus')>-1cha
-     
-    return false;
+export const canVisionModel = (model: string) => {
+    mlog('canVisionModel ', model);
+    return true;
 }
 export const isCanBase64Model=(model:string)=>{
     //gpt-4o
