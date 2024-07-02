@@ -20,7 +20,7 @@ export async function fetchSSE(
   try{
      res = await fetch(url, fetchOptions)
   }catch(e :any ){ 
-    throw {reason: JSON.stringify({message:'fetch error, pleace check url',url ,code:'fetch_error'}) } 
+    throw {reason: JSON.stringify({message:'fetch error, pleace check url',请不要使用VPN或梯子 ,code:'fetch_error'}) } 
   }
   if (!res.ok) {
     let reason: string
