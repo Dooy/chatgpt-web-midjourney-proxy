@@ -4,7 +4,7 @@
 
 ## 声明
 - 此项目只发布于 GitHub，基于 MIT 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、讨论群、讨论组等行为。谨防受骗。
-- 本开源是在 [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web) 基础上做二次开发 ；使用 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 、 [Suno-API](https://github.com/SunoAI-API/Suno-API)、[Luma-API](https://github.com/LumaAI-API/Luma-API)  作为后端API而形成的；
+- 本开源是在 [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web) 基础上做二次开发 ；使用 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 、 Suno-API、[Luma-API](https://github.com/LumaAI-API/Luma-API)  作为后端API而形成的；
 - 可以直接用 https://vercel.ddaiai.com 先体验
 
 ![cover](./docs/mj2a1.jpg)
@@ -91,7 +91,7 @@
 ## docker 部署
  
 > - [x] 需 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy)   支持
-> - [x] 需 [Suno-API](https://github.com/SunoAI-API/Suno-API)  支持
+> - [x] 需 Suno-API  支持
 > - [x] 需 [Luma-API](https://github.com/LumaAI-API/Luma-API)  支持
 
 

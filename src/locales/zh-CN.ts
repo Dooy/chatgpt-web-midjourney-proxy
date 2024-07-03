@@ -421,6 +421,7 @@ export default {
     ,extendAt:'延伸开始于'
     ,fail:'失败'
     ,info:'说明:<br>上传音频时长必须在6s-60s内'
+    ,lyricsFail:'获取歌曲失败'
   }
   ,video:{
     menu:"视频",
