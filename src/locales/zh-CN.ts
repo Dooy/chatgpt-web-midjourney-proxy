@@ -441,6 +441,7 @@ export default {
 
     pending:'状态:队列中',
     processing:'状态:队列中',
+    failed:'状态:生成失败！',
     download:'下载',
     extend:'延展',
 

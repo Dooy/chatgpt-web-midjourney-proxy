@@ -1,6 +1,6 @@
 import { gptServerStore, homeStore, useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
-import { LumaMedia, lumaStore } from "./lumaStore";
+import { LumaMedia, lumaHkStore, lumaStore } from "./lumaStore";
 import { sleep } from "./suno";
 
 
@@ -30,8 +30,13 @@ function getHeaderAuthorization(){
 
 const getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
-    const pro_prefix= homeStore.myData.is_luma_pro?'/pro':''
+    
+    const pro_prefix= url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
+    url= url.replaceAll('/pro','')
     if(gptServerStore.myData.LUMA_SERVER){
+        if(gptServerStore.myData.LUMA_SERVER.indexOf('/pro')>0){
+            return `${ gptServerStore.myData.LUMA_SERVER}/luma${url}`;
+        }
         return `${ gptServerStore.myData.LUMA_SERVER}${pro_prefix}/luma${url}`;
     }
     return `${pro_prefix}/luma${url}`;
@@ -90,8 +95,13 @@ export const lumaFetch=(url:string,data?:any,opt2?:any )=>{
 export const FeedLumaTask= async(id:string)=>{
     if(id=='')return '';
     const lumaS = new lumaStore();
+    const hk= new lumaHkStore();
+    const hkObj= hk.getOneById(id)
     for(let i=0; i<120;i++){
-        let d:LumaMedia = await lumaFetch('/generations/'+id );
+        let url= '/generations/'+id;
+        if(hkObj && hkObj.isHK ) url= '/pro/generations/'+id;
+
+        let d:LumaMedia = await lumaFetch( url );
         if(d.id){
             d.last_feed = new Date().getTime()
             lumaS.save(d);
@@ -102,4 +112,12 @@ export const FeedLumaTask= async(id:string)=>{
         }
         await sleep(5*1000);
     }
+}
+
+export const isHkServer=()=>{
+    const url= gptServerStore.myData.LUMA_SERVER.toLocaleLowerCase();
+    if(url!=''){
+     return (url.indexOf('hk')>-1 &&  url.indexOf('pro')==-1 ) ;
+    }
+    return (homeStore.myData.session && homeStore.myData.session.isHk) ;
 }

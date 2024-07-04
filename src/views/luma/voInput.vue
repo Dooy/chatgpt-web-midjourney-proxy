@@ -5,7 +5,8 @@ import {SvgIcon} from '@/components/common'
 import { FeedLumaTask, lumaFetch, mlog, upImg } from '@/api';
 import { gptServerStore, homeStore } from '@/store';
 import { t } from '@/locales';
-import { LumaMedia } from '@/api/lumaStore';
+import { LumaMedia, lumaHkStore } from '@/api/lumaStore';
+import { sleep } from '@/api/suno';
 
 const luma= ref({ "aspect_ratio": "16:9", "expand_prompt": true,  "image_url": "",  "user_prompt": "" });
 const st= ref({isDo:false,version:'relax'})
@@ -22,6 +23,7 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 
 onMounted(() => {
     homeStore.setMyData({ms:ms})
+    st.value.version= gptServerStore.myData.IS_LUMA_PRO?'pro':'relax'
 });
 
 
@@ -39,11 +41,25 @@ const generate= async ()=>{
     try{
         let url= '/generations/';
         if(exLuma.value) url= `/generations/${exLuma.value.id}/extend`
+        //homeStore.myData.is_luma_pro?'/pro':''
+        //if(homeStore)
+        const is_luma_pro=homeStore.myData.is_luma_pro
+        if (is_luma_pro) url= '/pro'+url
         const d:any=  await lumaFetch(url, luma.value);
         mlog("d", d )
-        if(d.id ) FeedLumaTask(d.id )
-        else FeedLumaTask(d[0].id )
+        // if(d.id ) FeedLumaTask(d.id )
+        // else FeedLumaTask(d[0].id )
+        
+        const taskID= d.id??d[0].id
+        if( is_luma_pro ){
+            const hk= new lumaHkStore();
+            hk.save({id:taskID,isHK:true})
+        }
+       
+        
         ms.success( t('video.submitSuccess'))
+         await sleep(500)
+        FeedLumaTask(taskID)
     }catch(e){
         
     }
@@ -86,12 +102,13 @@ const isHK= computed(()=> {
     return (homeStore.myData.session && homeStore.myData.session.isHk) ;
     
 } );
+const saveMyDate=(is_pro:boolean)=>{
+    homeStore.setMyData({is_luma_pro: is_pro})
+    gptServerStore.setMyData({IS_LUMA_PRO: is_pro})
+}
 
-watch(()=>isHK.value , (n)=>{
-    //gptServerStore.setMyData({IS_LUMA_PRO:n && st.value.version=='pro'})
-    homeStore.setMyData({is_luma_pro:  n && st.value.version=='pro'  })
-});
-watch(()=>st.value.version , ()=>  homeStore.setMyData({is_luma_pro: isHK.value && st.value.version=='pro'  }) );
+watch(()=>isHK.value , (n)=>    saveMyDate( n && st.value.version=='pro' ) ); 
+watch(()=>st.value.version , ()=>  saveMyDate(isHK.value && st.value.version=='pro' ) );
 
 const mvOption= [
 {label: '版本: relax, 价格实惠',value: 'relax'}
