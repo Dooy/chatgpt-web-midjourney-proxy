@@ -446,6 +446,28 @@ export default {
     extend:'延展',
 
   }
+  ,dance:{
+    menu:"跳舞",
+    menuinfo:'Viggle等 跳舞视频创作'
+    ,character:'人物角色'
+    ,viggleabout:"Viggle 相关",
+    viggleserver:"Viggle 接口地址",
+    setOpenKeyPlaceholder:'Viggle API 的key, 可不填',
+    info:'说明:<br>1.角色图片最好是个人全身照片<br>2.跳舞模版视频最好是个人视频 别传群舞',
+    model:'模型',
+    bgw:'白色背景',
+    bgg:'绿色背景',
+    bgmoban:'模版背景',
+    bgrole:'角色背景',
+    gring:'生成中...',
+    uprolefirst:'请先上传角色图片',
+    uprolefail:'上传失败',
+    upvideo:'+上传模版跳舞视频',
+    usevideo:'+使用官网模版',
+    moban:'跳舞模版',
+    moban2:'模版名称',
+    use:'使用',
+  }
 
 
 }

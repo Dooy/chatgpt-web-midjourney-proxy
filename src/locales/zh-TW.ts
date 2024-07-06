@@ -420,6 +420,28 @@ export default {
     "submitSuccess": "提交成功！",
     "process": "視頻生成中...",
     "repeat": "重新獲取"
-  }
+  },
+  dance:{
+    menu: "跳舞",
+    menuinfo: "使用 Viggle 等創作舞蹈影片。",
+    character: "人物角色",
+    viggleabout: "關於 Viggle",
+    viggleserver: "Viggle API 接口地址",
+    setOpenKeyPlaceholder: "Viggle API 的 key，可選填",
+    info: "說明：<br>1. 角色圖片最好是全身照片。<br>2. 舞蹈模板影片最好是個人影片，不要是團體舞蹈。",
+    model: "模型",
+    bgw: "白色背景",
+    bgg: "綠色背景",
+    bgmoban: "模板背景",
+    bgrole: "角色背景",
+    gring: "生成中...",
+    uprolefirst: "請先上傳角色圖片",
+    uprolefail: "上傳失敗",
+    upvideo: "+ 上傳模板跳舞影片",
+    usevideo: "+ 使用官方模板",
+    moban: "跳舞模板",
+    moban2: "模板名稱",
+    use: "使用"
+}
 
 }

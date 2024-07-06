@@ -425,6 +425,28 @@ export default {
     "submitSuccess": "성공적으로 제출되었습니다!",
     "process": "비디오 생성 중...",
     "repeat": "재시도"
-  }
+  },
+  dance:{
+    menu: "댄스",
+    menuinfo: "Viggle 및 기타와 함께 댄스 비디오 제작",
+    character: "캐릭터",
+    viggleabout: "Viggle 소개",
+    viggleserver: "Viggle API 엔드포인트",
+    setOpenKeyPlaceholder: "Viggle API 키, 선택 사항",
+    info: "지침:<br>1. 캐릭터 이미지는 전신 사진이 좋습니다.<br>2. 댄스 템플릿 비디오는 개인 비디오여야 하며, 그룹 댄스가 아니어야 합니다.",
+    model: "모델",
+    bgw: "백색 배경",
+    bgg: "초록색 배경",
+    bgmoban: "템플릿 배경",
+    bgrole: "캐릭터 배경",
+    gring: "생성 중...",
+    uprolefirst: "먼저 캐릭터 이미지를 업로드하세요",
+    uprolefail: "업로드 실패",
+    upvideo: "+ 템플릿 댄스 비디오 업로드",
+    usevideo: "+ 공식 템플릿 사용",
+    moban: "댄스 템플릿",
+    moban2: "템플릿 이름",
+    use: "사용"
+}
 
 }

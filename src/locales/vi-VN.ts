@@ -426,5 +426,27 @@ export default {
     "process": "Đang tạo video...",
     "repeat": "Thử lại"
   }
+  ,dance:{
+    menu: "Nhảy múa",
+    menuinfo: "Tạo video nhảy múa với Viggle và các dịch vụ khác.",
+    character: "Nhân vật", 
+    viggleabout: "Thông tin về Viggle",
+    viggleserver: "Địa chỉ API của Viggle",
+    setOpenKeyPlaceholder: "Khóa API của Viggle, không bắt buộc",
+    info: "Hướng dẫn:<br>1. Hình ảnh nhân vật nên là ảnh toàn thân.<br>2. Video mẫu nhảy múa nên là video cá nhân, không phải là nhóm nhảy.",
+    model: "Mẫu",
+    bgw: "Nền trắng",
+    bgg: "Nền xanh lá",
+    bgmoban: "Nền mẫu",
+    bgrole: "Nền nhân vật",
+    gring: "Đang tạo...",
+    uprolefirst: "Vui lòng tải ảnh nhân vật lên trước",
+    uprolefail: "Tải lên thất bại",
+    upvideo: "+ Tải lên Video mẫu nhảy múa",
+    usevideo: "+ Sử dụng Mẫu chính thức",
+    moban: "Mẫu nhảy múa",
+    moban2: "Tên mẫu",
+    use: "Sử dụng"
+}
 
 }

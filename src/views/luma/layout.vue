@@ -1,20 +1,23 @@
 <script setup lang='ts'>
 import { computed } from 'vue'
 import { NLayout, NLayoutContent } from 'naive-ui'
-import { useRouter } from 'vue-router' 
+import { useRouter, useRoute } from 'vue-router' 
 import Permission from '../chat/layout/Permission.vue'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { homeStore, useAppStore, useAuthStore, useChatStore } from '@/store'
 import { aiSider ,aiFooter} from '@/views/mj'
 import aiMobileMenu from '@/views/mj/aiMobileMenu.vue'; 
+import { mlog } from '@/api'
 
 const router = useRouter()
+const route = useRoute()
 const appStore = useAppStore()
 const chatStore = useChatStore()
 const authStore = useAuthStore()
 
-router.replace({ name: 'video', params: { uuid: chatStore.active } })
-homeStore.setMyData({local:'video'});
+mlog('layout', route.name )
+router.replace({ name:  route.name??'video', params: { uuid: chatStore.active } })
+homeStore.setMyData({local:  route.name??'video' });
 const { isMobile } = useBasicLayout()
 
 const collapsed = computed(() => appStore.siderCollapsed)

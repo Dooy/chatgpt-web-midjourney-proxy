@@ -17,6 +17,7 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
+import { viggleProxyFileDo } from './myfun'
 
 
 const app = express()
@@ -346,6 +347,27 @@ app.use('/luma' ,authV2, proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   },
   
 }));
+
+
+app.use('/viggle/asset',authV2 ,  upload2.single('file'), viggleProxyFileDo );
+//代理luma 接口 
+app.use('/viggle' ,authV2, proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    //mlog("sunoapi")
+    if ( process.env.VIGGLE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VIGGLE_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+  
+}));
+
+
 
 
 app.use('', router)
