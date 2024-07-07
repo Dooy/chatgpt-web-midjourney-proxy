@@ -447,8 +447,8 @@ export default {
 
   }
   ,dance:{
-    menu:"跳舞",
-    menuinfo:'Viggle等 跳舞视频创作'
+    menu:"舞蹈",
+    menuinfo:'Viggle等 舞蹈视频创作'
     ,character:'人物角色'
     ,viggleabout:"Viggle 相关",
     viggleserver:"Viggle 接口地址",
