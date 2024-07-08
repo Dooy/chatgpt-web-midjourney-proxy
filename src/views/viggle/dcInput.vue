@@ -6,10 +6,10 @@ import {SvgIcon} from '@/components/common'
 import dcTemple from "./dcTemple.vue"
 import { homeStore } from '@/store';
 import {  mlog, upImg } from '@/api';
-import { FeedViggleTask, ViggleTemplate ,getUrl, viggleFetch } from '@/api/viggle';
+import { FeedViggleTask, ViggleTemplate , viggleFetch } from '@/api/viggle';
 import { t } from '@/locales';
 
-const f= ref({ "imageID": "", "bgMode": 2, "modelInfoID": 3,"templateID": "" })
+const f= ref({ "imageID": "", "bgMode": 2, "modelInfoID": 3,"templateID": "","videoID":'' })
 const st= ref({isDo:false,showImg:false,q:'',imgSrc:'',vgSrc:'',vgCoverURL:''})
 const useTem= ref<ViggleTemplate>()
 const fsRef= ref() ;
@@ -41,16 +41,18 @@ const search=()=>{
     
 }
 const canPost= computed(()=>{
-    return f.value.templateID && f.value.imageID 
+    return (f.value.templateID|| f.value.videoID) && f.value.imageID 
 })
 
 const clear=(type:number)=>{
     if(type==1){
         useTem.value=undefined
         f.value.templateID=''
+        f.value.videoID=''
     }else if(type==3){
         useTem.value=undefined
         f.value.templateID=''
+        f.value.videoID=''
         st.value.vgSrc=''
         st.value.vgCoverURL=''
     }else{
@@ -67,7 +69,8 @@ async function  selectFileVideo(input:any){
     mlog("d Video", d )
     if(d.data ) {
        if( d.data.id ) {
-        f.value.templateID= d.data.id
+        f.value.videoID= d.data.id
+        f.value.templateID='' 
         st.value.vgCoverURL= d.data.coverURL
         st.value.vgSrc= d.data.url
        }
@@ -110,6 +113,7 @@ watch(()=>homeStore.myData.act, (n)=>{
         useTem.value= homeStore.myData.actData as ViggleTemplate
         st.value.showImg=false
         f.value.templateID= useTem.value.id
+        f.value.videoID= '' 
     }
 })
 
