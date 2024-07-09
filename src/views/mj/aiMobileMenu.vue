@@ -42,6 +42,11 @@ watch(()=>homeStore.myData.act, (n:string)=>{
         <SvgIcon icon="ri:apps-fill" class="text-3xl"></SvgIcon>
         <div class="text-[13px]">GPTs</div>
       </div>
+		<a :href="`#/comic`"
+          class="flex items-center justify-center flex-col ">
+        <SvgIcon icon="whh:spiderman" class="text-3xl"></SvgIcon>
+        <div class="text-[13px]">RJLAPI</div>
+        </a>
 
 
       <div v-if="!isDisableMenu ( 'draws')" class="flex items-center justify-center flex-col "  @click="homeStore.setMyData({act:'showDraw'}) " :class="[goHome=='draw' ? 'active' : '']" >
