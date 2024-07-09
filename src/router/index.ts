@@ -92,7 +92,7 @@ const routes: RouteRecordRaw[] = [
     
 
   },
-   {
+  {
     path: '/video',
     name: 'video',
     component: lumaLayout,
@@ -102,6 +102,20 @@ const routes: RouteRecordRaw[] = [
         path: '/video/:uuid?',
         name: 'video',
         component: () => import('@/views/luma/video.vue'),
+      },
+    ],
+  },
+
+  {
+    path: '/dance',
+    name: 'dance',
+    component: lumaLayout,
+    redirect: '/dance/index',
+    children: [
+      {
+        path: '/dance/:uuid?',
+        name: 'dance',
+        component: () => import('@/views/viggle/dance.vue'),
       },
     ],
   },

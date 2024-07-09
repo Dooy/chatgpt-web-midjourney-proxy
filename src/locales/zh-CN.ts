@@ -421,6 +421,7 @@ export default {
     ,extendAt:'延伸开始于'
     ,fail:'失败'
     ,info:'说明:<br>上传音频时长必须在6s-60s内'
+    ,lyricsFail:'获取歌曲失败'
   }
   ,video:{
     menu:"视频",
@@ -440,9 +441,32 @@ export default {
 
     pending:'状态:队列中',
     processing:'状态:队列中',
+    failed:'状态:生成失败！',
     download:'下载',
     extend:'延展',
 
+  }
+  ,dance:{
+    menu:"舞蹈",
+    menuinfo:'Viggle等 舞蹈视频创作'
+    ,character:'人物角色'
+    ,viggleabout:"Viggle 相关",
+    viggleserver:"Viggle 接口地址",
+    setOpenKeyPlaceholder:'Viggle API 的key, 可不填',
+    info:'说明:<br>1.角色图片最好是个人全身照片<br>2.舞蹈模版视频最好是个人视频 别传群舞',
+    model:'模型',
+    bgw:'白色背景',
+    bgg:'绿色背景',
+    bgmoban:'模版背景',
+    bgrole:'角色背景',
+    gring:'生成中...',
+    uprolefirst:'请先上传角色图片',
+    uprolefail:'上传失败',
+    upvideo:'+上传模版舞蹈视频',
+    usevideo:'+使用官网模版',
+    moban:'舞蹈模版',
+    moban2:'模版名称',
+    use:'使用',
   }
 
 

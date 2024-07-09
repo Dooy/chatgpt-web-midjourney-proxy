@@ -1,10 +1,7 @@
 import { gptServerStore, homeStore, useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
-import { LumaMedia, lumaHkStore, lumaStore } from "./lumaStore";
 import { sleep } from "./suno";
-
-
-
+import { ViggleTask, viggleStore } from "./viggleStore";
 
 function getHeaderAuthorization(){
     let headers={}
@@ -12,7 +9,7 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
-    if(!gptServerStore.myData.LUMA_KEY){
+    if(!gptServerStore.myData.VIGGLE_KEY){
         const authStore = useAuthStore()
         if( authStore.token ) {
             const bmi= { 'x-ptoken':  authStore.token };
@@ -22,29 +19,59 @@ function getHeaderAuthorization(){
         return headers
     }
     const bmi={
-        'Authorization': 'Bearer ' +gptServerStore.myData.LUMA_KEY
+        'Authorization': 'Bearer ' +gptServerStore.myData.VIGGLE_KEY
     }
     headers= {...headers, ...bmi }
     return headers
 }
 
-const getUrl=(url:string)=>{
+export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
     
-    const pro_prefix= url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
-    url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.LUMA_SERVER){
-        if(gptServerStore.myData.LUMA_SERVER.indexOf('/pro')>0){
-            return `${ gptServerStore.myData.LUMA_SERVER}/luma${url}`;
+    const pro_prefix= '';//url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
+   // url= url.replaceAll('/pro','')
+    if(gptServerStore.myData.VIGGLE_SERVER){
+        if(gptServerStore.myData.VIGGLE_SERVER.indexOf('/pro')>0){
+            return `${ gptServerStore.myData.VIGGLE_SERVER}/viggle${url}`;
         }
-        return `${ gptServerStore.myData.LUMA_SERVER}${pro_prefix}/luma${url}`;
+        return `${ gptServerStore.myData.VIGGLE_SERVER}${pro_prefix}/viggle${url}`;
     }
-    return `${pro_prefix}/luma${url}`;
+    return `${pro_prefix}/viggle${url}`;
 }
 
-export const lumaFetch=(url:string,data?:any,opt2?:any )=>{
-    mlog('sunoFetch', url  );
-    let headers= {'Content-Type':'application/json'}
+export interface tagInfo {
+    id: string;
+    name: string;
+    sort: number;
+}
+export interface ViggleTemplate {
+    id: string;
+    processedURL: string;
+    processedHdURL: string;
+    processedCoverURL: string;
+    command?: string;
+    webCommand?: string;
+    description: string;
+    webStatus?: number;
+    dcStatus?: number;
+    appStatus?: number;
+    bgURL?: string;
+    bgCoverURL?: string;
+    displayURL?: string;
+    displayHdURL?: string;
+    displayCoverURL?: string;
+    gifURL?: string;
+    webPURL?: string;
+    source?: string;
+    sort?: number;
+    width?: number;
+    height?: number;
+}
+ 
+export const viggleFetch=(url:string,data?:any,opt2?:any )=>{
+    mlog('viggleFetch', url  );
+    let headers= opt2?.upFile?{}: {'Content-Type':'application/json'}
+     
     if(opt2 && opt2.headers ) headers= opt2.headers;
 
     headers={...headers,...getHeaderAuthorization()}
@@ -92,32 +119,20 @@ export const lumaFetch=(url:string,data?:any,opt2?:any )=>{
 
 }
 
-export const FeedLumaTask= async(id:string)=>{
-    if(id=='')return '';
-    const lumaS = new lumaStore();
-    const hk= new lumaHkStore();
-    const hkObj= hk.getOneById(id)
-    for(let i=0; i<120;i++){
-        let url= '/generations/'+id;
-        if(hkObj && hkObj.isHK ) url= '/pro/generations/'+id;
-
-        let d:LumaMedia = await lumaFetch( url );
-        if(d.id){
-            d.last_feed = new Date().getTime()
-            lumaS.save(d);
-            homeStore.setMyData({act:'FeedLumaTask'});
-            if( d.state=='completed' && d.video && d.video?.download_url  ){ //有的时候  completed 但是 没链接
-                break;
-            }
+export  async function FeedViggleTask(id:string){  
+    const ss = new viggleStore()
+    for(let i=0; i<500;i++){
+        const d= await viggleFetch('/video-task/by-ids',{ids:[id]})
+        mlog('FeedViggleTask', d )
+       
+        if(d.data && d.data.length>0){
+            let task= d.data[0] as ViggleTask;
+            task.last_feed=new Date().getTime()
+            ss.save( task )
+            homeStore.setMyData({act:'FeedViggleTask'})
+            if ( d.data[0].status==0) return
         }
-        await sleep(5*1000);
+        await sleep(2000)
     }
-}
 
-export const isHkServer=()=>{
-    const url= gptServerStore.myData.LUMA_SERVER.toLocaleLowerCase();
-    if(url!=''){
-     return (url.indexOf('hk')>-1 &&  url.indexOf('pro')==-1 ) ;
-    }
-    return (homeStore.myData.session && homeStore.myData.session.isHk) ;
 }

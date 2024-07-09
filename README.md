@@ -4,7 +4,7 @@
 
 ## 声明
 - 此项目只发布于 GitHub，基于 MIT 协议，免费且作为开源学习使用。并且不会有任何形式的卖号、付费服务、讨论群、讨论组等行为。谨防受骗。
-- 本开源是在 [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web) 基础上做二次开发 ；使用 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 、 [Suno-API](https://github.com/SunoAI-API/Suno-API)、[Luma-API](https://github.com/LumaAI-API/Luma-API)  作为后端API而形成的；
+- 本开源是在 [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web) 基础上做二次开发 ；使用 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 、 Suno-API、[Luma-API](https://github.com/LumaAI-API/Luma-API)  作为后端API而形成的；
 - 可以直接用 https://vercel.ddaiai.com 先体验
 
 ![cover](./docs/mj2a1.jpg)
@@ -45,7 +45,7 @@
 ## 无服务器-个人桌面安装
 > - [x] 请到 https://github.com/Dooy/chatgpt-web-midjourney-proxy/releases 下载最新版本安装(选择合适你操作系统的版本)
 > - [x] 选择一个合适的中转服务商( 最好都支持 `gpt`  `gpts` `midjourney` `claude`  `suno` `luma` )
-> - [x] 中转服务商推荐 https://www.openai-hk.com 一个`key`和`api接口地址` 同时支持 `gpt` `midjourney` `claude` `suno` `luma`，mj-fast最低能到0.12rmb/张,`suno` 最低能到0.08rmb/首歌曲, `luma`最低能到0.16rmb/次
+> - [x] 中转服务商推荐 https://www.openai-hk.com 一个`key`和`api接口地址` 同时支持 `gpt` `midjourney` `claude` `suno` `luma`，mj-fast最低能到0.12rmb/张,`suno` 最低能到官网半价, `luma`最低能到0.16rmb/次
 ![多模态](./docs/suno-ds.jpg)
 
 ## Vercel 一键部署
@@ -79,7 +79,7 @@
 | AUTH_SECRET_ERROR_TIME | 防爆破验证：停留时间 单位分钟  | 无  | ✅ |  x|
 | CLOSE_MD_PREVIEW | 是否不关闭输入预览 | 无  | ✅ |  ✅|
 | UPLOAD_TYPE | 指定上传方式 [`R2` R2上传] [`API` 跟随UI前端中转]、[`Container` 本地容器]、[`MyUrl` 自定义链接]  |  空 | ✅ |  x|
-| MENU_DISABLE  | 菜单禁用 可选:gpts,draws,gallery,music,video |  空 | ✅ |  ✅|
+| MENU_DISABLE  | 菜单禁用 可选:gpts,draws,gallery,music,video,dance |  空 | ✅ |  ✅|
 | VISION_MODEL  | 默认使用的识图 可选:`gpt-4o`,`gpt-4-turb`,`gpt-4-vision-preview`等 |  空 | ✅ |  ✅|
 | SYSTEM_MESSAGE  | 自定义默认角色消息 |  空 | ✅ |  ✅|
 | CUSTOM_VISION_MODELS  | 自定义可视图模型 用`,` 分开 |  空 | ✅ |  ✅|
@@ -91,7 +91,7 @@
 ## docker 部署
  
 > - [x] 需 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy)   支持
-> - [x] 需 [Suno-API](https://github.com/SunoAI-API/Suno-API)  支持
+> - [x] 需 Suno-API  支持
 > - [x] 需 [Luma-API](https://github.com/LumaAI-API/Luma-API)  支持
 
 

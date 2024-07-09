@@ -66,11 +66,15 @@ const generateLyrics= ()=>{
     sunoFetch(  '/generate/lyrics/' ,  {prompt}).then(async (r:any )=>{
         mlog('lyrics', r);
         let dz:any = await lyricsFetch( r.id );
+        
          mlog('lyrics rz =>', dz );
         if(dz!=null){  
 
             cs.value.prompt= dz.text;
             cs.value.title= dz.title;
+        }else{
+            ms.error( t('suno.lyricsFail') );
+           
         }
         st.value.isLoading =false;
 

@@ -5,7 +5,7 @@
 
 ## Disclaimer
 - This project is only released on GitHub under the MIT license, free and open-source for learning purposes. There will be no form of account selling, paid services, discussion groups, etc. Beware of scams.
-- This open-source project is developed based on [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web); it uses the midjourney API provided by [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) and [Suno-API](https://github.com/SunoAI-API/Suno-API) as the backend.
+- This open-source project is developed based on [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web); it uses the midjourney API provided by [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) and [Suno-API]  as the backend.
 
 ![cover](./docs/mj2a1.jpg)
 ## Supported Features
@@ -85,7 +85,7 @@
 ## Docker Deployment
  
 > - [x] Requires [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) support
-> - [x] Requires [Suno-API](https://github.com/SunoAI-API/Suno-API) support
+> - [x] Requires [Suno-API]  support
 
 ```bash
 docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \

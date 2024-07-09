@@ -426,6 +426,28 @@ export default {
     "submitSuccess": "Soumis avec succès !",
     "process": "Génération de la vidéo...",
     "repeat": "Réessayer"
+    },
+    dance:{
+        menu: "Danse",
+        menuinfo: "Créez des vidéos de danse avec Viggle et d'autres.",
+        character: "Personnage",
+        viggleabout: "À propos de Viggle",
+        viggleserver: "Adresse API Viggle",
+        setOpenKeyPlaceholder: "Clé API Viggle, facultatif",
+        info: "Instructions :<br>1. Les images de personnage devraient de préférence être des photos en pied.<br>2. Les vidéos de modèles de danse devraient être des vidéos personnelles, pas des danses de groupe.",
+        model: "Modèle",
+        bgw: "Arrière-plan blanc",
+        bgg: "Arrière-plan vert",
+        bgmoban: "Arrière-plan du modèle",
+        bgrole: "Arrière-plan du personnage",
+        gring: "En cours de génération...",
+        uprolefirst: "Veuillez d'abord télécharger l'image du personnage",
+        uprolefail: "Échec du téléchargement",
+        upvideo: "+ Télécharger la vidéo de modèle de danse",
+        usevideo: "+ Utiliser le modèle officiel",
+        moban: "Modèle de danse",
+        moban2: "Nom du modèle",
+        use: "Utiliser"
     }
 
   }
