@@ -78,6 +78,18 @@ const chatId= computed(()=>chatStore.active??'1002' );
                     {{$t('mjtab.drawinfo')}}
                 </n-tooltip>
             </a>
+					<a :href="`#/comic`"
+          class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
+          <n-tooltip placement="right" trigger="hover">
+            <template #trigger>
+              <div class="flex h-full justify-center items-center   py-1 flex-col">
+                <SvgIcon icon="whh:spiderman" class="text-3xl flex-1"></SvgIcon>
+                <span class="text-[10px]">RJLAPI</span>
+              </div>
+            </template>
+            RJLAPI
+          </n-tooltip>
+        </a>
 					<a :href="`#/bingAI`"
           class=" router-link-exact-active h-12 w-12 cursor-pointer rounded-xl bg-white duration-300 dark:bg-[#34373c] hover:bg-[#bbb] dark:hover:bg-[#555]">
           <n-tooltip placement="right" trigger="hover">
