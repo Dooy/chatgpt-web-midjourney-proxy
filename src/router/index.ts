@@ -61,7 +61,11 @@ const routes: RouteRecordRaw[] = [
     ],
   },
 
-
+{
+    path: '/bingAI',
+    name: 'bingAI',
+    component: () => import('@/views/mj/bingAI.vue'),
+  },
   {
     path: '/draw',
     name: 'Rootdraw',
