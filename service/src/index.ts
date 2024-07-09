@@ -17,7 +17,7 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
-import { viggleProxyFileDo } from './myfun'
+import { viggleProxyFileDo,viggleProxy, lumaProxy } from './myfun'
 
 
 const app = express()
@@ -331,41 +331,17 @@ app.use('/sunoapi' ,authV2, proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
 }));
 
 
+
 //代理luma 接口 
-app.use('/luma' ,authV2, proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
-  https: false, limit: '10mb',
-  proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
-  },
-  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    //mlog("sunoapi")
-    if ( process.env.LUMA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.LUMA_KEY;
-    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
-    proxyReqOpts.headers['Content-Type'] = 'application/json';
-    proxyReqOpts.headers['Mj-Version'] = pkg.version;
-    return proxyReqOpts;
-  },
-  
-}));
+app.use('/luma' ,authV2, lumaProxy  );
+app.use('/pro/luma' ,authV2, lumaProxy );
 
-
+//代理 viggle 文件
 app.use('/viggle/asset',authV2 ,  upload2.single('file'), viggleProxyFileDo );
-//代理luma 接口 
-app.use('/viggle' ,authV2, proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
-  https: false, limit: '10mb',
-  proxyReqPathResolver: function (req) {
-    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
-  },
-  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    //mlog("sunoapi")
-    if ( process.env.VIGGLE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VIGGLE_KEY;
-    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
-    proxyReqOpts.headers['Content-Type'] = 'application/json';
-    proxyReqOpts.headers['Mj-Version'] = pkg.version;
-    return proxyReqOpts;
-  },
-  
-}));
+app.use('/pro/viggle/asset',authV2 ,  upload2.single('file'), viggleProxyFileDo );
+//代理 viggle  
+app.use('/viggle' ,authV2, viggleProxy);
+app.use('/pro/viggle' ,authV2, viggleProxy);
 
 
 

@@ -2,8 +2,44 @@ import axios from 'axios';
 import { Request, Response, NextFunction } from 'express';
 import { isNotEmptyString } from './utils/is';
 import FormData  from 'form-data'
+import  proxy from "express-http-proxy"
+import pkg from '../package.json'
 
+ const API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
+    ? process.env.OPENAI_API_BASE_URL
+    : 'https://api.openai.com'
 
+export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    //mlog("sunoapi")
+    if ( process.env.LUMA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.LUMA_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+  
+});
+
+export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    //mlog("sunoapi")
+    if ( process.env.VIGGLE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.VIGGLE_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+  
+})
 //req, res, next
 
 export const viggleProxyFileDo= async( req:Request, res:Response, next?:NextFunction)=>{
