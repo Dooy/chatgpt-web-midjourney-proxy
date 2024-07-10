@@ -84,7 +84,7 @@ const truncate = (str, maxLength) => {
 
 const config = ref({
 model:[]
-,maxToken:4096
+,maxToken:512000
 }); 
 const st= ref({openMore:false });
 const voiceList= computed(()=>{
@@ -150,13 +150,13 @@ const saveChat=(type:string)=>{
  
 watch(()=>nGptStore.value.model,(n)=>{
     nGptStore.value.gpts=undefined;
-    let max=4096*2*2;
+    let max=512000;
     if( n.indexOf('vision')>-1){
-        max=4096*2;
+        max=512000;
     }else if( n.indexOf('gpt-4')>-1 ||  n.indexOf('16k')>-1 ){ //['16k','8k','32k','gpt-4'].indexOf(n)>-1
-        max=4096*2;
+        max=512000;
     }else if( n.toLowerCase().includes('claude-3') ){
-         max=4096*2;
+         max=512000;
     }
     config.value.maxToken=max/2;
     if(nGptStore.value.max_tokens> config.value.maxToken ) nGptStore.value.max_tokens= config.value.maxToken;
