@@ -9,6 +9,51 @@ import lumaLayout from '@/views/luma/layout.vue'
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/h5',
+    name: 'h5',
+    component: () => import('@/views/mj/h5.vue'),
+  },
+  {
+    path: '/nb',
+    name: 'nb',
+    component: () => import('@/views/mj/nb.vue'),
+  },
+  {
+    path: '/share',
+    name: 'share',
+    component: () => import('@/views/mj/share.vue'),
+  },
+  {
+    path: '/comic',
+    name: 'comic',
+    component: () => import('@/views/mj/comic.vue'),
+  },
+  {
+    path: '/note',
+    name: 'note',
+    component: () => import('@/views/mj/note.vue'),
+  },
+  {
+    path: '/bingAI',
+    name: 'bingAI',
+    component: () => import('@/views/mj/bingAI.vue'),
+  },
+  {
+    path: '/imgPrompt',
+    name: 'imgPrompt',
+    component: () => import('@/views/mj/imgPrompt.vue'),
+  },
+  {
+    path: '/prompt',
+    name: 'prompt',
+    component: () => import('@/views/mj/prompt.vue'),
+  },
+  {
+    path: '/wechat',
+    name: 'wechat',
+    component: () => import('@/views/mj/chat.vue'),
+  },
+  {
     path: '/',
     name: 'Root',
     component: ChatLayout,
@@ -74,23 +119,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/mj/draw.vue'),
       },
     ],
-  },
-	 {
-    path: '/imgPrompt',
-    name: 'imgPrompt',
-    component: () => import('@/views/mj/imgPrompt.vue'),
-  },
-  {
-    path: '/prompt',
-    name: 'prompt',
-    component: () => import('@/views/mj/prompt.vue'),
-  },
-  
-  
-  {
-    path: '/bingAI',
-    name: 'bingAI',
-    component: () => import('@/views/mj/bingAI.vue'),
   },
 
     {
