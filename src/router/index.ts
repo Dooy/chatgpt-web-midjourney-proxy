@@ -27,11 +27,7 @@ const routes: RouteRecordRaw[] = [
     name: 'prompt',
     component: () => import('@/views/mj/prompt.vue'),
   },
-  {
-    path: '/wechat',
-    name: 'wechat',
-    component: () => import('@/views/mj/chat.vue'),
-  },
+  
   {
     path: '/',
     name: 'Root',
