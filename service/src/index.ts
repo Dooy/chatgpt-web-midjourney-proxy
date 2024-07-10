@@ -17,6 +17,7 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
+import { viggleProxyFileDo,viggleProxy, lumaProxy } from './myfun'
 
 
 const app = express()
@@ -101,11 +102,12 @@ router.post('/session', async (req, res) => {
     const visionModel= process.env.VISION_MODEL??""
     const systemMessage= process.env.SYSTEM_MESSAGE??""
     const customVisionModel= process.env.CUSTOM_VISION_MODELS??""
+    const isHk= (process.env.OPENAI_API_BASE_URL??"").toLocaleLowerCase().indexOf('-hk')>0
 
     const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,uploadType,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
-      ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel
+      ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel,isHk
     }
     res.send({  status: 'Success', message: '', data})
   }
@@ -357,6 +359,21 @@ app.use('/sunoapi' ,authV2, proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
   },
   
 }));
+
+
+
+//代理luma 接口 
+app.use('/luma' ,authV2, lumaProxy  );
+app.use('/pro/luma' ,authV2, lumaProxy );
+
+//代理 viggle 文件
+app.use('/viggle/asset',authV2 ,  upload2.single('file'), viggleProxyFileDo );
+app.use('/pro/viggle/asset',authV2 ,  upload2.single('file'), viggleProxyFileDo );
+//代理 viggle  
+app.use('/viggle' ,authV2, viggleProxy);
+app.use('/pro/viggle' ,authV2, viggleProxy);
+
+
 
 
 app.use('', router)
