@@ -21,6 +21,11 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+	 {
+    path: '/comic',
+    name: 'comic',
+    component: () => import('@/views/mj/comic.vue'),
+  },
    {
     path: '/g',
     name: 'g',
