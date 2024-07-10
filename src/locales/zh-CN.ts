@@ -29,9 +29,9 @@ export default {
     stopResponding: '停止响应',
   },
   chat: {
-    newChatButton: '新建聊天',
+    newChatButton: '新建对话',
     //placeholder: '来说点什么吧...（Shift + Enter = 换行，"/" 触发提示词）',
-    placeholder: '可输入说点什么，也可贴截图或拖拽文件（Shift + Enter = 换行，"/" 触发提示词）',
+    placeholder: '欢迎来到RJLAPI，可贴截图或拖拽文件（Shift + Enter = 换行，"/" 触发提示词）',
     placeholderMobile: '来说点什么...',
     copy: '复制',
     copied: '复制成功',
@@ -97,9 +97,9 @@ export default {
 
   mjset:{
     server:'服务端'
-    ,about:'关于'
+    ,about:'余额'
     ,model:'模型'
-    ,sysname:'AI绘图'
+    ,sysname:'RJLAPI'
   }
 
   ,mjtab:{
@@ -134,7 +134,7 @@ export default {
     ,historyTCnt:'回复数'
     ,historyTCntInfo:'(max_tokens)回复数越大 ,越有可能消耗更多的额度'
     ,role:'角色设定'
-    ,rolePlaceholder:'给你的会话设置一个专属的角色，不是必须'
+    ,rolePlaceholder:'设置角色，不是必须，需要新建一个对话才能生效'
     ,loading2:'正在加载...'
     ,loadmore:'加载更多'
     ,nofind:'未能找到'
@@ -227,7 +227,7 @@ export default {
     ,uploading:'上传中...'
     ,uploadSuccess:'上传成功'
     ,uploadFail:'上传失败:'
-    ,upPdf:'<span>上传图片、附件<br/>能上传图片、PDF、EXCEL等文档</span><p>支持拖拽</p>'
+    ,upPdf:'<span>上传图片、附件<br/>能上传图片、PDF、EXCEL等文档</span><p>支持拖拽,注意不是所有模型都能识图.</p>'
     ,upImg:'<span><b>上传图片</b><br/>会自动调用 gpt-4-vision-preview 模型<br>注意：会有额外的图片费用<br/>格式: jpeg jpg png gif</span><p>支持拖拽</p> <p class="pt-2"><b>上传MP3 MP4</b> <br>会自动直接调用 whisper-1 模型<br>格式有：mp3 mp4 mpeg mpga m4a wav webm</p>'
     ,clearAll:'清参数'
     ,czoom:'自定义'
