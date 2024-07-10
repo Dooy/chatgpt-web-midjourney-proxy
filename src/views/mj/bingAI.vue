@@ -35,7 +35,7 @@ const getContainerClass = computed(() => {
                 <aiSider v-if="!isMobile" />
 
                 <NLayoutContent class="h-full">
-                        <iframe id="myframe" src="https://binga.deem.love" title="熊大AI" allow="fullscreen"
+                        <iframe id="myframe" src="https://raojl3-bggy.hf.space" title="RJLAPI" allow="fullscreen"
                             loading="lazy"></iframe>
                 </NLayoutContent>
                 <!-- <Sider /> -->
