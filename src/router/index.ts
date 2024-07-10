@@ -8,31 +8,10 @@ import sunoLayout from '@/views/suno/layout.vue'
 import lumaLayout from '@/views/luma/layout.vue'
 
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/h5',
-    name: 'h5',
-    component: () => import('@/views/mj/h5.vue'),
-  },
-  {
-    path: '/nb',
-    name: 'nb',
-    component: () => import('@/views/mj/nb.vue'),
-  },
-  {
-    path: '/share',
-    name: 'share',
-    component: () => import('@/views/mj/share.vue'),
-  },
-  {
-    path: '/comic',
-    name: 'comic',
-    component: () => import('@/views/mj/comic.vue'),
-  },
-  {
-    path: '/note',
-    name: 'note',
-    component: () => import('@/views/mj/note.vue'),
-  },
+ 
+  
+ 
+ 
   {
     path: '/bingAI',
     name: 'bingAI',
