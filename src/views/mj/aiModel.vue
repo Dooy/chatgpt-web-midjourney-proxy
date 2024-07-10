@@ -84,7 +84,7 @@ const truncate = (str, maxLength) => {
 
 const config = ref({
 model:[]
-,maxToken:320000
+,maxToken:8192
 }); 
 const st= ref({openMore:false });
 const voiceList= computed(()=>{
@@ -148,19 +148,19 @@ const saveChat=(type:string)=>{
      emit('close');
 }
  
-watch(()=>nGptStore.value.model,(n)=>{
-    nGptStore.value.gpts=undefined;
-    let max=4096*2*2;
-    if( n.indexOf('vision')>-1){
-        max=4096*2;
-    }else if( n.indexOf('gpt-4')>-1 ||  n.indexOf('16k')>-1 ){ //['16k','8k','32k','gpt-4'].indexOf(n)>-1
-        max=4096*2;
-    }else if( n.toLowerCase().includes('claude-3') ){
-         max=4096*2;
+watch(() => nGptStore.value.model, (n) => {
+    nGptStore.value.gpts = undefined; // 重置 gpts 数据
+    let max = 16384; // 默认最大令牌数
+    if (n.toLowerCase().includes('gpt-4-32k')) {
+        max = 16384;
+    } else if (n.toLowerCase().includes('vision') || n.toLowerCase().includes('gpt-4') || n.toLowerCase().includes('16k') || n.toLowerCase().includes('claude-3') || n.toLowerCase().includes('3.5')) {
+        max = 4096 * 2;
     }
-    config.value.maxToken=max/2;
-    if(nGptStore.value.max_tokens> config.value.maxToken ) nGptStore.value.max_tokens= config.value.maxToken;
-})
+    config.value.maxToken = max / 2; // 设置最大令牌数
+    if (nGptStore.value.max_tokens > config.value.maxToken) {
+        nGptStore.value.max_tokens = config.value.maxToken; // 更新 max_tokens
+    }
+});
 
 const reSet=()=>{
     gptConfigStore.setInit();
