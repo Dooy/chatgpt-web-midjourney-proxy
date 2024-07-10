@@ -5,6 +5,7 @@ import { setupPageGuard } from './permission'
 import { ChatLayout } from '@/views/chat/layout'
 import mjlayout from '@/views/mj/layout.vue'
 import sunoLayout from '@/views/suno/layout.vue'
+import lumaLayout from '@/views/luma/layout.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -75,31 +76,6 @@ const routes: RouteRecordRaw[] = [
     ],
   },
 
-  {
-    path: '/imgPrompt',
-    name: 'imgPrompt',
-    component: () => import('@/views/mj/imgPrompt.vue'),
-  },
-  {
-    path: '/prompt',
-    name: 'prompt',
-    component: () => import('@/views/mj/prompt.vue'),
-  },
-  
-  
-  {
-    path: '/bingAI',
-    name: 'bingAI',
-    component: () => import('@/views/mj/bingAI.vue'),
-  },
-  {
-    path: '/comic',
-    name: 'comic',
-    component: () => import('@/views/mj/comic.vue'),
-  },
-  
-
-
     {
     path: '/music',
     name: 'music',
@@ -110,6 +86,36 @@ const routes: RouteRecordRaw[] = [
         path: '/music/:uuid?',
         name: 'music',
         component: () => import('@/views/suno/music.vue'),
+      },
+    ],
+
+    
+
+  },
+  {
+    path: '/video',
+    name: 'video',
+    component: lumaLayout,
+    redirect: '/video/index',
+    children: [
+      {
+        path: '/video/:uuid?',
+        name: 'video',
+        component: () => import('@/views/luma/video.vue'),
+      },
+    ],
+  },
+
+  {
+    path: '/dance',
+    name: 'dance',
+    component: lumaLayout,
+    redirect: '/dance/index',
+    children: [
+      {
+        path: '/dance/:uuid?',
+        name: 'dance',
+        component: () => import('@/views/viggle/dance.vue'),
       },
     ],
   },
