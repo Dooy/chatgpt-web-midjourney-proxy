@@ -26,6 +26,16 @@ const routes: RouteRecordRaw[] = [
     name: 'comic',
     component: () => import('@/views/mj/comic.vue'),
   },
+	{
+    path: '/imgPrompt',
+    name: 'imgPrompt',
+    component: () => import('@/views/mj/imgPrompt.vue'),
+  },
+  {
+    path: '/prompt',
+    name: 'prompt',
+    component: () => import('@/views/mj/prompt.vue'),
+  },
    {
     path: '/g',
     name: 'g',
