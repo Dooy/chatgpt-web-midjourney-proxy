@@ -18,7 +18,6 @@ import axios from 'axios';
 const options = ref({});
 const selectedValues = ref({});
 const selectWidth = ref(0);
-const filterText = ref('');
 
 // 在组件挂载时获取模型数据
 onMounted(() => {
@@ -151,8 +150,8 @@ const reSet = () => {
   <section class="mb-2 flex justify-between items-center">
     <div><span class="text-red-500">*</span> {{ $t('mjset.model') }}</div>
     <div class="flex w-[50%]">
-      <n-input v-model:value="filterText" placeholder="Filter models" class="w-1/2" />
-      <n-select v-model:value="nGptStore.model" :options="modellist.filter(option => option.label.includes(filterText))" size="small" class="w-1/2" />
+      <n-input v-model:value="filterText" placeholder="Filter" class="w-1/2" />
+      <n-select v-model:value="nGptStore.model" :options="modellist" size="small" class="w-1/2" />
     </div>
   </section>
   <section class="mb-0 flex justify-between items-center">
