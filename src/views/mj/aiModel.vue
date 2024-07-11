@@ -8,7 +8,6 @@ import { t } from "@/locales";
 const emit = defineEmits(['close']);
 const chatStore = useChatStore();
 const uuid = chatStore.active;
-//mlog('uuid', uuid );
 const chatSet = new chatSetting(uuid == null ? 1002 : uuid);
 
 const nGptStore = ref(chatSet.getGptConfig());
@@ -19,6 +18,7 @@ import axios from 'axios';
 const options = ref({});
 const selectedValues = ref({});
 const selectWidth = ref(0);
+const filterText = ref('');
 
 // 在组件挂载时获取模型数据
 onMounted(() => {
@@ -31,8 +31,6 @@ onMounted(() => {
     })
     .then(data => {
       if (Array.isArray(data.data)) {
-        // 过滤掉 "suno-v3" 和 "gemini-pro-vision" 模型
-        //config.value.model = data.data.filter(model => model.id !== 'suno-v3' && model.id !== 'gemini-pro-vision').map(model => model.id);
         config.value.model = data.data.map(model => model.id);
       } else {
         console.error('返回的数据格式不正确');
@@ -82,7 +80,7 @@ const voiceList = computed(() => {
   for (let o of "alloy,echo,fable,onyx,nova,shimmer".split(/[ ,]+/ig)) rz.push({ label: o, value: o })
   return rz;
 });
-const modellist = computed(() => { //
+const modellist = computed(() => {
   let rz = [];
   for (let o of config.value.model) {
     rz.push({ label: o, value: o })
@@ -93,7 +91,6 @@ const modellist = computed(() => { //
       o && rz.push({ label: o, value: o })
     }
   }
-  //服务端的 CUSTOM_MODELS 设置
   if (homeStore.myData.session.cmodels) {
     let delModel: string[] = [];
     let addModel: string[] = [];
@@ -153,15 +150,9 @@ const reSet = () => {
 <template>
   <section class="mb-2 flex justify-between items-center">
     <div><span class="text-red-500">*</span> {{ $t('mjset.model') }}</div>
-    <div class="flex">
-      <n-input v-model:value="nGptStore.model" class="flex-1" />
-      <n-select
-        v-model:value="nGptStore.model"
-        :options="modellist"
-        size="small"
-        filterable
-        class="flex-1"
-      />
+    <div class="flex w-[50%]">
+      <n-input v-model:value="filterText" placeholder="Filter models" class="w-1/2" />
+      <n-select v-model:value="nGptStore.model" :options="modellist.filter(option => option.label.includes(filterText))" size="small" class="w-1/2" />
     </div>
   </section>
   <section class="mb-0 flex justify-between items-center">
@@ -179,7 +170,6 @@ const reSet = () => {
     </div>
   </section>
   <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
-
   <section class="flex justify-between items-center">
     <div>{{ $t('mjchat.historyTCnt') }}</div>
     <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -188,26 +178,18 @@ const reSet = () => {
     </div>
   </section>
   <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}</div>
-
   <section class="mb-0">
     <div>{{ $t('mjchat.role') }}</div>
     <div>
       <n-input type="textarea" :placeholder="$t('mjchat.rolePlaceholder')" v-model:value="nGptStore.systemMessage" :autosize="{ minRows: 1, maxRows: 3 }" style="overflow-y: auto;" />
     </div>
   </section>
-
   <div class="select-container">
     <div v-for="(items, folder) in options" :key="folder" class="mb-0">
       <h3>{{ folder }}</h3>
-      <n-select
-        v-model:value="selectedValues[folder]"
-        :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
-        @update:value="handleSelectChange(folder)"
-        :style="{ maxWidth: selectWidth + 'px' }"
-      />
+      <n-select v-model:value="selectedValues[folder]" :options="items.map(item => ({ label: item.title, value: item.systemRole }))" @update:value="handleSelectChange(folder)" :style="{ maxWidth: selectWidth + 'px' }" />
     </div>
   </div>
-
   <template v-if="st.openMore">
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.temperature') }}</div>
@@ -217,7 +199,6 @@ const reSet = () => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.temperatureInfo') }}</div>
-
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.top_p') }}</div>
       <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -226,7 +207,6 @@ const reSet = () => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.top_pInfo') }}</div>
-
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.presence_penalty') }}</div>
       <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -235,7 +215,6 @@ const reSet = () => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.presence_penaltyInfo') }}</div>
-
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.frequency_penalty') }}</div>
       <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -244,7 +223,6 @@ const reSet = () => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.frequency_penaltyInfo') }}</div>
-
     <section class="mb-2 flex justify-between items-center">
       <div>{{ $t('mj.tts_voice') }}</div>
       <n-select v-model:value="nGptStore.tts_voice" :options="voiceList" size="small" class="!w-[50%]" />
@@ -253,7 +231,6 @@ const reSet = () => {
   <div v-else class="text-right cursor-pointer mb-2" @click="st.openMore = true">
     <NTag type="primary" round size="small" :bordered="false" class="!cursor-pointer">More...</NTag>
   </div>
-
   <section class="text-right flex justify-end space-x-2">
     <NButton @click="reSet()">{{ $t('mj.setBtBack') }}</NButton>
     <NButton type="primary" @click="saveChat('no')">{{ $t('common.save') }}</NButton>
@@ -265,13 +242,5 @@ const reSet = () => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-1 {
-  flex: 1;
 }
 </style>
