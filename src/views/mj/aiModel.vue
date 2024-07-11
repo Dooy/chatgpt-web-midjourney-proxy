@@ -51,6 +51,11 @@ onMounted(() => {
 
   calculateSelectWidth();
   window.addEventListener('resize', calculateSelectWidth);
+
+  // 在组件初始化时手动触发一次watch
+  if (nGptStore.value.model) {
+    handleModelChange(nGptStore.value.model);
+  }
 });
 
 const calculateSelectWidth = () => {
@@ -124,7 +129,9 @@ const saveChat = (type: string) => {
   emit('close');
 }
 
-watch(() => nGptStore.value.model, (n) => {
+// 将watch的回调提取到一个函数中，方便复用
+const handleModelChange = (n) => {
+  console.log('Model changed to:', n); // 添加日志
   nGptStore.value.gpts = undefined; // 重置 gpts 数据
   let max = 16384; // 默认最大令牌数
   if (n.toLowerCase().includes('gpt-4-32k')) {
@@ -136,9 +143,13 @@ watch(() => nGptStore.value.model, (n) => {
   if (nGptStore.value.max_tokens > config.value.maxToken) {
     nGptStore.value.max_tokens = config.value.maxToken; // 更新 max_tokens
   }
-});
+};
+
+// 注册watch
+watch(() => nGptStore.value.model, handleModelChange);
 
 const reSet = () => {
+  console.log('Resetting configuration'); // 添加日志
   gptConfigStore.setInit();
   nGptStore.value = gptConfigStore.myData;
 }
