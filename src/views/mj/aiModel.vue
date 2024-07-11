@@ -8,17 +8,19 @@ import { t } from "@/locales";
 const emit = defineEmits(['close']);
 const chatStore = useChatStore();
 const uuid = chatStore.active;
+//mlog('uuid', uuid );
 const chatSet = new chatSetting(uuid == null ? 1002 : uuid);
 
 const nGptStore = ref(chatSet.getGptConfig());
 
 import axios from 'axios';
 
+// 初始化 ref
 const options = ref({});
 const selectedValues = ref({});
 const selectWidth = ref(0);
-const filterable = ref(false);
 
+// 在组件挂载时获取模型数据
 onMounted(() => {
   fetch(`/v1/models`)
     .then(response => {
@@ -29,6 +31,8 @@ onMounted(() => {
     })
     .then(data => {
       if (Array.isArray(data.data)) {
+        // 过滤掉 "suno-v3" 和 "gemini-pro-vision" 模型
+        //config.value.model = data.data.filter(model => model.id !== 'suno-v3' && model.id !== 'gemini-pro-vision').map(model => model.id);
         config.value.model = data.data.map(model => model.id);
       } else {
         console.error('返回的数据格式不正确');
@@ -69,33 +73,34 @@ const handleSelectChange = (folder: string) => {
 };
 
 const config = ref({
-  model: ['gpt-3.5-turbo-1106'],
+  model: [],
   maxToken: 8192
 });
 const st = ref({ openMore: false });
 const voiceList = computed(() => {
   let rz = [];
-  for (let o of "alloy,echo,fable,onyx,nova,shimmer".split(/[ ,]+/ig)) rz.push({ label: o, value: o });
+  for (let o of "alloy,echo,fable,onyx,nova,shimmer".split(/[ ,]+/ig)) rz.push({ label: o, value: o })
   return rz;
 });
-const modellist = computed(() => {
+const modellist = computed(() => { //
   let rz = [];
   for (let o of config.value.model) {
-    rz.push({ label: o, value: o });
+    rz.push({ label: o, value: o })
   }
   if (gptConfigStore.myData.userModel) {
     let arr = gptConfigStore.myData.userModel.split(/[ ,]+/ig);
     for (let o of arr) {
-      o && rz.push({ label: o, value: o });
+      o && rz.push({ label: o, value: o })
     }
   }
+  //服务端的 CUSTOM_MODELS 设置
   if (homeStore.myData.session.cmodels) {
     let delModel: string[] = [];
     let addModel: string[] = [];
-    let isDelAll = false;
+    let isDelAll = false
     homeStore.myData.session.cmodels.split(/[ ,]+/ig).map((v: string) => {
       if (v.indexOf('-') == 0) {
-        delModel.push(v.substring(1));
+        delModel.push(v.substring(1))
         if (v == '-all') isDelAll = true;
       } else {
         addModel.push(v);
@@ -104,9 +109,9 @@ const modellist = computed(() => {
     mlog('cmodels', delModel, addModel);
     if (isDelAll) rz = [];
     rz = rz.filter(v => delModel.indexOf(v.value) == -1);
-    addModel.map(o => rz.push({ label: o, value: o }));
+    addModel.map(o => rz.push({ label: o, value: o }))
     if (rz.length == 0) {
-      rz.push({ label: 'gpt-3.5-turbo', value: 'gpt-3.5-turbo' });
+      rz.push({ label: 'gpt-3.5-turbo', value: 'gpt-3.5-turbo' })
     }
   }
 
@@ -123,7 +128,7 @@ const saveChat = (type: string) => {
   homeStore.setMyData({ act: 'saveChat' });
   if (type != 'hide') ms.success(t('common.saveSuccess'));
   emit('close');
-};
+}
 
 watch(() => nGptStore.value.model, (n) => {
   nGptStore.value.gpts = undefined; // 重置 gpts 数据
@@ -142,17 +147,7 @@ watch(() => nGptStore.value.model, (n) => {
 const reSet = () => {
   gptConfigStore.setInit();
   nGptStore.value = gptConfigStore.myData;
-};
-
-const handleSelectClick = (event: MouseEvent, folder: string) => {
-  const target = event.target as HTMLElement;
-  const rect = target.getBoundingClientRect();
-  if (event.clientX > rect.left + rect.width / 2) {
-    filterable.value = false;
-  } else {
-    filterable.value = true;
-  }
-};
+}
 </script>
 
 <template>
@@ -175,6 +170,7 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
     </div>
   </section>
   <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
+
   <section class="flex justify-between items-center">
     <div>{{ $t('mjchat.historyTCnt') }}</div>
     <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -183,18 +179,30 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
     </div>
   </section>
   <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}</div>
+
   <section class="mb-0">
     <div>{{ $t('mjchat.role') }}</div>
     <div>
       <n-input type="textarea" :placeholder="$t('mjchat.rolePlaceholder')" v-model:value="nGptStore.systemMessage" :autosize="{ minRows: 1, maxRows: 3 }" style="overflow-y: auto;" />
     </div>
   </section>
+
   <div class="select-container">
     <div v-for="(items, folder) in options" :key="folder" class="mb-0">
       <h3>{{ folder }}</h3>
-      <n-select v-model:value="selectedValues[folder]" :options="items.map(item => ({ label: item.title, value: item.systemRole }))" @click="handleSelectClick($event, folder)" :filterable="filterable" :style="{ maxWidth: selectWidth + 'px' }" />
+      <div class="flex">
+        <n-input v-model:value="selectedValues[folder]" class="flex-1" />
+        <n-select
+          v-model:value="selectedValues[folder]"
+          :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
+          @update:value="handleSelectChange(folder)"
+          :style="{ maxWidth: selectWidth + 'px' }"
+          class="flex-1"
+        />
+      </div>
     </div>
   </div>
+
   <template v-if="st.openMore">
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.temperature') }}</div>
@@ -204,6 +212,7 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.temperatureInfo') }}</div>
+
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.top_p') }}</div>
       <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -212,6 +221,7 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.top_pInfo') }}</div>
+
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.presence_penalty') }}</div>
       <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -220,6 +230,7 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.presence_penaltyInfo') }}</div>
+
     <section class="flex justify-between items-center">
       <div>{{ $t('mj.frequency_penalty') }}</div>
       <div class="flex justify-end items-center w-[80%] max-w-[240px]">
@@ -228,6 +239,7 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
       </div>
     </section>
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.frequency_penaltyInfo') }}</div>
+
     <section class="mb-2 flex justify-between items-center">
       <div>{{ $t('mj.tts_voice') }}</div>
       <n-select v-model:value="nGptStore.tts_voice" :options="voiceList" size="small" class="!w-[50%]" />
@@ -236,6 +248,7 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
   <div v-else class="text-right cursor-pointer mb-2" @click="st.openMore = true">
     <NTag type="primary" round size="small" :bordered="false" class="!cursor-pointer">More...</NTag>
   </div>
+
   <section class="text-right flex justify-end space-x-2">
     <NButton @click="reSet()">{{ $t('mj.setBtBack') }}</NButton>
     <NButton type="primary" @click="saveChat('no')">{{ $t('common.save') }}</NButton>
@@ -247,5 +260,13 @@ const handleSelectClick = (event: MouseEvent, folder: string) => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
 }
 </style>
