@@ -135,7 +135,7 @@ const handleModelChange = (n) => {
   nGptStore.value.gpts = undefined; // 重置 gpts 数据
   let max = 16384; // 默认最大令牌数
   if (n.toLowerCase().includes('gpt-4-32k')) {
-    max = 16384;
+    max = 4096 * 2;
   } else if (n.toLowerCase().includes('vision') || n.toLowerCase().includes('gpt-4') || n.toLowerCase().includes('16k') || n.toLowerCase().includes('claude-3') || n.toLowerCase().includes('3.5')) {
     max = 4096 * 2;
   }
