@@ -1,3 +1,135 @@
+<template>
+  <section class="mb-2 flex justify-between items-center">
+    <div><span class="text-red-500">*</span> {{ $t('mjset.model') }}</div>
+    <div class="select-wrapper" @click="handleClick($event)">
+      <n-select v-model:value="nGptStore.model" :options="modellist" size="small" filterable class="!w-[50%]" />
+    </div>
+  </section>
+  <section class="mb-0 flex justify-between items-center">
+    <n-input :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
+      <template #prefix>
+        {{ $t('mjchat.myModle') }}
+      </template>
+    </n-input>
+  </section>
+  <section class="flex justify-between items-center">
+    <div>{{ $t('mjchat.historyCnt') }}</div>
+    <div class="flex justify-end items-center w-[80%] max-w-[240px]">
+      <div class="w-[200px]"><n-slider v-model:value="nGptStore.talkCount" :step="1" :max="50" /></div>
+      <div class="w-[40px] text-right">{{ nGptStore.talkCount }}</div>
+    </div>
+  </section>
+  <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
+  <section class="flex justify-between items-center">
+    <div>{{ $t('mjchat.historyTCnt') }}</div>
+    <div class="flex justify-end items-center w-[80%] max-w-[240px]">
+      <div class="w-[200px]"><n-slider v-model:value="nGptStore.max_tokens" :step="1" :max="config.maxToken" :min="1" /></div>
+      <div class="w-[40px] text-right">{{ nGptStore.max_tokens }}</div>
+    </div>
+  </section>
+  <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}</div>
+  <section class="mb-0">
+    <div>{{ $t('mjchat.role') }}</div>
+    <div>
+      <n-input type="textarea" :placeholder="$t('mjchat.rolePlaceholder')" v-model:value="nGptStore.systemMessage" :autosize="{ minRows: 1, maxRows: 3 }" style="overflow-y: auto;" />
+    </div>
+  </section>
+  <div class="select-container">
+    <div v-for="(items, folder) in options" :key="folder" class="mb-0">
+      <h3>{{ folder }}</h3>
+      <n-select
+        v-model:value="selectedValues[folder]"
+        :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
+        @update:value="handleSelectChange(folder)"
+        :style="{ maxWidth: selectWidth + 'px' }"
+      />
+    </div>
+  </div>
+  <template v-if="st.openMore">
+    <section class="flex justify-between items-center">
+      <div>{{ $t('mj.temperature') }}</div>
+      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
+        <div class="w-[200px]"><n-slider v-model:value="nGptStore.temperature" :step="0.01" :max="1" /></div>
+        <div class="w-[40px] text-right">{{ nGptStore.temperature }}</div>
+      </div>
+    </section>
+    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.temperatureInfo') }}</div>
+    <section class="flex justify-between items-center">
+      <div>{{ $t('mj.top_p') }}</div>
+      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
+        <div class="w-[200px]"><n-slider v-model:value="nGptStore.top_p" :step="0.01" :max="1" /></div>
+        <div class="w-[40px] text-right">{{ nGptStore.top_p }}</div>
+      </div>
+    </section>
+    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.top_pInfo') }}</div>
+    <section class="flex justify-between items-center">
+      <div>{{ $t('mj.presence_penalty') }}</div>
+      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
+        <div class="w-[200px]"><n-slider v-model:value="nGptStore.presence_penalty" :step="0.01" :max="1" /></div>
+        <div class="w-[40px] text-right">{{ nGptStore.presence_penalty }}</div>
+      </div>
+    </section>
+    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.presence_penaltyInfo') }}</div>
+    <section class="flex justify-between items-center">
+      <div>{{ $t('mj.frequency_penalty') }}</div>
+      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
+        <div class="w-[200px]"><n-slider v-model:value="nGptStore.frequency_penalty" :step="0.01" :max="1" /></div>
+        <div class="w-[40px] text-right">{{ nGptStore.frequency_penalty }}</div>
+      </div>
+    </section>
+    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.frequency_penaltyInfo') }}</div>
+    <section class="mb-2 flex justify-between items-center">
+      <div>{{ $t('mj.tts_voice') }}</div>
+      <n-select v-model:value="nGptStore.tts_voice" :options="voiceList" size="small" class="!w-[50%]" />
+    </section>
+  </template>
+  <div v-else class="text-right cursor-pointer mb-2" @click="st.openMore = true">
+    <NTag type="primary" round size="small" :bordered="false" class="!cursor-pointer">More...</NTag>
+  </div>
+  <section class="text-right flex justify-end space-x-2">
+    <NButton @click="reSet()">{{ $t('mj.setBtBack') }}</NButton>
+    <NButton type="primary" @click="saveChat('no')">{{ $t('common.save') }}</NButton>
+  </section>
+</template>
+
+<style scoped>
+.select-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+}
+
+.select-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+}
+</style>
+
+<script lang="ts">
+// 你的 TypeScript 代码
+</script>
+
 <script setup lang="ts">
 import { NSelect, NInput, NSlider, NButton, useMessage, NTag } from "naive-ui";
 import { ref, computed, watch, onMounted } from "vue";
@@ -141,151 +273,5 @@ watch(() => nGptStore.value.model, (n) => {
 const reSet = () => {
   gptConfigStore.setInit();
   nGptStore.value = gptConfigStore.myData;
-};
-</script>
-
-<template>
-  <section class="mb-2 flex justify-between items-center">
-    <div><span class="text-red-500">*</span> {{ $t('mjset.model') }}</div>
-    <div class="select-wrapper" @click="handleClick($event)">
-      <n-select v-model:value="nGptStore.model" :options="modellist" size="small" filterable class="!w-[50%]" />
-    </div>
-  </section>
-  <section class="mb-0 flex justify-between items-center">
-    <n-input :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
-      <template #prefix>
-        {{ $t('mjchat.myModle') }}
-      </template>
-    </n-input>
-  </section>
-  <section class="flex justify-between items-center">
-    <div>{{ $t('mjchat.historyCnt') }}</div>
-    <div class="flex justify-end items-center w-[80%] max-w-[240px]">
-      <div class="w-[200px]"><n-slider v-model:value="nGptStore.talkCount" :step="1" :max="50" /></div>
-      <div class="w-[40px] text-right">{{ nGptStore.talkCount }}</div>
-    </div>
-  </section>
-  <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
-  <section class="flex justify-between items-center">
-    <div>{{ $t('mjchat.historyTCnt') }}</div>
-    <div class="flex justify-end items-center w-[80%] max-w-[240px]">
-      <div class="w-[200px]"><n-slider v-model:value="nGptStore.max_tokens" :step="1" :max="config.maxToken" :min="1" /></div>
-      <div class="w-[40px] text-right">{{ nGptStore.max_tokens }}</div>
-    </div>
-  </section>
-  <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyTCntInfo') }}</div>
-  <section class="mb-0">
-    <div>{{ $t('mjchat.role') }}</div>
-    <div>
-      <n-input type="textarea" :placeholder="$t('mjchat.rolePlaceholder')" v-model:value="nGptStore.systemMessage" :autosize="{ minRows: 1, maxRows: 3 }" style="overflow-y: auto;" />
-    </div>
-  </section>
-  <div class="select-container">
-    <div v-for="(items, folder) in options" :key="folder" class="mb-0">
-      <h3>{{ folder }}</h3>
-      <n-select
-        v-model:value="selectedValues[folder]"
-        :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
-        @update:value="handleSelectChange(folder)"
-        :style="{ maxWidth: selectWidth + 'px' }"
-      />
-    </div>
-  </div>
-  <template v-if="st.openMore">
-    <section class="flex justify-between items-center">
-      <div>{{ $t('mj.temperature') }}</div>
-      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class="w-[200px]"><n-slider v-model:value="nGptStore.temperature" :step="0.01" :max="1" /></div>
-        <div class="w-[40px] text-right">{{ nGptStore.temperature }}</div>
-      </div>
-    </section>
-    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.temperatureInfo') }}</div>
-    <section class="flex justify-between items-center">
-      <div>{{ $t('mj.top_p') }}</div>
-      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class="w-[200px]"><n-slider v-model:value="nGptStore.top_p" :step="0.01" :max="1" /></div>
-        <div class="w-[40px] text-right">{{ nGptStore.top_p }}</div>
-      </div>
-    </section>
-    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.top_pInfo') }}</div>
-    <section class="flex justify-between items-center">
-      <div>{{ $t('mj.presence_penalty') }}</div>
-      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class="w-[200px]"><n-slider v-model:value="nGptStore.presence_penalty" :step="0.01" :max="1" /></div>
-        <div class="w-[40px] text-right">{{ nGptStore.presence_penalty }}</div>
-      </div>
-    </section>
-    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.presence_penaltyInfo') }}</div>
-    <section class="flex justify-between items-center">
-      <div>{{ $t('mj.frequency_penalty') }}</div>
-      <div class="flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class="w-[200px]"><n-slider v-model:value="nGptStore.frequency_penalty" :step="0.01" :max="1" /></div>
-        <div class="w-[40px] text-right">{{ nGptStore.frequency_penalty }}</div>
-      </div>
-    </section>
-    <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.frequency_penaltyInfo') }}</div>
-    <section class="mb-2 flex justify-between items-center">
-      <div>{{ $t('mj.tts_voice') }}</div>
-      <n-select v-model:value="nGptStore.tts_voice" :options="voiceList" size="small" class="!w-[50%]" />
-    </section>
-  </template>
-  <div v-else class="text-right cursor-pointer mb-2" @click="st.openMore = true">
-    <NTag type="primary" round size="small" :bordered="false" class="!cursor-pointer">More...</NTag>
-  </div>
-  <section class="text-right flex justify-end space-x-2">
-    <NButton @click="reSet()">{{ $t('mj.setBtBack') }}</NButton>
-    <NButton type="primary" @click="saveChat('no')">{{ $t('common.save') }}</NButton>
-  </section>
-</template>
-
-<style scoped>
-.select-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-}
-
-.select-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.select-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  z-index: 1;
-}
-
-.select-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  z-index: 1;
-}
-</style>
-
-<script>
-export default {
-  methods: {
-    handleClick(event) {
-      const rect = event.currentTarget.getBoundingClientRect();
-      const clickX = event.clientX - rect.left;
-      if (clickX < rect.width / 2) {
-        // 点击左边一半，触发输入框
-        // 这里可以添加触发输入框的逻辑
-      } else {
-        // 点击右边一半，触发下拉框
-        // 这里可以添加触发下拉框的逻辑
-      }
-    }
-  }
 };
 </script>
