@@ -83,7 +83,7 @@ const truncate = (str, maxLength) => {
 
 
 const config = ref({
-model:[]
+model:[gpt-3.5-turbo-1106]
 ,maxToken:8192
 }); 
 const st= ref({openMore:false });
