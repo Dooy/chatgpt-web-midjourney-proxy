@@ -73,7 +73,7 @@ const handleSelectChange = (folder: string) => {
 };
 
 const config = ref({
-  model: [],
+  model: ['gpt-3.5-turbo-1106'],
   maxToken: 8192
 });
 const st = ref({ openMore: false });
@@ -153,7 +153,16 @@ const reSet = () => {
 <template>
   <section class="mb-2 flex justify-between items-center">
     <div><span class="text-red-500">*</span> {{ $t('mjset.model') }}</div>
-    <n-select v-model:value="nGptStore.model" :options="modellist" size="small" filterable class="!w-[50%]" />
+    <div class="flex">
+      <n-input v-model:value="nGptStore.model" class="flex-1" />
+      <n-select
+        v-model:value="nGptStore.model"
+        :options="modellist"
+        size="small"
+        filterable
+        class="flex-1"
+      />
+    </div>
   </section>
   <section class="mb-0 flex justify-between items-center">
     <n-input :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
@@ -190,16 +199,12 @@ const reSet = () => {
   <div class="select-container">
     <div v-for="(items, folder) in options" :key="folder" class="mb-0">
       <h3>{{ folder }}</h3>
-      <div class="flex">
-        <n-input v-model:value="selectedValues[folder]" class="flex-1" />
-        <n-select
-          v-model:value="selectedValues[folder]"
-          :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
-          @update:value="handleSelectChange(folder)"
-          :style="{ maxWidth: selectWidth + 'px' }"
-          class="flex-1"
-        />
-      </div>
+      <n-select
+        v-model:value="selectedValues[folder]"
+        :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
+        @update:value="handleSelectChange(folder)"
+        :style="{ maxWidth: selectWidth + 'px' }"
+      />
     </div>
   </div>
 
