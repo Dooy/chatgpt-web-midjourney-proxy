@@ -156,11 +156,11 @@ const reSet = () => {
 
 <template>
   <section class="mb-2 flex justify-between items-center">
-    <div class="flex items-center">
+    <div class="flex items-center h-full w-1/2">
       <span class="text-red-500">*</span> {{ $t('mjset.model') }}
-      <n-input v-model:value="filterModel" placeholder="筛选模型" class="ml-2" />
+      <n-input v-model:value="filterModel" placeholder="筛选模型" class="ml-2 flex-grow" />
     </div>
-    <n-select v-model:value="nGptStore.model" :options="filteredModelList" size="small" class="!w-[50%]" />
+    <n-select v-model:value="nGptStore.model" :options="filteredModelList" size="small" class="!w-1/2" />
   </section>
   <section class="mb-0 flex justify-between items-center">
     <n-input :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
@@ -232,7 +232,7 @@ const reSet = () => {
     <div class="mb-0 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mj.frequency_penaltyInfo') }}</div>
     <section class="mb-2 flex justify-between items-center">
       <div>{{ $t('mj.tts_voice') }}</div>
-      <n-select v-model:value="nGptStore.tts_voice" :options="voiceList" size="small" class="!w-[50%]" />
+      <n-select v-model:value="nGptStore.tts_voice" :options="voiceList" size="small" class="!w-1/2" />
     </section>
   </template>
   <div v-else class="text-right cursor-pointer mb-2" @click="st.openMore = true">
