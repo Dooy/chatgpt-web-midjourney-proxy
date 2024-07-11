@@ -274,4 +274,16 @@ const reSet = () => {
   gptConfigStore.setInit();
   nGptStore.value = gptConfigStore.myData;
 };
+
+const handleClick = (event: MouseEvent) => {
+  const rect = event.currentTarget.getBoundingClientRect();
+  const clickX = event.clientX - rect.left;
+  if (clickX < rect.width / 2) {
+    // 点击左边一半，触发输入框
+    // 这里可以添加触发输入框的逻辑
+  } else {
+    // 点击右边一半，触发下拉框
+    // 这里可以添加触发下拉框的逻辑
+  }
+};
 </script>
