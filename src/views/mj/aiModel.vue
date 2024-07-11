@@ -147,7 +147,9 @@ const reSet = () => {
 <template>
   <section class="mb-2 flex justify-between items-center">
     <div><span class="text-red-500">*</span> {{ $t('mjset.model') }}</div>
-    <n-select v-model:value="nGptStore.model" :options="modellist" size="small" filterable class="!w-[50%]" />
+    <div class="select-wrapper" @click="handleClick($event)">
+      <n-select v-model:value="nGptStore.model" :options="modellist" size="small" filterable class="!w-[50%]" />
+    </div>
   </section>
   <section class="mb-0 flex justify-between items-center">
     <n-input :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
@@ -181,14 +183,12 @@ const reSet = () => {
   <div class="select-container">
     <div v-for="(items, folder) in options" :key="folder" class="mb-0">
       <h3>{{ folder }}</h3>
-      <div class="select-wrapper" @click="handleClick(folder, $event)">
-        <n-select
-          v-model:value="selectedValues[folder]"
-          :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
-          @update:value="handleSelectChange(folder)"
-          :style="{ maxWidth: selectWidth + 'px' }"
-        />
-      </div>
+      <n-select
+        v-model:value="selectedValues[folder]"
+        :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
+        @update:value="handleSelectChange(folder)"
+        :style="{ maxWidth: selectWidth + 'px' }"
+      />
     </div>
   </div>
   <template v-if="st.openMore">
@@ -275,7 +275,7 @@ const reSet = () => {
 <script>
 export default {
   methods: {
-    handleClick(folder, event) {
+    handleClick(event) {
       const rect = event.currentTarget.getBoundingClientRect();
       const clickX = event.clientX - rect.left;
       if (clickX < rect.width / 2) {
@@ -283,7 +283,7 @@ export default {
         // 这里可以添加触发输入框的逻辑
       } else {
         // 点击右边一半，触发下拉框
-        this.handleSelectChange(folder);
+        // 这里可以添加触发下拉框的逻辑
       }
     }
   }
