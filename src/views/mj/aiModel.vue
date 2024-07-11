@@ -4,17 +4,20 @@ import { ref, computed, watch, onMounted } from "vue";
 import { gptConfigStore, homeStore, useChatStore } from '@/store';
 import { mlog, chatSetting } from "@/api";
 import { t } from "@/locales";
-import axios from 'axios';
 
 const emit = defineEmits(['close']);
 const chatStore = useChatStore();
 const uuid = chatStore.active;
 const chatSet = new chatSetting(uuid == null ? 1002 : uuid);
+
 const nGptStore = ref(chatSet.getGptConfig());
+
+import axios from 'axios';
 
 const options = ref({});
 const selectedValues = ref({});
 const selectWidth = ref(0);
+const filterable = ref(false);
 
 onMounted(() => {
   fetch(`/v1/models`)
@@ -53,7 +56,7 @@ onMounted(() => {
 
 const calculateSelectWidth = () => {
   const containerWidth = document.querySelector('.select-container')?.clientWidth || 0;
-  selectWidth.value = containerWidth / 2 - 0;
+  selectWidth.value = containerWidth / 2 - 0; // Subtracting gap
 };
 
 const handleSelectChange = (folder: string) => {
@@ -114,7 +117,6 @@ const modellist = computed(() => {
   return uniqueArray;
 });
 const ms = useMessage();
-
 const saveChat = (type: string) => {
   chatSet.save(nGptStore.value);
   gptConfigStore.setMyData(nGptStore.value);
@@ -124,16 +126,16 @@ const saveChat = (type: string) => {
 };
 
 watch(() => nGptStore.value.model, (n) => {
-  nGptStore.value.gpts = undefined;
-  let max = 16384;
+  nGptStore.value.gpts = undefined; // 重置 gpts 数据
+  let max = 16384; // 默认最大令牌数
   if (n.toLowerCase().includes('gpt-4-32k')) {
     max = 16384;
   } else if (n.toLowerCase().includes('vision') || n.toLowerCase().includes('gpt-4') || n.toLowerCase().includes('16k') || n.toLowerCase().includes('claude-3') || n.toLowerCase().includes('3.5')) {
     max = 4096 * 2;
   }
-  config.value.maxToken = max / 2;
+  config.value.maxToken = max / 2; // 设置最大令牌数
   if (nGptStore.value.max_tokens > config.value.maxToken) {
-    nGptStore.value.max_tokens = config.value.maxToken;
+    nGptStore.value.max_tokens = config.value.maxToken; // 更新 max_tokens
   }
 });
 
@@ -142,15 +144,13 @@ const reSet = () => {
   nGptStore.value = gptConfigStore.myData;
 };
 
-const handleSelectClick = (event: MouseEvent) => {
-  const selectElement = event.currentTarget as HTMLElement;
-  const rect = selectElement.getBoundingClientRect();
-
+const handleSelectClick = (event: MouseEvent, folder: string) => {
+  const target = event.target as HTMLElement;
+  const rect = target.getBoundingClientRect();
   if (event.clientX > rect.left + rect.width / 2) {
-    const filterInput = selectElement.querySelector('.n-select-input') as HTMLElement;
-    if (filterInput) {
-      filterInput.blur();
-    }
+    filterable.value = false;
+  } else {
+    filterable.value = true;
   }
 };
 </script>
@@ -158,14 +158,7 @@ const handleSelectClick = (event: MouseEvent) => {
 <template>
   <section class="mb-2 flex justify-between items-center">
     <div><span class="text-red-500">*</span> {{ $t('mjset.model') }}</div>
-    <n-select
-      v-model:value="nGptStore.model"
-      :options="modellist"
-      size="small"
-      filterable
-      class="custom-select !w-[50%]"
-      @click="handleSelectClick"
-    />
+    <n-select v-model:value="nGptStore.model" :options="modellist" size="small" filterable class="!w-[50%]" />
   </section>
   <section class="mb-0 flex justify-between items-center">
     <n-input :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
@@ -199,12 +192,7 @@ const handleSelectClick = (event: MouseEvent) => {
   <div class="select-container">
     <div v-for="(items, folder) in options" :key="folder" class="mb-0">
       <h3>{{ folder }}</h3>
-      <n-select
-        v-model:value="selectedValues[folder]"
-        :options="items.map(item => ({ label: item.title, value: item.systemRole }))"
-        @update:value="handleSelectChange(folder)"
-        :style="{ maxWidth: selectWidth + 'px' }"
-      />
+      <n-select v-model:value="selectedValues[folder]" :options="items.map(item => ({ label: item.title, value: item.systemRole }))" @click="handleSelectClick($event, folder)" :filterable="filterable" :style="{ maxWidth: selectWidth + 'px' }" />
     </div>
   </div>
   <template v-if="st.openMore">
@@ -259,10 +247,5 @@ const handleSelectClick = (event: MouseEvent) => {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
-}
-
-.custom-select .n-select-input {
-  width: 50%;
-  float: left;
 }
 </style>
