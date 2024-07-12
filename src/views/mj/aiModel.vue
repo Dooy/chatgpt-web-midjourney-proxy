@@ -152,9 +152,11 @@ const reSet = () => {
   console.log('Resetting configuration'); // 添加日志
   gptConfigStore.setInit(); // 将 gptConfigStore 恢复到初始状态
 
-  // 手动设置 nGptStore 的默认值
+  // 手动设置 nGptStore 的默认值，但不包括模型
   nGptStore.value = {
+    ...nGptStore.value, // 保留模型的值
     max_tokens: 4096,
+    userModel: '',
     talkCount: 20,
     systemMessage: '',
     temperature: 0.5,
@@ -281,3 +283,8 @@ const filteredModelList = computed(() => {
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
 }
+
+.n-input, .n-select {
+  height: 100%;
+}
+</style>
