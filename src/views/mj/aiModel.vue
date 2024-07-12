@@ -154,9 +154,14 @@ const reSet = () => {
 
   // 手动设置 nGptStore 的默认值
   nGptStore.value = {
-    model: 'gpt-3.5-turbo-1106', // 程序预定义的默认模型
-    max_tokens: 8192, // 程序预定义的默认最大令牌数
-    // 其他默认配置...
+    max_tokens: 4096,
+    talkCount: 20,
+    systemMessage: '',
+    temperature: 0.5,
+    top_p: 1,
+    presence_penalty: 0,
+    frequency_penalty: 0,
+    tts_voice: "alloy"
   };
 
   // 手动触发一次watch，确保watch能够监听到model的变化
@@ -276,8 +281,3 @@ const filteredModelList = computed(() => {
   grid-template-columns: repeat(2, 1fr);
   gap: 5px;
 }
-
-.n-input, .n-select {
-  height: 100%;
-}
-</style>
