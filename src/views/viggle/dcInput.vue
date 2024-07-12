@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { NSelect,NButton,NDrawer,NDrawerContent,NInput, useMessage, NImage } from 'naive-ui';
 import { useBasicLayout } from '@/hooks/useBasicLayout';
 import {SvgIcon} from '@/components/common'
 import dcTemple from "./dcTemple.vue"
-import { homeStore } from '@/store';
+import { gptServerStore, homeStore } from '@/store';
 import {  mlog, upImg } from '@/api';
 import { FeedViggleTask, ViggleTemplate , viggleFetch } from '@/api/viggle';
 import { t } from '@/locales';
+import { lumaHkStore } from '@/api/lumaStore';
+import { sleep } from '@/api/suno';
 
 const f= ref({ "imageID": "", "bgMode": 2, "modelInfoID": 3,"templateID": "","videoID":'' })
-const st= ref({isDo:false,showImg:false,q:'',imgSrc:'',vgSrc:'',vgCoverURL:''})
+const st= ref({isDo:false,showImg:false,q:'',imgSrc:'',vgSrc:'',vgCoverURL:'',version:'relax'})
 const useTem= ref<ViggleTemplate>()
 const fsRef= ref() ;
 const vsRef= ref() ;
@@ -32,8 +34,13 @@ const modelOption= [
 
 const generate= async ()=>{
     ms.loading(t('dance.gring'))
-    let d = await viggleFetch('/video-task', f.value); 
+    let d = await viggleFetch( getMyProUrl('/video-task'), f.value); 
     if (d.data && d.data.taskID) {
+        if( st.value.version=='pro' ){
+            const hk= new lumaHkStore();
+            hk.save({id:d.data.taskID,isHK:true})
+            await sleep(800)
+        }
         FeedViggleTask(d.data.taskID)  
     }
 }
@@ -62,10 +69,16 @@ const clear=(type:number)=>{
     
 }
 
+function getMyProUrl( url:string ){
+    // const is_luma_pro=homeStore.myData.is_luma_pro
+    if (st.value.version=='pro' ) url= '/pro'+url
+    return url ;
+}
+
 async function  selectFileVideo(input:any){  
     const formData = new FormData(); 
     formData.append('file', input.target.files[0]) 
-    let d:any = await viggleFetch( '/asset/video/'+f.value.imageID , formData,{upFile:true})
+    let d:any = await viggleFetch(getMyProUrl( '/asset/video/'+f.value.imageID) , formData,{upFile:true})
     mlog("d Video", d )
     if(d.data ) {
        if( d.data.id ) {
@@ -92,7 +105,7 @@ async function  selectFile(input:any){
     const formData = new FormData(); 
     formData.append('file', input.target.files[0])
    
-    let d:any = await viggleFetch('/asset/image', formData,{upFile:true})
+    let d:any = await viggleFetch( getMyProUrl('/asset/image'), formData,{upFile:true})
     mlog("d Image", d )
     if(d.data ) {
        if( d.data.id ) {
@@ -106,6 +119,24 @@ async function  selectFile(input:any){
     }
 }
 
+const isHK= computed(()=> {
+    const url= gptServerStore.myData.VIGGLE_SERVER.toLocaleLowerCase();
+    if(url!=''){
+     return (url.indexOf('hk')>-1 &&  url.indexOf('pro')==-1 ) ;
+    }
+   
+    return (homeStore.myData.session && homeStore.myData.session.isHk) ;
+    
+} );
+
+const saveMyDate=(is_pro:boolean)=>{
+    homeStore.setMyData({is_viggle_pro: is_pro})
+    gptServerStore.setMyData({IS_VIGGLE_PRO: is_pro})
+}
+
+watch(()=>isHK.value , (n)=>    saveMyDate( n && st.value.version=='pro' ) ); 
+watch(()=>st.value.version , ()=>  saveMyDate(isHK.value && st.value.version=='pro' ) );
+
 watch(()=>homeStore.myData.act, (n)=>{
     //canPost.value= n.modelInfoID!=0 && n.bgMode!=0
     if(n=='viggle.useVideo'){
@@ -116,8 +147,18 @@ watch(()=>homeStore.myData.act, (n)=>{
         f.value.videoID= '' 
     }
 })
+const mvOption= [
+{label: '版本: watermark, 价格实惠',value: 'relax'}
+,{label:'版本: pro, 无水印',value: 'pro'}
+ ]
 
-homeStore.setMyData({ms}) 
+
+//homeStore.setMyData({ms}) 
+onMounted(() => {
+    homeStore.setMyData({ms:ms})
+    st.value.version= gptServerStore.myData.IS_VIGGLE_PRO?'pro':'relax'
+});
+
 </script>
 <template>
 <div class="p-2"> 
@@ -164,6 +205,8 @@ homeStore.setMyData({ms})
                 </div>
             </div>
     </div>
+    
+
     <div class="pt-2 flex justify-center items-center w-full" v-else>
         <input type="file"  @change="selectFileVideo"  ref="vsRef" style="display: none" accept=".mp4" />
 
@@ -175,6 +218,11 @@ homeStore.setMyData({ms})
             </div> 
         </div>
     </div>
+
+    <div  class="pt-2" v-if="isHK">
+        <n-select v-model:value="st.version" :options="mvOption" size="small" />
+    </div>
+    
     <div class="pt-2 flex justify-center items-center w-full">
          <NButton block :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 
     </div>

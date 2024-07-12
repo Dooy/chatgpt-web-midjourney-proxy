@@ -2,6 +2,7 @@ import { gptServerStore, homeStore, useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
 import { sleep } from "./suno";
 import { ViggleTask, viggleStore } from "./viggleStore";
+import { lumaHkStore } from "./lumaStore";
 
 function getHeaderAuthorization(){
     let headers={}
@@ -28,8 +29,8 @@ function getHeaderAuthorization(){
 export const  getUrl=(url:string)=>{
     if(url.indexOf('http')==0) return url;
     
-    const pro_prefix= '';//url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
-   // url= url.replaceAll('/pro','')
+    const pro_prefix= url.indexOf('/pro')>-1?'/pro':'';//homeStore.myData.is_luma_pro?'/pro':''
+    url= url.replaceAll('/pro','')
     if(gptServerStore.myData.VIGGLE_SERVER){
         if(gptServerStore.myData.VIGGLE_SERVER.indexOf('/pro')>0){
             return `${ gptServerStore.myData.VIGGLE_SERVER}/viggle${url}`;
@@ -121,8 +122,12 @@ export const viggleFetch=(url:string,data?:any,opt2?:any )=>{
 
 export  async function FeedViggleTask(id:string){  
     const ss = new viggleStore()
+    const hk= new lumaHkStore();
+    const hkObj= hk.getOneById(id)
     for(let i=0; i<500;i++){
-        const d= await viggleFetch('/video-task/by-ids',{ids:[id]})
+        let url= '/video-task/by-ids';
+        if(hkObj && hkObj.isHK ) url= '/pro/video-task/by-ids';
+        const d= await viggleFetch(url,{ids:[id]})
         mlog('FeedViggleTask', d )
        
         if(d.data && d.data.length>0){
