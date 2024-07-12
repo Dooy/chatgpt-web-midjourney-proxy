@@ -150,8 +150,14 @@ watch(() => nGptStore.value.model, handleModelChange);
 
 const reSet = () => {
   console.log('Resetting configuration'); // 添加日志
-  gptConfigStore.setInit();
-  nGptStore.value = gptConfigStore.myData;
+  gptConfigStore.setInit(); // 将 gptConfigStore 恢复到初始状态
+
+  // 手动设置 nGptStore 的默认值
+  nGptStore.value = {
+    model: 'gpt-3.5-turbo-1106', // 程序预定义的默认模型
+    max_tokens: 8192, // 程序预定义的默认最大令牌数
+    // 其他默认配置...
+  };
 
   // 手动触发一次watch，确保watch能够监听到model的变化
   if (nGptStore.value.model) {
