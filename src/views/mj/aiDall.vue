@@ -10,8 +10,11 @@ import { SvgIcon } from '@/components/common';
 const config = ref({
     model: [
         { "label": "dall-e-3", "value": "dall-e-3" },
-        
         { "label": "dalle3", "value": "dalle3" },
+        { "label": "SDXL", "value": "SDXL" },
+        
+        { "label": "sdxl-base-1.0", "value": "sdxl-base-1.0" },
+        { "label": "sdxl-lightning", "value": "sdxl-lightning" },
         
     ],
     style: [
