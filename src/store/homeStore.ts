@@ -15,6 +15,7 @@ export const homeStore = reactive({
         ,isClient: typeof window !== 'undefined' && window.__TAURI__
         ,ms:{} as any
         ,is_luma_pro:false
+        ,is_viggle_pro:false
        
     }
     
@@ -108,7 +109,7 @@ export interface gptServerType{
     IS_SET_SYNC?:boolean
     GPTS_GX?:boolean
     IS_LUMA_PRO?:boolean
-
+    IS_VIGGLE_PRO?:boolean
 }
 
 const  getServerDefault=()=>{

@@ -8,10 +8,11 @@ import { t } from '@/locales';
 import { LumaMedia, lumaHkStore } from '@/api/lumaStore';
 import { sleep } from '@/api/suno';
 
-const luma= ref({ "aspect_ratio": "16:9", "expand_prompt": true,  "image_url": "",  "user_prompt": "" });
+const luma= ref({ "aspect_ratio": "16:9", "expand_prompt": true,  "image_url": "",  "user_prompt": "","image_end_url": "", });
 const st= ref({isDo:false,version:'relax'})
 const ms = useMessage();
 const fsRef= ref() ;
+const fsRef2 = ref() ;
 const exLuma= ref<LumaMedia>()
 
 const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
@@ -76,9 +77,18 @@ function selectFile(input:any){
     
 }
 
+function selectFile2(input:any){
+    upImg(input.target.files[0]).then(d=>{
+        luma.value.image_end_url= d;
+        fsRef2.value=''
+    }).catch(e=>ms.error(e));
+    
+}
+
 const clearInput = ()=>{
     luma.value.user_prompt= ''
     luma.value.image_url= ''
+    luma.value.image_end_url= ''
     exLuma.value= undefined
 }
 
@@ -152,12 +162,12 @@ const mvOption= [
             
     </div>
 
-     <div  class="pt-1" v-if="isHK">
+    <div  class="pt-1" v-if="isHK">
         <n-select v-model:value="st.version" :options="mvOption" size="small" />
     </div>
     
     <div class="pt-1">
-        <div class="flex justify-between  items-end">
+        <div class="flex justify-start  items-end">
             <div> 
                 <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
                 <div class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click=" fsRef.click()">
@@ -165,15 +175,25 @@ const mvOption= [
                     <div class="text-center" v-else>{{ $t('video.selectimg') }}</div> 
                 </div>
             </div>
-            <div>
-                <div class="pb-1 text-right">
-                  <NTag v-if=" exLuma|| luma.user_prompt!=''||luma.image_url!=''" type="success" size="small" round  ><span class="cursor-pointer" @click="clearInput()" >{{$t('video.clear')}}</span></NTag>
-                </div>
-                <div>
-                    <NButton  :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 
+            <div class="pl-2"> 
+                <input type="file"  @change="selectFile2"  ref="fsRef2" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
+                <div class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click=" fsRef2.click()">
+                    <img :src="luma.image_end_url" v-if="luma.image_end_url" />
+                    <div class="text-center" v-else>尾帧图</div> 
                 </div>
             </div>
+           
         </div>
-    </div>    
+    </div>  
+     <div class="pt-1">
+        <div class="flex justify-between items-end">
+            <div class="pb-1 text-right">
+                <NTag v-if=" exLuma|| luma.user_prompt!=''||luma.image_url!=''||luma.image_end_url!=''" type="success" size="small" round  ><span class="cursor-pointer" @click="clearInput()" >{{$t('video.clear')}}</span></NTag>
+            </div>
+            <div>
+                <NButton  :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 
+            </div>
+        </div>  
+    </div>
 </div>
 </template>
