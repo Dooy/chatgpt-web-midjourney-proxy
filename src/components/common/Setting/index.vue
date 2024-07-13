@@ -40,15 +40,13 @@ const show = computed({
 <template>
   <NModal v-model:show="show" :auto-focus="false" preset="card" style="width: 95%; max-width: 640px">
     <div>
-      <NTabs v-model:value="active" type="line" animated>
-        <NTabPane name="General" tab="General">
+       <NTabPane name="Config" tab="Config">
           <template #tab>
-            <SvgIcon class="text-lg" icon="ri:file-user-line" />
-            <span class="ml-2">{{ $t('setting.general') }}</span>
+            <SvgIcon class="text-lg" icon="ri:list-settings-line" />
+            <!-- <span class="ml-2">{{ $t('setting.config') }}</span> -->
+            <span class="ml-2">{{ $t('mjset.about') }}</span>
           </template>
-          <div class="min-h-[100px]">
-            <General />
-          </div>
+          <About />
         </NTabPane>
         <NTabPane v-if="isChatGPTAPI" name="Advanced" tab="Advanced">
           <template #tab>
@@ -69,13 +67,16 @@ const show = computed({
           </template>
           <aiSetServer />
         </NTabPane>
-        <NTabPane name="Config" tab="Config">
+       
+			<NTabs v-model:value="active" type="line" animated>
+        <NTabPane name="General" tab="General">
           <template #tab>
-            <SvgIcon class="text-lg" icon="ri:list-settings-line" />
-            <!-- <span class="ml-2">{{ $t('setting.config') }}</span> -->
-            <span class="ml-2">{{ $t('mjset.about') }}</span>
+            <SvgIcon class="text-lg" icon="ri:file-user-line" />
+            <span class="ml-2">{{ $t('setting.general') }}</span>
           </template>
-          <About />
+          <div class="min-h-[100px]">
+            <General />
+          </div>
         </NTabPane>
 
       </NTabs>
