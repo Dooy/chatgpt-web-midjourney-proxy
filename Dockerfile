@@ -49,7 +49,11 @@ COPY /service /app
 
 COPY --from=frontend /app/dist /app/public
 
+
+
 COPY --from=backend /app/build /app/build
+
+COPY /prompt /app/build/prompt
 
 
 EXPOSE 3002
