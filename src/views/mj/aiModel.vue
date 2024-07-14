@@ -180,7 +180,7 @@ const filteredModelList = computed(() => {
 // 自定义模型名称映射
 const modelDisplayNames = {
   'gpt-3.5-turbo': '3.5',
-  'sunno-v3': 'sunno-v3-音乐',
+  'gpt-4o': '4.0',
   // 其他模型
 };
 
