@@ -176,21 +176,6 @@ const filterModelInput = ref('');
 const filteredModelList = computed(() => {
   return modellist.value.filter(model => model.label.includes(filterModelInput.value));
 });
-
-// 自定义模型名称映射
-const modelDisplayNames = {
-  'gpt-3.5-turbo': '3.5',
-  'gpt-4o': '4.0',
-  // 其他模型
-};
-
-// 计算显示的模型列表
-const displayOptions = computed(() => {
-  return modellist.value.map(model => ({
-    label: modelDisplayNames[model.value] || model.value,
-    value: model.value
-  }));
-});
 </script>
 
 <template>
@@ -199,7 +184,7 @@ const displayOptions = computed(() => {
       <span class="text-red-500">*</span> {{ $t('mjset.model') }}
       <n-input v-model:value="filterModelInput" placeholder="筛选模型" size="small" class="ml-2" style="height: 100%;" />
     </div>
-    <n-select v-model:value="nGptStore.model" :options="displayOptions" size="small" class="w-1/2 ml-2" style="height: 100%;" />
+    <n-select v-model:value="nGptStore.model" :options="filteredModelList" size="small" class="w-1/2 ml-2" style="height: 100%;" />
   </section>
   <section class="mb-0 flex justify-between items-center">
     <n-input :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
