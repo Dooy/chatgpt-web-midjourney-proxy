@@ -34,6 +34,31 @@ watch(() => homeStore.myData.act, (n: string) => {
     st.value.show = false;
   }
 });
+
+// 新增：控制下拉菜单的显示
+const showDropdown = ref(false);
+
+// 新增：处理下拉菜单项的点击
+function handleDropdownClick(action: string) {
+  showDropdown.value = false;
+  switch(action) {
+    case 'music':
+      st.value.active = 'music';
+      router.push('/music');
+      break;
+    case 'video':
+      st.value.active = 'video';
+      router.push('/video');
+      break;
+    case 'dance':
+      st.value.active = 'dance';
+      router.push('/dance');
+      break;
+    case 'gallery':
+      homeStore.setMyData({ act: 'gallery' });
+      break;
+  }
+}
 </script>
 
 <template>
@@ -58,45 +83,32 @@ watch(() => homeStore.myData.act, (n: string) => {
       <div class="text-[13px]">{{ $t('mjtab.draw') }}</div>
     </div>
     
-    <div v-if="!isDisableMenu('music')" class="flex items-center justify-center flex-col" @click="st.active='music'; router.push('/music')">
-      <n-tooltip placement="top">
-        <template #trigger>
-          <div class="flex flex-col items-center">
-            <SvgIcon icon="arcticons:wynk-music" class="text-3xl"></SvgIcon>
-            <span class="text-[13px]">{{ $t('suno.menu') }}</span>
-          </div>
-        </template>
-        {{ $t('suno.menuinfo') }}
-      </n-tooltip>
-    </div>
-
-    <div v-if="!isDisableMenu('video')" class="flex items-center justify-center flex-col" @click="st.active='video'; router.push('/video')">
-      <n-tooltip placement="top">
-        <template #trigger>
-          <div class="flex flex-col items-center">
-            <SvgIcon icon="ri:video-on-line" class="text-3xl"></SvgIcon>
-            <span class="text-[13px]">{{ $t('video.menu') }}</span>
-          </div>
-        </template>
-        {{ $t('video.menuinfo') }}
-      </n-tooltip>
-    </div>
-
-    <div v-if="!isDisableMenu('dance')" class="flex items-center justify-center flex-col" @click="st.active='dance'; router.push('/dance')">
-      <n-tooltip placement="top">
-        <template #trigger>
-          <div class="flex flex-col items-center">
-            <SvgIcon icon="mdi:dance-ballroom" class="text-3xl"></SvgIcon>
-            <span class="text-[13px]">{{ $t('dance.menu') }}</span>
-          </div>
-        </template>
-        {{ $t('dance.menuinfo') }}
-      </n-tooltip>
-    </div>
-
-    <div v-if="!isDisableMenu('gallery')" class="flex items-center justify-center flex-col" @click="homeStore.setMyData({ act: 'gallery' })">
-      <SvgIcon icon="material-symbols:imagesmode-outline" class="text-3xl"></SvgIcon>
-      <div class="text-[13px]">{{ $t('mjtab.gallery') }}</div>
+    <!-- 新的下拉菜单 -->
+    <div class="relative">
+      <div class="flex items-center justify-center flex-col" @click="showDropdown = !showDropdown">
+        <SvgIcon :icon="showDropdown ? 'mdi:menu-up' : 'mdi:menu-down'" class="text-3xl"></SvgIcon>
+        <div class="text-[13px]">更多</div>
+      </div>
+      
+      <!-- 下拉菜单内容 -->
+      <div v-if="showDropdown" class="absolute bottom-full left-1/2 transform -translate-x-1/2 bg-gray-100 dark:bg-[#282832] rounded shadow-lg p-2 mb-2">
+        <div v-if="!isDisableMenu('music')" @click="handleDropdownClick('music')" class="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-[#3e3e4a]">
+          <SvgIcon icon="arcticons:wynk-music" class="text-3xl mr-2"></SvgIcon>
+          <span>{{ $t('suno.menu') }}</span>
+        </div>
+        <div v-if="!isDisableMenu('video')" @click="handleDropdownClick('video')" class="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-[#3e3e4a]">
+          <SvgIcon icon="ri:video-on-line" class="text-3xl mr-2"></SvgIcon>
+          <span>{{ $t('video.menu') }}</span>
+        </div>
+        <div v-if="!isDisableMenu('dance')" @click="handleDropdownClick('dance')" class="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-[#3e3e4a]">
+          <SvgIcon icon="mdi:dance-ballroom" class="text-3xl mr-2"></SvgIcon>
+          <span>{{ $t('dance.menu') }}</span>
+        </div>
+        <div v-if="!isDisableMenu('gallery')" @click="handleDropdownClick('gallery')" class="flex items-center p-2 hover:bg-gray-200 dark:hover:bg-[#3e3e4a]">
+          <SvgIcon icon="material-symbols:imagesmode-outline" class="text-3xl mr-2"></SvgIcon>
+          <span>{{ $t('mjtab.gallery') }}</span>
+        </div>
+      </div>
     </div>
   </div>
 
