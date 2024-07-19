@@ -445,6 +445,11 @@ export default {
     download:'下载',
     extend:'延展',
 
+    runwayabout:'Runway 相关',
+    runwayserver:'Runway 接口地址',
+    setOpenKeyPlaceholder2:'Runway API 的key, 可不填',
+    endImg:'尾帧图',
+
   }
   ,dance:{
     menu:"舞蹈",

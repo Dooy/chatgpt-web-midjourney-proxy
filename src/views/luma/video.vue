@@ -1,6 +1,9 @@
  <script setup lang="ts">
- import VoInput from './voInput.vue';
+ //import VoInput from './voInput.vue';
+ import VoInput from './lumaInput.vue';
  import VoList from './voList.vue';
+ import RunwayList from './runwayList.vue';
+import { gptServerStore } from '@/store';
  </script>
 <template>
 
@@ -9,7 +12,9 @@
          <VoInput/>
     </div>
     <div class=" flex-1  h-full bg-[#fafbfc] pt-2 dark:bg-[#18181c] overflow-y-auto " >
-        <VoList/>
+
+        <RunwayList v-if="gptServerStore.myData.TAB_VIDEO=='runway'"/>
+        <VoList v-else/>
     </div>
      
 </div>

@@ -29,6 +29,7 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
     gptServerStore.myData.SUNO_SERVER=n;
     gptServerStore.myData.LUMA_SERVER=n;
     gptServerStore.myData.VIGGLE_SERVER=n;
+    gptServerStore.myData.RUNWAY_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
@@ -36,6 +37,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     gptServerStore.myData.SUNO_KEY=n;
     gptServerStore.myData.LUMA_KEY=n;
     gptServerStore.myData.VIGGLE_KEY=n;
+    gptServerStore.myData.RUNWAY_KEY=n;
 });
 </script>
 <template>
@@ -154,6 +156,25 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
       </template>
     </n-input>
 </section>
+
+
+<div class="text-right">{{$t('video.runwayabout')}}</div>
+<section class="mb-4 flex justify-between items-center"  >
+    <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.RUNWAY_SERVER" clearable>
+      <template #prefix>
+        <span class="text-[var(--n-tab-text-color-active)]">{{$t('video.runwayserver')}}:</span>
+      </template>
+    </n-input>
+</section>
+
+<section class="mb-4 flex justify-between items-center"  >
+    <n-input  @blur="blurClean" type="password"  :placeholder="$t('video.setOpenKeyPlaceholder2')" show-password-on="click" v-model:value="gptServerStore.myData.RUNWAY_KEY" clearable>
+      <template #prefix>
+        <span class="text-[var(--n-tab-text-color-active)]">Runway Key:</span>
+      </template>
+    </n-input>
+</section>
+
 
 
 

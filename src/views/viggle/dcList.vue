@@ -16,13 +16,12 @@ const initLoad=()=>{
     list.value= arr.reverse()
 }
 const TaskDown=async (item:ViggleTask)=>{
-    //FeedLumaTask(id)
     
-        //window.open(d.url)
     const link = document.createElement('a');
     link.href = item.result ;
     link.download = item.taskID+".mp4";
     link.target = '_blank';
+    link.rel='noreferrer'
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -39,7 +38,11 @@ initLoad()
     <div  class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <div v-for="(item, index) in list" :key="index" class="relative" @mousemove="st.pIndex=index" @mouseout="st.pIndex=-1">
             <div class="relative flex items-center justify-center bg-white bg-opacity-10 rounded-[16px] overflow-hidden aspect-[16/8.85] ">
-                <video class="bg-[#242424] object-contain w-full h-full transition-all" v-if="item.result" :src="item.result" :poster="item.resultCover" loop  playsinline  :controls="st.pIndex==index" ></video>
+                <video class="bg-[#242424] object-contain w-full h-full transition-all"
+                 v-if="item.result"   referrerpolicy="no-referrer"
+                :poster="item.resultCover" loop  playsinline  :controls="st.pIndex==index" >
+                    <source :src="item.result" referrerpolicy="no-referrer" type="video/mp4" v-if="st.pIndex==index">
+                </video>
                 <div class=" text-center" v-else>
                      
                     <NButton  size="small" type="primary" @click="FeedViggleTask( item.taskID )"   v-if="!item.last_feed|| ((new Date().getTime())-item.last_feed)>20*1000" >{{$t('video.repeat')}}</NButton>
