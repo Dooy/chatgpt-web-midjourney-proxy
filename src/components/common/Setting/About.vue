@@ -80,7 +80,11 @@ const  isShow = computed(()=>{
 <template>
   <NSpin :show="loading">
     <div class="p-4 space-y-4">
-      <!-- 移除了版本号和灰色链接 -->
+      <h2 class="text-xl font-bold">
+        Version - {{ pkg.version }}
+        <a class="text-red-500" href="https://api.raojialong.space/" target="_blank" v-if=" isShow  "> ({{ $t('mj.findVersion') }} {{ st.lastVersion }})</a>
+        <a class="text-gray-500" href="https://api.raojialong.space/" target="_blank" v-else-if="st.lastVersion"> ({{ $t('mj.yesLastVersion') }})</a>
+      </h2>
       <div class="p-2 space-y-2 rounded-md bg-neutral-100 dark:bg-neutral-700">
         <p v-html="$t('mj.infoStar')"></p>
       </div>
