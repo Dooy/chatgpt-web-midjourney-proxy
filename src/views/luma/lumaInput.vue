@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
-import { NInput,NButton, useMessage,NTag ,NPopover,NSelect} from 'naive-ui';
+import { NInput,NButton, useMessage,NTag ,NPopover,NSelect,NSwitch} from 'naive-ui';
 import {SvgIcon} from '@/components/common'
 import { FeedLumaTask, lumaFetch, mlog, upImg } from '@/api';
 import { gptServerStore, homeStore } from '@/store';
@@ -8,7 +8,7 @@ import { t } from '@/locales';
 import { LumaMedia, lumaHkStore } from '@/api/lumaStore';
 import { sleep } from '@/api/suno';
 
-const luma= ref({ "aspect_ratio": "16:9", "expand_prompt": true,  "image_url": "",  "user_prompt": "","image_end_url": "", });
+const luma= ref({ "aspect_ratio": "16:9",loop:false, "expand_prompt": true,  "image_url": "",  "user_prompt": "","image_end_url": "", });
 const st= ref({isDo:false,version:'relax'})
 const ms = useMessage();
 const fsRef= ref() ;
@@ -129,7 +129,7 @@ const mvOption= [
 
 <template>
 <div class="p-2"> 
-    <div class=" flex items-center justify-between space-x-1">
+    <!-- <div class=" flex items-center justify-between space-x-1">
             <template  v-for="(item,index) in vf" >
             <section class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"  :class="{'active':luma.aspect_ratio==item.label}"  @click="luma.aspect_ratio=item.label">
                 <div class="aspect-box-wrapper mx-auto my-2 flex h-5 w-5 items-center justify-center">
@@ -138,12 +138,36 @@ const mvOption= [
                 <p class="mb-1 text-center text-sm">{{ item.label }}</p>
             </section>
             </template>
+    </div> -->
 
-    </div>
-    <div class="pt-1">
+    <div >
       <n-input v-model:value="luma.user_prompt" 
                 :placeholder="$t('video.descpls')"  type="textarea"  size="small"   
                 :autosize="{ minRows: 3, maxRows: 12  }"  />
+    </div>
+    <div class="pt-1">
+        <div class="flex justify-between items-center">
+            <div>
+                <n-switch v-model:value="luma.expand_prompt" size="small">
+                    <template #checked> 
+                    Enhance prompt
+                    </template>
+                    <template #unchecked> 
+                    Enhance prompt
+                    </template>
+                </n-switch>
+            </div>
+            <div>
+                <n-switch  v-model:value="luma.loop" size="small">
+                    <template #checked> 
+                    Loop
+                    </template>
+                    <template #unchecked> 
+                    Loop
+                    </template>
+                </n-switch>
+            </div>
+        </div>
     </div>
     <div v-if="exLuma" class="pt-1">
         <div class="flex justify-between items-center">
@@ -194,6 +218,10 @@ const mvOption= [
                 <NButton  :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 
             </div>
         </div>  
+    </div>
+    
+    <div class="pt-2 text-[12px]" v-html="$t('video.lumainfo')">
+       
     </div>
 </div>
 </template>

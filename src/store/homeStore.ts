@@ -111,6 +111,7 @@ export interface gptServerType{
     IS_SET_SYNC?:boolean
     GPTS_GX?:boolean
     IS_LUMA_PRO?:boolean
+    RRUNWAY_VERSION?:string
     IS_VIGGLE_PRO?:boolean
     TAB_VIDEO?:string
 

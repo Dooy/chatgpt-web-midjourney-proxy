@@ -75,7 +75,7 @@ export const FeedTask= async (ids:string[])=>{
         }
     });
     homeStore.setMyData({act:'FeedTask'});
-    await sleep(5*1000 );
+    await sleep(5*1020 );
     FeedTask(ids)
 
 }

@@ -1,5 +1,7 @@
 import { gptServerStore, homeStore, useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
+import { sleep } from "./suno";
+import { RunwayTask, runwayStore } from "./runwayStore";
 
 function getHeaderAuthorization(){
     let headers={}
@@ -39,7 +41,7 @@ export const  getUrl=(url:string)=>{
 
 
 export const runwayFetch=(url:string,data?:any,opt2?:any )=>{
-    mlog('viggleFetch', url  );
+    mlog('runwayFetch', url  );
     let headers= opt2?.upFile?{}: {'Content-Type':'application/json'}
      
     if(opt2 && opt2.headers ) headers= opt2.headers;
@@ -86,6 +88,27 @@ export const runwayFetch=(url:string,data?:any,opt2?:any )=>{
             reject(e)
         })
     })
+
+}
+
+export const runwayFeed= async(id:string)=>{
+    const sunoS = new runwayStore();
+    for(let i=0; i<200;i++){
+        try{
+            let a= await runwayFetch('/tasks/' +id )
+            let task= a.task  as RunwayTask;
+            task.last_feed=new Date().getTime()
+            //ss.save( task )
+            mlog("a",a.task  )
+            sunoS.save( task )
+            homeStore.setMyData({act:'RunwayFeed'});
+            if( a.task.status=='FAILED' || 'SUCCEEDED'== a.task.status ){
+                break;
+            }
+        }catch(e){
+        }
+        await sleep(5200)
+    }
 
 }
 

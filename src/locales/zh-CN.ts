@@ -440,15 +440,18 @@ export default {
     repeat:'重新获取',
 
     pending:'状态:队列中',
-    processing:'状态:队列中',
+    processing:'状态:生产中',
     failed:'状态:生成失败！',
     download:'下载',
     extend:'延展',
 
+    lumainfo:'说明：<ul><li>1.pro与relax演示视频都是有水印的链接</li><li>2.pro无水印版本需要通过“下载按钮”得到下载链接</li><li>3.pro得到的链接有时限；请及时保存mp4文件到本地</li><li>4.pro请在生成后的30分钟内；将mp4保存到本地，渠道号也可能被封或者下线</li> <li>5.pro当下载链接无效时会给出带水印的视频链接</li></ul>',
     runwayabout:'Runway 相关',
     runwayserver:'Runway 接口地址',
     setOpenKeyPlaceholder2:'Runway API 的key, 可不填',
     endImg:'尾帧图',
+
+
 
   }
   ,dance:{

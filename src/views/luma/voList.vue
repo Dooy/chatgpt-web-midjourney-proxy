@@ -80,6 +80,9 @@ initLoad();
                     <template #trigger>
                     <div class="line-clamp-1">{{item.prompt}}</div>
                     </template>
+                    <div v-if="item.id" >ID: {{ item.id }}</div>
+                    <div v-if="item.created_at" >createdAt: {{ new Date( item.created_at).toLocaleString() }}</div>
+
                     <div class=" max-w-[300px]">{{item.prompt}}</div>
                 </n-popover>
                 

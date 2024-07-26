@@ -1,6 +1,6 @@
  <script setup lang="ts">
- //import VoInput from './voInput.vue';
- import VoInput from './lumaInput.vue';
+ import VoInput from './voInput.vue';
+ //import VoInput from './lumaInput.vue';
  import VoList from './voList.vue';
  import RunwayList from './runwayList.vue';
 import { gptServerStore } from '@/store';
