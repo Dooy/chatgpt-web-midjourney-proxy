@@ -90,7 +90,7 @@
 
 ## docker 部署
  
-> - [x] 需 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy)   支持
+> - [x] 需 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 或者[trueai](https://github.com/trueai-org/midjourney-proxy) 支持 
 > - [x] 需 Suno-API  支持
 > - [x] 需 [Luma-API](https://github.com/LumaAI-API/Luma-API)  支持
 
