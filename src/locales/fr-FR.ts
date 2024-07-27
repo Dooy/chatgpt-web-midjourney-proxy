@@ -425,7 +425,16 @@ export default {
     "plsInput": "Veuillez saisir du contenu !",
     "submitSuccess": "Soumis avec succès !",
     "process": "Génération de la vidéo...",
-    "repeat": "Réessayer"
+    "repeat": "Réessayer",
+    "lumainfo": "Explication : <ul><li>1. Les vidéos de démonstration Pro et relax ont des liens avec des filigranes.</li><li>2. La version Pro sans filigrane nécessite d'obtenir le lien de téléchargement via le bouton 'Télécharger'.</li><li>3. Les liens pour les versions Pro sont limités dans le temps ; veuillez sauvegarder le fichier MP4 localement dès que possible.</li><li>4. Pour les versions Pro, sauvegardez le fichier MP4 localement dans les 30 minutes suivant la génération, car le canal peut être bloqué ou arrêté.</li><li>5. Si le lien de téléchargement pour les versions Pro est invalide, un lien vidéo avec filigrane sera fourni.</li></ul>",
+    "runwayabout": "Lié à Runway",
+    "runwayserver": "Adresse de l'API Runway",
+    "setOpenKeyPlaceholder2": "Clé API Runway, facultative",
+    "endImg": "Image de fin",
+    "runwayinfo": "Explication : <ul><li>1. Les images et vidéos de Runway ont une durée de validité.</li><li>2. Veuillez sauvegarder le fichier MP4 localement dans les 30 minutes suivant la génération de la vidéo.</li></ul>",
+    "nosup": "Non pris en charge temporairement",
+    "rwgen2": "Version : Gen-2, rentable",
+    "rwgen3": "Version : Gen-3 Alpha"
     },
     dance:{
         menu: "Danse",

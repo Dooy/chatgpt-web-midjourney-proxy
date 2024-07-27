@@ -419,7 +419,17 @@ export default {
     "plsInput": "請輸入內容！",
     "submitSuccess": "提交成功！",
     "process": "視頻生成中...",
-    "repeat": "重新獲取"
+    "repeat": "重新獲取",
+
+    "lumainfo": "說明：<ul><li>1. Pro 和 relax 演示視頻都有水印的鏈接</li><li>2. Pro 無水印版本需要通過「下載按鈕」得到下載鏈接</li><li>3. Pro 得到的鏈接有時限；請及時保存 MP4 文件到本地</li><li>4. Pro 請在生成後的 30 分鐘內；將 MP4 保存到本地，渠道號也可能被封或者下線</li><li>5. Pro 當下載鏈接無效時會給出帶水印的視頻鏈接</li></ul>",
+    "runwayabout": "Runway 相關",
+    "runwayserver": "Runway 接口地址",
+    "setOpenKeyPlaceholder2": "Runway API 的key, 可不填",
+    "endImg": "尾幀圖",
+    "runwayinfo": "說明：<ul><li>1. Runway 圖片與視頻都有有效期</li><li>2. 請在生成視頻後 30 分鐘內將 MP4 保存到本地</li></ul>",
+    "nosup": "暫不支持",
+    "rwgen2": "版本: Gen-2, 價格實惠",
+    "rwgen3": "版本: Gen-3 Alpha"
   },
   dance:{
     menu: "跳舞",

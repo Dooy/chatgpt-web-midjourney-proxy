@@ -433,7 +433,17 @@ export default {
     pending: 'Status: Queued',
     processing: 'Status: Processing',
     download: 'Download',
-    extend: 'Extend'
+    extend: 'Extend',
+
+    "lumainfo": "Explanation: <ul><li>1. Pro and relax demo videos have watermarked links.</li><li>2. Pro without watermark requires obtaining the download link through the 'Download' button.</li><li>3. The links for Pro versions are time-limited; please save the MP4 file locally promptly.</li><li>4. For Pro versions, save the MP4 file locally within 30 minutes after generation, as the channel may be blocked or discontinued.</li><li>5. If the download link for Pro versions is invalid, a watermarked video link will be provided.</li></ul>",
+    "runwayabout": "Runway Related",
+    "runwayserver": "Runway API Endpoint",
+    "setOpenKeyPlaceholder2": "Runway API key, optional",
+    "endImg": "End Frame Image",
+    "runwayinfo": "Explanation: <ul><li>1. Runway images and videos have expiration times.</li><li>2. Please save the MP4 file locally within 30 minutes after generating the video.</li></ul>",
+    "nosup": "Not supported temporarily",
+    "rwgen2": "Version: Gen-2, cost-effective",
+    "rwgen3": "Version: Gen-3 Alpha"
 
   },
   dance:{

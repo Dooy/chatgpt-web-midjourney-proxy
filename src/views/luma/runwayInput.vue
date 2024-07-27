@@ -5,6 +5,7 @@ import { gptServerStore, homeStore } from '@/store';
 import { useMessage,NInput,NButton, NTag,NSelect } from 'naive-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { SvgIcon } from '@/components/common';
+import { t } from '@/locales';
 
 const fsRef= ref() ;
 const runway= ref<{image_prompt?:string,seed:number,text_prompt:string}>({image_prompt:'',seed:1675247627,text_prompt:''});
@@ -87,10 +88,7 @@ const generate= async ()=>{
             delete obj.options.gen2Options.init_image;
         }
         const d=  await runwayFetch('/tasks', st.value.version=='europa'? gen3: obj) 
-        mlog("runwayGen2",d)
-        //f31e6774-6a66-41fa-988c-560fb35dada7
-        //4e01d4b4-e1a8-4c0e-8d7d-1c90568086f2 error
-        //d1274699-2dcc-49b5-86c2-19416e8b6a54
+        mlog("runwayGen2",d) 
         d.task && d.task.id&& runwayFeed(d.task.id)
     }catch(e:any){
         ms.error(e)
@@ -100,17 +98,15 @@ const generate= async ()=>{
 }
 
 const mvOption= [
-{label: '版本: Gen-2, 价格实惠',value: 'gen2'}
-,{label:'版本: Gen-3 Alpha',value: 'europa'}
+{label: t('video.rwgen2'),value: 'gen2'}
+,{label:t('video.rwgen3'),value: 'europa'}
  ]
  const timeOption= [
 {label: 'Duration: 5s',value: 5}
 ,{label:'Duration: 10s',value: 10}
  ]
 
-// runwayFeed('4e01d4b4-e1a8-4c0e-8d7d-1c90568086f2')
-// runwayFeed('d1274699-2dcc-49b5-86c2-19416e8b6a54')
-// runwayFeed('f31e6774-6a66-41fa-988c-560fb35dada7')
+ 
 
 const clearInput=()=>{
     runway.value.image_prompt ='' 
@@ -146,7 +142,7 @@ onMounted(() => {
                 <div v-if="st.version=='europa'"
                  class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center"
                 >
-                 暂不支持 
+                 {{ $t('video.nosup') }} 
                 </div>
                 <div  v-else class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click=" fsRef.click()">
                   
@@ -166,12 +162,8 @@ onMounted(() => {
         </div>
     </div>
 
-    <div class="pt-2 text-[12px]">
-        说明：
-        <ul>
-            <li>1. Runway 图片与视频都有有效期</li>
-            <li>2. 请在生成视频后30分钟内将mp4保存到本地</li>
-        </ul>
+    <div class="pt-2 text-[12px]" v-html="$t('video.runwayinfo')">
+        
     </div>
 </div>
 </template>

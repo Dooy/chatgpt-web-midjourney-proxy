@@ -422,7 +422,16 @@ export default {
     "plsInput": "Lütfen içerik girin!",
     "submitSuccess": "Başarıyla gönderildi!",
     "process": "Video oluşturuluyor...",
-    "repeat": "Yeniden dene"
+    "repeat": "Yeniden dene",
+    "lumainfo": "Açıklama: <ul><li>1. Pro ve rahat demo videoları su işareti olan bağlantılara sahiptir.</li><li>2. Pro su işaretsiz sürüm, 'İndir' düğmesi aracılığıyla indirme bağlantısını almayı gerektirir.</li><li>3. Pro sürümler için bağlantılar zaman sınırlıdır; lütfen MP4 dosyasını yerel olarak zamanında kaydedin.</li><li>4. Pro sürümler için, 30 dakika içinde MP4 dosyasını yerel olarak kaydedin, çünkü kanal engellenebilir veya durdurulabilir.</li><li>5. Pro sürümleri için indirme bağlantısı geçersizse, su işareti olan video bağlantısı sağlanacaktır.</li></ul>",
+    "runwayabout": "Runway ile İlgili",
+    "runwayserver": "Runway API Adresi",
+    "setOpenKeyPlaceholder2": "Runway API anahtarı, isteğe bağlı",
+    "endImg": "Son kare",
+    "runwayinfo": "Açıklama: <ul><li>1. Runway görüntüleri ve videoları geçerlilik süresine sahiptir.</li><li>2. Lütfen video oluşturduktan sonra 30 dakika içinde MP4 dosyasını yerel olarak kaydedin.</li></ul>",
+    "nosup": "Geçici olarak desteklenmiyor",
+    "rwgen2": "Sürüm: Gen-2, maliyet etkin",
+    "rwgen3": "Sürüm: Gen-3 Alpha"
     }
     ,
     dance:{
