@@ -25,6 +25,22 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   
 });
 
+export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    //mlog("sunoapi")
+    if ( process.env.LUMA_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.RUNWAY_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+  
+});
+
 export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
