@@ -429,7 +429,8 @@ export default {
     "runwayinfo": "說明：<ul><li>1. Runway 圖片與視頻都有有效期</li><li>2. 請在生成視頻後 30 分鐘內將 MP4 保存到本地</li></ul>",
     "nosup": "暫不支持",
     "rwgen2": "版本: Gen-2, 價格實惠",
-    "rwgen3": "版本: Gen-3 Alpha"
+    "rwgen3": "版本: Gen-3 Alpha",
+    "repeat2":"Expired.Reget"
   },
   dance:{
     menu: "跳舞",

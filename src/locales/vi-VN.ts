@@ -434,7 +434,8 @@ export default {
     "runwayinfo": "Giải thích: <ul><li>1. Các hình ảnh và video của Runway có thời hạn.</li><li>2. Vui lòng lưu trữ tập tin MP4 vào máy cục bộ trong vòng 30 phút sau khi tạo video.</li></ul>",
     "nosup": "Tạm thời không hỗ trợ",
     "rwgen2": "Phiên bản: Gen-2, hiệu quả chi phí",
-    "rwgen3": "Phiên bản: Gen-3 Alpha"
+    "rwgen3": "Phiên bản: Gen-3 Alpha",
+    "repeat2":"Expired.Reget"
 
   }
   ,dance:{

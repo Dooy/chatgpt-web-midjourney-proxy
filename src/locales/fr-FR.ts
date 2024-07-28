@@ -434,7 +434,8 @@ export default {
     "runwayinfo": "Explication : <ul><li>1. Les images et vidéos de Runway ont une durée de validité.</li><li>2. Veuillez sauvegarder le fichier MP4 localement dans les 30 minutes suivant la génération de la vidéo.</li></ul>",
     "nosup": "Non pris en charge temporairement",
     "rwgen2": "Version : Gen-2, rentable",
-    "rwgen3": "Version : Gen-3 Alpha"
+    "rwgen3": "Version : Gen-3 Alpha",
+    "repeat2":"Expired.Reget"
     },
     dance:{
         menu: "Danse",

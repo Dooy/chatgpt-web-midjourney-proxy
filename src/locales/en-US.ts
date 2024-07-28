@@ -443,7 +443,8 @@ export default {
     "runwayinfo": "Explanation: <ul><li>1. Runway images and videos have expiration times.</li><li>2. Please save the MP4 file locally within 30 minutes after generating the video.</li></ul>",
     "nosup": "Not supported temporarily",
     "rwgen2": "Version: Gen-2, cost-effective",
-    "rwgen3": "Version: Gen-3 Alpha"
+    "rwgen3": "Version: Gen-3 Alpha",
+    "repeat2":"Expired.Reget"
 
   },
   dance:{

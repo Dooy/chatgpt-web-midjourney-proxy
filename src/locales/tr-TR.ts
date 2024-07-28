@@ -431,7 +431,8 @@ export default {
     "runwayinfo": "Açıklama: <ul><li>1. Runway görüntüleri ve videoları geçerlilik süresine sahiptir.</li><li>2. Lütfen video oluşturduktan sonra 30 dakika içinde MP4 dosyasını yerel olarak kaydedin.</li></ul>",
     "nosup": "Geçici olarak desteklenmiyor",
     "rwgen2": "Sürüm: Gen-2, maliyet etkin",
-    "rwgen3": "Sürüm: Gen-3 Alpha"
+    "rwgen3": "Sürüm: Gen-3 Alpha",
+    "repeat2":"Expired.Reget"
     }
     ,
     dance:{

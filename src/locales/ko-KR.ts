@@ -434,7 +434,8 @@ export default {
     "runwayinfo": "설명: <ul><li>1. Runway 이미지 및 비디오는 유효 기간이 있습니다.</li><li>2. 비디오 생성 후 30분 이내에 MP4 파일을 로컬에 저장해주세요.</li></ul>",
     "nosup": "일시적으로 지원되지 않음",
     "rwgen2": "버전: Gen-2, 비용 효율적",
-    "rwgen3": "버전: Gen-3 Alpha"
+    "rwgen3": "버전: Gen-3 Alpha",
+    "repeat2":"Expired.Reget"
 
   },
   dance:{
