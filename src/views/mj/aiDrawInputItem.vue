@@ -69,7 +69,7 @@ function create( ){
     train( st.value.text.trim()).then(ps=>{
         const rz={ prompt: st.value.text.trim() , drawText: createPrompt( ps) }
         if( ps  ) drawSent(rz)
-        st.value.text=''
+        //st.value.text=''
         st.value.isLoad=false
     }).catch(err=>{
         msgRef.value.showError(err)
