@@ -220,7 +220,7 @@ const mvOption= [
         </div>  
     </div>
     
-    <div class="pt-2 text-[12px]" v-html="$t('video.lumainfo')">
+    <div class="pt-2 text-[12px]" v-html="$t('video.lumainfo')" v-if="isHK">
        
     </div>
 </div>
