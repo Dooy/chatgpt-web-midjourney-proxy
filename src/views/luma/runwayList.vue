@@ -75,6 +75,7 @@ initLoad();
                         {{$t('video.process')}}{{ new Date(item.last_feed).toLocaleString() }}
                         </div>
                         <div v-if="item.progressRatio">{{  (parseFloat(item.progressRatio)*100).toFixed(0) }}%</div> 
+                        <div v-else-if="item.estimatedTimeToStartSeconds && item.estimatedTimeToStartSeconds>0">{{ item.estimatedTimeToStartSeconds.toFixed(1) }}秒后开始执行</div>
                         <!-- estimatedTimeToStartSeconds -->
                         <!-- <div v-if="item.estimatedTimeToStartSeconds && item.estimatedTimeToStartSeconds>0">{{ item.estimatedTimeToStartSeconds.toFixed(1) }}s 开始执行</div> -->
                         <!-- <div v-if="item.state=='processing'">{{ $t('video.processing') }}</div>  -->

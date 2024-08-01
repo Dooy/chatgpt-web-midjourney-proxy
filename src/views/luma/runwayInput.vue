@@ -65,6 +65,19 @@ const generate= async ()=>{
             },
            // "asTeamId": 17485144
         }
+
+//         {
+//   "name": "Gen-3 Alpha 2584627205, 笑起来, Cropped - cqkrcrc8j3",
+//   "seconds": 5,
+//   "text_prompt": "笑起来",
+//   "seed": 2584627205,
+//   "exploreMode": true,
+//   "watermark": false,
+//   "enhance_prompt": true,
+//   "init_image": "https://d2jqrm6oza8nb6.cloudfront.net/previews/21fb66fc-c9d0-4c92-863d-623b77ab742b.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNjI5MzQ4YTc0ODIwYWZiMiIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTcyMjY0MzIwMH0.x5f94vMk6Yt4dQTw4ueBnWOJ1EFRqOAp_vaLUcT5bs0",
+//   "resolution": "720p",
+//   "assetGroupName": "Generative Video"
+// }
         let gen3= {
                 "taskType": "europa",
                 "internal": false,
@@ -78,7 +91,9 @@ const generate= async ()=>{
                     "enhance_prompt": true,
                     "width": 1280,
                     "height": 768,
-                    "assetGroupName": "Generative Video"
+                    "assetGroupName": "Generative Video",
+                    "init_image": runway.value.image_prompt,
+                    "resolution": '720p'// runway.value.image_prompt,
                 },
             //    "asTeamId": 17511575
         }
@@ -87,6 +102,10 @@ const generate= async ()=>{
             delete obj.options.gen2Options.image_prompt;
             delete obj.options.gen2Options.init_image;
         }
+        if( gen3.options.init_image=='' ){
+            delete gen3.options.init_image;
+            //delete gen3.options.resolution;
+        } 
         const d=  await runwayFetch('/tasks', st.value.version=='europa'? gen3: obj) 
         mlog("runwayGen2",d) 
         d.task && d.task.id&& runwayFeed(d.task.id)
@@ -139,12 +158,12 @@ onMounted(() => {
             <div> 
                 <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
                 
-                <div v-if="st.version=='europa'"
+                <!-- <div v-if="st.version=='europa'"
                  class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center"
                 >
                  {{ $t('video.nosup') }} 
-                </div>
-                <div  v-else class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click=" fsRef.click()">
+                </div> -->
+                <div   class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" @click=" fsRef.click()">
                   
                    
                     <SvgIcon icon="line-md:uploading-loop" class="text-[60px] text-green-300"  v-if="st.uploading"  ></SvgIcon>
