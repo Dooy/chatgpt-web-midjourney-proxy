@@ -3,6 +3,9 @@
 #  计划 
 # 2.19.10
 - 😄 新增：视频 runway gen3 支持图片
+- 😄 新增：mj 6.1选项
+- 😄 新增：runway-gen3-fast 选项
+- 🐞 修复：LUMA_SERVER 出现标签选项
 
 # 2.19.9
 - 🐞 修复：luma 说明
