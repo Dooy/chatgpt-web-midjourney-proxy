@@ -352,6 +352,7 @@ export default {
 		},
 		versionList: {
 			mjV6: "MJ V6",
+			mjV61: "MJ V6.1",
 			mjV52: "MJ V5.2",
 			mjV51: "MJ V5.1",
 			nijiV6: "Niji V6",
