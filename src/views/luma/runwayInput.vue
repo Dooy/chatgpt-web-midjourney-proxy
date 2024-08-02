@@ -105,8 +105,11 @@ const generate= async ()=>{
         if( gen3.options.init_image=='' ){
             delete gen3.options.init_image;
             //delete gen3.options.resolution;
-        } 
-        const d=  await runwayFetch('/tasks', st.value.version=='europa'? gen3: obj) 
+        }
+        
+        gen3.options.exploreMode= st.value.version=='europa'
+
+        const d=  await runwayFetch('/tasks', st.value.version=='gen2'?obj: gen3 ) 
         mlog("runwayGen2",d) 
         d.task && d.task.id&& runwayFeed(d.task.id)
     }catch(e:any){
@@ -119,6 +122,7 @@ const generate= async ()=>{
 const mvOption= [
 {label: t('video.rwgen2'),value: 'gen2'}
 ,{label:t('video.rwgen3'),value: 'europa'}
+,{label:t('video.rwgen3fast'),value: 'europa-fast'}
  ]
  const timeOption= [
 {label: 'Duration: 5s',value: 5}
@@ -149,7 +153,7 @@ onMounted(() => {
                 :placeholder="$t('video.descpls')"  type="textarea"  size="small"   
                 :autosize="{ minRows: 3, maxRows: 12  }"  />
     </div>
-    <div  class="pt-1" v-if="st.version=='europa'" >
+    <div  class="pt-1" v-if="st.version!='gen2'" >
         <n-select v-model:value="st.time" :options="timeOption" size="small" />
     </div>
 
