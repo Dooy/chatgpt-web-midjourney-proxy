@@ -30,7 +30,7 @@ export const verify=  async ( req :Request , res:Response ) => {
     if (!token)
       throw new Error('Secret key is empty')
 
-    if (process.env.AUTH_SECRET_KEY !== token)
+    if (!process.env.AUTH_SECRET_KEY.trim().split(',').includes(token))
       throw new Error('密钥无效 | Secret key is invalid')
       
     clearLimit( req, res);
@@ -49,7 +49,7 @@ export const auth = async ( req :Request , res:Response , next:NextFunction ) =>
     try {
       checkLimit( req, res );
       const Authorization = req.header('Authorization')
-      if (!Authorization || Authorization.replace('Bearer ', '').trim() !== AUTH_SECRET_KEY.trim())
+      if (!Authorization || !AUTH_SECRET_KEY.trim().split(',').includes(Authorization.replace('Bearer ', '').trim()))
         throw new Error('Error: 无访问权限 | No access rights')
       
       clearLimit( req, res);
@@ -108,7 +108,7 @@ export const authV2 = async ( req :Request , res:Response , next:NextFunction ) 
 
       checkLimit( req, res );
       const Authorization = req.header('X-Ptoken')
-      if ( !Authorization || Authorization.trim() !== AUTH_SECRET_KEY.trim())
+      if ( !Authorization || !AUTH_SECRET_KEY.trim().split(',').includes(Authorization.trim()))
         throw new Error('Error: 无访问权限 | No access rights')
       clearLimit( req, res);
       next()
