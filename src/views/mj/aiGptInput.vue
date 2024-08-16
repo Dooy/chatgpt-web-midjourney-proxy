@@ -24,7 +24,7 @@ const chatStore = useChatStore()
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{ modelValue:string,disabled?:boolean,searchOptions?:AutoCompleteOptions,renderOption?: RenderLabel }>();
 const fsRef = ref()
-const st = ref<{fileBase64:string[],isLoad:number,isShow:boolean,showMic:boolean,micStart:boolean}>({fileBase64:[],isLoad:0
+const st = ref<{fileBase64:string[],fileName:string[],isLoad:number,isShow:boolean,showMic:boolean,micStart:boolean}>({fileBase64:[],fileName:[],isLoad:0
     ,isShow:false,showMic:false , micStart:false})
 const { isMobile } = useBasicLayout()
 const placeholder = computed(() => {
@@ -50,11 +50,13 @@ const handleSubmit = ( ) => {
     }
     let obj={
         prompt: mvalue.value,
-        fileBase64:st.value.fileBase64
+        fileBase64:st.value.fileBase64,
+        fileName:st.value.fileName
     }
     homeStore.setMyData({act:'gpt.submit', actData:obj });
     mvalue.value='';
     st.value.fileBase64=[];
+    st.value.fileName=[];
     return false;
 }
 const ms= useMessage();
@@ -102,6 +104,7 @@ funt();
                     return ;
                 }
                 st.value.fileBase64.push(d)  
+                st.value.fileName.push(file.name)
             } ).catch(e=>ms.error(e));
         }
     }else{
@@ -117,8 +120,10 @@ funt();
                 ms.info(t('mj.uploadSuccess'));
                 if(r.url.indexOf('http')>-1) {
                     st.value.fileBase64.push(r.url)
+                    st.value.fileName.push(file.name)
                 }else{
                     st.value.fileBase64.push(location.origin +r.url)
+                    st.value.fileName.push(file.name)
                 }
             }else if(r.error) ms.error(r.error);
         }).catch(e=>{

@@ -581,7 +581,6 @@ export const getHistoryMessage= async (dataSources:Chat.Chat[],loadingCnt=1 ,sta
                let fileBase64= JSON.parse(str) as string[];
                let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
                if(arr.length>0) content = arr.join(' ')+' '+ content ;
-
                mlog(t('mjchat.attr') ,o.opt.images[0] , content );
             }catch(ee){
             }
