@@ -1,7 +1,8 @@
 import { ss } from '@/utils/storage'
 import { t } from '@/locales'
+import { homeStore } from "@/store";
 const LOCAL_NAME = 'userStorage'
-const backgroundImage = process.env.BACKGROUND_IMAGE ?? ""
+const backgroundImage = homeStore.myData.session.backgroundImage ?? "https://t.alcy.cc/fj/"
 
 export interface UserInfo {
   avatar: string

@@ -102,6 +102,7 @@ router.post('/session', async (req, res) => {
     const visionModel= process.env.VISION_MODEL??""
     const systemMessage= process.env.SYSTEM_MESSAGE??""
     const customVisionModel= process.env.CUSTOM_VISION_MODELS??""
+    const backgroundImage = process.env.BACKGROUND_IMAGE ?? ""
     let  isHk= (process.env.OPENAI_API_BASE_URL??"").toLocaleLowerCase().indexOf('-hk')>0
     if(!isHk)  isHk= (process.env.LUMA_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
     if(!isHk)  isHk= (process.env.VIGGLE_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
@@ -110,7 +111,7 @@ router.post('/session', async (req, res) => {
     const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,uploadType,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
-      ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel,isHk
+      ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel,backgroundImage,isHk
     }
     res.send({  status: 'Success', message: '', data})
   }
