@@ -58,6 +58,7 @@ export default {
     avatarLink: 'Avatar Link',
     name: 'Tên',
     description: 'Miêu tả',
+    backgroundImage: 'Ảnh nền',
     role: 'Vai trò',
     temperature: 'Nhiệt độ',
     top_p: 'Top_p',

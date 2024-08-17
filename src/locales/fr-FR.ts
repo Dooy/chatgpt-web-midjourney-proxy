@@ -60,6 +60,7 @@ export default {
         avatarLink: 'Lien de l\'Avatar',
         name: 'Nom',
         description: 'Description',
+        backgroundImage: 'Image de Fond',
         role: 'Rôle',
         temperature: 'Température',
         top_p: 'Top_p',

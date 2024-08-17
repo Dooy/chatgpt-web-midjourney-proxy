@@ -60,6 +60,7 @@ export default {
         avatarLink: 'Avatar Bağlantısı',
         name: 'Ad',
         description: 'Açıklama',
+        backgroundImage: 'Arka Plan',
         role: 'Rol',
         temperature: 'Sıcaklık',
         top_p: 'Top_p',

@@ -1,6 +1,7 @@
 import { ss } from '@/utils/storage'
 import { t } from '@/locales'
 const LOCAL_NAME = 'userStorage'
+const backgroundImage = process.env.BACKGROUND_IMAGE ?? ""
 
 export interface UserInfo {
   avatar: string
