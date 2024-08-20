@@ -39,8 +39,8 @@
 - [X] chatgpt 支持 GPTs 多模态
 - [X] chatgpt 支持 tts whisper
 - [X] 即时语音识别(浏览器自带语音识别 ASR) `v2.15.7`以上版本
-- [X] 支持超链更换设置，适合`one-api` `new-api`部署聊天 https://vercel.ddaiai.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
-- [X] 支持`one-api`、`new-api`部署聊天 https://vercel.ddaiai.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://www.abc.com%22} `(v.2.14.3)`
+- [X] 支持超链更换设置，适合`one-api` `new-api`部署聊天(为了安全，此方式请使用自己域名) https://mj.your-name.com/#/s/t?OPENAI_API_BASE_URL=https://abc.com&OPENAI_API_KEY=sk-xxxxx&MJ_SERVER=https://abc.com&MJ_API_SECRET=sk-xxx&UPLOADER_URL=
+- [X] 支持`one-api`、`new-api`部署聊天 (为了安全，此方式请使用自己域名) https://mj.your-name.com/#/?settings={%22key%22:%22sk-abc%22,%22url%22:%22https://www.abc.com%22} `(v.2.14.3)`
 
 ## 无服务器-个人桌面安装
 > - [x] 请到 https://github.com/Dooy/chatgpt-web-midjourney-proxy/releases 下载最新版本安装(选择合适你操作系统的版本)
