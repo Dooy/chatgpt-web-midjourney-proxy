@@ -1,6 +1,11 @@
 # 功能升级日志
 
 #  计划 
+# 2.20.3
+- 🤖 合并： 新增自定义背景图片 #488 @Yanyutin753
+- 💄 合并： 优化文件上传样式 #487 @Yanyutin753
+- 💄 合并： AUTH_SECRET_KEY 新增多密钥支持，使用,隔开 #484 @Yanyutin753 
+
 # 2.20.2
 - 😄 新增：gemini-1.5-pro-exp-0801
 - 😄 新增：chatgpt-4o-latest
