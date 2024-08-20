@@ -27,7 +27,7 @@ const mjClose=()=>{
          <!-- <chatIndex></chatIndex> -->
 
 <div   class="flex h-full">
-    <div class="h-full ">
+    <div class="h-full z-30">
     <aiSiderInput  @close="mjClose" @drawSent="drawSent" :button-disabled="false"></aiSiderInput>
     </div>
      

@@ -26,6 +26,8 @@ const name = ref(userInfo.value.name ?? '')
 
 const description = ref(userInfo.value.description ?? '')
 
+const backgroundImage = ref(userInfo.value.backgroundImage ?? '')
+
 const language = computed({
   get() {
     return appStore.language
@@ -142,6 +144,15 @@ function handleImportButtonClick(): void {
           <NInput v-model:value="name" placeholder="" />
         </div>
         <NButton size="tiny" text type="primary" @click="updateUserInfo({ name })">
+          {{ $t('common.save') }}
+        </NButton>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.backgroundImage') }}</span>
+        <div class="w-[200px]">
+          <NInput v-model:value="backgroundImage" placeholder="" />
+        </div>
+        <NButton size="tiny" text type="primary" @click="updateUserInfo({ backgroundImage })">
           {{ $t('common.save') }}
         </NButton>
       </div>

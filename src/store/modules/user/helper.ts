@@ -1,10 +1,13 @@
 import { ss } from '@/utils/storage'
 import { t } from '@/locales'
+import { homeStore } from "@/store";
 const LOCAL_NAME = 'userStorage'
+const backgroundImage = homeStore.myData.session.backgroundImage ?? "https://t.alcy.cc/fj/"
 
 export interface UserInfo {
   avatar: string
   name: string
+  backgroundImage: string
   description: string
 }
 

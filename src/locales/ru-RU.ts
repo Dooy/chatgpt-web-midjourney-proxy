@@ -60,6 +60,7 @@ export default {
     avatarLink: 'Ссылка на аватар',
     name: 'Имя',
     description: 'Описание',
+    backgroundImage: 'Фоновое изображение',
     role: 'Роль',
     temperature: 'Температура',
     top_p: 'Top_p',

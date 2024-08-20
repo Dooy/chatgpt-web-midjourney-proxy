@@ -60,6 +60,7 @@ export default {
     avatarLink: '头像链接',
     name: '名称',
     description: '描述',
+    backgroundImage: '背景图片',
     role: '角色设定',
     temperature: 'Temperature',
     top_p: 'Top_p',
