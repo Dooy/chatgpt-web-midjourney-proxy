@@ -45,7 +45,7 @@ loadImages();
 <template>
   <div v-if="images.length" class="flex flex-wrap justify-start items-baseline p-1">
     <div v-for="(img, k) of images" :key="k">
-      <NImage :src="img.fileBase64" preview class="rounded" :class="[images.length <= 1 ? 'w-[330px]' : 'w-[130px]']">
+      <NImage :src="img.fileBase64" preview class="rounded" :class="[images.length <= 1 ? 'w-[250px]' : 'w-[130px]']">
         <template #placeholder>
           <a class="w-full h-full flex items-center justify-center text-neutral-500" :href="img.fileBase64"
             target="_blank">
