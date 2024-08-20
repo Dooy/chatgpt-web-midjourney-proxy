@@ -574,26 +574,20 @@ export const getHistoryMessage= async (dataSources:Chat.Chat[],loadingCnt=1 ,sta
         let o = dataSources[ii];
         //mlog('o',ii ,o);
         let content= o.text;
-        let obj={
-            "role": 'user' as 'system' | 'user' | 'assistant',
-            "content": [] as any
-        };
         if( o.inversion && o.opt?.images && o.opt.images.length>0 ){
-            //附件需要时远程的图片链接 或者文件 链接 （类似于gpt-4-all，v佬国产逆向或者gpt-4o-all的文件上传方式）
+            //获取附件信息 比如 图片 文件等
             try{
                let str =  await localGet(  o.opt.images[0]) as string;
                let fileBase64= JSON.parse(str) as string[];
                let arr =  fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
-               obj.content.push({ "type": "text", "text": content });
-               arr.forEach((f: string) => {
-                   obj.content.push({ "type": "image_url", "image_url": { url: f } });
-               });
+               if(arr.length>0) content = arr.join(' ')+' '+ content ;
                mlog(t('mjchat.attr') ,o.opt.images[0] , content );
             }catch(ee){
             }
         }
-        // mlog('d',gptConfigStore.myData.talkCount ,i ,o.inversion , o.text);
-        rz.push(obj); 
+
+        //mlog('d',gptConfigStore.myData.talkCount ,i ,o.inversion , o.text);
+        rz.push({content , role: !o.inversion ? 'assistant' : 'user'});
     }
     rz.reverse();
     mlog('rz',rz);
