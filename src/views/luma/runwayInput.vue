@@ -103,7 +103,7 @@ const generate= async ()=>{
                 "options": {
                     "name": `Gen-3 Alpha Turbo ${seed}`,
                     "seconds":st.value.time,
-                    "text_prompt": "run",
+                    "text_prompt": runway.value.text_prompt ,
                     "seed": seed,
                     "exploreMode": false,
                     "watermark": false,
