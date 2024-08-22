@@ -97,6 +97,24 @@ const generate= async ()=>{
                 },
             //    "asTeamId": 17511575
         }
+        let gen3_trubo=    {
+                "taskType": "gen3a_turbo",
+                "internal": false,
+                "options": {
+                    "name": `Gen-3 Alpha Turbo ${seed}`,
+                    "seconds":st.value.time,
+                    "text_prompt": "run",
+                    "seed": seed,
+                    "exploreMode": false,
+                    "watermark": false,
+                    "enhance_prompt": true,
+                    "init_image":  runway.value.image_prompt,
+                    "resolution": "720p",
+                    "image_as_end_frame": false,
+                    "assetGroupName": "Generative Video"
+                }
+}
+  
 
         if( obj.options.gen2Options.image_prompt==''){
             delete obj.options.gen2Options.image_prompt;
@@ -108,8 +126,19 @@ const generate= async ()=>{
         }
         
         gen3.options.exploreMode= st.value.version=='europa'
-
-        const d=  await runwayFetch('/tasks', st.value.version=='gen2'?obj: gen3 ) 
+        let sobj:any = gen3;
+        if(  st.value.version=='gen2' ){
+            sobj= obj
+        }
+        if(  st.value.version=='gen3a_turbo' ){
+            sobj= gen3_trubo
+            if(gen3_trubo.options.init_image=='') {
+                ms.error( t('video.gen3a_turbo_img') )
+                return 
+            }
+        }
+       // const d=  await runwayFetch('/tasks', st.value.version=='gen2'?obj: gen3 ) 
+        const d=  await runwayFetch('/tasks',  sobj ) 
         mlog("runwayGen2",d) 
         d.task && d.task.id&& runwayFeed(d.task.id)
     }catch(e:any){
@@ -123,6 +152,7 @@ const mvOption= [
 {label: t('video.rwgen2'),value: 'gen2'}
 ,{label:t('video.rwgen3'),value: 'europa'}
 ,{label:t('video.rwgen3fast'),value: 'europa-fast'}
+,{label:t('video.rwgen3turbo'),value: 'gen3a_turbo'}
  ]
  const timeOption= [
 {label: 'Duration: 5s',value: 5}

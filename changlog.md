@@ -5,6 +5,8 @@
 - 🤖 合并： 新增自定义背景图片 #488 @Yanyutin753
 - 💄 合并： 优化文件上传样式 #487 @Yanyutin753
 - 💄 合并： AUTH_SECRET_KEY 新增多密钥支持，使用,隔开 #484 @Yanyutin753 
+- 😄 新增： runway Gen3a Turbo
+- 😄 新增： UI服务端 同步 `runway` `viggle` 设置
 
 # 2.20.2
 - 😄 新增：gemini-1.5-pro-exp-0801

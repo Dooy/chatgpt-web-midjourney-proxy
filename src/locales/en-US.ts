@@ -445,7 +445,10 @@ export default {
     "nosup": "Not supported temporarily",
     "rwgen2": "Version: Gen-2, cost-effective",
     "rwgen3": "Version: Gen-3 Alpha",
-    "repeat2":"Expired.Reget"
+    "repeat2":"Expired.Reget",
+
+    rwgen3turbo:'Version: Gen-3 Alpha Turbo',
+    gen3a_turbo_img:'Gen-3 Alpha Turbo must image',
 
   },
   dance:{

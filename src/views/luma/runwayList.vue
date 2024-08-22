@@ -96,6 +96,7 @@ initLoad();
                     </template>
                     <div v-if="item.id" >ID: {{ item.id }}</div>
                     <div v-if="item.taskType=='gen3a'" >Version: Gen-3</div>
+                    <div v-if="item.taskType=='gen3a_turbo'" >Version: Gen-3-turbo</div>
                     <div v-if="item.taskType=='gen2'" >Version: Gen-2</div>
                     <div v-if="item.createdAt" >createdAt: {{ new Date( item.createdAt).toLocaleString() }}</div>
                     <div class=" max-w-[300px]" v-if="item.options.text_prompt">{{ item.options.text_prompt }}</div>

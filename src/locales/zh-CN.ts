@@ -451,13 +451,15 @@ export default {
     runwayserver:'Runway 接口地址',
     setOpenKeyPlaceholder2:'Runway API 的key, 可不填',
     endImg:'尾帧图',
-    runwayinfo:'说明：<ul><li>1. Runway 图片与视频都有有效期</li>  <li>2. 请在生成视频后30分钟内将mp4保存到本地</li>  <li>3. 过期重新获取，可能存在账号下线而获取失败</li></ul>',
+    runwayinfo:'说明：<ul><li>1. Runway 图片与视频都有有效期</li>  <li>2. 请在生成视频后30分钟内将mp4保存到本地</li>  <li>3. 过期重新获取，可能存在账号下线而获取失败</li><li>4. Gen3A Turbo 必须带图</li></ul>',
     nosup:'暂不支持',
     rwgen2:'版本: Gen-2, 价格实惠',
     rwgen3:'版本: Gen-3 Alpha',
     rwgen3fast:'版本: Gen-3 Alpha Fast',
-
     repeat2:'过期.重新获取',
+
+    rwgen3turbo:'版本: Gen-3 Alpha Turbo',
+    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图',
 
   }
   ,dance:{
