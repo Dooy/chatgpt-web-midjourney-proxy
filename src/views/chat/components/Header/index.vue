@@ -91,8 +91,8 @@ watch(()=>homeStore.myData.act,debounce( (n)=> n=='saveChat' && (nGptStore.value
       </div>
     </div>
     
-    <!-- <div @click="st.isShow=true" class="absolute left-1/2   top-full -translate-x-1/2 cursor-pointer select-none rounded-b-md border  bg-white px-2 dark:border-neutral-800 dark:bg-[#111114]"> -->
-    <div @click="st.isShow=true" class="absolute left-1/2   top-full -translate-x-1/2 cursor-pointer select-none rounded-b-md px-2">
+    <div @click="st.isShow=true" class="absolute left-1/2   top-full -translate-x-1/2 cursor-pointer select-none rounded-b-md border  bg-white px-2 dark:border-neutral-800 dark:bg-[#111114]">
+    <!-- <div @click="st.isShow=true" class="absolute left-1/2   top-full -translate-x-1/2 cursor-pointer select-none rounded-b-md px-2"> -->
         <div class="flex items-center   justify-center space-x-1 cursor-pointer hover:text-[#4b9e5f]" v-if="homeStore.myData.local!='draw'">
             <template   v-if="nGptStore.gpts">
              <SvgIcon icon="ri:apps-fill" /> 

@@ -86,7 +86,7 @@ const userStore = useUserStore();
 
 const userInfo = computed(() => userStore.userInfo);
 
-const backgroundImage = ref(userInfo.value.backgroundImage ?? "");
+const backgroundImage = computed(()=>userInfo.value.backgroundImage ?? "");
 
 function handleSubmit() {
   //onConversation() //把这个放到aiGpt
@@ -605,11 +605,11 @@ const ychat = computed(() => {
 </script>
 
 <template>
-  <div
-    class="absolute top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
+  <div v-if="backgroundImage" 
+    class=" fixed z-[200] pointer-events-none top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
     :style="{
       'background-image': 'url(' + backgroundImage + ')',
-      opacity: 0.15,
+      opacity: 0.19,
     }"
   ></div>
   <div class="flex flex-col w-full h-full">
