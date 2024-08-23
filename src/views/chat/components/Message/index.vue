@@ -123,7 +123,38 @@ function handleRegenerate2() {
   mlog('重新发送！');
   homeStore.setMyData({act:'gpt.resubmit', actData:{ index:props.index , uuid:props.chat.uuid } });
 }
- 
+ const getFileName = (url: string) => {
+  if (!url) return 'image.jpg';
+  const parts = url.split('/');
+  return parts[parts.length - 1];
+};
+const downloading = ref(false); // 添加一个状态变量，用于控制弹窗显示
+
+const downloadImage = async (imageUrl: string) => {
+  if (downloading.value) return; // 如果已经在下载，则不重复下载
+
+  downloading.value = true;
+  message.info('正在保存图片...'); // 显示弹窗
+
+  try {
+    const response = await fetch(mjImgUrl(imageUrl));
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = getFileName(imageUrl);
+    link.click();
+    URL.revokeObjectURL(url);
+
+    // 下载完成后关闭弹窗
+    message.success('图片已保存！');
+  } catch (error) {
+    console.error('下载图片出错:', error);
+    message.error('保存图片失败！'); // 下载失败时显示错误弹窗
+  } finally {
+    downloading.value = false;
+  }
+};
 </script>
 
 <template>
@@ -150,6 +181,11 @@ function handleRegenerate2() {
             <span v-if="chat.opt?.seed">Seed:{{ chat.opt?.seed }}</span>
             <span v-else>Seed</span>
           </div>
+					<a @click.prevent="downloadImage(chat.opt?.imageUrl)"
+     class=" active  cursor-pointer underline "
+     target="_blank">
+     {{ $t('mj.copySuccess') }}
+  </a>
           <a :href=" mjImgUrl(chat.opt?.imageUrl)" class="hidden group-hover:block active  cursor-pointer underline " target="_blank">{{ $t('mj.ulink') }}</a>
         </template>
       </p>
