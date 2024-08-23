@@ -250,6 +250,7 @@ export default {
 
     ,attr1:'附'
     ,ulink:'原图链接'
+		,copySuccess:'点击下载'
     ,copyFail:'复制失败'
     ,tts:'TTS 文本转语音'
     ,fail:'发生错误'
