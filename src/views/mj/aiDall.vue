@@ -10,6 +10,9 @@ const config = ref( {
 model:[
 {  "label": "DALL·E 3", "value": "dall-e-3" }
  ,{  "label": "DALL·E 2", "value": "dall-e-2" }
+ ,{  "label": "Flux", "value": "flux" }
+ ,{  "label": "Flux-Dev", "value": "flux-dev" }
+ ,{  "label": "Flux-Pro", "value": "flux-pro" }
 ]
 });
 const st =ref({isGo:false });     
@@ -75,14 +78,14 @@ watch(()=>f.value.model,(n)=>{
 <template>
 <section class="mb-4 flex justify-between items-center"  >
      <div>{{ $t('mjchat.version') }} </div>
-    <n-select v-model:value="f.model" :options="config.model" size="small"  class="!w-[70%]" :clearable="false" />
+    <n-select v-model:value="f.model" :options="config.model" filterable tag size="small"  class="!w-[70%]" :clearable="false" />
 </section>
 <section class="mb-4 flex justify-between items-center"  >
      <div>{{ $t('mjchat.size') }}</div>
     <n-select v-model:value="f.size" :options="dimensionsList" size="small"  class="!w-[70%]" :clearable="false" />
 </section>
 <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="f.prompt"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
+     <n-input    type="textarea"  v-model:value="f.prompt" filterable tag  :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
       :autosize="{   minRows:3, maxRows:10 }" />
 </div>
 

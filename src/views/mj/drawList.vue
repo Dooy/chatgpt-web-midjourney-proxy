@@ -221,7 +221,7 @@ watch(()=>homeStore.myData.act,(n)=>{
                //homeStore.setMyData{{act}}
                homeStore.setMyData({act:'mjReload', actData:{mjID:dchat.mjID,noShow:true} })
                toBottom();
-            }else if(  (dchat.model=='dall-e-2' || dchat.model=='dall-e-3')   && dchat.opt?.imageUrl ){
+            }else if(  dchat.model && (dchat.model=='dall-e-2' || dchat.model=='dall-e-3' || dchat.model.indexOf('flux')>-1 )   && dchat.opt?.imageUrl ){
                 homeStore.setMyData({act:'dallReload', actData:{myid:dchat.myid,noShow:true} });
                 toBottom();
             }
