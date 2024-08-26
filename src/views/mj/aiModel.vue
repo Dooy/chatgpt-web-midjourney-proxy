@@ -93,6 +93,8 @@ watch(()=>nGptStore.value.model,(n)=>{
         max=16384 *2;
     }else if( n.indexOf('gpt-4')>-1 ||  n.indexOf('16k')>-1 ){ //['16k','8k','32k','gpt-4'].indexOf(n)>-1
         max=4096*2;
+    }else if( n.toLowerCase().includes('claude-3-5') ){
+        max=4096*2*2;
     }else if( n.toLowerCase().includes('claude-3') ){
          max=4096*2;
     }
