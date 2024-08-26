@@ -82,10 +82,10 @@ watch(()=>f.value.model,(n)=>{
 </section>
 <section class="mb-4 flex justify-between items-center"  >
      <div>{{ $t('mjchat.size') }}</div>
-    <n-select v-model:value="f.size" :options="dimensionsList" size="small"  class="!w-[70%]" :clearable="false" />
+    <n-select v-model:value="f.size" :options="dimensionsList"  filterable tag size="small"  class="!w-[70%]" :clearable="false" />
 </section>
 <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="f.prompt" filterable tag  :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
+     <n-input    type="textarea"  v-model:value="f.prompt"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
       :autosize="{   minRows:3, maxRows:10 }" />
 </div>
 
