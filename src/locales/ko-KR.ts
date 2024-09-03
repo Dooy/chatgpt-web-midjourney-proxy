@@ -191,7 +191,13 @@ export default {
 
     subtle: '고화질 2배'
     ,creative: '고화질 2배. 창의적'
-    ,gpt_gx: 'GPTs는 g-*를 사용합니다'
+    ,gpt_gx: 'GPTs는 g-*를 사용합니다',
+
+    "ideoabout": "아이디어그램에 대하여",
+    "ideoserver": "아이디어그램 서버",
+    "ideokeyPlaceholder": "아이디어그램의 API 키 (선택 사항)",
+    "ideopls": "이미지 설명 프롬프트",
+    "nohead": "포함하지 않음"
 
   },
   "mjset": {

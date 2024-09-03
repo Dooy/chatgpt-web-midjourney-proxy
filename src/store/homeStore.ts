@@ -108,10 +108,13 @@ export interface gptServerType{
     VIGGLE_KEY:string
     RUNWAY_SERVER:string
     RUNWAY_KEY:string
+    IDEO_SERVER:string
+    IDEO_KEY:string
     IS_SET_SYNC?:boolean
     GPTS_GX?:boolean
     IS_LUMA_PRO?:boolean
     RRUNWAY_VERSION?:string
+    DRAW_TYPE?:string
     IS_VIGGLE_PRO?:boolean
     TAB_VIDEO?:string
 
@@ -134,7 +137,9 @@ let v:gptServerType={
         VIGGLE_KEY:'',
         TAB_VIDEO:'luma',
         RUNWAY_SERVER:'',
-        RUNWAY_KEY:''
+        RUNWAY_KEY:'',
+        IDEO_SERVER:'',
+        IDEO_KEY:''
     }
     return v ;
 }

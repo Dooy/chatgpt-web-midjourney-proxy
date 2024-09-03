@@ -9,7 +9,7 @@ import { t } from '@/locales'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { copyToClip } from '@/utils/copy'
 import { homeStore } from '@/store'
-import { getSeed, mlog ,mjImgUrl} from '@/api' 
+import { getSeed, mlog ,mjImgUrl, isDallImageModel} from '@/api' 
 
 interface Props {
   dateTime?: string
@@ -165,7 +165,8 @@ function handleRegenerate2() {
           :as-raw-text="asRawText"
           :chat="chat"
         />
-        <div class="flex flex-col" v-if="!chat.mjID && chat.model!='dall-e-3' && chat.model!='dall-e-2' ">
+        <!-- <div class="flex flex-col" v-if="!chat.mjID && chat.model!='dall-e-3' && chat.model!='dall-e-2' "> -->
+        <div class="flex flex-col" v-if="!chat.mjID &&   !isDallImageModel(chat.model) ">
           <!-- <button
             v-if="!inversion "
             class="mb-2 transition text-neutral-300 hover:text-neutral-800 dark:hover:text-neutral-300"

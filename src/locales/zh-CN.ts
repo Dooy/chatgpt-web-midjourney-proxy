@@ -298,6 +298,12 @@ export default {
     ,subtle:'高清2倍'
     ,creative:'高清2倍.创意'
     ,gpt_gx:'GPTs用g-*'
+
+    ,ideoabout:'Ideogram 相关'
+    ,ideoserver:'Ideogram 相关'
+    ,ideokeyPlaceholder:'Ideogram 的API Key 可不填'
+    ,ideopls:'图片描述 提示词'
+    ,nohead:'不含'
   },
 
 	draw: {

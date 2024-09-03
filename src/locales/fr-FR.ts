@@ -193,7 +193,13 @@ export default {
 
         subtle: 'Haute définition 2x'
         ,creative: 'Haute définition 2x. Créatif'
-        ,gpt_gx: 'Les GPT utilisent g-*'
+        ,gpt_gx: 'Les GPT utilisent g-*',
+
+        "ideoabout": "À propos d'Ideogram",
+        "ideoserver": "Serveur Ideogram",
+        "ideokeyPlaceholder": "Clé API pour Ideogram (optionnelle)",
+        "ideopls": "Invites de description d'image",
+        "nohead": "Exclut"
 
     },
     "mjset": {

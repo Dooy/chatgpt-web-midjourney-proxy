@@ -192,7 +192,13 @@ export default {
 
     subtle: 'Cao độ phân giải cao gấp 2 lần'
     ,creative: 'Cao độ phân giải cao gấp 2 lần. Sáng tạo'
-    ,gpt_gx: 'GPTs sử dụng g-*'
+    ,gpt_gx: 'GPTs sử dụng g-*',
+
+     "ideoabout": "Về Ideogram",
+    "ideoserver": "Máy chủ Ideogram",
+    "ideokeyPlaceholder": "Khóa API cho Ideogram (tùy chọn)",
+    "ideopls": "Gợi ý mô tả hình ảnh",
+    "nohead": "Không bao gồm"
 
   },
   "mjset": {

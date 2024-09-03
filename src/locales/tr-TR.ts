@@ -193,7 +193,13 @@ export default {
 
         subtle: 'Haute définition 2x'
         ,creative: 'Haute définition 2x. Créatif'
-        ,gpt_gx: 'Les GPT utilisent g-*'
+        ,gpt_gx: 'Les GPT utilisent g-*',
+
+        "ideoabout": "Ideogram Hakkında",
+        "ideoserver": "Ideogram Sunucusu",
+        "ideokeyPlaceholder": "Ideogram için API Anahtarı (isteğe bağlı)",
+        "ideopls": "Görüntü açıklama ipuçları",
+        "nohead": "Dahil değil"
     },
     "mjset": {
         "server": "Sunucu",

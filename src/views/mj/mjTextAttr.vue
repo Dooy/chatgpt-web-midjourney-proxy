@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { localGet } from "@/api";
+import { localGet, mlog } from "@/api";
 import { ref } from "vue";
 import { NImage } from "naive-ui";
 import { SvgIcon } from "@/components/common";
@@ -8,13 +8,14 @@ const pp = defineProps<{ image: string }>();
 const images = ref<{ fileName: string; fileBase64: string }[]>([]);
 const files = ref<{ fileName: string; fileBase64: string }[]>([]);
 
-const isImage = (url) => {
+const isImage = (url:string) => {
   const extensions = [".jpeg", ".jpg", ".png", ".gif", ".webp"];
   url = url.toLowerCase();
   return extensions.some((ext) => url.endsWith(ext));
 };
 
 const loadImages = async () => {
+  //mlog("loadImages", pp.image);
   try {
     const response = await localGet(pp.image);
     if (response) {

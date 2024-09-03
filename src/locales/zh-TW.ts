@@ -190,7 +190,12 @@ export default {
     "micRecEnd": "錄音已結束",
     subtle: '高清2倍'
     ,creative: '高清2倍. 創意'
-    ,gpt_gx: 'GPTs 用 g-*'
+    ,gpt_gx: 'GPTs 用 g-*',
+    "ideoabout": "有關 Ideogram",
+    "ideoserver": "Ideogram 伺服器",
+    "ideokeyPlaceholder": "Ideogram 的 API 金鑰（可選）",
+    "ideopls": "圖片描述提示詞",
+    "nohead": "不含"
   },
   "mjset": {
     "server": "服務端",

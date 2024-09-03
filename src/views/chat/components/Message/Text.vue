@@ -15,7 +15,7 @@ import whisperText from '@/views/mj/whisperText.vue'
 import MjTextAttr from '@/views/mj/mjTextAttr.vue'
 import aiTextSetting from '@/views/mj/aiTextSetting.vue'
 import aiSetAuth from '@/views/mj/aiSetAuth.vue'
-import { isApikeyError, isAuthSessionError, isTTS, mlog } from '@/api'
+import { isApikeyError, isAuthSessionError, isDallImageModel, isTTS, mlog } from '@/api'
 
 interface Props {
   inversion?: boolean
@@ -128,7 +128,7 @@ onUnmounted(() => {
         <aiTextSetting v-if="!inversion && isApikeyError(text)"/>
         <aiSetAuth v-if="!inversion && isAuthSessionError(text)" />
           
-        <dallText :chat="chat" v-if=" chat.model && chat.model?.indexOf('chat') == -1 &&( chat.model?.indexOf('dall')>-1  || chat.model?.indexOf('flux')>-1)" class="whitespace-pre-wrap" />
+        <dallText :chat="chat" v-if=" chat.model && chat.model?.indexOf('chat') == -1 && isDallImageModel( chat.model ) " class="whitespace-pre-wrap" />
         <mjText v-if="chat.mjID" class="whitespace-pre-wrap" :chat="chat" :mdi="mdi"></mjText>
         <ttsText v-else-if="chat.model && isTTS(chat.model) && chat.text=='ok'" :chat="chat"/>
         <template v-else>
