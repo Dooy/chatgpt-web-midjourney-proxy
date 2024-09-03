@@ -12,7 +12,7 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:'ASPECT_1_1'}
  ];
 
  const f= ref({
-    "model": "V_1_TURBO",
+    "model": "V_2_TURBO",
     "magic_prompt_option": "AUTO",
     "prompt": "",
     "aspect_ratio": "ASPECT_9_16",
