@@ -41,7 +41,7 @@ const createImg= async ()=>{
     let data:any ={
         image_request:f.value,
         file:fsFile.value,
-        model:'ideogram',
+        model:'ideogram_'+f.value.model.toLocaleLowerCase(),
         prompt: f.value.prompt,
       //  fileBase64:st.value.image_url
     }
