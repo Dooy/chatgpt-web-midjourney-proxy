@@ -31,6 +31,11 @@ const RunwayTaskDown=(item:RunwayTask)=>{
     document.body.removeChild(link);
 }
 
+const extend=  (item:RunwayTask )=>{
+    mlog("extend ", item ) 
+    homeStore.setMyData({act:"runway.extend", actData: item  })
+}
+
 watch(()=>homeStore.myData.act, (n)=>{
      if(n=='RunwayFeed')  initLoad() 
 });
@@ -110,6 +115,8 @@ initLoad();
                     
                       <n-button-group size="tiny">
                         <n-button  size="tiny" round ghost   @click="RunwayTaskDown( item )"  ><SvgIcon icon="mdi:download" /> {{ $t('video.download') }}</n-button>
+                        <n-button   size="tiny"  round ghost  @click="extend( item )"  ><SvgIcon icon="ri:video-add-line" /> {{ $t('video.extend') }}</n-button>
+                        <!-- <n-button  size="tiny" round ghost   @click="RunwayTaskDown( item )"  ><SvgIcon icon="mdi:download" /> {{ $t('video.download') }}</n-button> -->
                         
                       </n-button-group>
                      <!-- <a :href="item.video?.download_url? item.video?.download_url:item.video?.url" download  target="_blank" v-if="item.video?.url|| item.video?.download_url"  ><SvgIcon icon="mdi:download" class="cursor-pointer"/></a> -->

@@ -111,7 +111,7 @@ initLoad();
                     <h3 >{{item.title}}</h3>
                     <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 ml-1 list-none rounded-md" v-if="item.metadata?.type=='upload'" >Uploaded</div>
                 </div>
-                <div class="opacity-80"  >{{item.metadata.tags}}</div>
+                <div class="opacity-80 line-clamp-1 max-w-[320px]"   >{{item.metadata.tags}}</div>
             </div>
             <div class="opacity-60 line-clamp-1 w-full text-[12px] cursor-pointer"  @click="goPlay( item )" v-if="item.metadata && item.metadata.prompt">
              {{item.metadata.prompt}}
