@@ -24,7 +24,10 @@ async function  selectFile(input:any){
     try{
         st.value.isUpload= true
         mlog("uploadFile", input.target.files[0] )
-        const d:any = await sunoFetch('/uploads/audio',{"extension":"mp3"})
+        let fileName = input.target.files[0].name
+        let extension = fileName.split('.').pop();
+ 
+        const d:any = await sunoFetch('/uploads/audio',{"extension": extension?extension:"mp3"})
         mlog("init ", d )
         st.value.id= d.id;
         const formData = new FormData();
@@ -61,6 +64,6 @@ async function  selectFile(input:any){
         <span class="cursor-pointer" @click="fsRef.click()" v-else>{{ $t('suno.upMps') }}</span>
     </NTag>
     
-    <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept=".mp3" />
+    <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept=".mp3,audio/*,.m4a,.mp4" />
 
 </template>
