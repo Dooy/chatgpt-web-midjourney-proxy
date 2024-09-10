@@ -197,7 +197,20 @@ export default {
     "ideoserver": "아이디어그램 서버",
     "ideokeyPlaceholder": "아이디어그램의 API 키 (선택 사항)",
     "ideopls": "이미지 설명 프롬프트",
-    "nohead": "포함하지 않음"
+    "nohead": "포함하지 않음",
+
+    klingabout: '클링 관련',
+    klingserver: '클링 API 주소',
+    klingkeyPlaceholder: '클링 API 키 (선택 사항)',
+    klingkey: '클링 키',
+    mode: '모드',
+    duration: '지속 시간',
+    negative_prompt: '여기에 객체가 없는 텍스트를 입력하세요',
+    std: '고성능',
+    pro: '고품질',
+    needImg: '효과를 보려면 참조 이미지를 업로드하세요!',
+    seed: '시드 번호 1~2147483647',
+    klingInfo: '설명: <li>1. 고품질은 가격의 3.5배입니다</li> <li>2. 10초는 가격의 2배입니다</li> <li>3. 마지막 프레임은 효과를 위해 참조 이미지가 필요합니다</li>'
 
   },
   "mjset": {

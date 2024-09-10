@@ -199,7 +199,20 @@ export default {
         "ideoserver": "Serveur Ideogram",
         "ideokeyPlaceholder": "Clé API pour Ideogram (optionnelle)",
         "ideopls": "Invites de description d'image",
-        "nohead": "Exclut"
+        "nohead": "Exclut",
+
+        klingabout: 'Kling À propos',
+        klingserver: 'Adresse API Kling',
+        klingkeyPlaceholder: 'Clé API Kling (facultatif)',
+        klingkey: 'Clé Kling',
+        mode: 'Mode',
+        duration: 'Durée',
+        negative_prompt: 'Mettez le texte sans objets ici',
+        std: 'Haute performance',
+        pro: 'Haute qualité',
+        needImg: 'Veuillez télécharger une image de référence pour qu’elle prenne effet !',
+        seed: 'Numéro de graine 1~2147483647',
+        klingInfo: 'Description : <li>1. Haute qualité coûte 3,5 fois le prix</li> <li>2. 10 secondes coûtent 2 fois le prix</li> <li>3. La dernière image doit avoir une image de référence pour prendre effet</li>'
 
     },
     "mjset": {

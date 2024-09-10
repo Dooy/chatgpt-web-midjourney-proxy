@@ -300,10 +300,25 @@ export default {
     ,gpt_gx:'GPTs用g-*'
 
     ,ideoabout:'Ideogram 相关'
-    ,ideoserver:'Ideogram 相关'
+    ,ideoserver:'Ideogram 接口地址'
     ,ideokeyPlaceholder:'Ideogram 的API Key 可不填'
     ,ideopls:'图片描述 提示词'
     ,nohead:'不含'
+
+    ,klingabout:'可灵 相关'
+    ,klingserver:'可灵 接口地址'
+    ,klingkeyPlaceholder:'可灵 的API Key 可不填'
+    ,klingkey:'可灵 Key'
+    ,mode:'模式'
+    ,duration:'时长'
+    ,negative_prompt:'不含物体的文字放这儿'
+    ,std:'高性能'
+    ,pro:'高表现'
+    ,needImg:'请传参考图才生效！'
+    ,seed:'种子数字 1~2147483647'
+    ,klingInfo:'说明： <li>1. 高表现是3.5倍的价格</li>  <li>2. 10s是2倍的价格</li> <li>3. 尾帧必须有参考图片才生效</li>'
+
+
   },
 
 	draw: {

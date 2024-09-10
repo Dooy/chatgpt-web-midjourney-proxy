@@ -3,6 +3,7 @@
  //import VoInput from './lumaInput.vue';
  import VoList from './voList.vue';
  import RunwayList from './runwayList.vue';
+ import KlingList from '../kling/kgList.vue';
 import { gptServerStore } from '@/store';
  </script>
 <template>
@@ -14,6 +15,7 @@ import { gptServerStore } from '@/store';
     <div class=" flex-1  h-full bg-[#fafbfc] pt-2 dark:bg-[#18181c] overflow-y-auto " >
 
         <RunwayList v-if="gptServerStore.myData.TAB_VIDEO=='runway'"/>
+        <KlingList v-else-if="gptServerStore.myData.TAB_VIDEO=='kling'"/>
         <VoList v-else/>
     </div>
      

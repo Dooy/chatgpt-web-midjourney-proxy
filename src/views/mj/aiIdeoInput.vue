@@ -90,11 +90,11 @@ const clearInput = ()=>{
     </section>
     <section class="mb-4 flex justify-between items-center" >
          <div>Seed</div>
-          <NInput  v-model:value="st.seed" size="small"  class="!w-[70%]"  clearable placeholder="种子数字 1~2147483647" />
+          <NInput  v-model:value="st.seed" size="small"  class="!w-[70%]"  clearable :placeholder="$t('mj.seed')" />
     </section>
     <section class="mb-4 flex justify-between items-center" >
          <div>{{ $t('mj.nohead') }}</div>
-          <NInput v-model="f.negative_prompt" size="small"  class="!w-[70%]"  clearable placeholder="不含物体的文字放这儿" />
+          <NInput v-model="f.negative_prompt" size="small"  class="!w-[70%]"  clearable :placeholder="$t('mj.negative_prompt')" />
     </section>
 
     <section class="mb-4 flex justify-between items-center" >

@@ -110,6 +110,8 @@ export interface gptServerType{
     RUNWAY_KEY:string
     IDEO_SERVER:string
     IDEO_KEY:string
+    KLING_SERVER:string
+    KLING_KEY:string
     IS_SET_SYNC?:boolean
     GPTS_GX?:boolean
     IS_LUMA_PRO?:boolean
@@ -139,7 +141,9 @@ let v:gptServerType={
         RUNWAY_SERVER:'',
         RUNWAY_KEY:'',
         IDEO_SERVER:'',
-        IDEO_KEY:''
+        IDEO_KEY:'',
+        KLING_SERVER:'',
+        KLING_KEY:''
     }
     return v ;
 }

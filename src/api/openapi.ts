@@ -495,13 +495,17 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 LUMA_SERVER:url,
                 RUNWAY_SERVER:url,
                 VIGGLE_SERVER:url,
+                IDEO_SERVER:url,
+                KLING_SERVER:url,
                 
                 OPENAI_API_KEY:key,
                 MJ_API_SECRET:key, 
                 SUNO_KEY:key,
                 LUMA_KEY:key,
                 RUNWAY_KEY:key,
-                VIGGLE_KEY:key
+                VIGGLE_KEY:key,
+                IDEO_KEY:url,
+                KLING_KEY:url,
              } )
             blurClean();
             gptServerStore.setMyData( gptServerStore.myData );

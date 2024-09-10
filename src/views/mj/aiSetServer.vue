@@ -31,6 +31,7 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
     gptServerStore.myData.VIGGLE_SERVER=n;
     gptServerStore.myData.RUNWAY_SERVER=n;
     gptServerStore.myData.IDEO_SERVER=n;
+    gptServerStore.myData.KLING_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
@@ -40,6 +41,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     gptServerStore.myData.VIGGLE_KEY=n;
     gptServerStore.myData.RUNWAY_KEY=n;
     gptServerStore.myData.IDEO_KEY=n;
+    gptServerStore.myData.KLING_KEY=n;
 });
 </script>
 <template>
@@ -181,7 +183,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           </n-input>
       </section>
 
-       <div class="text-right">{{ $t('mj.ideoabout')  }}</div>
+      <div class="text-right">{{ $t('mj.ideoabout')  }}</div>
       <section class="mb-4 flex justify-between items-center"  >
           <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.IDEO_SERVER" clearable>
             <template #prefix>
@@ -194,6 +196,24 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.ideokeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.IDEO_KEY" clearable>
             <template #prefix>
               <span class="text-[var(--n-tab-text-color-active)]">Ideogram Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+
+      <div class="text-right">{{ $t('mj.klingabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.KLING_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.klingserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.klingkeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.KLING_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.klingkey')}}:</span>
             </template>
           </n-input>
       </section>

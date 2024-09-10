@@ -199,7 +199,20 @@ export default {
         "ideoserver": "Ideogram Sunucusu",
         "ideokeyPlaceholder": "Ideogram için API Anahtarı (isteğe bağlı)",
         "ideopls": "Görüntü açıklama ipuçları",
-        "nohead": "Dahil değil"
+        "nohead": "Dahil değil",
+
+        klingabout: 'Kling Hakkında',
+        klingserver: 'Kling API Adresi',
+        klingkeyPlaceholder: 'Kling API Anahtarı (isteğe bağlı)',
+        klingkey: 'Kling Anahtarı',
+        mode: 'Mod',
+        duration: 'Süre',
+        negative_prompt: 'Nesne içermeyen metni buraya yerleştirin',
+        std: 'Yüksek Performans',
+        pro: 'Yüksek Kalite',
+        needImg: 'Etki etmesi için lütfen bir referans resmi yükleyin!',
+        seed: 'Tohum numarası 1~2147483647',
+        klingInfo: 'Açıklama: <li>1. Yüksek kalite fiyatın 3.5 katıdır</li> <li>2. 10 saniye fiyatın 2 katıdır</li> <li>3. Son kare etkili olması için bir referans resmine sahip olmalıdır</li>'
     },
     "mjset": {
         "server": "Sunucu",

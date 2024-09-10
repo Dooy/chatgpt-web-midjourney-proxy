@@ -195,7 +195,20 @@ export default {
     "ideoserver": "Ideogram 伺服器",
     "ideokeyPlaceholder": "Ideogram 的 API 金鑰（可選）",
     "ideopls": "圖片描述提示詞",
-    "nohead": "不含"
+    "nohead": "不含",
+
+    klingabout: '可靈 相關',
+    klingserver: '可靈 接口地址',
+    klingkeyPlaceholder: '可靈 的API Key 可不填',
+    klingkey: '可靈 Key',
+    mode: '模式',
+    duration: '時長',
+    negative_prompt: '不含物體的文字放這裡',
+    std: '高性能',
+    pro: '高表現',
+    needImg: '請傳參考圖才生效！',
+    seed: '種子數字 1~2147483647',
+    klingInfo: '說明： <li>1. 高表現是3.5倍的價格</li> <li>2. 10秒是2倍的價格</li> <li>3. 尾幀必須有參考圖片才生效</li>'
   },
   "mjset": {
     "server": "服務端",

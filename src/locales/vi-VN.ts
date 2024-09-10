@@ -198,7 +198,20 @@ export default {
     "ideoserver": "Máy chủ Ideogram",
     "ideokeyPlaceholder": "Khóa API cho Ideogram (tùy chọn)",
     "ideopls": "Gợi ý mô tả hình ảnh",
-    "nohead": "Không bao gồm"
+    "nohead": "Không bao gồm",
+
+    klingabout: 'Liên quan đến Kling',
+    klingserver: 'Địa chỉ API Kling',
+    klingkeyPlaceholder: 'API Key Kling (tùy chọn)',
+    klingkey: 'Khóa Kling',
+    mode: 'Chế độ',
+    duration: 'Thời gian',
+    negative_prompt: 'Đặt văn bản không có đối tượng ở đây',
+    std: 'Hiệu suất cao',
+    pro: 'Chất lượng cao',
+    needImg: 'Vui lòng tải lên hình ảnh tham khảo để nó có hiệu lực!',
+    seed: 'Số hạt 1~2147483647',
+    klingInfo: 'Mô tả: <li>1. Chất lượng cao gấp 3,5 lần giá</li> <li>2. 10 giây gấp 2 lần giá</li> <li>3. Khung cuối cùng phải có hình ảnh tham khảo để có hiệu lực</li>'
 
   },
   "mjset": {
