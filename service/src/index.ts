@@ -17,7 +17,7 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
-import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo } from './myfun'
+import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo, klingProxy } from './myfun'
 
 
 const app = express()
@@ -348,6 +348,7 @@ app.use('/viggle' ,authV2, viggleProxy);
 app.use('/pro/viggle' ,authV2, viggleProxy);
 
 app.use('/runway' ,authV2, runwayProxy  );
+app.use('/kling' ,authV2, klingProxy  );
 
 app.use('/ideogram/remix' ,authV2,  upload2.single('image_file'), ideoProxyFileDo  );
 app.use('/ideogram' ,authV2, ideoProxy  );
