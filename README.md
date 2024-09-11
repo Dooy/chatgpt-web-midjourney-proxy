@@ -9,7 +9,11 @@
 
 ![cover](./docs/mj2a1.jpg)
 ## 支持功能 
+- [x] 支持 kling 文生视频，图生视频, 绘图
+- [x] 支持 ideogram 绘图
+- [x] 支持 runway 文生视频，图生视频
 - [x] 支持 luma 文生视频，图生视频
+- [x] 支持 viggle 舞蹈
 - [x] 支持 suno 单独模块，可歌词调整 曲风调整
 - [x] 支持 suno 以音频生成音频
 - [x] 原chatgpt web 所有功能

@@ -8,7 +8,13 @@
 - This open-source project is developed based on [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web); it uses the midjourney API provided by [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) and [Suno-API]  as the backend.
 
 ![cover](./docs/mj2a1.jpg)
-## Supported Features
+## Supported Features 
+- [x] Support Kling for text-to-video, image-to-video, and drawing.
+- [x] Support Ideogram for drawing.
+- [x] Support Runway for text-to-video and image-to-video.
+- [x] Support Luma for text-to-video and image-to-video.
+- [x] Support Viggle for dance.
+- [x] Support Suno for audio-to-audio generation.
 - [x] Support for the standalone Suno module, with adjustable lyrics and music style
 - [x] All original ChatGPT web features
 - [x] ChatGPT web supports custom API keys and base_url
