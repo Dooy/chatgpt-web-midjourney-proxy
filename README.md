@@ -9,7 +9,7 @@
 
 ![cover](./docs/mj2a1.jpg)
 ## 支持功能 
-- [x] 支持 kling 文生视频，图生视频, 绘图
+- [x] 支持 kling 可灵 文生视频，图生视频, 绘图
 - [x] 支持 ideogram 绘图
 - [x] 支持 runway 文生视频，图生视频
 - [x] 支持 luma 文生视频，图生视频
