@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import {useMessage, NButton,NInput,NTag} from 'naive-ui';
-import { mlog, upImg } from '@/api';
+import { clearImageBase64, mlog, upImg } from '@/api';
 import { homeStore } from '@/store';
 import { klingFeed, klingFetch } from '@/api/kling';
 
@@ -38,10 +38,13 @@ const clearInput = ()=>{
 const createImg = async ()=>{
     st.value.isLoading= true
     f.value.aspect_ratio= vf[st.value.bili].value
+    let abc= {...f.value};
+    if(abc.image) abc.image= clearImageBase64( abc.image )
     try {
-        const d:any= await klingFetch('/v1/images/generations ' ,f.value )
+        const d:any= await klingFetch('/v1/images/generations ' , abc  )
         mlog('img', d );
         klingFeed( d.data.task_id ,'image',  f.value.prompt )
+        //f.value.image= ''
     } catch (error) {
     }  
     st.value.isLoading= false
@@ -50,6 +53,10 @@ const createImg = async ()=>{
 onMounted(() => {
     homeStore.setMyData({ms:ms})
 });
+
+const test=()=>{
+klingFetch('https://api.openai-hk.com/v1/models').then(d=>mlog('models',d ) )
+}
 //Cl6NIGbYLVQAAAAAALp
 //klingFeed('Cl6NIGbYLVQAAAAAALp-jw','image',"测试啊").then(d=>mlog('d>>',d ) ) 
 //klingFeed('Cl6NIGbYLVQAAAAAALXTmA','image',"大雪纷飞").then(d=>mlog('d>>',d ) ) 
@@ -95,5 +102,7 @@ onMounted(() => {
             <NButton :loading="st.isLoading" type="primary" @click="createImg()" :disabled="!f.prompt"  >{{ $t('mjchat.imgcreate') }}</NButton>
         </div>
     </section>
+
+    <!-- <NButton @click="test()">test</NButton> -->
 </div>
 </template>

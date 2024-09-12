@@ -214,6 +214,12 @@ export default {
         seed: 'Numéro de graine 1~2147483647',
         klingInfo: 'Description : <li>1. Haute qualité coûte 3,5 fois le prix</li> <li>2. 10 secondes coûtent 2 fois le prix</li> <li>3. La dernière image doit avoir une image de référence pour prendre effet</li>'
 
+        ,"camera_type": "Objectif",
+        "cnull": "Correspondance intelligente",
+        "down_back": "Descendre et zoomer",
+        "forward_up": "Avancer et monter",
+        "right_turn_forward": "Tourner à droite et avancer",
+        "left_turn_forward": "Tourner à gauche et avancer"
     },
     "mjset": {
         "server": "Serveur",

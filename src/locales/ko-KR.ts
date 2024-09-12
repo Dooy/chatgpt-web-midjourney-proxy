@@ -212,6 +212,12 @@ export default {
     seed: '시드 번호 1~2147483647',
     klingInfo: '설명: <li>1. 고품질은 가격의 3.5배입니다</li> <li>2. 10초는 가격의 2배입니다</li> <li>3. 마지막 프레임은 효과를 위해 참조 이미지가 필요합니다</li>'
 
+    ,"camera_type": "렌즈",
+    "cnull": "스마트 매칭",
+    "down_back": "아래로 이동하고 멀리하기",
+    "forward_up": "앞으로 밀고 위로 이동하기",
+    "right_turn_forward": "오른쪽으로 돌리고 앞으로 밀기",
+    "left_turn_forward": "왼쪽으로 돌리고 앞으로 밀기"
   },
   "mjset": {
     "server": "서버"

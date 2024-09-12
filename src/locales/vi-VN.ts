@@ -213,6 +213,12 @@ export default {
     seed: 'Số hạt 1~2147483647',
     klingInfo: 'Mô tả: <li>1. Chất lượng cao gấp 3,5 lần giá</li> <li>2. 10 giây gấp 2 lần giá</li> <li>3. Khung cuối cùng phải có hình ảnh tham khảo để có hiệu lực</li>'
 
+    ,"camera_type": "Ống kính",
+    "cnull": "Ghép thông minh",
+    "down_back": "Di chuyển xuống và thu nhỏ",
+    "forward_up": "Đẩy tới và di chuyển lên",
+    "right_turn_forward": "Quay phải và đẩy tới",
+    "left_turn_forward": "Quay trái và đẩy tới"
   },
   "mjset": {
     "server": "Máy chủ",

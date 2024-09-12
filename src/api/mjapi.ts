@@ -41,6 +41,11 @@ export function upImg(file:any   ):Promise<any>
     
 }
 
+export const clearImageBase64= ( str:string)=>{
+    let arr= str.split('base64,',2 )
+    return arr[1]??arr[0];
+}
+
 export const file2blob= (selectedFile: any  )=>{
     return new Promise<{blob:Blob,filename:string}>((resolve, reject) => {
         const reader = new FileReader();

@@ -318,7 +318,12 @@ export default {
     ,seed:'种子数字 1~2147483647'
     ,klingInfo:'说明： <li>1. 高表现是3.5倍的价格</li>  <li>2. 10s是2倍的价格</li> <li>3. 尾帧必须有参考图片才生效</li>'
 
-
+    ,camera_type:'镜头'
+    ,cnull:'智能匹配'
+    ,down_back: '下移拉远'
+    ,forward_up: '推进上移'
+    ,right_turn_forward: '右旋推进'
+    ,left_turn_forward: '左旋推进'
   },
 
 	draw: {

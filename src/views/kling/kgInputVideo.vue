@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import {useMessage, NButton,NInput,NTag,NSelect} from 'naive-ui';
-import { mlog, upImg } from '@/api';
+import { clearImageBase64, mlog, upImg } from '@/api';
 import { homeStore } from '@/store';
 import { klingFeed, klingFetch } from '@/api/kling';
 import { t } from '@/locales';
 
 const f= ref({prompt:'',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',mode:'std', duration:'5'});
-const st= ref({bili:0,isLoading:false});
+const st= ref({bili:0,isLoading:false,camera_type:''});
 
 const fsRef= ref() ; 
 const fsRef2= ref() ; 
@@ -22,6 +22,9 @@ const vf=[
 
 const modeOptions=[ {label:t('mj.std'),value:'std'},{label:t('mj.pro'),value:'pro'}]
 const durationOptions=[ {label:'5s',value:'5'},{label:'10s',value:'10'}]
+const cameraOption=[ {label: t('mj.cnull'),value:''},{label: t('mj.down_back'),value:'down_back'}
+,{label:t('mj.forward_up'),value:'forward_up'},{label:t('mj.forwright_turn_forwardard_up'),value:'right_turn_forward'},{label:t('mj.left_turn_forward'),value:'left_turn_forward'}
+]
 
 
 function selectFile(input:any){
@@ -56,8 +59,18 @@ const createImg = async ()=>{
     f.value.aspect_ratio= vf[st.value.bili].value
     try {
         let cat= 'text2video'; 
-        if(f.value.image!='')cat='image2video'
-        const d:any= await klingFetch('/v1/videos/'+ cat ,f.value )
+        let abc:any  = {...f.value};
+        //if(abc.image) abc.image= clearImageBase64( abc.image )
+        if(f.value.image!=''){
+            cat='image2video'
+            abc.image= clearImageBase64( abc.image )
+            if( f.value.image_tail) abc.image_tail= clearImageBase64( f.value.image_tail )
+        }else if( st.value.camera_type ){
+            abc.camera_control={ type:st.value.camera_type }
+        }
+        //  mlog('abc>> ',  abc  );
+        // return 
+        const d:any= await klingFetch('/v1/videos/'+ cat , abc  )
         mlog('img', d );
         klingFeed( d.data.task_id , cat ,  f.value.prompt )
     } catch (error) {
@@ -96,11 +109,17 @@ onMounted(() => {
          <n-select v-model:value="f.duration" size="small" :options="durationOptions"  class="!w-[70%]" />
          
     </section>
+     <section class="mb-4 flex justify-between items-center" >
+         <div>{{ $t('mj.camera_type') }}</div>
+         <n-select v-model:value="st.camera_type" size="small" :options="cameraOption"  class="!w-[70%]" />
+         
+    </section>
 
     <section class="mb-4 flex justify-between items-center" >
          <div>{{ $t('mj.nohead') }}</div>
           <NInput v-model="f.negative_prompt" size="small"  class="!w-[70%]"  clearable :placeholder="$t('mj.negative_prompt')" />
     </section>
+
      <section class="mb-4 flex justify-between items-center" >
          
           <n-input v-model:value="f.prompt" 

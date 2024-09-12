@@ -209,6 +209,13 @@ export default {
     needImg: '請傳參考圖才生效！',
     seed: '種子數字 1~2147483647',
     klingInfo: '說明： <li>1. 高表現是3.5倍的價格</li> <li>2. 10秒是2倍的價格</li> <li>3. 尾幀必須有參考圖片才生效</li>'
+    ,"camera_type": "鏡頭",
+    "cnull": "智能配對",
+    "down_back": "下移拉遠",
+    "forward_up": "推進上移",
+    "right_turn_forward": "右旋推進",
+    "left_turn_forward": "左旋推進"
+
   },
   "mjset": {
     "server": "服務端",
