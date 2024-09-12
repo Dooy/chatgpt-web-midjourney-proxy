@@ -23,7 +23,7 @@ const vf=[
 const modeOptions=[ {label:t('mj.std'),value:'std'},{label:t('mj.pro'),value:'pro'}]
 const durationOptions=[ {label:'5s',value:'5'},{label:'10s',value:'10'}]
 const cameraOption=[ {label: t('mj.cnull'),value:''},{label: t('mj.down_back'),value:'down_back'}
-,{label:t('mj.forward_up'),value:'forward_up'},{label:t('mj.forwright_turn_forwardard_up'),value:'right_turn_forward'},{label:t('mj.left_turn_forward'),value:'left_turn_forward'}
+,{label:t('mj.forward_up'),value:'forward_up'},{label:t('mj.right_turn_forward'),value:'right_turn_forward'},{label:t('mj.left_turn_forward'),value:'left_turn_forward'}
 ]
 
 
