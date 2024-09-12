@@ -24,6 +24,10 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4-vision-preview": "2023-04",
   "gpt-4-turbo-2024-04-09": "2023-12", 
   "gpt-4o-2024-05-13": "2023-10", 
+  "o1-preview-2024-09-12": "2023-10", 
+  "o1-preview": "2023-10", 
+  "o1-mini": "2023-10", 
+  "o1-mini-2024-09-12": "2023-10", 
   "gpt-4o": "2023-10", 
   "gpt-4o-mini": "2023-10", 
   "gpt-4o-mini-2024-07-18": "2023-10", 
@@ -567,7 +571,7 @@ const getModelMax=( model:string )=>{
         return 16;
     }else if( model.indexOf('32k')>-1  ){
         return 32;
-    }else if( model.indexOf('gpt-4-turbo')>-1||  model.indexOf('gpt-4o')>-1 ){
+    }else if( model.indexOf('gpt-4-turbo')>-1||  model.indexOf('gpt-4o')>-1 ||   model.indexOf('o1-')>-1){
         return 128; 
     }else if( model.indexOf('64k')>-1  ){
         return 64;
