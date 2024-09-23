@@ -219,6 +219,7 @@ export default {
     "forward_up": "Đẩy tới và di chuyển lên",
     "right_turn_forward": "Quay phải và đẩy tới",
     "left_turn_forward": "Quay trái và đẩy tới"
+    ,kling:'Kling'
   },
   "mjset": {
     "server": "Máy chủ",

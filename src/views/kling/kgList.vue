@@ -12,6 +12,7 @@ import { klingFeed } from '@/api/kling';
 import { mlog } from '@/api';
 import { SvgIcon } from '@/components/common';
 import { t } from '@/locales';
+import KgImage from './kgImage.vue';
 
 const list= ref<KlingTask[]>([]);
 const list2= ref<ViewCard[]>([]);
@@ -62,6 +63,14 @@ const goShow=( item:any)=>{
     //console.log('goShow', item);
     nextTick(() => showImg.value?.click());
 }
+const goShow2=( item:any)=>{
+    //console.log('goShow', isMobile );
+    if( isMobile.value)   return ; 
+    st.value.show= true;
+    st.value.showImg= (item.base64?item.base64: item.src) as string ;
+    //console.log('goShow', item);
+    nextTick(() => showImg.value?.click());
+}
 
 initLoad();
 watch(()=>homeStore.myData.act, (n)=>{
@@ -99,7 +108,8 @@ const getFeed=( item:any)=>{
                         <SvgIcon icon="ri:play-fill"  />
                     </a>
                 </div>
-                <LazyImg :url="item.src"  @success="item.isLoad=1"  @click="goShow(item )" v-else-if="item.src" />
+                <!-- <LazyImg :url="item.src"  @success="item.isLoad=1"  @click="goShow(item )" v-else-if="item.src" /> -->
+                <KgImage :item="item"  @kg-success="item.isLoad=1"  @kg-click="goShow2 " v-else-if="item.src" />
                 <div v-else class="w-[200px] h-[200px]"></div>
     
                

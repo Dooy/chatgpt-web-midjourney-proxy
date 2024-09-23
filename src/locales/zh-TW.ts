@@ -215,6 +215,7 @@ export default {
     "forward_up": "推進上移",
     "right_turn_forward": "右旋推進",
     "left_turn_forward": "左旋推進"
+    ,kling:'可灵'
 
   },
   "mjset": {

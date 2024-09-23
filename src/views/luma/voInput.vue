@@ -23,7 +23,7 @@ const handleUpdateValue=(v:string)=>{
     <n-tab-pane name="runway" tab="Runway">
         <RunwayInput />
     </n-tab-pane>
-    <n-tab-pane name="kling" tab="Kling">
+    <n-tab-pane name="kling" :tab="$t('mj.kling')">
         <KlingInput />
     </n-tab-pane>
 </n-tabs>

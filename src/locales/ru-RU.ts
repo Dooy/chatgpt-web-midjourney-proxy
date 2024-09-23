@@ -221,6 +221,7 @@ export default {
 "forward_up": "Продвинуть вперед и поднять",
 "right_turn_forward": "Повернуть вправо и продвинуться вперед",
 "left_turn_forward": "Повернуть влево и продвинуться вперед"
+,kling:'Kling'
 
   },
   "mjset": {

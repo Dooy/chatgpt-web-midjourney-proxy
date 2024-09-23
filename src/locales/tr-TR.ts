@@ -220,6 +220,7 @@ export default {
         "forward_up": "İleri it ve yukarı kaldır",
         "right_turn_forward": "Sağa dön ve ileri git",
         "left_turn_forward": "Sola dön ve ileri git"
+        ,kling:'Kling'
     },
     "mjset": {
         "server": "Sunucu",

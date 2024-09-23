@@ -221,6 +221,7 @@ export default {
   "forward_up": "Push Forward and Move Up",
   "right_turn_forward": "Turn Right and Push Forward",
   "left_turn_forward": "Turn Left and Push Forward"
+  ,kling:'Kling'
 
   },
   "mjset": {

@@ -220,6 +220,7 @@ export default {
         "forward_up": "Avancer et monter",
         "right_turn_forward": "Tourner à droite et avancer",
         "left_turn_forward": "Tourner à gauche et avancer"
+        ,kling:'Kling'
     },
     "mjset": {
         "server": "Serveur",

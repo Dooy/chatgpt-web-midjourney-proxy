@@ -324,6 +324,8 @@ export default {
     ,forward_up: '推进上移'
     ,right_turn_forward: '右旋推进'
     ,left_turn_forward: '左旋推进'
+
+    ,kling:'可灵'
   },
 
 	draw: {

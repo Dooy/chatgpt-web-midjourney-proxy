@@ -218,6 +218,7 @@ export default {
     "forward_up": "앞으로 밀고 위로 이동하기",
     "right_turn_forward": "오른쪽으로 돌리고 앞으로 밀기",
     "left_turn_forward": "왼쪽으로 돌리고 앞으로 밀기"
+    ,kling:'Kling'
   },
   "mjset": {
     "server": "서버"
