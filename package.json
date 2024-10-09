@@ -51,6 +51,8 @@
     "vue-waterfall-plugin-next": "^2.3.1"
   },
   "devDependencies": {
+    "@openai/realtime-api-beta": "github:dooy/openai-realtime-api-beta",
+    "@openai/realtime-wavtools": "github:dooy/openai-realtime-wavtools",
     "@antfu/eslint-config": "^0.35.3",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",

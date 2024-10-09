@@ -120,6 +120,20 @@ const routes: RouteRecordRaw[] = [
     ],
   },
 
+  {
+    path: '/wav',
+    name: 'wav',
+    component: lumaLayout,
+    redirect: '/wav/index',
+    children: [
+      {
+        path: '/wav/:uuid?',
+        name: 'wav',
+        component: () => import('@/views/wav/wav.vue'),
+      },
+    ],
+  },
+
   //调试
   // {
   //   path: '/mytest',
