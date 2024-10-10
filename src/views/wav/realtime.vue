@@ -80,7 +80,7 @@ watch( ()=> wavRecorderRef.value,() => {
 },{deep:true,immediate:true});
 
 const go= async()=>{
-    st.value.msg=  t('mj.rtconnecting')
+    st.value.msg=  t('mj.rtconecting')
     if(st.value.isConnect){
         //mlog("isConnect yes!"  )
         ms.info("isConnect yes!");
