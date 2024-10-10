@@ -221,6 +221,15 @@ export default {
         "right_turn_forward": "Tourner à droite et avancer",
         "left_turn_forward": "Tourner à gauche et avancer"
         ,kling:'Kling'
+        ,rttab: 'Voix',
+        rtinfo: 'Service de conversation vocale en temps réel (realtime)',
+        rtsetting: 'Veuillez configurer le serveur. Actuellement, Realtime ne prend en charge que les services à distance ; pour les services locaux, veuillez contacter l\'auteur.',
+        rjcloded: 'La connexion a été déconnectée',
+        checkkey: 'Veuillez vérifier si la clé API est correcte',
+        rtsuccess: 'Connexion normale, maintien de l\'appel',
+        rtservererror: 'Erreur de connexion au serveur WebSocket !',
+        rtservererror2: 'Enregistrement non pris en charge, cela peut être dû à un problème de matériel !',
+rtconecting: 'Connexion au serveur en cours'
     },
     "mjset": {
         "server": "Serveur",

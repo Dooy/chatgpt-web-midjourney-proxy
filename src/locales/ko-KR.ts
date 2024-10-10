@@ -218,7 +218,16 @@ export default {
     "forward_up": "앞으로 밀고 위로 이동하기",
     "right_turn_forward": "오른쪽으로 돌리고 앞으로 밀기",
     "left_turn_forward": "왼쪽으로 돌리고 앞으로 밀기"
-    ,kling:'Kling'
+    ,kling:'Kling',
+    rttab: '음성',
+    rtinfo: '실시간 음성 대화 서비스 (realtime)',
+    rtsetting: '서버를 설정하십시오. 현재 Realtime은 원격 서비스만 지원합니다. 로컬 서비스가 필요하면 저자에게 문의하십시오.',
+    rjcloded: '연결이 끊어졌습니다',
+    checkkey: 'API 키가 올바른지 확인하십시오',
+    rtsuccess: '연결이 정상이며 통화를 유지하고 있습니다',
+    rtservererror: 'WebSocket 서버 연결 오류!',
+    rtservererror2: '녹음이 지원되지 않습니다. 장치 문제일 수 있습니다!',
+    rtconecting: '서버에 연결 중'
   },
   "mjset": {
     "server": "서버"

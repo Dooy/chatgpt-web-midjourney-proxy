@@ -43,6 +43,11 @@ watch(()=>homeStore.myData.act, (n:string)=>{
         <div class="text-[13px]">GPTs</div>
       </div>
 
+      <div v-if="!isDisableMenu ( 'realtime')"    class="flex items-center justify-center flex-col "  @click="homeStore.setMyData({act:'openRealtime'}) " >
+        <SvgIcon icon="ri:mic-fill" class="text-3xl"></SvgIcon>
+        <div class="text-[13px]">{{$t('mj.rttab')}}</div>
+      </div>
+
 
       <div v-if="!isDisableMenu ( 'draws')" class="flex items-center justify-center flex-col "  @click="homeStore.setMyData({act:'showDraw'}) " :class="[goHome=='draw' ? 'active' : '']" >
         <SvgIcon icon="ic:outline-palette" class="text-3xl"></SvgIcon>

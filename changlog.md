@@ -1,6 +1,9 @@
 # 功能升级日志
 
 #  计划 
+# 2.21.2
+- 😄 新增：支持实时语音对话服务 realtime `gpt-4o-realtime-preview`
+
 # 2.21.1
 - 😄 优化：dall格式图片本地存储（flex,idemgram 不会图片链接过期而找不到 ）
 - 😄 优化：kling图片本地存储

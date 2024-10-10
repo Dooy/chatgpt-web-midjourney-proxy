@@ -220,7 +220,16 @@ export default {
         "forward_up": "İleri it ve yukarı kaldır",
         "right_turn_forward": "Sağa dön ve ileri git",
         "left_turn_forward": "Sola dön ve ileri git"
-        ,kling:'Kling'
+        ,kling:'Kling',
+        rttab: 'Ses',
+        rtinfo: 'Gerçek zamanlı sesli görüşme hizmeti (realtime)',
+        rtsetting: 'Lütfen sunucuyu ayarlayın. Şu anda Realtime yalnızca uzaktan hizmetleri desteklemektedir; yerel hizmetler için lütfen yazarla iletişime geçin.',
+        rjcloded: 'Bağlantı kesildi',
+        checkkey: 'API anahtarının doğru olup olmadığını kontrol edin',
+        rtsuccess: 'Bağlantı normal, görüşmeyi sürdürüyor',
+        rtservererror: 'WebSocket sunucu bağlantı hatası!',
+        rtservererror2: 'Kaydetme desteklenmiyor, bu cihaz kaynaklı bir sorun olabilir!',
+        rtconecting: 'Sunucuya bağlanılıyor'
     },
     "mjset": {
         "server": "Sunucu",

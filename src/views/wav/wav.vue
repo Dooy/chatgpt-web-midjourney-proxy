@@ -4,15 +4,17 @@ import { NButton,NInput, useMessage,NEmpty } from 'naive-ui';
 import { WavRecorder, WavStreamPlayer } from '@openai/realtime-wavtools';
 import { RealtimeClient } from '@openai/realtime-api-beta';
 import { ItemType } from '@openai/realtime-api-beta/dist/lib/client.js';
-import { ref } from 'vue';
+import { ref,onMounted } from 'vue';
 import { mlog } from '@/api';
+import realtime from './realtime.vue';
+import { homeStore } from '@/store';
 
 const ms= useMessage();
 
 const wavRecorder= new  WavRecorder({ sampleRate: 24000 })
 const wavStreamPlayer= new WavStreamPlayer({ sampleRate: 24000 }) 
  
-const st= ref({apikey:'', isConnect:false,baseUrl:'wss://api.openai.com/v1/realtime' })
+const st= ref({apikey:'', isConnect:false,baseUrl:'',isRealtime:false })
 
 
 const realtimeEvents= ref<RealtimeEvent[]>([]);
@@ -64,7 +66,7 @@ const go= async()=>{
     client.sendUserMessageContent([
       {
         type: `input_text`,
-        text: `Hello!`,
+        text: `请用中文回答我！`,
         // text: `For testing purposes, I want you to list ten car brands. Number each item, e.g. "one (or whatever number you are one): the item name".`
       },
     ]);
@@ -73,6 +75,10 @@ const go= async()=>{
     client.updateSession({
       turn_detection:  { type: 'server_vad' },
     });
+    // client.on('error', (event: any) =>{
+    //      ms.error('发生错误：'+event);
+    //      console.error('error.event>>',event);
+    // });
     await wavRecorder.record((data: { mono: Int16Array | ArrayBuffer; }) => {
         try{
             client.appendInputAudio(data.mono)
@@ -83,7 +89,10 @@ const go= async()=>{
             return
         }
     });
+
     myListen();
+    localStorage.setItem("_t_apikey", st.value.apikey);
+    localStorage.setItem("_t_baseurl", st.value.baseUrl);
 
 }
 
@@ -120,7 +129,10 @@ const myListen=()=>{
     client.on('realtime.event', (realtimeEvent: RealtimeEvent) => {
         setRealtimeEvents(realtimeEvent);
     });
-    client.on('error', (event: any) => console.error('error.event>>',event));
+    client.on('error', (event: any) =>{
+         ms.error('发生错误：'+event);
+         console.error('error.event>>',event);
+    });
     client.on('conversation.interrupted', async () => {
       const trackSampleOffset = await wavStreamPlayer.interrupt();
       if (trackSampleOffset?.trackId) {
@@ -145,11 +157,15 @@ const myListen=()=>{
     });
 }
 const setItems=(iitems: ItemType[])=>{
-    mlog("setItems", iitems.length, iitems  )
+    //mlog("setItems", iitems.length, iitems  )
     items.value=iitems
 }
 const setRealtimeEvents=(realtimeEvent: RealtimeEvent )=>{
      //mlog("setRealtimeEvents", realtimeEvent.event ,  realtimeEvent  )
+     let ev= {...realtimeEvent.event}
+     if(ev.type=="error" && ev.error && ev.error.message){
+        ms.error(ev.error.message)
+     }
     
       const lastEvent =  realtimeEvents.value[ realtimeEvents.value.length - 1];
         if (lastEvent?.event.type === realtimeEvent.event.type) {
@@ -160,15 +176,28 @@ const setRealtimeEvents=(realtimeEvent: RealtimeEvent )=>{
           return  realtimeEvents.value.concat(realtimeEvent);
         }
 }
+// onMounted(() => {
+// //   st.value.apikey = localStorage.getItem("_t_apikey") || "";
+// //   st.value.baseUrl = localStorage.getItem("_t_baseurl") || "wss://api.openai.com/v1/realtime";
+   
+// }),
+onMounted(()=>{
+    st.value.apikey = localStorage.getItem("_t_apikey") || "";
+    st.value.baseUrl = localStorage.getItem("_t_baseurl") || "wss://api.openai.com/v1/realtime";
+})
 </script>
 
 <template>
-
+<!-- <realtime v-if="st.isRealtime" @close="st.isRealtime=false"/> -->
 <div class="p-4">
     <div class=" pb-2"> <NInput v-model:value="st.baseUrl" placeholder="base url"/> </div>
     <div class=" pb-2"> <NInput v-model:value="st.apikey" placeholder="api key"/> </div>
-    <NButton type="primary" @click="go" v-if="!st.isConnect">连接</NButton>
-    <NButton type="primary" @click="disconnectConversation"  v-else>断开</NButton>
+    <div class="space-x-2">
+        <NButton type="primary" @click="go" v-if="!st.isConnect">连接</NButton>
+        <NButton type="primary" @click="disconnectConversation"  v-else>断开</NButton>
+        <NButton type="primary" @click="homeStore.setMyData({act:'openRealtime'})">开始</NButton>
+        
+    </div>
     <NEmpty v-if="items.length<=0" description="没内容"/>
     <div v-else class="flex justify-between items-baseline">
         <section class=" w-full">

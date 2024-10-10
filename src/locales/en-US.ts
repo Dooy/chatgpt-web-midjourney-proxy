@@ -223,6 +223,16 @@ export default {
   "left_turn_forward": "Turn Left and Push Forward"
   ,kling:'Kling'
 
+  ,rttab: 'RealTime',
+  rtinfo: 'Realtime voice conversation service',
+  rtsetting: 'Please set the server. Currently, Realtime only supports remote services; for local services, please contact the author.',
+  rjcloded: 'Connection has been disconnected',
+  checkkey: 'Please check if the API key is correct',
+  rtsuccess: 'Connection is normal, maintaining the call',
+  rtservererror: 'WebSocket connection server error!',
+  rtservererror2: 'Recording is not supported, it may be due to device reasons!',
+  rtconecting: 'Connecting to the server'
+
   },
   "mjset": {
     "server": "Server",

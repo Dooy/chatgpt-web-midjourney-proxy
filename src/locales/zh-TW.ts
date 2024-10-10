@@ -215,7 +215,16 @@ export default {
     "forward_up": "推進上移",
     "right_turn_forward": "右旋推進",
     "left_turn_forward": "左旋推進"
-    ,kling:'可灵'
+    ,kling:'可灵',
+    rttab: '語音',
+    rtinfo: '實時語音對話服務(realtime)',
+    rtsetting: '請設置服務器，目前Realtime僅支持遠程服務；需本地服務請聯繫作者',
+    rjcloded: '連接已斷開',
+    checkkey: '請檢查api key是否正確',
+    rtsuccess: '連接正常保持通話',
+    rtservererror: 'websocket連接服務器錯誤！',
+    rtservererror2: '不支持錄音，可能是設備原因！',
+    rtconecting: '正在連接服務器'
 
   },
   "mjset": {

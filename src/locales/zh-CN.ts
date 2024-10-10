@@ -326,6 +326,16 @@ export default {
     ,left_turn_forward: '左旋推进'
 
     ,kling:'可灵'
+
+    ,rttab:'语音'
+    ,rtinfo:'实时语音对话服务(realtime)'
+    ,rtsetting:'请设置服务端，目前Realtime 仅支持远程服务；需本地服务请联系作者'
+    ,rjcloded:'连接已断开'
+    ,checkkey:'请检查 api key 是否正确'
+    ,rtsuccess:'连接正常保持通话'
+    ,rtservererror:'websocket 连接服务器错误！'
+    ,rtservererror2:'不支持录音，可能是设备原因！'
+    ,rtconecting:'正在连接服务器'
   },
 
 	draw: {
