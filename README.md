@@ -153,6 +153,7 @@ docker run -d --name mj6013  -p 6013:8080  \
 ### Realtime 
 <div style="display: flex; flex-wrap: wrap">
  <img src="./docs/realtime-2.jpg" style="width:200px" >
+ <img src="./docs/realtime-1.jpg" style="width:300px" >
 </div>
 
 ### GPTS  GTP Store 
