@@ -16,8 +16,8 @@ const closeed=()=>{
 <template>
 <div class="whitespace-pre-wrap pb-10" v-if="!isHideServer"> 
 <div v-if="pp.msgInfo">
-    <div v-html="pp.msgInfo"> </div>
-    <div class="pt-3 text-center">
+    <div v-html="pp.msgInfo" class="p-5 text-center"> </div>
+    <div class="text-center">
       <NButton type="primary" @click="st.show=true">{{ $t('setting.setting') }} </NButton> 
     </div>
 </div>
