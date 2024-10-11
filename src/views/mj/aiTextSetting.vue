@@ -14,7 +14,7 @@ const closeed=()=>{
 }
 </script>
 <template>
-<div class="whitespace-pre-wrap pb-10" v-if="!isHideServer"> 
+<div class="whitespace-pre-wrap pb-10" v-if="!isHideServer || pp.msgInfo"> 
 <div v-if="pp.msgInfo">
     <div v-html="pp.msgInfo" class="p-5 text-center"> </div>
     <div class="text-center">

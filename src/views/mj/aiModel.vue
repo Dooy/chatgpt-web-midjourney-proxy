@@ -89,6 +89,10 @@ watch(()=>nGptStore.value.model,(n)=>{
     let max=4096*2*2;
     if( n.indexOf('vision')>-1){
         max=4096*2;
+    }else if(  n.indexOf('o1-preview')>-1){  
+        max=65536 ;
+    }else if(  n.indexOf('o1-mini')>-1){  
+        max=65536 *2;
     }else if( n=='gpt-4o-2024-08-06' || n=='chatgpt-4o-latest' ){  
         max=16384 *2;
     }else if( n.indexOf('gpt-4')>-1 ||  n.indexOf('16k')>-1 ||  n.indexOf('o1-')>-1 ){ //['16k','8k','32k','gpt-4'].indexOf(n)>-1
@@ -98,6 +102,7 @@ watch(()=>nGptStore.value.model,(n)=>{
     }else if( n.toLowerCase().includes('claude-3') ){
          max=4096*2;
     }
+
     config.value.maxToken=max/2;
     if(nGptStore.value.max_tokens> config.value.maxToken ) nGptStore.value.max_tokens= config.value.maxToken;
 })

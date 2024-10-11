@@ -14,7 +14,7 @@ const ms= useMessage();
 const wavRecorder= new  WavRecorder({ sampleRate: 24000 })
 const wavStreamPlayer= new WavStreamPlayer({ sampleRate: 24000 }) 
  
-const st= ref({apikey:'', isConnect:false,baseUrl:'',isRealtime:false })
+const st= ref({apikey:'', isConnect:false,baseUrl:'',isRealtime:true })
 
 
 const realtimeEvents= ref<RealtimeEvent[]>([]);
@@ -188,7 +188,7 @@ onMounted(()=>{
 </script>
 
 <template>
-<!-- <realtime v-if="st.isRealtime" @close="st.isRealtime=false"/> -->
+<realtime v-if="st.isRealtime" @close="st.isRealtime=false"/>
 <div class="p-4">
     <div class=" pb-2"> <NInput v-model:value="st.baseUrl" placeholder="base url"/> </div>
     <div class=" pb-2"> <NInput v-model:value="st.apikey" placeholder="api key"/> </div>

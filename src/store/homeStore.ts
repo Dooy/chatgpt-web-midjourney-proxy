@@ -119,6 +119,9 @@ export interface gptServerType{
     DRAW_TYPE?:string
     IS_VIGGLE_PRO?:boolean
     TAB_VIDEO?:string
+    TTS_VOICE?:string
+    REALTIME_SYSMSG?:string
+    REALTIME_IS_WHISPER?:boolean 
 
 }
 
@@ -143,7 +146,8 @@ let v:gptServerType={
         IDEO_SERVER:'',
         IDEO_KEY:'',
         KLING_SERVER:'',
-        KLING_KEY:''
+        KLING_KEY:'',
+        TTS_VOICE:'alloy'
     }
     return v ;
 }

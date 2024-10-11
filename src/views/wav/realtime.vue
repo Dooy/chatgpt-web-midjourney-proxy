@@ -2,25 +2,25 @@
 import { SvgIcon } from '@/components/common';
 import an_main from './an_main.vue'
 import aiTextSetting from '../mj/aiTextSetting.vue';
+import wavSetting from './wavSetting.vue';
 import { WavRecorder, WavStreamPlayer } from '@openai/realtime-wavtools';
 import { onMounted, ref, watch } from 'vue';
 import { mlog,RealtimeEvent,instructions } from '@/api';
 import { WavRenderer } from '@/utils/wav_renderer';
 import { RealtimeClient } from '@openai/realtime-api-beta';
 import { ItemType } from '@openai/realtime-api-beta/dist/lib/client.js';
-import { useMessage } from 'naive-ui';
+import { useMessage ,NModal,NButton} from 'naive-ui';
 import { gptServerStore } from '@/store';
 import { t } from '@/locales';
 const wavRecorderRef=  ref<WavRecorder>( new  WavRecorder({ sampleRate: 24000 })) 
 const wavStreamPlayerRef=  ref<WavStreamPlayer>( new WavStreamPlayer({ sampleRate: 24000 })) 
 const clientCanvasRef = ref<HTMLCanvasElement|null>(null);
 const serverCanvasRef = ref<HTMLCanvasElement|null>(null);
-const items= ref<ItemType[]>([]);
-const memoryKv= ref<{ [key: string]: any }>([]);
+const items= ref<ItemType[]>([]); 
 const realtimeEvents= ref<RealtimeEvent[]>([]);
 const clientRef= ref<RealtimeClient>();
 const ms= useMessage();
-const st= ref({apikey:'', isConnect:false,baseUrl:'',isRealtime:true,msg:'请稍等',isClosed:false })
+const st= ref({apikey:'', isConnect:false,baseUrl:'',isRealtime:true,msg:'Waiting',isClosed:false,showSetting:false })
 const edmit= defineEmits(['close'])
 
 watch( ()=> wavRecorderRef.value,() => {
@@ -103,6 +103,7 @@ const go= async()=>{
             dangerouslyAllowAPIKeyInBrowser: true,
             baseUrl: st.value.baseUrl,
             
+            
           }
         )
     }
@@ -137,8 +138,7 @@ const go= async()=>{
     client.sendUserMessageContent([
       {
         type: `input_text`,
-        text: `请用中文回答我！`,
-        // text: `For testing purposes, I want you to list ten car brands. Number each item, e.g. "one (or whatever number you are one): the item name".`
+        text: `hello`,
       },
     ]);
     
@@ -146,10 +146,7 @@ const go= async()=>{
     client.updateSession({
       turn_detection:  { type: 'server_vad' },
     });
-    // client.on('error', (event: any) =>{
-    //      ms.error('发生错误：'+event);
-    //      console.error('error.event>>',event);
-    // });
+    
 
     await wavRecorder.record((data: { mono: Int16Array | ArrayBuffer; }) => {
         try{ 
@@ -195,9 +192,18 @@ const myListen=()=>{
         return
     }
     // Set instructions
-    client.updateSession({ instructions: instructions });
+    client.updateSession({ 
+        instructions:  gptServerStore.myData.REALTIME_SYSMSG?  gptServerStore.myData.REALTIME_SYSMSG: instructions,
+     });
+
+    if( gptServerStore.myData.TTS_VOICE && ['alloy','shimmer','echo'].indexOf( gptServerStore.myData.TTS_VOICE)>-1) {
+        client.updateSession({ voice: gptServerStore.myData.TTS_VOICE });
+        mlog('log','voice', gptServerStore.myData.TTS_VOICE)
+
+    }
     // Set transcription, otherwise we don't get user transcriptions back
-    client.updateSession({ input_audio_transcription: { model: 'whisper-1' } });
+
+    if(gptServerStore.myData.REALTIME_IS_WHISPER) client.updateSession({ input_audio_transcription: { model: 'whisper-1' } });
 
     // Add tools
     client.addTool(
@@ -375,22 +381,33 @@ const close=()=>{
 
         <div class="flex flex-col justify-around items-center w-full h-full">
             <section>
-                <aiTextSetting @close="loadConfig"  :msgInfo="$t('mj.rtsetting')" v-if="!st.apikey||!st.baseUrl"/>
+                <!-- <aiTextSetting @close="loadConfig"  :msgInfo="$t('mj.rtsetting')" v-if="!st.apikey||!st.baseUrl"/> -->
+                <div v-if="!st.apikey||!st.baseUrl">
+                    <div v-html="$t('mj.rtsetting')" class="p-5 text-center"> </div>
+                    <div class="text-center">
+                        <NButton type="primary" @click="st.showSetting=true">{{ $t('setting.setting') }} </NButton> 
+                    </div>
+                </div>
                 <an_main v-else-if="clientRef?.isConnected"/>
                 <div v-else> {{ st.msg }}</div>
             </section>
             <section >
                <div  class="flex justify-center items-center space-x-4">
+                    <div class="flex flex-col justify-center items-center cursor-pointer" @click="st.showSetting=true" >
+                        <div class=" bg-white rounded-full p-2"><SvgIcon icon="ri:settings-3-line" class="text-3xl text-orange-500/75"></SvgIcon></div>
+                        <div class="pt-1">{{ $t('setting.setting') }}</div>
+                    </div>
                     <div class="flex flex-col justify-center items-center cursor-pointer" @click="close()">
-                        <div class="bg-orange-600 rounded-full p-2"><SvgIcon icon="tdesign:close" class="text-3xl"></SvgIcon></div>
+                        <!-- <div class="bg-orange-600 rounded-full p-2"><SvgIcon icon="tdesign:close" class="text-3xl"></SvgIcon></div> -->
+                        <div class="bg-red-500 rounded-full p-2"><SvgIcon icon="majesticons:phone-hangup" class="text-3xl text-white"></SvgIcon></div>
                         <div class="pt-1">{{ $t('mj.mCanel') }}</div>
                     </div>
                     <div class="flex flex-col justify-center items-center cursor-pointer" @click="disconnectConversation()" v-if="st.isConnect">
-                        <div class=" bg-white rounded-full p-2"><SvgIcon icon="ri:wechat-line" class="text-3xl text-orange-500"></SvgIcon></div>
+                        <div class=" bg-white rounded-full p-2"><SvgIcon icon="ri:wechat-line" class="text-3xl text-orange-500/75"></SvgIcon></div>
                         <div class="pt-1">{{ $t('mj.mPause') }}</div>
                     </div>
                      <div class="flex flex-col justify-center items-center cursor-pointer" @click="go()" v-else>
-                        <div class=" bg-white rounded-full p-2"><SvgIcon icon="ri:wechat-line" class="text-3xl text-orange-500"></SvgIcon></div>
+                        <div class=" bg-white rounded-full p-2"><SvgIcon icon="ri:wechat-line" class="text-3xl text-orange-500/75"></SvgIcon></div>
                         <div class="pt-1">{{ $t('mj.mStart') }}</div>
                     </div>
                     
@@ -403,6 +420,10 @@ const close=()=>{
         </div>
     </div>
 </div>
+
+<NModal v-model:show="st.showSetting" title="RealTime Setting" preset="card"  style="width: 95%; max-width: 640px">
+    <wavSetting @close="st.showSetting=false, loadConfig()"  />
+</NModal>
 </template>
 
 <style lang="css" >
