@@ -393,7 +393,7 @@ const close=()=>{
             </section>
             <section >
                <div  class="flex justify-center items-center space-x-4">
-                    <div class="flex flex-col justify-center items-center cursor-pointer" @click="st.showSetting=true" >
+                    <div class="flex flex-col justify-center items-center cursor-pointer" @click="st.showSetting=true,disconnectConversation() " >
                         <div class=" bg-white rounded-full p-2"><SvgIcon icon="ri:settings-3-line" class="text-3xl text-orange-500/75"></SvgIcon></div>
                         <div class="pt-1">{{ $t('setting.setting') }}</div>
                     </div>
