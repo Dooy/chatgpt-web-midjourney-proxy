@@ -151,6 +151,9 @@ docker run -d --name mj6013  -p 6013:8080  \
 ![base_url](./docs/gptbase.jpg)
 
 ### Realtime 
+
+[![Realtime](./docs/realtime-2.jpg)](https://www.youtube.com/watch?v=pKvVi3oBRQU)
+
 <div style="display: flex; flex-wrap: wrap">
  <img src="./docs/realtime-2.jpg" style="width:200px" > 
 </div>
