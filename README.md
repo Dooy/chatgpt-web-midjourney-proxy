@@ -152,8 +152,8 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 ### Realtime 
 <div style="display: flex; flex-wrap: wrap">
- <img src="./docs/realtime-2.jpg" style="width:200px" >
- <video src="./docs/realtime.mp4"  ></video>
+ <img src="./docs/realtime-2.jpg" style="width:200px" > 
+ <iframe width="315" height="560" src="https://www.youtube.com/embed/pKvVi3oBRQU" frameborder="0" allowfullscreen></iframe>
 </div>
 
 ### GPTS  GTP Store 
