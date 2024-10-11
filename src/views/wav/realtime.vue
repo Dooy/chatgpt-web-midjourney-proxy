@@ -4,7 +4,7 @@ import an_main from './an_main.vue'
 import aiTextSetting from '../mj/aiTextSetting.vue';
 import { WavRecorder, WavStreamPlayer } from '@openai/realtime-wavtools';
 import { onMounted, ref, watch } from 'vue';
-import { mlog } from '@/api';
+import { mlog,RealtimeEvent,instructions } from '@/api';
 import { WavRenderer } from '@/utils/wav_renderer';
 import { RealtimeClient } from '@openai/realtime-api-beta';
 import { ItemType } from '@openai/realtime-api-beta/dist/lib/client.js';
@@ -16,6 +16,7 @@ const wavStreamPlayerRef=  ref<WavStreamPlayer>( new WavStreamPlayer({ sampleRat
 const clientCanvasRef = ref<HTMLCanvasElement|null>(null);
 const serverCanvasRef = ref<HTMLCanvasElement|null>(null);
 const items= ref<ItemType[]>([]);
+const memoryKv= ref<{ [key: string]: any }>([]);
 const realtimeEvents= ref<RealtimeEvent[]>([]);
 const clientRef= ref<RealtimeClient>();
 const ms= useMessage();
@@ -183,12 +184,7 @@ const disconnectConversation= async()=>{
 /**
  * Type for all event logs
  */
-interface RealtimeEvent {
-  time: string;
-  source: 'client' | 'server';
-  count?: number;
-  event: { [key: string]: any };
-}
+
 
 const myListen=()=>{
     const client= clientRef.value;
@@ -198,8 +194,85 @@ const myListen=()=>{
     if( !client){
         return
     }
+    // Set instructions
+    client.updateSession({ instructions: instructions });
     // Set transcription, otherwise we don't get user transcriptions back
     client.updateSession({ input_audio_transcription: { model: 'whisper-1' } });
+
+    // Add tools
+    client.addTool(
+      {
+        name: 'set_memory',
+        description: 'Saves important data about the user into memory.',
+        parameters: {
+          type: 'object',
+          properties: {
+            key: {
+              type: 'string',
+              description:
+                'The key of the memory value. Always use lowercase and underscores, no other characters.',
+            },
+            value: {
+              type: 'string',
+              description: 'Value can be anything represented as a string',
+            },
+          },
+          required: ['key', 'value'],
+        },
+      },
+      async ({ key, value }: { [key: string]: any }) => {
+        // setMemoryKv((memoryKv) => {
+        //   const newKv = { ...memoryKv };
+        //   newKv[key] = value;
+        //   return newKv;
+        // });
+        return { ok: true };
+      }
+    );
+    client.addTool(
+      {
+        name: 'get_weather',
+        description:
+          'Retrieves the weather for a given lat, lng coordinate pair. Specify a label for the location.',
+        parameters: {
+          type: 'object',
+          properties: {
+            lat: {
+              type: 'number',
+              description: 'Latitude',
+            },
+            lng: {
+              type: 'number',
+              description: 'Longitude',
+            },
+            location: {
+              type: 'string',
+              description: 'Name of the location',
+            },
+          },
+          required: ['lat', 'lng', 'location'],
+        },
+      },
+      async ({ lat, lng, location }: { [key: string]: any }) => {
+        // setMarker({ lat, lng, location });
+        // setCoords({ lat, lng, location });
+        const result = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,wind_speed_10m`
+        );
+        const json = await result.json();
+        // const temperature = {
+        //   value: json.current.temperature_2m as number,
+        //   units: json.current_units.temperature_2m as string,
+        // };
+        // const wind_speed = {
+        //   value: json.current.wind_speed_10m as number,
+        //   units: json.current_units.wind_speed_10m as string,
+        // };
+        // setMarker({ lat, lng, location, temperature, wind_speed });
+        return json;
+      }
+    );
+
 
     // handle realtime events from client + server for event logging
     client.on('realtime.event', (realtimeEvent: RealtimeEvent) => {
@@ -235,6 +308,9 @@ const myListen=()=>{
 const setItems=(iitems: ItemType[])=>{
     //mlog("setItems", iitems.length, iitems  )
     items.value=iitems
+}
+const setMemoryKv=(kv: { [key: string]: any }) => {
+    
 }
 const setRealtimeEvents=(realtimeEvent: RealtimeEvent )=>{
      //mlog("setRealtimeEvents", realtimeEvent.event ,  realtimeEvent  )
