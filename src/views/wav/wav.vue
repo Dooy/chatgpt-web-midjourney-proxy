@@ -188,7 +188,7 @@ onMounted(()=>{
 </script>
 
 <template>
-<realtime v-if="st.isRealtime" @close="st.isRealtime=false"/>
+<!-- <realtime v-if="st.isRealtime" @close="st.isRealtime=false"/> -->
 <div class="p-4">
     <div class=" pb-2"> <NInput v-model:value="st.baseUrl" placeholder="base url"/> </div>
     <div class=" pb-2"> <NInput v-model:value="st.apikey" placeholder="api key"/> </div>
