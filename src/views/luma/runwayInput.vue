@@ -2,7 +2,7 @@
 import { mlog, upImg } from '@/api';
 import { runwayFeed, runwayFetch, runwayUpload } from '@/api/runway';
 import { gptServerStore, homeStore } from '@/store';
-import { useMessage,NInput,NButton, NTag,NSelect,NPopover } from 'naive-ui';
+import { useMessage,NInput,NButton, NTag,NSelect,NPopover,NSwitch } from 'naive-ui';
 import { computed, onMounted, ref, watch } from 'vue';
 import { SvgIcon } from '@/components/common';
 import { t } from '@/locales'; 
@@ -10,7 +10,7 @@ import { RunwayTask } from '@/api/runwayStore';
 
 const fsRef= ref() ;
 const runway= ref<{image_prompt?:string,seed:number,text_prompt:string}>({image_prompt:'',seed:1675247627,text_prompt:''});
-const st= ref({isDo:false,uploading:false, version:'gen2',time:5});
+const st= ref({isDo:false,uploading:false, version:'gen2',time:5,image_as_end_frame:false});
 const ms = useMessage();
 const exRunway= ref<RunwayTask>()
 async function  selectFile(input:any){
@@ -93,6 +93,7 @@ const generate= async ()=>{
                     "enhance_prompt": true,
                     "width": 1280,
                     "height": 768,
+                    "image_as_end_frame": false,
                     "assetGroupName": "Generative Video",
                     "init_image": runway.value.image_prompt,
                     "resolution": '720p'// runway.value.image_prompt,
@@ -138,6 +139,8 @@ const generate= async ()=>{
             delete gen3.options.extended_from_task_id;
             delete gen3_trubo.options.extended_from_task_id;
         }
+        gen3.options.image_as_end_frame=st.value.image_as_end_frame
+        gen3_trubo.options.image_as_end_frame=st.value.image_as_end_frame
         
         gen3.options.exploreMode= st.value.version=='europa'
         let sobj:any = gen3;
@@ -247,7 +250,7 @@ watch(()=>homeStore.myData.act, (n)=>{
 
     <div class="pt-1">
         <div class="flex justify-between  items-end">
-            <div> 
+            <div class=" relative"> 
                 <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
                 
                 <!-- <div v-if="st.version=='europa'"
@@ -263,10 +266,21 @@ watch(()=>homeStore.myData.act, (n)=>{
                     <div class="text-center"  v-else >{{ $t('video.selectimg') }}</div> 
                    
                 </div>
+
+                <div class=" absolute bottom-[-5px] right-[-15px]" v-if="runway.image_prompt&&st.version!='gen2'">
+                     <NSwitch v-model:value="st.image_as_end_frame" size="small">
+                        <template #checked>尾帧</template> 
+                        <template #unchecked>首帧</template>
+                    </NSwitch>
+                </div>
             </div>
-            <div class="text-right">
-                 <div class="pb-1 text-right">
-                    <NTag v-if="runway.text_prompt!='' || runway.image_prompt!='' || exRunway" type="success" size="small" round  ><span class="cursor-pointer" @click="clearInput()" >{{$t('video.clear')}}</span></NTag>
+            <div class="text-right ">
+                <div class="pb-1 flex justify-between items-center">
+                    
+                       
+                     
+                        <NTag v-if="runway.text_prompt!='' || runway.image_prompt!='' || exRunway" type="success" size="small" round  ><span class="cursor-pointer" @click="clearInput()" >{{$t('video.clear')}}</span></NTag>
+                     
                 </div>
                 <NButton  :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 
             </div>
