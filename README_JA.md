@@ -118,7 +118,9 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e API_UPLOADER=1  -v /data/uploads:/app/uploads \
 -e MJ_API_SECRET=abc123456  ydlhero/chatgpt-web-midjourney-proxy
 ```
-If the front-end UI sets OPENAI_API_KEY and OPENAI_API_BASE_URL, the image upload will also follow the OPENAI_API_BASE_URL.
+
+フロントエンドUIが ``OPENAI_API_KEY`` と ``OPENAI_API_BASE_URL`` を設定した場合、画像のアップロードも ``OPENAI_API_BASE_URL`` に従います。
+
 ```shell
 curl -X POST -H "Content-Type: multipart/form-data" -F "file=@/path/to/file" http://OPENAI_API_BASE_URL/v1/upload
 ```
@@ -130,7 +132,9 @@ Return format
 ```
 
 ### Midjourney-proxy API Docker Deployment
-For more references, go to [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) open-source project.
+
+詳しくは[midjourney-proxy](https://github.com/novicezk/midjourney-proxy)オープンソースプロジェクトを参照。
+
 ```bash
 docker run -d --name mj6013  -p 6013:8080  \
 -e mj.discord.guild-id=Discord Server ID  \
@@ -141,7 +145,7 @@ docker run -d --name mj6013  -p 6013:8080  \
 --restart=always novicezk/midjourney-proxy:2.5.5
 ```
 
-## More Demonstrations
+## その他のデモンストレーション
 
 ### Custom Server API Key, Base_URL:
 ![base_url](./docs/gptbase.jpg)
