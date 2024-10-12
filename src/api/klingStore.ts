@@ -55,4 +55,13 @@ export class klingStore{
     let arr=  this.getObjs();
     return arr[i]
   }
+  public delete( id:string ){
+    //if(!obj.data.task_id ) throw "id must";
+    let arr=  this.getObjs();
+    let i= arr.findIndex( v=>v.data.task_id==id );
+    if(i<0) return false
+    arr.splice(i, 1);
+    ss.set(this.localKey, arr );
+    return true;
+  }
 }

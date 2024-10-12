@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { LumaMedia, lumaStore } from '@/api/lumaStore';
 import { computed, ref, watch } from 'vue';
-import {NEmpty ,NButton,NPopover, NTag,NButtonGroup } from 'naive-ui'
+import {NEmpty ,NButton,NPopover, NTag,NButtonGroup,useMessage,NPopconfirm } from 'naive-ui'
 import {FeedLumaTask, lumaFetch, mlog} from '@/api';
 import { homeStore } from '@/store';
 import {SvgIcon} from '@/components/common'
 import { myTestTranscode } from '@/api/mp4img';
+import { t } from '@/locales';
 //import { myTestTranscode } from '@/api/mp4img';
 
 const st= ref({pIndex:-1});
 const list= ref<LumaMedia[]>([]);
 const csuno= new lumaStore()
+const ms= useMessage()
 const initLoad=()=>{
     let arr = csuno.getObjs();
     list.value= arr.reverse()
@@ -53,7 +55,13 @@ const extend= async(item:LumaMedia )=>{
 watch(()=>homeStore.myData.act, (n)=>{
      if(n=='FeedLumaTask')  initLoad() 
 });
-
+const deleteGo=(item:LumaMedia)=>{
+    mlog('deleteGo',item )
+    if( csuno.delete( item)){ 
+        ms.success( t('common.deleteSuccess'))
+        initLoad()
+    }
+}
 initLoad();
 </script>
 <template>
@@ -93,6 +101,12 @@ initLoad();
                     
                       <n-button-group size="tiny">
                         <n-button  size="tiny" round ghost   @click="FeedLumaTaskDown( item )"  ><SvgIcon icon="mdi:download" /> {{ $t('video.download') }}</n-button>
+                        <n-button   size="tiny"  round ghost    > 
+                            <n-popconfirm @positive-click="()=>deleteGo(item)" placement="bottom">
+                                <template #trigger> <SvgIcon icon="mdi:delete"  /></template>
+                                {{ $t('mj.confirmDelete') }}
+                            </n-popconfirm> 
+                        </n-button>
                         <n-button   size="tiny"  round ghost  @click="extend( item )"  ><SvgIcon icon="ri:video-add-line" /> {{ $t('video.extend') }}</n-button>
                       </n-button-group>
                      <!-- <a :href="item.video?.download_url? item.video?.download_url:item.video?.url" download  target="_blank" v-if="item.video?.url|| item.video?.download_url"  ><SvgIcon icon="mdi:download" class="cursor-pointer"/></a> -->

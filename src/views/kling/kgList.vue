@@ -4,7 +4,7 @@ import 'vue-waterfall-plugin-next/dist/style.css'
 
 import { KlingTask, klingStore } from '@/api/klingStore';
 import { nextTick, ref, watch } from 'vue';
-import {NEmpty ,NButton,NPopover, NButtonGroup,NSpin, NImage} from "naive-ui"
+import {NEmpty ,NButton,NPopover, NButtonGroup,NSpin, NImage,NPopconfirm,useMessage} from "naive-ui"
 import { ViewCard } from 'vue-waterfall-plugin-next/dist/types/types/waterfall';
 import { useBasicLayout } from '@/hooks/useBasicLayout';
 import { homeStore } from '@/store';
@@ -19,6 +19,7 @@ const list2= ref<ViewCard[]>([]);
  
 const st =ref({show:true ,showImg:'' ,isLoad:false,pIndex:-1,isStart:true });
 const csuno= new klingStore()
+const ms= useMessage()
 const initLoad=()=>{
     let arr = csuno.getObjs();
     list.value= arr.reverse()
@@ -83,7 +84,14 @@ const getFeed=( item:any)=>{
     mlog('item', item )
     klingFeed( item.task.data.task_id, item.task.cat, item.task.prompt )
 }
-//
+
+const deleteGo=(item:any)=>{
+    mlog('deleteGo',item )
+    if( csuno.delete( item.id)){ 
+        ms.success( t('common.deleteSuccess'))
+        initLoad()
+    }
+}
 </script>
 <template>
 <div v-if="list.length>0" class="p-4">
@@ -122,9 +130,15 @@ const getFeed=( item:any)=>{
             </template>
 
              <section v-if="item.task.prompt" class="absolute w-full bottom-0   backdrop-blur-sm text-white/70  " :class="item.src?['invisible', 'group-hover/item:visible']:[]">
-                    <div class="p-3">
+                    <div class="p-3  flex justify-between items-baseline"> 
                         <div class="line-clamp-2 text-[13px]"> 
-                        <template v-if="item.task.prompt">{{ item.task.prompt }}</template>
+                            <template v-if="item.task.prompt">{{ item.task.prompt }}</template>
+                        </div>
+                        <div>
+                            <n-popconfirm @positive-click="()=>deleteGo(item)" placement="bottom">
+                                <template #trigger> <SvgIcon icon="mdi:delete"  /></template>
+                                {{ $t('mj.confirmDelete') }}
+                            </n-popconfirm> 
                         </div>
                     </div>
                 </section>

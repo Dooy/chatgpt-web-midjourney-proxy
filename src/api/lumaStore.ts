@@ -40,6 +40,15 @@ export class lumaStore{
      if(!obj) return [];
      return obj;
   }
+  public delete( obj:LumaMedia ){
+    if(!obj.id ) throw "id must";
+    let arr=  this.getObjs();
+    let i= arr.findIndex( v=>v.id==obj.id );
+    if(i<0) return false
+    arr.splice(i, 1);
+    ss.set(this.localKey, arr );
+    return true;
+  }
 }
 
 export type LumaHk={

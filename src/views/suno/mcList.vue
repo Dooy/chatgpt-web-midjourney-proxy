@@ -7,8 +7,9 @@ import {   sunoStore, SunoMedia} from '@/api/sunoStore';
 import playui from './playui.vue';
 import { homeStore } from '@/store';
 import { mlog } from '@/api';
-import {NEmpty, NImage ,useMessage} from "naive-ui"
+import {NEmpty, NImage ,useMessage,NPopconfirm} from "naive-ui"
 import { FeedTask } from '@/api/suno';
+import { t } from '@/locales';
 
 const list= ref<SunoMedia[]>([]);
 const csuno= new sunoStore()
@@ -73,6 +74,15 @@ const update = (v:any )=>{
      sp.value=v
       
 }
+const deleteGo=(v:SunoMedia)=>{
+    mlog('deleteGo', v)
+   
+    if(csuno.delete(v)) {
+        ms.success( t('common.deleteSuccess'))
+        initLoad();
+    }
+
+}
 initLoad();
 </script>
 <template>
@@ -129,6 +139,10 @@ initLoad();
                     <div @click="extend(item)" class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md cursor-pointer">{{ $t('suno.extend') }}</div>
                 </template>
                 <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.major_model_version"> {{item.major_model_version}}</div>
+                <n-popconfirm @positive-click="()=>deleteGo(item)" placement="bottom">
+                    <template #trigger><SvgIcon icon="mdi:delete" class="cursor-pointer"   /></template>
+                     {{ $t('mj.confirmDelete') }}
+                </n-popconfirm>
                 <SvgIcon icon="mdi:play-circle-outline" class="cursor-pointer"  @click="goPlay( item )" />
                 <a :href="item.audio_url" download  target="_blank"><SvgIcon icon="mdi:download" class="cursor-pointer"/></a>
             </div>

@@ -232,6 +232,7 @@ export default {
   rtservererror: 'WebSocket connection server error!',
   rtservererror2: 'Recording is not supported, it may be due to device reasons!',
   rtconecting: 'Connecting to the server'
+  ,confirmDelete:'Are you sure?'
 
   },
   "mjset": {

@@ -1,15 +1,16 @@
 <script setup lang="ts"> 
 import { FeedViggleTask } from '@/api/viggle';
 import { ViggleTask, viggleStore } from '@/api/viggleStore';
-import {NEmpty ,NButton,NPopover, NTag,NButtonGroup } from 'naive-ui'
+import {NEmpty ,NButton,NPopover, NTag,NButtonGroup,useMessage ,NPopconfirm} from 'naive-ui'
  
 import { ref, watch } from 'vue';
 import {SvgIcon} from "@/components/common"
 import { homeStore } from '@/store';
+import { t } from '@/locales';
 
 const st= ref({pIndex:-1});
 const list= ref<ViggleTask[]>([]);
-
+const ms = useMessage();
 const csuno = new viggleStore()
 const initLoad=()=>{
     let arr = csuno.getObjs();
@@ -31,6 +32,13 @@ const TaskDown=async (item:ViggleTask)=>{
 watch(()=>homeStore.myData.act, (n)=>{
      if(n=='FeedViggleTask')  initLoad() 
 });
+const deleteGo=(v:ViggleTask)=>{
+    if(csuno.delete(v)) {
+        ms.success( t('common.deleteSuccess'))
+        initLoad();
+    }
+
+}
 initLoad()
 </script>
 <template>
@@ -69,6 +77,12 @@ initLoad()
                       <n-button-group size="tiny">
                         <n-button  size="tiny" round ghost @click="TaskDown( item )"   ><SvgIcon icon="mdi:download" /> {{ $t('video.download') }}</n-button>
                         <!-- <n-button   size="tiny"  round ghost   ><SvgIcon icon="ri:video-add-line" /> {{ $t('video.extend') }}</n-button> -->
+                        <n-button   size="tiny"  round ghost    > 
+                                <n-popconfirm @positive-click="()=>deleteGo(item)" placement="bottom">
+                                    <template #trigger> <SvgIcon icon="mdi:delete"  /></template>
+                                    {{ $t('mj.confirmDelete') }}
+                                </n-popconfirm> 
+                            </n-button>
                       </n-button-group>
                      <!-- <a :href="item.video?.download_url? item.video?.download_url:item.video?.url" download  target="_blank" v-if="item.video?.url|| item.video?.download_url"  ><SvgIcon icon="mdi:download" class="cursor-pointer"/></a> -->
                 </div>

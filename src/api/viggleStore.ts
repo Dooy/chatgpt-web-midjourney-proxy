@@ -46,4 +46,15 @@ export class viggleStore{
     let arr=  this.getObjs();
     return arr[i]
   }
+
+   public delete( obj:ViggleTask ){
+    if(!obj.taskID ) throw "id must";
+    let arr=  this.getObjs();
+    let i= arr.findIndex( v=>v.taskID==obj.taskID );
+    if(i<0) return false
+    arr.splice(i, 1);
+    ss.set(this.localKey, arr );
+    return true;
+  }
+
 }
