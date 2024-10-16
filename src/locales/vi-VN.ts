@@ -228,7 +228,15 @@ export default {
     rtsuccess: 'Kết nối bình thường, duy trì cuộc gọi',
     rtservererror: 'Lỗi kết nối máy chủ WebSocket!',
     rtservererror2: 'Không hỗ trợ ghi âm, có thể do thiết bị!',
-    rtconecting: 'Đang kết nối đến máy chủ'
+    rtconecting: 'Đang kết nối đến máy chủ',
+
+    "confirmDelete": "Bạn có chắc chắn muốn xóa không?",
+    "pikaabout": "Về Pika",
+    "pikaserver": "Địa chỉ API Pika",
+    "pikakeyPlaceholder": "Khóa API Pika (tùy chọn)",
+    "createFail": "Tạo không thành công",
+    "selecteff": "Hiệu ứng tham khảo"
+    
   },
   "mjset": {
     "server": "Máy chủ",

@@ -9,6 +9,7 @@
 
 ![cover](./docs/mj2a1.jpg)
 ## 支持功能 
+- [x] 支持 pika  文生视频，图生视频
 - [x] 支持 openai realtime [点击观看.youtube](https://www.youtube.com/watch?v=pKvVi3oBRQU)  [B站](https://www.bilibili.com/video/BV1Kt22YPE2c/) 
 - [x] 支持 kling 可灵 文生视频，图生视频, 绘图
 - [x] 支持 ideogram 绘图
@@ -17,6 +18,7 @@
 - [x] 支持 viggle 舞蹈
 - [x] 支持 suno 单独模块，可歌词调整 曲风调整
 - [x] 支持 suno 以音频生成音频
+- [x] 支持 flux dall.e 文生图
 - [x] 原chatgpt web 所有功能
 - [x] chatgpt web 支持自定义api key、base_url
 - [x] midjourney 文生图、垫图+文生图  、图变 U1到U4 、 V1到V4、重绘等操作
@@ -75,7 +77,7 @@
 | AUTH_SECRET_ERROR_TIME | 防爆破验证：停留时间 单位分钟  | 无  | ✅ |  x|
 | CLOSE_MD_PREVIEW | 是否不关闭输入预览 | 无  | ✅ |  ✅|
 | UPLOAD_TYPE | 指定上传方式 [`R2` R2上传] [`API` 跟随UI前端中转]、[`Container` 本地容器]、[`MyUrl` 自定义链接]  |  空 | ✅ |  x|
-| MENU_DISABLE  | 菜单禁用 可选:gpts,draws,gallery,music,video,dance |  空 | ✅ |  ✅|
+| MENU_DISABLE  | 菜单禁用 可选:gpts,draws,gallery,music,video,dance,realtime |  空 | ✅ |  ✅|
 | VISION_MODEL  | 默认使用的识图 可选:`gpt-4o`,`gpt-4-turb`,`gpt-4-vision-preview`等 |  空 | ✅ |  ✅|
 | SYSTEM_MESSAGE  | 自定义默认角色消息 |  空 | ✅ |  ✅|
 | CUSTOM_VISION_MODELS  | 自定义可视图模型 用`,` 分开 |  空 | ✅ |  ✅|

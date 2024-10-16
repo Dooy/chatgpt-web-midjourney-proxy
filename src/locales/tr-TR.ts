@@ -229,7 +229,13 @@ export default {
         rtsuccess: 'Bağlantı normal, görüşmeyi sürdürüyor',
         rtservererror: 'WebSocket sunucu bağlantı hatası!',
         rtservererror2: 'Kaydetme desteklenmiyor, bu cihaz kaynaklı bir sorun olabilir!',
-        rtconecting: 'Sunucuya bağlanılıyor'
+        rtconecting: 'Sunucuya bağlanılıyor',
+        "confirmDelete": "Silmek istediğinize emin misiniz?",
+        "pikaabout": "Pika Hakkında",
+        "pikaserver": "Pika API Adresi",
+        "pikakeyPlaceholder": "Pika API Anahtarı (isteğe bağlı)",
+        "createFail": "Oluşturma başarısız",
+        "selecteff": "Referans Etkisi"
     },
     "mjset": {
         "server": "Sunucu",

@@ -227,7 +227,15 @@ export default {
     rtsuccess: '연결이 정상이며 통화를 유지하고 있습니다',
     rtservererror: 'WebSocket 서버 연결 오류!',
     rtservererror2: '녹음이 지원되지 않습니다. 장치 문제일 수 있습니다!',
-    rtconecting: '서버에 연결 중'
+    rtconecting: '서버에 연결 중',
+
+    "confirmDelete": "삭제하시겠습니까?",
+    "pikaabout": "Pika 관련",
+    "pikaserver": "Pika API 주소",
+    "pikakeyPlaceholder": "Pika API 키 (선택 사항)",
+    "createFail": "생성 실패",
+    "selecteff": "참고 효과"
+    
   },
   "mjset": {
     "server": "서버"

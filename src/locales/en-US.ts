@@ -232,8 +232,12 @@ export default {
   rtservererror: 'WebSocket connection server error!',
   rtservererror2: 'Recording is not supported, it may be due to device reasons!',
   rtconecting: 'Connecting to the server'
-  ,confirmDelete:'Are you sure?'
-
+  ,confirmDelete:'Are you sure?',
+  pikaabout: 'About Pika',
+  pikaserver: 'Pika API Address',
+  pikakeyPlaceholder: 'Pika API Key (optional)',
+  createFail: 'Creation failed',
+  selecteff: 'Reference Effect'
   },
   "mjset": {
     "server": "Server",

@@ -129,7 +129,7 @@ const mvOption= [
 
 <template>
 <div class="p-2"> 
-    <!-- <div class=" flex items-center justify-between space-x-1">
+    <div class=" flex items-center justify-between space-x-1">
             <template  v-for="(item,index) in vf" >
             <section class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"  :class="{'active':luma.aspect_ratio==item.label}"  @click="luma.aspect_ratio=item.label">
                 <div class="aspect-box-wrapper mx-auto my-2 flex h-5 w-5 items-center justify-center">
@@ -138,9 +138,9 @@ const mvOption= [
                 <p class="mb-1 text-center text-sm">{{ item.label }}</p>
             </section>
             </template>
-    </div> -->
+    </div>
 
-    <div >
+    <div class="pt-1" >
       <n-input v-model:value="luma.user_prompt" 
                 :placeholder="$t('video.descpls')"  type="textarea"  size="small"   
                 :autosize="{ minRows: 3, maxRows: 12  }"  />

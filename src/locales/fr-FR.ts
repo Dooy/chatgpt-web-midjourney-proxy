@@ -229,7 +229,13 @@ export default {
         rtsuccess: 'Connexion normale, maintien de l\'appel',
         rtservererror: 'Erreur de connexion au serveur WebSocket !',
         rtservererror2: 'Enregistrement non pris en charge, cela peut être dû à un problème de matériel !',
-rtconecting: 'Connexion au serveur en cours'
+        rtconecting: 'Connexion au serveur en cours',
+        "confirmDelete": "Êtes-vous sûr de vouloir supprimer ?",
+        "pikaabout": "À propos de Pika",
+        "pikaserver": "Adresse API Pika",
+        "pikakeyPlaceholder": "Clé API Pika (facultatif)",
+        "createFail": "Échec de la création",
+        "selecteff": "Effet de référence"
     },
     "mjset": {
         "server": "Serveur",

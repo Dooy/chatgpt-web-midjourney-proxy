@@ -3,6 +3,7 @@ import { NTabs, NTabPane } from 'naive-ui';
 import LumaInput from './lumaInput.vue'
 import RunwayInput from './runwayInput.vue'
 import KlingInput from '../kling/kgInput.vue'
+import PikaInput from './pikaInput.vue'
 import { mlog } from '@/api';
 import { gptServerStore } from '@/store';
 
@@ -22,6 +23,9 @@ const handleUpdateValue=(v:string)=>{
     </n-tab-pane>
     <n-tab-pane name="runway" tab="Runway">
         <RunwayInput />
+    </n-tab-pane>
+    <n-tab-pane name="pika" tab="Pika">
+        <PikaInput />
     </n-tab-pane>
     <n-tab-pane name="kling" :tab="$t('mj.kling')">
         <KlingInput />

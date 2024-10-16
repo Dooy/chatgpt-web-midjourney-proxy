@@ -528,6 +528,7 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 VIGGLE_SERVER:url,
                 IDEO_SERVER:url,
                 KLING_SERVER:url,
+                PIKA_SERVER:url,
                 
                 OPENAI_API_KEY:key,
                 MJ_API_SECRET:key, 
@@ -537,6 +538,7 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 VIGGLE_KEY:key,
                 IDEO_KEY:key,
                 KLING_KEY:key,
+                PIKA_KEY:key,
              } )
             blurClean();
             gptServerStore.setMyData( gptServerStore.myData );

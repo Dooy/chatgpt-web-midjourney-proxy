@@ -224,7 +224,13 @@ export default {
     rtsuccess: '連接正常保持通話',
     rtservererror: 'websocket連接服務器錯誤！',
     rtservererror2: '不支持錄音，可能是設備原因！',
-    rtconecting: '正在連接服務器'
+    rtconecting: '正在連接服務器',
+    "confirmDelete": "確認要刪除？",
+    "pikaabout": "Pika 相關",
+    "pikaserver": "Pika 接口地址",
+    "pikakeyPlaceholder": "Pika 的API Key 可不填",
+    "createFail": "生成失敗",
+    "selecteff": "參考效果"
 
   },
   "mjset": {

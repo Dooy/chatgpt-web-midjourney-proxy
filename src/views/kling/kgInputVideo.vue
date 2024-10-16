@@ -117,7 +117,7 @@ onMounted(() => {
 
     <section class="mb-4 flex justify-between items-center" >
          <div>{{ $t('mj.nohead') }}</div>
-          <NInput v-model="f.negative_prompt" size="small"  class="!w-[70%]"  clearable :placeholder="$t('mj.negative_prompt')" />
+          <NInput v-model:value="f.negative_prompt" size="small"  class="!w-[70%]"  clearable :placeholder="$t('mj.negative_prompt')" />
     </section>
 
      <section class="mb-4 flex justify-between items-center" >
