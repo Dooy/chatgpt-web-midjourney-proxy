@@ -13,6 +13,7 @@ model:[
  ,{  "label": "Flux", "value": "flux" }
  ,{  "label": "Flux-Dev", "value": "flux-dev" }
  ,{  "label": "Flux-Pro", "value": "flux-pro" }
+ ,{  "label": "Flux.1.1-Pro", "value": "flux.1.1-pro" }
 ]
 });
 const st =ref({isGo:false });     

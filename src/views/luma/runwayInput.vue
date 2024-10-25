@@ -120,7 +120,25 @@ const generate= async ()=>{
                    ,"extended_from_task_id":(exRunway.value&&exRunway.value.id)?exRunway.value.id:undefined
                     ,"init_video": ( exRunway.value && exRunway.value.artifacts && exRunway.value.artifacts[0].url)?exRunway.value.artifacts[0].url:undefined
                 }
-}
+        }
+        let v_gen3={
+            "taskType": "europa",
+            "internal": false,
+            "options": {
+                "name": `Gen-3 Alpha  ${seed}`,
+                "seconds": st.value.time,
+                "text_prompt":runway.value.text_prompt,
+                "seed":seed,
+                "exploreMode": true,
+                "watermark": false,
+                "enhance_prompt": true,
+                "video_prompt":  runway.value.image_prompt ,
+                "structure_transformation": 0.3,
+                "width": 1280,
+                "height": 768,
+                "assetGroupName": "Generative Video"
+            }
+        }
   
 
         if( obj.options.gen2Options.image_prompt==''){
@@ -143,6 +161,7 @@ const generate= async ()=>{
         gen3_trubo.options.image_as_end_frame=st.value.image_as_end_frame
         
         gen3.options.exploreMode= st.value.version=='europa'
+        v_gen3.options.exploreMode= st.value.version=='europa'
         let sobj:any = gen3;
         if(  st.value.version=='gen2' ){
             sobj= obj
@@ -154,6 +173,17 @@ const generate= async ()=>{
                 return 
             }
         }
+        if(runway.value.image_prompt && isMp4(runway.value.image_prompt)){
+            if( st.value.version=='gen2'){
+                ms.error( 'gen2 不支持视频' )
+                return 
+            }
+            v_gen3.taskType='europa'
+            if( st.value.version=='gen3a_turbo' ){
+                v_gen3.taskType='gen3a_turbo'
+            }
+            sobj= v_gen3
+        }
        // const d=  await runwayFetch('/tasks', st.value.version=='gen2'?obj: gen3 ) 
         const d=  await runwayFetch('/tasks',  sobj ) 
         mlog("runwayGen2",d) 
@@ -163,6 +193,9 @@ const generate= async ()=>{
     }
     st.value.isDo=false
 
+}
+const isMp4=(url:string)=>{
+    return url.indexOf('.mp4')>0
 }
 
 const mvOption= [
@@ -251,7 +284,7 @@ watch(()=>homeStore.myData.act, (n)=>{
     <div class="pt-1">
         <div class="flex justify-between  items-end">
             <div class=" relative"> 
-                <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif"/>
+                <input type="file"  @change="selectFile"  ref="fsRef" style="display: none" accept="image/jpeg, image/jpg, image/png, image/gif, .mp4"/>
                 
                 <!-- <div v-if="st.version=='europa'"
                  class="h-[80px] w-[80px] overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center"
@@ -262,16 +295,26 @@ watch(()=>homeStore.myData.act, (n)=>{
                   
                    
                     <SvgIcon icon="line-md:uploading-loop" class="text-[60px] text-green-300"  v-if="st.uploading"  ></SvgIcon>
+                    <!-- <video :src="runway.image_prompt" v-else-if="runway.image_prompt && isMp4(runway.image_prompt)" /> -->
+                    <video   loop  playsinline    v-else-if="runway.image_prompt && isMp4(runway.image_prompt)"
+                        referrerpolicy="no-referrer" 
+                        class="w-full h-full object-cover"  >
+                        <source  :src="runway.image_prompt" referrerpolicy="no-referrer" type="video/mp4"  >
+                    </video>  
                     <img :src="runway.image_prompt" v-else-if="runway.image_prompt" />
                     <div class="text-center"  v-else >{{ $t('video.selectimg') }}</div> 
                    
                 </div>
 
-                <div class=" absolute bottom-[-5px] right-[-15px]" v-if="runway.image_prompt&&st.version!='gen2'">
-                     <NSwitch v-model:value="st.image_as_end_frame" size="small">
+                <div class=" absolute bottom-[-5px] right-[-15px]" v-if="runway.image_prompt&&st.version!='gen2' ">
+                     <a :href="runway.image_prompt" class="cursor-pointer" target="_blank" v-if="isMp4(runway.image_prompt) ">
+                      <NTag  type="success" size="small"  class="cursor-pointer" round :bordered="false">Vidoe</NTag>
+                     </a>
+                     <NSwitch v-model:value="st.image_as_end_frame" size="small" v-else>
                         <template #checked>尾帧</template> 
                         <template #unchecked>首帧</template>
                     </NSwitch>
+                   
                 </div>
             </div>
             <div class="text-right ">
