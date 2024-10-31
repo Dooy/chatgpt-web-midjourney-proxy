@@ -70,7 +70,7 @@
 | SYS_NOTIFY |  系统通知，支持HTML | 无  | ✅ |  ✅|
 | DISABLE_GPT4 |  禁用GPT-4 | 无  | ✅ |  ✅|
 | GPT_URL | 自定 GPT_URL=/gpts.json  | 无 也可自己的外链 | ✅ |  ✅|
-| UPLOAD_IMG_SIZE | gpt4v 上传图片大小 |  1 | ✅ |  ✅|
+| UPLOAD_IMG_SIZE | 上传图片大小限制 默认1M |  1 | ✅ |  ✅|
 | SYS_THEME | 默认主题 `light`或者`dark`  | dark | ✅ |  ✅|
 | MJ_IMG_WSRV | 是否开启 `wsrv`图床  | 无(关闭)  | ✅ |  ✅|
 | AUTH_SECRET_ERROR_COUNT | 防爆破验证：验证次数触发 NGINX 请设置 `proxy_set_header   X-Forwarded-For  $remote_addr`  | 无  | ✅ |  x|
