@@ -29,7 +29,23 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:1}
  ];
 
 
-let ezOption = [{
+let ezOption = [
+        {
+            video: "https://cdn.pika.art/feature/v1.5/pikaffect/levitate.webm",
+            poster: "https://cdn.pika.art/feature/v1.5/pikaffect/levitate.jpg",
+            title: "Levitate"
+            
+        }, {
+            video: "https://cdn.pika.art/feature/v1.5/pikaffect/decapitate.webm",
+            poster: "https://cdn.pika.art/feature/v1.5/pikaffect/decapitate.jpg",
+            title: "Decapitate"
+            
+        },{
+            video: "https://cdn.pika.art/feature/v1.5/pikaffect/eye-pop.webm",
+            poster: "https://cdn.pika.art/feature/v1.5/pikaffect/eye-pop.jpg",
+            title: "Eye-pop"
+            
+        }, {
             video: "https://cdn.pika.art/feature/v1.5/pikaffect/tada.webm",
             poster: "https://cdn.pika.art/feature/v1.5/pikaffect/tada.jpg",
             title: "Ta-da"
