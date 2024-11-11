@@ -237,7 +237,25 @@ export default {
   pikaserver: 'Pika API Address',
   pikakeyPlaceholder: 'Pika API Key (optional)',
   createFail: 'Creation failed',
-  selecteff: 'Reference Effect'
+  selecteff: 'Reference Effect',
+
+  
+  "udioabout": "About Udio",
+  "udiokeyPlaceholder": "Udio API Key (optional)",
+  "udioserver": "Udio API Address",
+  "ud_prompt": "Prompt",
+  "ud_prompt_pls": "Prompt: Description, Style",
+  "ud_ly_write": "Write-Lyrics",
+  "ud_ly_auto": "Auto",
+  "ud_ly_null": "Instrumental",
+  "ud_v32": "Affordable",
+  "ud_v130": "Long Duration",
+  "ud_info": "Note: <ul><li>1. Udio-32 has a short duration</li><li>2. Udio-130 is twice the price of Udio-32</li><li>3. The prompt can include style, description, etc.</li></ul>",
+  "ud_fail": "Failed to generate this song!",
+  "ud_doing": "Cannot play while generating",
+  "ud_continuation": "Continuation",
+  "ud_precede": "Preced"
+
   },
   "mjset": {
     "server": "Server",

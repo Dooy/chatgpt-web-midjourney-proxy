@@ -237,7 +237,24 @@ export default {
   "pikaserver": "Адрес API Pika",
   "pikakeyPlaceholder": "API-ключ Pika (необязательно)",
   "createFail": "Не удалось создать",
-  "selecteff": "Эффект справки"
+  "selecteff": "Эффект справки",
+
+   "udioabout": "О Udio",
+    "udiokeyPlaceholder": "API-ключ Udio (необязательно)",
+    "udioserver": "Адрес API Udio",
+    "ud_prompt": "Подсказка",
+    "ud_prompt_pls": "Подсказка: Описание, Стиль",
+    "ud_ly_write": "Пользовательские тексты",
+    "ud_ly_auto": "Интеллектуальные тексты",
+    "ud_ly_null": "Чистая музыка",
+    "ud_v32": "Доступно",
+    "ud_v130": "Долгое время",
+    "ud_info": "Примечание: <ul><li>1. Udio-32 имеет короткую продолжительность</li><li>2. Udio-130 стоит вдвое дороже Udio-32</li><li>3. В подсказке можно указать стиль, описание и т. д.</li></ul>",
+    "ud_fail": "Не удалось сгенерировать эту песню!",
+    "ud_doing": "Нельзя воспроизводить во время генерации",
+    "ud_continuation": "Продолжение",
+    "ud_precede": "Предшествующее"
+    
   },
   "mjset": {
     "server": "Сервер",

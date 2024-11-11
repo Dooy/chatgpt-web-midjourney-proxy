@@ -235,7 +235,23 @@ export default {
         "pikaserver": "Pika API Adresi",
         "pikakeyPlaceholder": "Pika API Anahtarı (isteğe bağlı)",
         "createFail": "Oluşturma başarısız",
-        "selecteff": "Referans Etkisi"
+        "selecteff": "Referans Etkisi",
+
+        "udioabout": "Udio Hakkında",
+        "udiokeyPlaceholder": "Udio API Anahtarı (isteğe bağlı)",
+        "udioserver": "Udio API Adresi",
+        "ud_prompt": "İpucu",
+        "ud_prompt_pls": "İpucu: Açıklama, Tarz",
+        "ud_ly_write": "Özel Şarkı Sözleri",
+        "ud_ly_auto": "Akıllı Şarkı Sözleri",
+        "ud_ly_null": "Saf Müzik",
+        "ud_v32": "Uygun Fiyatlı",
+        "ud_v130": "Uzun Süreli",
+        "ud_info": "Not: <ul><li>1. Udio-32 kısa süreye sahiptir</li><li>2. Udio-130, Udio-32'nin iki katı fiyatındadır</li><li>3. İpucu, tarz, açıklama vb. içerebilir</li></ul>",
+        "ud_fail": "Bu şarkının oluşturulması başarısız oldu!",
+        "ud_doing": "Oluşturma sırasında çalınamaz",
+        "ud_continuation": "Devam",
+        "ud_precede": "Önceki"
     },
     "mjset": {
         "server": "Sunucu",

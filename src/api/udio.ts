@@ -1,7 +1,8 @@
 import { gptServerStore, homeStore, useAuthStore } from "@/store";
 import { mlog } from "./mjapi";
-import { KlingTask, klingStore } from "./klingStore";
+//import { KlingTask, klingStore } from "./klingStore";
 import { sleep } from "./suno";
+import { udioStore, udioTask } from "./udioStore";
 
 
 
@@ -11,7 +12,7 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
-    if(!gptServerStore.myData.KLING_KEY){ 
+    if(!gptServerStore.myData.UDIO_KEY){ 
         const authStore = useAuthStore()
         if( authStore.token ) {
             const bmi= { 'x-ptoken':  authStore.token };
@@ -21,27 +22,27 @@ function getHeaderAuthorization(){
         return headers
     }
     const bmi={
-        'Authorization': 'Bearer ' +gptServerStore.myData.KLING_KEY
+        'Authorization': 'Bearer ' +gptServerStore.myData.UDIO_KEY
     }
     headers= {...headers, ...bmi }
     return headers
 }
 
+
 export const  getUrl=(url:string)=>{
-    if(url.indexOf('http')==0) return url;
-    
-    const pro_prefix= '';//homeStore.myData.is_luma_pro?'/pro':''
+    if(url.indexOf('http')==0) return url; 
+    const pro_prefix= ''; 
     url= url.replaceAll('/pro','')
-    if(gptServerStore.myData.KLING_SERVER  ){
+    if(gptServerStore.myData.UDIO_SERVER  ){
       
-        return `${ gptServerStore.myData.KLING_SERVER}${pro_prefix}/kling${url}`;
+        return `${ gptServerStore.myData.UDIO_SERVER}${pro_prefix}${url}`;
     }
-    return `${pro_prefix}/kling${url}`;
+    return `${pro_prefix}${url}`;
 }
 
 
-export const klingFetch=(url:string,data?:any,opt2?:any )=>{
-    mlog('runwayFetch', url  );
+export const udioFetch=(url:string,data?:any,opt2?:any )=>{
+    mlog('udioFetch', url  );
     let headers= opt2?.upFile?{}: {'Content-Type':'application/json'}
      
     if(opt2 && opt2.headers ) headers= opt2.headers;
@@ -91,36 +92,34 @@ export const klingFetch=(url:string,data?:any,opt2?:any )=>{
 
 }
 
-export const klingFeed= async(id:string,cat:string,prompt:string)=>{
-    const sunoS = new klingStore();
-    let url= '/v1/images/generations/' //images或videos
-    if (cat=='text2video'){
-        url='/v1/videos/text2video/';
-    }
-    if(cat=='image2video'){
-        url='/v1/videos/image2video/';
-    }
-    url= url+id;
-    for(let i=0; i<200;i++){
-        try{
-            
-            let a= await klingFetch( url )
-            let task= a  as KlingTask;
-            task.last_feed=new Date().getTime()
-            task.cat= cat
-            if(prompt){
-              task.prompt= prompt
+export const udioFeedTask= async(id:string)=>{
+    mlog('god >>',id ) 
+    const sunoS = new udioStore();
+    for(let i=0;i<50;i++ ){
+        let d= await udioFetch('/udio/fetch/'+id )
+        // .then(d=>{
+        //     mlog('fetch',d , d.data.status )
+        //     if(d.data && d.data.status=='SUCCESS'){
+        //         return
+        //     }
+        // }).catch((e)=>mlog('error ',e  ))
+        if(d.data  ){
+            //mlog('ddd> ' ,  d.data.data );
+            if( d.data.data && d.data.data.songs){
+                for(let ab of d.data.data.songs ){
+                    let song= ab as udioTask
+                    song.status= d.data.status
+                    song.taskId= d.data.task_id
+                    song.failReason= d.data.fail_reason
+                    song.last_feed=new Date().getTime()
+                    sunoS.save( song)
+                    //mlog('d', song )
+                    homeStore.setMyData({act:'udio.feed'});
+                }
+
             }
-            //ss.save( task )
-            //mlog("a",a  )
-            sunoS.save( task )
-            homeStore.setMyData({act:'KlingFeed'});
-            if(  task.data.task_status =='failed' || 'succeed'== task.data.task_status ){
-                break;
-            }
-        }catch(e){
-            break;
+            if(d.data.status=='SUCCESS' ) return
         }
-        await sleep(5200)
+        await sleep(5000)
     }
 }

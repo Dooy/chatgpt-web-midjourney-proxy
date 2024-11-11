@@ -25,7 +25,6 @@ watch(()=>st.value.drawType, (n:string)=> {
   mlog('st.value.drawType',n)
   gptServerStore.setMyData({DRAW_TYPE:n})
 } )
-
 </script>
 <template>
 <div class="overflow-y-auto bg-[#fafbfc] pt-2 dark:bg-[#18181c] h-full ">
@@ -58,7 +57,7 @@ watch(()=>st.value.drawType, (n:string)=> {
 
     <n-tab-pane name="ideogram" tab="IdeoGram">
      <div class="p-2"> <aiIdeoInput/> </div>
-    </n-tab-pane>
+    </n-tab-pane> 
     
 
 

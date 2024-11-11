@@ -236,6 +236,22 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           </n-input>
       </section>
 
+       <div class="text-right">{{ $t('mj.udioabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.UDIO_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.udioserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.udiokeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.UDIO_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Udio Key:</span>
+            </template>
+          </n-input>
+      </section>
+
 
 
 

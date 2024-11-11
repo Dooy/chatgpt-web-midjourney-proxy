@@ -235,7 +235,23 @@ export default {
         "pikaserver": "Adresse API Pika",
         "pikakeyPlaceholder": "Clé API Pika (facultatif)",
         "createFail": "Échec de la création",
-        "selecteff": "Effet de référence"
+        "selecteff": "Effet de référence",
+
+        "udioabout": "À propos de Udio",
+        "udiokeyPlaceholder": "Clé API Udio (optionnelle)",
+        "udioserver": "Adresse API Udio",
+        "ud_prompt": "Invite",
+        "ud_prompt_pls": "Invite : Description, Style",
+        "ud_ly_write": "Paroles personnalisées",
+        "ud_ly_auto": "Paroles intelligentes",
+        "ud_ly_null": "Musique pure",
+        "ud_v32": "Abordable",
+        "ud_v130": "Longue durée",
+        "ud_info": "Remarque : <ul><li>1. Udio-32 a une durée courte</li><li>2. Udio-130 coûte le double de Udio-32</li><li>3. L'invite peut inclure style, description, etc.</li></ul>",
+        "ud_fail": "Échec de la génération de cette chanson !",
+        "ud_doing": "Impossible de lire pendant la génération",
+        "ud_continuation": "Continuation",
+        "ud_precede": "Précédent"
     },
     "mjset": {
         "server": "Serveur",

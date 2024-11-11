@@ -235,7 +235,23 @@ export default {
     "pikaserver": "Địa chỉ API Pika",
     "pikakeyPlaceholder": "Khóa API Pika (tùy chọn)",
     "createFail": "Tạo không thành công",
-    "selecteff": "Hiệu ứng tham khảo"
+    "selecteff": "Hiệu ứng tham khảo",
+
+    "udioabout": "Về Udio",
+    "udiokeyPlaceholder": "API Key Udio (tùy chọn)",
+    "udioserver": "Địa chỉ API Udio",
+    "ud_prompt": "Gợi ý",
+    "ud_prompt_pls": "Gợi ý: Mô tả, Phong cách",
+    "ud_ly_write": "Lời bài hát tùy chỉnh",
+    "ud_ly_auto": "Lời bài hát thông minh",
+    "ud_ly_null": "Nhạc không lời",
+    "ud_v32": "Giá cả phải chăng",
+    "ud_v130": "Thời gian dài",
+    "ud_info": "Lưu ý: <ul><li>1. Udio-32 có thời gian ngắn</li><li>2. Udio-130 có giá gấp đôi Udio-32</li><li>3. Gợi ý có thể bao gồm phong cách, mô tả, v.v.</li></ul>",
+    "ud_fail": "Không thể tạo bài hát này!",
+    "ud_doing": "Không thể phát trong khi đang tạo",
+    "ud_continuation": "Tiếp tục",
+    "ud_precede": "Trước"
     
   },
   "mjset": {
