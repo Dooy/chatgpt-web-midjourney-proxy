@@ -9,6 +9,7 @@
 
 ![cover](./docs/mj2a1.jpg)
 ## 支持功能 
+- [x] 支持 udio 文生音乐
 - [x] 支持 pika  文生视频，图生视频
 - [x] 支持 openai realtime [点击观看.youtube](https://www.youtube.com/watch?v=pKvVi3oBRQU)  [B站](https://www.bilibili.com/video/BV1Kt22YPE2c/) 
 - [x] 支持 kling 可灵 文生视频，图生视频, 绘图
@@ -141,8 +142,6 @@ docker run -d --name mj6013  -p 6013:8080  \
 
 ## 更多展示
 
-### 自定义服务端api key、base_url：
-![base_url](./docs/gptbase.jpg)
 
 ### Realtime 
 
@@ -153,13 +152,20 @@ docker run -d --name mj6013  -p 6013:8080  \
 </div>
  
 
+### suno、udio 音乐AI制作
+![suno](./docs/suno2.jpg)
+
+### luma runway pika kling 视频AI制作
+![suno](./docs/luma-video.jpg)
+
+
+
+### 自定义服务端api key、base_url：
+![base_url](./docs/gptbase.jpg)
+
 ### GPTS  GTP Store 
 ![多模态](./docs/gpts.jpg)
 ![多模态](./docs/gpts1.jpg)
-
-### suno 音乐制作
-![suno](./docs/suno.jpg)
-
 
 ### 录音 whisper  和  tts
 ![whisper--tts](./docs/tts-whisper.png)
