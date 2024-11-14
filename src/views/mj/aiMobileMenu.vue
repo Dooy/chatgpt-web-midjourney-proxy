@@ -3,6 +3,7 @@ import { SvgIcon } from '@/components/common';
 import { homeStore } from '@/store'
 import { computed,watch ,ref  } from 'vue'
 import { router } from '@/router'
+import { useRouter } from 'vue-router';
 
 import aiDrawInput from './aiDrawInput.vue'; 
 import {NDrawerContent,NDrawer} from "naive-ui";
@@ -31,10 +32,11 @@ watch(()=>homeStore.myData.act, (n:string)=>{
        st.value.show=false;
     }
 });
+const urouter = useRouter() //
 </script>
 <template>
   <div class=" bg-gray-100 dark:bg-[#282832] h-[55px] flex  justify-around  items-center dark:text-white/70 " >
-      <div class="flex items-center justify-center flex-col"  @click="homeStore.setMyData({act:'showChat'}) "   :class="[ goHome =='Chat' ? 'active' : '']" >
+      <div class="flex items-center justify-center flex-col"  @click="urouter.push('/chat') && homeStore.setMyData({act:'showChat'}) "   :class="[ goHome =='Chat' ? 'active' : '']" >
         <SvgIcon icon="ri:wechat-line" class="text-3xl"></SvgIcon>
         <div class="text-[13px]">{{$t('mjtab.chat')}}</div>
       </div>
@@ -53,10 +55,17 @@ watch(()=>homeStore.myData.act, (n:string)=>{
         <SvgIcon icon="ic:outline-palette" class="text-3xl"></SvgIcon>
         <div class="text-[13px]">{{$t('mjtab.draw')}}</div>
       </div>
-      <div  v-if="!isDisableMenu ( 'gallery')"  class="flex items-center justify-center flex-col " @click="homeStore.setMyData({act:'gallery'})" >
+
+      <div v-if="!isDisableMenu ( 'music')"    class="flex items-center justify-center flex-col "   @click="  urouter.push('/music')"  :class="[ goHome =='music' ? 'active' : '']" >
+        <SvgIcon icon="arcticons:wynk-music" class="text-3xl"></SvgIcon>
+        <div class="text-[13px]">{{ $t('suno.menu') }}</div>
+      </div>
+
+
+      <!-- <div  v-if="!isDisableMenu ( 'gallery')"  class="flex items-center justify-center flex-col " @click="homeStore.setMyData({act:'gallery'})" >
         <SvgIcon icon="material-symbols:imagesmode-outline" class="text-3xl"></SvgIcon>
         <div class="text-[13px]">{{$t('mjtab.gallery')}}</div>
-      </div> 
+      </div>  -->
   </div>
 
   <n-drawer v-model:show="st.show"  class="!h-[90vh] !max-h-[660px]"     placement="bottom" v-if="goHome=='draw'">
