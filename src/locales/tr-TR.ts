@@ -251,7 +251,12 @@ export default {
         "ud_fail": "Bu şarkının oluşturulması başarısız oldu!",
         "ud_doing": "Oluşturma sırasında çalınamaz",
         "ud_continuation": "Devam",
-        "ud_precede": "Önceki"
+        "ud_precede": "Önceki",
+
+        "upImg2": "<span><b>Görüntü Yükle</b><br/>Bu model görüntü tanımayı desteklemektedir<br>Not: Ekstra görüntü ücretleri olacaktır<br/>Formatlar: jpeg jpg png gif</span><p>Sürükleyip bırakmayı destekler</p> <p class=\"pt-2\"><b>MP3 MP4 Yükle</b> <br>otomatik olarak whisper-1 modelini çağıracaktır<br>Formatlar: mp3 mp4 mpeg mpga m4a wav webm</p>",
+        "rml_info": "Not:<ul><li>1. Bir resim içermelidir</li><li>2. Modelin yalnızca bir gen3a_turbo'su vardır</li><li>3. 10 saniyenin fiyatı 5 saniyenin iki katıdır</li></ul>",
+        "rml_heng": "Yatay",
+        "rml_shu": "Dikey"
     },
     "mjset": {
         "server": "Sunucu",

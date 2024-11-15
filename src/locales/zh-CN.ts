@@ -359,6 +359,11 @@ export default {
     ,ud_doing:"生成中无法播放"
     ,ud_continuation:"后扩展"
     ,ud_precede:"前扩展"
+
+    ,upImg2:'<span><b>上传图片</b><br/>该模型支持识图<br>注意：会有额外的图片费用<br/>格式: jpeg jpg png gif</span><p>支持拖拽</p> <p class="pt-2"><b>上传MP3 MP4</b> <br>会自动直接调用 whisper-1 模型<br>格式有：mp3 mp4 mpeg mpga m4a wav webm</p>'
+    ,rml_info:'注意：<ul><li>1.必须带图</li><li>2.模型只有一个 gen3a_turbo </li><li>3.10s的价格是5s的双倍</li></ul>'
+    ,rml_heng:'横屏'
+    ,rml_shu:'竖屏'
   },
 
 	draw: {

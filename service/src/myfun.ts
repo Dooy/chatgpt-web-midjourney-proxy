@@ -41,6 +41,30 @@ export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
   
 });
 
+//runwaymlProxy
+
+export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    let url =  req.originalUrl;
+    let server= process.env.RUNWAYML_SERVER??  API_BASE_URL
+    if( server.indexOf('runwayml.com')>-1 ){
+        url= req.originalUrl.replace('/runwayml', '')
+    }
+    return url  //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
+    //mlog("sunoapi")
+    if ( process.env.RUNWAYML_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.RUNWAYML_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    proxyReqOpts.headers['X-Runway-Version'] = '2024-11-06'; //'X-Runway-Version': 
+    return proxyReqOpts;
+  },
+  
+});
+
 export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {

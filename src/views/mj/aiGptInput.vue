@@ -6,7 +6,7 @@ import { NInput ,NButton,useMessage,NImage,NTooltip, NAutoComplete,NTag
 ,NPopover,NModal, NDropdown  } from 'naive-ui'
 import { SvgIcon } from '@/components/common';
 import { canVisionModel, GptUploader, mlog, upImg,getFileFromClipboard,isFileMp3
-    ,countTokens, checkDisableGpt4, Recognition, regCookie } from '@/api';
+    ,countTokens, checkDisableGpt4, Recognition, regCookie,isCanBase64Model } from '@/api';
 import { gptConfigStore, homeStore,useChatStore } from '@/store';
 import { AutoCompleteOptions } from 'naive-ui/es/auto-complete/src/interface';
 import { RenderLabel } from 'naive-ui/es/_internal/select-menu/src/interface';
@@ -289,11 +289,11 @@ watch(()=> homeStore.myData.vtoken ,  regCookie  )
                     <SvgIcon icon="line-md:uploading-loop" class="absolute bottom-[10px] left-[8px] cursor-pointer" v-if="st.isLoad==1"></SvgIcon>
                     <SvgIcon icon="ri:attachment-line" class="absolute bottom-[10px] left-[8px] cursor-pointer" @click="fsRef.click()" v-else></SvgIcon>
                     </template>
-                    <div v-if="canVisionModel(gptConfigStore.myData.model)" v-html="$t('mj.upPdf')">
+                    <div v-if="canVisionModel(gptConfigStore.myData.model)" v-html="$t('mj.upPdf')" >
                         
                     </div>
-                    <div v-else v-html="$t('mj.upImg')"> 
-                    </div>
+                    <div v-else-if="isCanBase64Model(gptConfigStore.myData.model)" v-html="$t('mj.upImg2')"></div>
+                    <div v-else v-html="$t('mj.upImg')"> </div>
                     </n-tooltip>
                 </div>
                 <!-- <div  class=" relative; w-[22px]">

@@ -254,7 +254,11 @@ export default {
   "ud_fail": "Failed to generate this song!",
   "ud_doing": "Cannot play while generating",
   "ud_continuation": "Continuation",
-  "ud_precede": "Preced"
+  "ud_precede": "Preced",
+  "upImg2": '<span><b>Upload Image</b><br/>This model supports image recognition<br>Note: There will be additional image fees<br/>Formats: jpeg jpg png gif</span><p>Supports drag and drop</p> <p class="pt-2"><b>Upload MP3 MP4</b> <br>Will automatically call the whisper-1 model<br>Formats include: mp3 mp4 mpeg mpga m4a wav webm</p>',
+  "rml_info": "Note:<ul><li>1. Must include an image</li><li>2. The model only has one gen3a_turbo</li><li>3. The price for 10s is double that of 5s</li></ul>",
+  "rml_heng": "Landscape",
+  "rml_shu": "Portrait"
 
   },
   "mjset": {

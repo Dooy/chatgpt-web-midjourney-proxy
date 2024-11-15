@@ -246,7 +246,12 @@ export default {
     "ud_fail": "這首歌生成失敗！",
     "ud_doing": "生成中無法播放",
     "ud_continuation": "後擴展",
-    "ud_precede": "前擴展"
+    "ud_precede": "前擴展",
+
+    "upImg2": "<span><b>上載圖片</b><br/>該模型支持識圖<br>注意：會有額外的圖片費用<br/>格式：jpeg jpg png gif</span><p>支持拖曳</p> <p class=\"pt-2\"><b>上載MP3 MP4</b> <br>會自動直接調用 whisper-1 模型<br>格式包括：mp3 mp4 mpeg mpga m4a wav webm</p>",
+    "rml_info": "注意：<ul><li>1. 必須帶圖</li><li>2. 模型只有一個 gen3a_turbo</li><li>3. 10秒的價格是5秒的雙倍</li></ul>",
+    "rml_heng": "橫屏",
+    "rml_shu": "豎屏"
 
   },
   "mjset": {

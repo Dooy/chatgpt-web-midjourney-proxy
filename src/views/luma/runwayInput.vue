@@ -232,7 +232,7 @@ watch(()=>homeStore.myData.act, (n)=>{
 });
 </script>
 <template>
-<div class="px-2"> 
+<div > 
     <div  class="pt-1"  >
         <n-select v-model:value="st.version" :options="mvOption" size="small" />
     </div>

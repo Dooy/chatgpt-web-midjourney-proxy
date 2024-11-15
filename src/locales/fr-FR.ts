@@ -251,7 +251,12 @@ export default {
         "ud_fail": "Échec de la génération de cette chanson !",
         "ud_doing": "Impossible de lire pendant la génération",
         "ud_continuation": "Continuation",
-        "ud_precede": "Précédent"
+        "ud_precede": "Précédent",
+
+        "upImg2": "<span><b>Télécharger une image</b><br/>Ce modèle prend en charge la reconnaissance d'images<br>Remarque : des frais supplémentaires pour les images seront appliqués<br/>Formats : jpeg jpg png gif</span><p>Prend en charge le glisser-déposer</p> <p class=\"pt-2\"><b>Télécharger MP3 MP4</b> <br>Appellera automatiquement le modèle whisper-1<br>Formats : mp3 mp4 mpeg mpga m4a wav webm</p>",
+        "rml_info": "Remarque :<ul><li>1. Doit inclure une image</li><li>2. Le modèle n'a qu'un seul gen3a_turbo</li><li>3. Le prix pour 10 secondes est le double de celui de 5 secondes</li></ul>",
+        "rml_heng": "Paysage",
+        "rml_shu": "Portrait"
     },
     "mjset": {
         "server": "Serveur",

@@ -1,7 +1,7 @@
 <script setup lang="ts"> 
 import { NTabs, NTabPane } from 'naive-ui';
 import LumaInput from './lumaInput.vue'
-import RunwayInput from './runwayInput.vue'
+import RunwayInput from './runInput.vue'
 import KlingInput from '../kling/kgInput.vue'
 import PikaInput from './pikaInput.vue'
 import { mlog } from '@/api';
@@ -28,6 +28,7 @@ const initLoad=()=>{
         handleUpdateValue(  st.value.tab )
     }
     else st.value.tab=( gptServerStore.myData.TAB_VIDEO?gptServerStore.myData.TAB_VIDEO:'Luma')
+    if( st.value.tab=='runwayml') st.value.tab='runway'
 }
 initLoad();
 </script>
