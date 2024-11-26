@@ -212,7 +212,10 @@ watch(()=>homeStore.myData.act,(n)=>{
     }
 })
 const text = computed(() => {
-  const value =  props.chat.opt?.properties?.finalZhPrompt 
+  let  value =   props.chat.opt?.properties?.finalZhPrompt 
+  if(value==''){
+     value= props.chat.opt?.properties?.finalPrompt 
+  }
  return props.mdi.render(value)
    
 })
@@ -238,7 +241,8 @@ load();
         <div>{{ $t('mjchat.failReason') }}<p>{{ chat.opt?.failReason }}</p></div>
     </div>
     <template  v-else-if="chat.opt?.progress">
-        <div v-if="chat.opt?.action=='SHORTEN'" class="markdown-body" v-html="text" > 
+       
+        <div v-if="chat.opt?.action=='SHORTEN'" class="markdown-body" v-html="text " > 
              
         </div> 
         <div v-else-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
