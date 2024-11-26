@@ -33,6 +33,7 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4o-mini-2024-07-18": "2023-10", 
   "gpt-4o-2024-08-06": "2023-10", //chatgpt-4o-latest
   "chatgpt-4o-latest": "2023-10", 
+  "gpt-4o-2024-11-20": "2023-10", 
   "gpt-4-turbo": "2023-12", 
   "gpt-4-turbo-preview": "2023-12",
   "claude-3-opus-20240229": "2023-08",
