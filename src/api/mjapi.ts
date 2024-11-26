@@ -245,6 +245,7 @@ export const flechTask= ( chat:Chat.Chat)=>{
 }
 export const subTask= async (data:any, chat:Chat.Chat )=>{
    let d:any;
+   mlog('subTask', data )
    try{
     //return ;
     if(  data.action &&data.action=='change' ){ //执行变化
@@ -276,6 +277,9 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
             d=  await mjFetch('/mj/submit/describe' , data.data  ); 
     }else if( data.action &&data.action=='changeV2') { //执行动作！
         d=  await mjFetch('/mj/submit/action' , data.data  );
+        if  (d.description&&  d.description.indexOf('confirm')>-1){
+            d=  await mjFetch('/mj/submit/modal' , { taskId:d.result, prompt: d.properties.finalPrompt??''} );
+        }
     }else {
         let toData =  {
             "base64Array":data.fileBase64??[],
@@ -291,7 +295,8 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
             mlog('submit',d );
             //return ;
     }
-    if(d.code==21){
+    //mlog("subTask rz >> ", d )
+    if(d.code==21  ){
         d=  await mjFetch('/mj/submit/modal' , { taskId:d.result} );
     }
         
