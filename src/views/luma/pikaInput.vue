@@ -27,10 +27,28 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:1}
 ,{s:'width: 100%; height: 50%;',label:'16:9',value:1.7777777777777777}
 ,{s:'width: 50%; height: 100%;',label:'9:16',value:0.5625}
  ];
-
+const mvOption= [
+{label:'verion: v2.0',value: '2.0'}
+,{label:'verion: v1.5',value: '1.5'}
+ ]
 
 let ezOption = [
         {
+            video: "https://cdn.pika.art/feature/v1.5/pikaffect/peel.webm",
+            poster: "https://cdn.pika.art/feature/v1.5/pikaffect/peel.jpg",
+            title: "Peel"
+            
+        },  {
+            video: "https://cdn.pika.art/feature/v1.5/pikaffect/poke.webm",
+            poster: "https://cdn.pika.art/feature/v1.5/pikaffect/poke.jpg",
+            title: "Poke"
+            
+        },  {
+            video: "https://cdn.pika.art/feature/v1.5/pikaffect/tear.webm",
+            poster: "https://cdn.pika.art/feature/v1.5/pikaffect/tear.jpg",
+            title: "Tear"
+            
+        }, {
             video: "https://cdn.pika.art/feature/v1.5/pikaffect/levitate.webm",
             poster: "https://cdn.pika.art/feature/v1.5/pikaffect/levitate.jpg",
             title: "Levitate"
@@ -89,7 +107,7 @@ let ezOption = [
             //text:'Explode it'
         }];
 
-const pika= ref({image:'',prompt:'',aspectRatio:1.7777777777777777,negativePrompt:'',pe_index:-1});
+const pika= ref({image:'',prompt:'',aspectRatio:1.7777777777777777,negativePrompt:'',pe_index:-1,mv:'2.0'});
 const fsRef= ref() ; 
 const ms = useMessage();
 const st= ref({ isLoading:false});
@@ -119,6 +137,7 @@ const createVideo = async()=>{
     if(pika.value.pe_index>=0){
         sb.pikaffect= ezOption[pika.value.pe_index].title
     }
+    sb.model= pika.value.mv;
     mlog('sb>> '  ,  sb  );
     st.value.isLoading= true
     try {
@@ -151,10 +170,14 @@ const selecteffect = (i:number)=>{
             </section>
         </template>
     </div>
+    
     <div class="pt-1" >
       <n-input v-model:value="pika.prompt" 
                 :placeholder="$t('video.descpls')"  type="textarea"  size="small"   
                 :autosize="{ minRows: 3, maxRows: 12  }"  />
+    </div>
+    <div  class="pt-1">
+       <n-select v-model:value="pika.mv" :options="mvOption" size="small" />
     </div>
     <section class="pt-1 flex justify-between items-center" >
          <div>{{ $t('mj.nohead') }}</div>
