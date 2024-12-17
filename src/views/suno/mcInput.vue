@@ -23,7 +23,8 @@ const cs= ref({
   "title": "",
   "tags": "",
   "continue_at": 120,
-  "continue_clip_id": ""
+  "continue_clip_id": "",
+  "task":''
 
 });
 
@@ -90,9 +91,11 @@ const generate= async ()=>{
 
     if(st.value.type=='custom'){ 
         if(des.value.make_instrumental) cs.value.prompt='';
-        if( cs.value.continue_clip_id!='' && exSuno.value?.metadata?.type=='upload' ){
+        if( cs.value.continue_clip_id!=''  ){
             //chirp-v3-5-upload
-            cs.value.mv='chirp-v3-5-upload'
+           // cs.value.mv='chirp-v3-5-upload'
+           if( exSuno.value?.metadata?.type=='upload') cs.value.task='upload_extend'
+           else cs.value.task='extend'
         }
         let r:any= await sunoFetch(  '/generate' ,  cs.value ) 
         st.value.isLoading =false;
@@ -106,6 +109,7 @@ const generate= async ()=>{
         st.value.isLoading =false; 
         ids=r.clips.map((r:any)=>r.id);
     }
+    cs.value.task='';
     FeedTask(ids)
 }
 
