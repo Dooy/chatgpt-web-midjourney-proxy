@@ -1,6 +1,8 @@
 # 功能升级日志
 
 #  计划 
+# 2.22.9
+- 😄 新增：realtime 可设置模型 `gpt-4o-mini-realtime-preview-2024-12-17` `gpt-4o-realtime-preview-2024-12-17` `gpt-4o-realtime-preview-2024-10-01`
 # 2.22.8
 - 😄 新增：o1  o1-2024-12-17
 
