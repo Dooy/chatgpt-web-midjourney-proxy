@@ -20,6 +20,11 @@ const voiceList= computed(()=>{
     for(let o of "alloy,echo,shimmer".split(/[ ,]+/ig))rz.push({label:o,value:o}) 
     return rz;
 });
+const modelList= computed(()=>{
+    let rz=[]; //'alloy','shimmer','echo'
+    for(let o of "gpt-4o-realtime-preview-2024-12-17,gpt-4o-mini-realtime-preview-2024-12-17,gpt-4o-realtime-preview-2024-10-01".split(/[ ,]+/ig))rz.push({label:o,value:o}) 
+    return rz;
+});
 </script>
 <template>
     <div  class="w-full  ">
@@ -53,6 +58,10 @@ const voiceList= computed(()=>{
             <section class="mb-4 flex justify-between items-center"  >
                 <div >{{ $t('mj.tts_voice') }}</div>
                 <n-select v-model:value="gptServerStore.myData.TTS_VOICE" :options="voiceList" size="small"  class="!w-[50%]"   />
+            </section>
+             <section class="mb-4 flex justify-between items-center"  >
+                <div >Model</div>
+                <n-select v-model:value="gptServerStore.myData.REALTIME_MODEL" :options="modelList" size="small"  class="!w-[70%]"   />
             </section>
 
             <section class="mb-4"  >

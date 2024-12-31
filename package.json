@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-web-midjourney-proxy",
-  "version": "2.22.8",
+  "version": "2.22.9",
   "private": false,
   "description": "ChatGPT Web Midjourney Proxy",
   "author": "Dooy <ydlhero@gmail.com>",
@@ -51,12 +51,12 @@
     "vue-waterfall-plugin-next": "^2.3.1"
   },
   "devDependencies": {
-    "@openai/realtime-api-beta": "github:dooy/openai-realtime-api-beta",
-    "@openai/realtime-wavtools": "github:dooy/openai-realtime-wavtools",
     "@antfu/eslint-config": "^0.35.3",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@iconify/vue": "^4.1.0",
+    "@openai/realtime-api-beta": "github:dooy/openai-realtime-api-beta",
+    "@openai/realtime-wavtools": "github:dooy/openai-realtime-wavtools",
     "@tauri-apps/cli": "^1.5.11",
     "@types/crypto-js": "^4.1.1",
     "@types/katex": "^0.16.0",

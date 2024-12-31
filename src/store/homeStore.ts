@@ -125,6 +125,7 @@ export interface gptServerType{
     TAB_VIDEO?:string
     TTS_VOICE?:string
     REALTIME_SYSMSG?:string
+    REALTIME_MODEL?:string
     REALTIME_IS_WHISPER?:boolean 
     TAB_MUSIC?:string
 

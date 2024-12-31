@@ -98,16 +98,18 @@ const go= async()=>{
             ms.error("baseUrl is null");
             return;
         }
+        //ms.info("go");
+        //console.log("RealtimeClient", st.value.apikey )
+
         clientRef.value= new RealtimeClient( { 
             apiKey:st.value.apikey,
             dangerouslyAllowAPIKeyInBrowser: true,
             baseUrl: st.value.baseUrl,
-            
-            
+            model: gptServerStore.myData.REALTIME_MODEL?gptServerStore.myData.REALTIME_MODEL: 'gpt-4o-realtime-preview-2024-10-01' 
           }
         )
     }
-    mlog("go", st.value.apikey )
+    //mlog("go", st.value.apikey )
     const client= clientRef.value
     const wavRecorder= wavRecorderRef.value
     const wavStreamPlayer= wavStreamPlayerRef.value

@@ -77,7 +77,7 @@ devDependencies:
     version: 4.1.0(vue@3.2.47)
   '@openai/realtime-api-beta':
     specifier: github:dooy/openai-realtime-api-beta
-    version: github.com/dooy/openai-realtime-api-beta/97caf021ddccb2144b0a26c6ace43f323c732e0c
+    version: github.com/dooy/openai-realtime-api-beta/e76ff149959a2942c378f3d546ce9a3e33570673
   '@openai/realtime-wavtools':
     specifier: github:dooy/openai-realtime-wavtools
     version: github.com/dooy/openai-realtime-wavtools/1f6584a52a68f048d76f0b3df523ca1533cae04d
@@ -7236,6 +7236,7 @@ packages:
 
   /workbox-google-analytics@6.5.4:
     resolution: {integrity: sha512-8AU1WuaXsD49249Wq0B2zn4a/vvFfHkpcFfqAFHNHwln3jK9QUYmzdkKXGIZl9wyKNP+RRX30vcgcyWMcZ9VAg==}
+    deprecated: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
     dependencies:
       workbox-background-sync: 6.5.4
       workbox-core: 6.5.4
@@ -7409,10 +7410,10 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/dooy/openai-realtime-api-beta/97caf021ddccb2144b0a26c6ace43f323c732e0c:
-    resolution: {tarball: https://codeload.github.com/dooy/openai-realtime-api-beta/tar.gz/97caf021ddccb2144b0a26c6ace43f323c732e0c}
+  github.com/dooy/openai-realtime-api-beta/e76ff149959a2942c378f3d546ce9a3e33570673:
+    resolution: {tarball: https://codeload.github.com/dooy/openai-realtime-api-beta/tar.gz/e76ff149959a2942c378f3d546ce9a3e33570673}
     name: '@openai/realtime-api-beta'
-    version: 0.0.0
+    version: 0.0.3
     dependencies:
       ws: 8.18.0
     transitivePeerDependencies:
