@@ -256,7 +256,12 @@ export default {
         "upImg2": "<span><b>Görüntü Yükle</b><br/>Bu model görüntü tanımayı desteklemektedir<br>Not: Ekstra görüntü ücretleri olacaktır<br/>Formatlar: jpeg jpg png gif</span><p>Sürükleyip bırakmayı destekler</p> <p class=\"pt-2\"><b>MP3 MP4 Yükle</b> <br>otomatik olarak whisper-1 modelini çağıracaktır<br>Formatlar: mp3 mp4 mpeg mpga m4a wav webm</p>",
         "rml_info": "Not:<ul><li>1. Bir resim içermelidir</li><li>2. Modelin yalnızca bir gen3a_turbo'su vardır</li><li>3. 10 saniyenin fiyatı 5 saniyenin iki katıdır</li></ul>",
         "rml_heng": "Yatay",
-        "rml_shu": "Dikey"
+        "rml_shu": "Dikey",
+        "pixabout": "Pixverse ile ilgili",
+        "pixkeyPlaceholder": "Pixverse API Anahtarı boş bırakılabilir",
+        "pixserver": "Pixverse API adresi",
+        "pixinfo": " Açıklama:<br> <ul> <li>1. v3.5 360p süre 5s Normal moduna dayanmaktadır</li><li>2. v2.5 0.5 katıdır</li> <li>3. Süre 10s 2 katıdır</li> <li>4. 540P 1.5 kat, 720P 2 kat, 1080P 4 katıdır</li> <li>5. Performans modu 2 katıdır</li> <li>6. Katlar çarpılır, örneğin 720P süre 10s 2*2 yani 4 katıdır, eğer performansı eklersek 8 kat olur</li></ul>"
+
     },
     "mjset": {
         "server": "Sunucu",

@@ -258,7 +258,11 @@ export default {
   "upImg2": '<span><b>Upload Image</b><br/>This model supports image recognition<br>Note: There will be additional image fees<br/>Formats: jpeg jpg png gif</span><p>Supports drag and drop</p> <p class="pt-2"><b>Upload MP3 MP4</b> <br>Will automatically call the whisper-1 model<br>Formats include: mp3 mp4 mpeg mpga m4a wav webm</p>',
   "rml_info": "Note:<ul><li>1. Must include an image</li><li>2. The model only has one gen3a_turbo</li><li>3. The price for 10s is double that of 5s</li></ul>",
   "rml_heng": "Landscape",
-  "rml_shu": "Portrait"
+  "rml_shu": "Portrait", 
+  "pixabout": "Pixverse related",
+  "pixkeyPlaceholder": "Pixverse API Key can be left blank",
+  "pixserver": "Pixverse API address",
+  "pixinfo": " Description:<br> <ul> <li>1. Based on v3.5 360p duration 5s mode Normal</li><li>2. v2.5 is 0.5 times</li> <li>3. Duration 10s is 2 times</li> <li>4. 540P is 1.5 times, 720P is 2 times, 1080P is 4 times</li> <li>5. Mode performance is 2 times</li> <li>6. The multiples are multiplied, for example, 720P duration 10s is 2*2 which is 4 times, and if performance is added, it becomes 8 times</li></ul>"
 
   },
   "mjset": {

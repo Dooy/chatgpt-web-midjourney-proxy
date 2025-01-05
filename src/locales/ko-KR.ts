@@ -255,8 +255,13 @@ export default {
     "upImg2": "<span><b>이미지 업로드</b><br/>이 모델은 이미지 인식을 지원합니다<br>주의: 추가 이미지 요금이 발생합니다<br/>형식: jpeg jpg png gif</span><p>드래그 앤 드롭 지원</p> <p class=\"pt-2\"><b>MP3 MP4 업로드</b> <br>자동으로 whisper-1 모델을 호출합니다<br>형식: mp3 mp4 mpeg mpga m4a wav webm</p>",
     "rml_info": "주의:<ul><li>1. 반드시 이미지를 포함해야 합니다</li><li>2. 모델은 gen3a_turbo 하나만 있습니다</li><li>3. 10초 가격은 5초의 두 배입니다</li></ul>",
     "rml_heng": "가로 모드",
-    "rml_shu": "세로 모드"
-    
+    "rml_shu": "세로 모드",
+  
+    "pixabout": "Pixverse 관련",
+    "pixkeyPlaceholder": "Pixverse API 키는 비워둘 수 있습니다",
+    "pixserver": "Pixverse API 주소",
+    "pixinfo": " 설명:<br> <ul> <li>1. v3.5 360p 지속시간 5초 모드 Normal을 기준으로 함</li><li>2. v2.5는 0.5배입니다</li> <li>3. 지속시간 10초는 2배입니다</li> <li>4. 540P는 1.5배, 720P는 2배, 1080P는 4배입니다</li> <li>5. 성능 모드는 2배입니다</li> <li>6. 배수는 곱해지며, 예를 들어 720P 지속시간 10초는 2*2로 4배가 되고, 성능을 추가하면 8배가 됩니다</li></ul>"
+ 
   },
   "mjset": {
     "server": "서버"

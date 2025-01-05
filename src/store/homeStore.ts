@@ -116,6 +116,8 @@ export interface gptServerType{
     PIKA_KEY:string
     UDIO_SERVER:string
     UDIO_KEY:string
+    PIXVERSE_SERVER:string
+    PIXVERSE_KEY:string
     IS_SET_SYNC?:boolean
     GPTS_GX?:boolean
     IS_LUMA_PRO?:boolean
@@ -157,7 +159,9 @@ let v:gptServerType={
         PIKA_KEY:'',
         TTS_VOICE:'alloy',
         UDIO_SERVER:'',
-        UDIO_KEY:''
+        UDIO_KEY:'',
+        PIXVERSE_SERVER:'',
+        PIXVERSE_KEY:''
     }
     return v ;
 }

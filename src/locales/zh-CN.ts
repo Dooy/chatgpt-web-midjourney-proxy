@@ -364,6 +364,12 @@ export default {
     ,rml_info:'注意：<ul><li>1.必须带图</li><li>2.模型只有一个 gen3a_turbo </li><li>3.10s的价格是5s的双倍</li></ul>'
     ,rml_heng:'横屏'
     ,rml_shu:'竖屏'
+
+    ,pixabout:'Pixverse 相关'
+    ,pixkeyPlaceholder:'Pixverse 的API Key 可不填'
+    ,pixserver:'Pixverse 接口地址'
+    ,pixinfo:' 说明：<br>  <ul> <li>1.以v3.5 360p 时长5s 模式 Normal 为基数</li><li>2.v2.5 是 0.5倍</li>  <li>3.时长10s 是 2倍</li> <li>4.540P 1.5倍 720P 2倍 1080P 4倍</li> <li>5.模式 performance 2倍</li> <li>6.倍数是相乘的 比如 720P 时长10s 那就是 2*2是4倍，如果再加performance 就是8倍</li></ul>'
+  
   },
 
 	draw: {

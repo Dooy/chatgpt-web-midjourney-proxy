@@ -256,7 +256,13 @@ export default {
         "upImg2": "<span><b>Télécharger une image</b><br/>Ce modèle prend en charge la reconnaissance d'images<br>Remarque : des frais supplémentaires pour les images seront appliqués<br/>Formats : jpeg jpg png gif</span><p>Prend en charge le glisser-déposer</p> <p class=\"pt-2\"><b>Télécharger MP3 MP4</b> <br>Appellera automatiquement le modèle whisper-1<br>Formats : mp3 mp4 mpeg mpga m4a wav webm</p>",
         "rml_info": "Remarque :<ul><li>1. Doit inclure une image</li><li>2. Le modèle n'a qu'un seul gen3a_turbo</li><li>3. Le prix pour 10 secondes est le double de celui de 5 secondes</li></ul>",
         "rml_heng": "Paysage",
-        "rml_shu": "Portrait"
+        "rml_shu": "Portrait",
+        "pixabout": "Lié à Pixverse",
+        "pixkeyPlaceholder": "La clé API de Pixverse peut être laissée vide",
+        "pixserver": "Adresse de l'API Pixverse",
+        "pixinfo": " Description :<br> <ul> <li>1. Basé sur v3.5 360p durée 5s mode Normal</li><li>2. v2.5 est 0,5 fois</li> <li>3. Durée 10s est 2 fois</li> <li>4. 540P est 1,5 fois, 720P est 2 fois, 1080P est 4 fois</li> <li>5. Mode performance est 2 fois</li> <li>6. Les multiplicateurs se multiplient, par exemple, 720P durée 10s est 2*2 ce qui fait 4 fois, et si vous ajoutez performance, cela devient 8 fois</li></ul>"
+
+
     },
     "mjset": {
         "server": "Serveur",

@@ -255,8 +255,13 @@ export default {
     "upImg2": "<span><b>Tải lên hình ảnh</b><br/>Mô hình này hỗ trợ nhận diện hình ảnh<br>Chú ý: sẽ có phí hình ảnh bổ sung<br/>Định dạng: jpeg jpg png gif</span><p>Hỗ trợ kéo và thả</p> <p class=\"pt-2\"><b>Tải lên MP3 MP4</b> <br>Sẽ tự động gọi mô hình whisper-1<br>Định dạng bao gồm: mp3 mp4 mpeg mpga m4a wav webm</p>",
     "rml_info": "Chú ý:<ul><li>1. Phải có hình ảnh</li><li>2. Mô hình chỉ có một gen3a_turbo</li><li>3. Giá cho 10 giây gấp đôi giá cho 5 giây</li></ul>",
     "rml_heng": "Chế độ ngang",
-    "rml_shu": "Chế độ dọc"
+    "rml_shu": "Chế độ dọc",
     
+    "pixabout": "Liên quan đến Pixverse",
+    "pixkeyPlaceholder": "Khóa API Pixverse có thể để trống",
+    "pixserver": "Địa chỉ API Pixverse",
+    "pixinfo": " Mô tả:<br> <ul> <li>1. Dựa trên v3.5 360p thời gian 5s chế độ Normal</li><li>2. v2.5 là 0.5 lần</li> <li>3. Thời gian 10s là 2 lần</li> <li>4. 540P là 1.5 lần, 720P là 2 lần, 1080P là 4 lần</li> <li>5. Chế độ hiệu suất là 2 lần</li> <li>6. Các bội số được nhân với nhau, ví dụ 720P thời gian 10s là 2*2 tức là 4 lần, nếu thêm hiệu suất thì sẽ là 8 lần</li></ul>"
+
   },
   "mjset": {
     "server": "Máy chủ",

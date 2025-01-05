@@ -251,8 +251,13 @@ export default {
     "upImg2": "<span><b>上載圖片</b><br/>該模型支持識圖<br>注意：會有額外的圖片費用<br/>格式：jpeg jpg png gif</span><p>支持拖曳</p> <p class=\"pt-2\"><b>上載MP3 MP4</b> <br>會自動直接調用 whisper-1 模型<br>格式包括：mp3 mp4 mpeg mpga m4a wav webm</p>",
     "rml_info": "注意：<ul><li>1. 必須帶圖</li><li>2. 模型只有一個 gen3a_turbo</li><li>3. 10秒的價格是5秒的雙倍</li></ul>",
     "rml_heng": "橫屏",
-    "rml_shu": "豎屏"
-
+    "rml_shu": "豎屏",
+   
+    "pixabout": "與 Pixverse 相關",
+    "pixkeyPlaceholder": "Pixverse 的 API 金鑰可不填",
+    "pixserver": "Pixverse 接口地址",
+    "pixinfo": " 說明：<br> <ul> <li>1.以 v3.5 360p 時長 5s 模式 Normal 為基數</li><li>2.v2.5 是 0.5 倍</li> <li>3.時長 10s 是 2 倍</li> <li>4.540P 1.5 倍，720P 2 倍，1080P 4 倍</li> <li>5.模式 performance 2 倍</li> <li>6.倍數是相乘的，比如 720P 時長 10s 那就是 2*2 是 4 倍，如果再加 performance 就是 8 倍</li></ul>"
+    
   },
   "mjset": {
     "server": "服務端",
