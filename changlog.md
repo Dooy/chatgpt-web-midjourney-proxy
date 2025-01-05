@@ -3,7 +3,8 @@
 #  计划 
 
 # 2.22.10
-- 😄 新增：pix
+- 😄 支持：视频模型 Pixverse
+- 😄 支持：Pixverse 图片、前后帧、扩展
 
 # 2.22.9
 - 😄 新增：realtime 可设置模型 `gpt-4o-mini-realtime-preview-2024-12-17` `gpt-4o-realtime-preview-2024-12-17` `gpt-4o-realtime-preview-2024-10-01`
