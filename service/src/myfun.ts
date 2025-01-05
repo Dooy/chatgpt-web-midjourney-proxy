@@ -128,6 +128,23 @@ export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
   
 })
 
+export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
+  https: false, limit: '10mb',
+  proxyReqPathResolver: function (req) {
+    return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
+  },
+  proxyReqOptDecorator: function (proxyReqOpts, srcReq) { 
+    if ( process.env.PIXVERSE_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.PIXVERSE_KEY;
+    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
+    proxyReqOpts.headers['Content-Type'] = 'application/json';
+    proxyReqOpts.headers['Mj-Version'] = pkg.version;
+    return proxyReqOpts;
+  },
+  
+})
+
+
+
 
 export const udioProxy=proxy(process.env.UDIO_SERVER??  API_BASE_URL, {
   https: false, limit: '10mb',

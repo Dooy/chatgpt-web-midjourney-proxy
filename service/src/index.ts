@@ -356,6 +356,9 @@ app.use('/ideogram' ,authV2, ideoProxy  );
 app.use('/pika' ,authV2, pikaProxy  );
 app.use('/udio' ,authV2, udioProxy  );
 
+app.use('/pixverse' ,authV2, pixverseProxy  );
+
+
 
 
 
