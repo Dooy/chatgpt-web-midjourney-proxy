@@ -23,7 +23,7 @@ const initLoad=()=>{
         //st.value.tab=route.query.tab as string;
         st.value.tab= 'luma' 
         let tt= (route.query.tab as string).toLocaleLowerCase();
-        if( ['luma','runway','pika','kling'].indexOf(tt)>-1 ){
+        if( ['luma','runway','pika','kling','runwayml','pixverse'].indexOf(tt)>-1 ){
            st.value.tab=tt;
         }
         handleUpdateValue(  st.value.tab )
