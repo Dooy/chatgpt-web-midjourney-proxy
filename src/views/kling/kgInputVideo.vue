@@ -6,7 +6,7 @@ import { homeStore } from '@/store';
 import { klingFeed, klingFetch } from '@/api/kling';
 import { t } from '@/locales';
 
-const f= ref({prompt:'',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',mode:'std', duration:'5'});
+const f= ref({prompt:'',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',mode:'std', duration:'5',model:'kling-v1-6'});
 const st= ref({bili:0,isLoading:false,camera_type:''});
 
 const fsRef= ref() ; 
@@ -25,7 +25,11 @@ const durationOptions=[ {label:'5s',value:'5'},{label:'10s',value:'10'}]
 const cameraOption=[ {label: t('mj.cnull'),value:''},{label: t('mj.down_back'),value:'down_back'}
 ,{label:t('mj.forward_up'),value:'forward_up'},{label:t('mj.right_turn_forward'),value:'right_turn_forward'},{label:t('mj.left_turn_forward'),value:'left_turn_forward'}
 ]
-
+const mvOption= [
+{label:'kling-v1-6',value: 'kling-v1-6'}
+,{label:'kling-v1-5',value: 'kling-v1-5'}
+,{label:'kling-v1',value: 'kling-v1'}
+ ]
 
 function selectFile(input:any){
    // fsFile.value= input.target.files[0];
@@ -100,6 +104,11 @@ onMounted(() => {
     </section> 
     
     <section class="mb-4 flex justify-between items-center" >
+         <div>{{ $t('mjset.model') }}</div>
+         <n-select v-model:value="f.model" size="small" :options="mvOption"  class="!w-[70%]" />
+         
+    </section>
+      <section class="mb-4 flex justify-between items-center" >
          <div>{{ $t('mj.mode') }}</div>
          <n-select v-model:value="f.mode" size="small" :options="modeOptions"  class="!w-[70%]" />
          

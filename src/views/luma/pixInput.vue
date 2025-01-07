@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useMessage,NButton,NInput,NTag,NSelect,NPopover,NSwitch } from 'naive-ui';
 import { t } from '@/locales';
 import { mlog, upImg } from '@/api';
@@ -7,6 +7,7 @@ import { homeStore } from '@/store';
 import { getRandomInt } from '@/api/runwayml';
 import { pixFeed, pixFetch } from '@/api/pixverse';
 import { pixverseTask } from '@/api/pixverseStore';
+import pixEffacts from "./pixEffact.json";
 
 
 const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:'1:1'}
@@ -45,7 +46,7 @@ const qualityOption= [
 const durationOptions=[ {label:t('mj.duration')+':5s',value:5},{label:t('mj.duration')+':8s',value:8}]
 
 
-const f= ref({ style:null, prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',model:'v3.5', duration:5,motion_mode:'normal'});
+const f= ref({pe_index:-1, style:null, prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',model:'v3.5', duration:5,motion_mode:'normal'});
 const st= ref({isLoading:false});
 const fsRef= ref() ; 
 const fsRef2= ref() ; 
@@ -57,7 +58,8 @@ const clearInput = ()=>{
     f.value.image_tail= '';
     f.value.style=null
     fsRef.value=''
-    fsRef2.value=''
+    fsRef2.value='';
+    f.value.pe_index= -1 ; 
     exItem.value= undefined
 }
 function selectFile(input:any){
@@ -103,6 +105,14 @@ const create= async()=>{
     if(f.value.style){
         obj={...obj,style:f.value.style}
     }
+    if(f.value.pe_index>-1){
+        try {
+            let template_id= pixEffact.value[f.value.pe_index].template_id
+            obj={...obj, template_id}
+        } catch (error) { 
+        }
+         
+    }
     try {
         const d:any= await pixFetch('/generate' , obj  )
         mlog('img', d );
@@ -124,9 +134,18 @@ watch(()=>homeStore.myData.act, (n)=>{
 
 onMounted(() => {
     homeStore.setMyData({ms:ms}) 
+     
 });
 
- 
+const selecteffect = (i:number)=>{
+    f.value.pe_index= i ; 
+    
+    f.value.prompt= pixEffact.value[i].display_prompt
+}
+const pixEffact= computed(()=>{
+    
+    return pixEffacts;
+});
 </script>
 <template>
 <div class="p-2">  
@@ -180,6 +199,34 @@ onMounted(() => {
            
         </div>
     </div>  
+
+    <div class="pt-2 flex justify-start  items-end">
+         <div>
+            <NPopover trigger="hover">
+                <template #trigger>
+                    <div   class="h-[80px] w-[150px]  relative  overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" >
+                        <template v-if="f.pe_index>-1">
+                            <img :src="pixEffact[f.pe_index].thumbnail_path"  />
+                            <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{pixEffact[f.pe_index].display_name }}</div>
+                        </template>
+                        <div class="text-center" v-else>{{ $t('mj.selecteff') }}</div> 
+                    </div>
+                </template>
+                <div class="w-[320px] h-[400px] overflow-y-auto overflow-hidden mx-[-4px]">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div v-for="(item, index) in pixEffact" :key="index" >
+                            <div class="relative   overflow-hidden cursor-pointer " @click="selecteffect(index)">
+                                <!-- <video class="h-[72px] w-full rounded-md object-cover"  :src="item.video"  :poster="item.poster" 
+                                 autoplay  loop  playsinline ></video> -->
+                                  <img :src="item.thumbnail_path"  />
+                                <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{ item.display_name }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </NPopover>
+        </div>
+    </div>
 
     <div v-if="exItem && exItem.data" class="pt-2">
         <div class="flex justify-between items-center">

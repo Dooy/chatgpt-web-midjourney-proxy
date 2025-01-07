@@ -537,6 +537,7 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 PIXVERSE_SERVER:url,
                 
                 
+                
                 OPENAI_API_KEY:key,
                 MJ_API_SECRET:key, 
                 SUNO_KEY:key,
