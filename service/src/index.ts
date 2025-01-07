@@ -17,7 +17,7 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
-import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo, klingProxy, pikaProxy, udioProxy, runwaymlProxy, pixverseProxy } from './myfun'
+import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo, klingProxy, pikaProxy, udioProxy, runwaymlProxy, pixverseProxy, sunoProxy } from './myfun'
 
 
 const app = express()
@@ -318,21 +318,8 @@ app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {
 }));
 
 //代理sunoApi 接口 
-app.use('/sunoapi' ,authV2, proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
-  https: false, limit: '10mb',
-  proxyReqPathResolver: function (req) {
-    return req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
-  },
-  proxyReqOptDecorator: function (proxyReqOpts, srcReq) {
-    //mlog("sunoapi")
-    if ( process.env.SUNO_KEY ) proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.SUNO_KEY;
-    else   proxyReqOpts.headers['Authorization'] ='Bearer '+process.env.OPENAI_API_KEY;  
-    proxyReqOpts.headers['Content-Type'] = 'application/json';
-    proxyReqOpts.headers['Mj-Version'] = pkg.version;
-    return proxyReqOpts;
-  },
-  
-}));
+app.use('/sunoapi' ,authV2,sunoProxy );
+app.use('/suno' ,authV2,sunoProxy );
 
 
 

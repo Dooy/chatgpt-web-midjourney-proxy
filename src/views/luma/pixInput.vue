@@ -32,11 +32,20 @@ const qualityOption= [
 {label:t('mj.mode')+': Normal',value: 'normal'}
 ,{label:t('mj.mode')+': Performance',value: 'performance'} 
  ]
+
+  const styleOption= [
+//{label:'Please select style, can null',value: ''} ,
+{label:'Style: Cyberpunk',value: 'cyberpunk'}
+,{label:'Style: Anime',value: 'anime'} 
+,{label:'Style: Comic',value: 'comic'} 
+,{label:'Style: Clay',value: 'clay'} 
+,{label:'Style: 3D Animation',value: '3d_animation'} 
+ ]
  
-const durationOptions=[ {label:t('mj.duration')+':5s',value:5},{label:t('mj.duration')+':10s',value:10}]
+const durationOptions=[ {label:t('mj.duration')+':5s',value:5},{label:t('mj.duration')+':8s',value:8}]
 
 
-const f= ref({prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',model:'v3.5', duration:5,motion_mode:'normal'});
+const f= ref({ style:null, prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',model:'v3.5', duration:5,motion_mode:'normal'});
 const st= ref({isLoading:false});
 const fsRef= ref() ; 
 const fsRef2= ref() ; 
@@ -46,6 +55,7 @@ const clearInput = ()=>{
     f.value.prompt='';
     f.value.image= '';
     f.value.image_tail= '';
+    f.value.style=null
     fsRef.value=''
     fsRef2.value=''
     exItem.value= undefined
@@ -89,6 +99,9 @@ const create= async()=>{
     }
     if (exItem.value ){
         obj={...obj,'original_video_id': exItem.value?.video_id, "extend": 1,  "platform": "web"}
+    }
+    if(f.value.style){
+        obj={...obj,style:f.value.style}
     }
     try {
         const d:any= await pixFetch('/generate' , obj  )
@@ -143,6 +156,9 @@ onMounted(() => {
     </div>
     <div  class="pt-1">
        <n-select v-model:value="f.duration" :options="durationOptions" size="small" />
+    </div>
+     <div  class="pt-1">
+       <n-select v-model:value="f.style" :options="styleOption" size="small" clearable  placeholder="Please select style" />
     </div>
     <div class="pt-2">
         <div class="flex justify-start  items-end">
