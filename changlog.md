@@ -5,7 +5,7 @@
 # 2.23.1
 - 🐞 修复：Pixverse 时长支持8s 而非10s
 - 😄 支持：Pixverse style风格
-- 🐞 修复：suno 后端转发目录使用 `/suno `
+- 🐞 修复：suno 后端转发目录使用 `/suno`
 
 # 2.22.10
 - 😄 支持：视频模型 Pixverse
