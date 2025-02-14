@@ -9,9 +9,9 @@ COPY ./package.json /app
 
 COPY ./pnpm-lock.yaml /app
 
-RUN pnpm -v
-
-RUN pnpm install  --reporter=verbose
+#RUN pnpm -v
+#RUN pnpm install  --reporter=verbose
+RUN pnpm install --production && rm -rf /root/.npm /root/.pnpm-store /usr/local/share/.cache /tmp/*
 
 COPY . /app
 
