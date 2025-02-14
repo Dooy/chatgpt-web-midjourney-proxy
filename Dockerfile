@@ -2,6 +2,8 @@
 FROM node:lts-alpine AS frontend
 
 RUN npm install pnpm -g
+# 安装 Git
+RUN apk add --no-cache git
 
 WORKDIR /app
 
