@@ -45,6 +45,8 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "claude-3-5-sonnet-20241022": "2024-04",
   "gemini-pro": "2023-12",
   "gemini-pro-vision": "2023-12",
+  "deepseek-v3": "2023-12",
+  "deepseek-r1": "2023-12",
   "gemini-pro-1.5": "2024-04"
 };
 
@@ -313,6 +315,7 @@ export const getSystemMessage = (uuid?:number )=>{
     let producer= 'You are ChatGPT, a large language model trained by OpenAI.'
     if(model.includes('claude')) producer=  'You are Claude, a large language model trained by Anthropic.';
     if(model.includes('gemini')) producer=  'You are Gemini, a large language model trained by Google.';
+    if(model.includes('deepseek')) producer=  'You are DeepSeek, a large language model trained by DeepSeek.';
     //用户自定义系统
     if(homeStore.myData.session.systemMessage )  producer= homeStore.myData.session.systemMessage
     
