@@ -615,7 +615,7 @@ const getModelMax=( model:string )=>{
         return 32;
     }else if( model.indexOf('gpt-4-turbo')>-1||  model.indexOf('gpt-4o')>-1 ||   model.indexOf('o1-')>-1){
         return 128; 
-    }else if( model.indexOf('64k')>-1  ){
+    }else if( model.indexOf('64k')>-1 || model.indexOf('deepseek')>-1 ){
         return 64;
     }else if( model.indexOf('128k')>-1 
     || model=='gpt-4-1106-preview' 

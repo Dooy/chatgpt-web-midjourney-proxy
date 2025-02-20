@@ -386,7 +386,7 @@ export const canVisionModel= (model:string)=>{
 export const isCanBase64Model=(model:string)=>{
     //gpt-4o
     //customVisionModel
-    let arr=['gpt-4o','gemini','1.5','sonnet','opus' ];
+    let arr=['gpt-4o','gemini','1.5','sonnet','opus','deepseek' ];
     for( let m of arr){
         if(model.indexOf(m)>-1) return true
     }

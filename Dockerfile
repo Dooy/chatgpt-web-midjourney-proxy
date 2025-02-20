@@ -11,10 +11,9 @@ COPY ./package.json /app
 
 COPY ./pnpm-lock.yaml /app
 
-RUN git --version
+#RUN git --version
 
 RUN pnpm install
-#RUN pnpm install --production && rm -rf /root/.npm /root/.pnpm-store /usr/local/share/.cache /tmp/*
 
 COPY . /app
 
