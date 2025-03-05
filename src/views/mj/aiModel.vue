@@ -18,8 +18,11 @@ model:[ 'o1','o1-2024-12-17', 'gpt-4-turbo-2024-04-09','o1-preview','o1-mini','o
 ,`gpt-4-vision-preview`,`gpt-3.5-turbo-1106` ,'gpt-3.5-turbo-0125'
 ,'gpt-3.5-turbo-0301','gpt-3.5-turbo-0613','gpt-4-all','gpt-3.5-net'
 ,'gemini-pro',"gemini-pro-vision",'gemini-pro-1.5',"gemini-1.5-pro-exp-0801"
+,'claude-3-7-sonnet-20250219'
 ,'claude-3-5-sonnet-20241022','claude-3-sonnet-20240229','claude-3-opus-20240229','claude-3-haiku-20240307','claude-3-5-sonnet-20240620','suno-v3'
 ,'deepseek-r1','deepseek-v3'
+,'grok-3','grok-3-reasoner','grok-3-deepsearch'
+,'gpt-4.5-preview-2025-02-27','gpt-4.5-preview'
 ]
 ,maxToken:4096
 }); 
@@ -94,11 +97,13 @@ watch(()=>nGptStore.value.model,(n)=>{
         max=65536 *2;
     }else if(  n.indexOf('o1-')>-1 || n=='o1' ){  
         max=65536 ;
-    }else if( n=='gpt-4o-2024-08-06' || n=='chatgpt-4o-latest' || n.indexOf('gpt-4o')>-1 ){  
+    }else if( n=='gpt-4o-2024-08-06' || n=='chatgpt-4o-latest' || n.indexOf('gpt-4o')>-1 || n.indexOf('gpt-4.5')>-1){  
         max=16384 *2;
     }else if( n.indexOf('gpt-4')>-1 ||  n.indexOf('16k')>-1 ||  n.indexOf('o1-')>-1 ){ //['16k','8k','32k','gpt-4'].indexOf(n)>-1
         max=4096*2;
-    }else if( n.toLowerCase().includes('claude-3-5') ||  n.toLowerCase().includes('deepseek') ){ //deepseek
+    }else if( n.toLowerCase().includes('claude-3-5')|| n.toLowerCase().includes('sonnet') 
+        ||n.toLowerCase().includes('grok-3')
+     ||  n.toLowerCase().includes('deepseek') ){ //deepseek
         max=4096*2*2;
     }else if( n.toLowerCase().includes('claude-3') ){
          max=4096*2;
