@@ -263,7 +263,8 @@ export default {
   "pixkeyPlaceholder": "Pixverse API Key can be left blank",
   "pixserver": "Pixverse API address",
   "pixinfo": " Description:<br> <ul> <li>1. Based on v3.5 360p duration 5s mode Normal</li><li>2. v2.5 is 0.5 times</li> <li>3. Duration 10s is 2 times</li> <li>4. 540P is 1.5 times, 720P is 2 times, 1080P is 4 times</li> <li>5. Mode performance is 2 times</li> <li>6. The multiples are multiplied, for example, 720P duration 10s is 2*2 which is 4 times, and if performance is added, it becomes 8 times</li></ul>"
-
+   ,server_load:'Server Pull'
+   ,model_select:'Model Selecte'
   },
   "mjset": {
     "server": "Server",

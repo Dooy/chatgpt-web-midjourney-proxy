@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import {NSelect, NInput,NSlider, NButton, useMessage,NTag} from "naive-ui"
-import { ref ,computed,watch, onMounted} from "vue";
+import {NSelect, NInput,NSlider, NButton, useMessage,NTag,NPopselect ,NAvatar, NText} from "naive-ui"
+import type { SelectRenderLabel, SelectRenderTag } from 'naive-ui'
+import { ref ,computed,watch, onMounted,h} from "vue";
 import {gptConfigStore, homeStore,useChatStore} from '@/store'
 import { mlog,chatSetting } from "@/api";
 import { t } from "@/locales";
+
+import AiModelServer from "./aiModelServer.vue";
+ 
 
 const emit = defineEmits(['close']);
 const chatStore = useChatStore();
@@ -26,7 +30,7 @@ model:[ 'o1','o1-2024-12-17', 'gpt-4-turbo-2024-04-09','o1-preview','o1-mini','o
 ]
 ,maxToken:4096
 }); 
-const st= ref({openMore:false });
+const st= ref({openMore:false,isShow:false ,server:'' });
 const voiceList= computed(()=>{
     let rz=[];
     for(let o of "alloy,echo,fable,onyx,nova,shimmer".split(/[ ,]+/ig))rz.push({label:o,value:o}) 
@@ -122,17 +126,46 @@ onMounted(() => {
     //gptConfigStore.myData= chatSet.getGptConfig();
 });
 
-//数组去重
-
-
-
+const serverSuccess=(s:any)=>{
+    mlog('serverSuccess ', s  )
+    nGptStore.value.model= s.model
+}
 //
 //const f= ref({model:gptConfigStore.myData.model});
 </script>
 <template>
 <section class="mb-4 flex justify-between items-center"  >
-     <div ><span class="text-red-500">*</span>  {{ $t('mjset.model') }}</div>
-    <n-select v-model:value="nGptStore.model" :options="modellist" size="small"  filterable  class="!w-[50%]"   />
+    <div class=" flex space-x-2 justify-between items-center">
+     <div class="flex justify-start items-center">
+        <span class="text-red-500">*</span>  
+        {{ $t('mjset.model') }}
+        
+     </div>
+     
+    </div>
+    <div  class="!w-[70%] flex justify-end items-center " >
+       <div> 
+        <n-select v-model:value="nGptStore.model" :options="modellist" size="small"  filterable   />
+       </div>
+       <div class=" pl-2" > 
+        <!-- <NButton type="primary" @click="saveChat('no')" size="small" >{{ $t('mj.server_load') }}</NButton> -->
+        <AiModelServer @success="serverSuccess"/>
+        <!-- <n-popselect
+                v-model:value="st.server"
+                :options="serverOptions"
+                :render-label="renderLabel"
+                size="medium"
+                scrollable
+            >
+            <NTag  type="primary" round size="small" :bordered="false" class="!cursor-pointer">
+            {{ $t('mj.server_load') }}
+            
+            </NTag>
+        </n-popselect> -->
+            
+
+       </div>
+    </div>
 </section>
 <section class="mb-4 flex justify-between items-center"  >
     <n-input   :placeholder="$t('mjchat.modlePlaceholder')" v-model:value="gptConfigStore.myData.userModel">
@@ -225,4 +258,8 @@ onMounted(() => {
     <NButton type="primary" @click="save">{{ $t('mj.setBtSaveSys') }}</NButton> -->
     <NButton type="primary" @click="saveChat('no')">{{ $t('common.save') }}</NButton>
  </section>
+
+ <!-- <NModal  v-model:show="st.isShow"  preset="card"  :title="$t('mjchat.modelChange')" class="!max-w-[820px]" @close="st.isShow=false" >
+    Model内容
+ </NModal> -->
 </template>

@@ -72,16 +72,18 @@ const text = computed(() => {
     value= value.replaceAll('\\]',"$$$$")   
 
     //思考过程处理
-    value= value.replace(/<think>([\s\S]*?)<\/think>/g, (match: string, content: string) => { 
+    //value= value.replace(/<think>([\s\S]*?)<\/think>/g, (match: string, content: string) => { 
+    value= value.replace(/<think>([\s\S]*?)(?=<\/think>|$)/g, (match: string, content: string) => { 
       const processedContent: string = content
         .split('\n')
         .map(line => line.trim() ? '>' + line : line)  
         .join('\n').replace(/(\r?\n)+/g, '\n>\n');
        
-      return ">Thinking..."+processedContent ;
+      return ">Thinking..."+(processedContent) ;
     });
+    value= value.replaceAll('</think>','')
     //mlog('replace', value)
-    return mdi.render(value)
+    return mdi.render(value) 
   }
   return value
 })

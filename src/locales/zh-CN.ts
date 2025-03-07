@@ -370,6 +370,8 @@ export default {
     ,pixserver:'Pixverse 接口地址'
     ,pixinfo:' 说明：<br>  <ul> <li>1.以v3.5 360p 时长5s 模式 Normal 为基数</li><li>2.v2.5 是 0.5倍</li>  <li>3.时长8s 是 2倍</li> <li>4.540P 1.5倍 720P 2倍 1080P 4倍</li> <li>5.模式 performance 2倍</li> <li>6.倍数是相乘的 比如 720P 时长8s 那就是 2*2是4倍，如果再加performance 就是8倍</li></ul>'
   
+   ,server_load:'服务端获取'
+   ,model_select:'模型选择'
   },
 
 	draw: {
