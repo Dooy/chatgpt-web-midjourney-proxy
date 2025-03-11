@@ -296,6 +296,8 @@ export default {
     "historyToken": "更多的上下文會使記憶更精確，但會消耗更多的額度",
     "historyTCnt": "回復數",
     "historyTCntInfo": "回復數越大 ,越有可能消耗更多的額度",
+    "modelMaxTokens": "模型支持的最大額度",
+    "modelMaxTokensInfo": "模型支持的最大額度",
     "role": "角色設定",
     "rolePlaceholder": "給你的會話設置一個專屬的角色，不是必須",
     "loading2": "正在加載...",

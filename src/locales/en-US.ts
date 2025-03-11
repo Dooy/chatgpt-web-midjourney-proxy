@@ -303,6 +303,8 @@ export default {
     "historyToken": "More context improves accuracy but consumes more credits",
     "historyTCnt": "Reply Count",
     "historyTCntInfo": "Higher reply count may consume more credits",
+    "modelMaxTokens": "Max supported tokens",
+    "modelMaxTokensInfo": "The maximum amount supported by the model",
     "role": "Role Setting",
     "rolePlaceholder": "Set an exclusive role for your conversation (optional)",
     "loading2": "Loading...",

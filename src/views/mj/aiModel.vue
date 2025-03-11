@@ -113,7 +113,7 @@ watch(()=>nGptStore.value.model,(n)=>{
          max=4096*2;
     }
 
-    config.value.maxToken=max/2;
+    config.value.maxToken=nGptStore.value.model_max_tokens ?? max/2;
     if(nGptStore.value.max_tokens> config.value.maxToken ) nGptStore.value.max_tokens= config.value.maxToken;
 })
 
@@ -183,12 +183,19 @@ const serverSuccess=(s:any)=>{
     </div>
 </section>
 <div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.historyToken') }}</div>
+<section class="flex justify-between items-center">
+  <div>{{ $t('mjchat.modelMaxTokens') }}</div>
+  <div class="w-[80%] max-w-[240px]">
+    <n-input v-model:value="nGptStore.model_max_tokens" />
+  </div>
+</section>
+<div class="mb-4 text-[12px] text-gray-300 dark:text-gray-300/20">{{ $t('mjchat.modelMaxTokensInfo') }}</div>
 
  <section class=" flex justify-between items-center"  >
      <div> {{ $t('mjchat.historyTCnt') }} 
      </div>
      <div class=" flex justify-end items-center w-[80%] max-w-[240px]">
-        <div class=" w-[200px]"><n-slider v-model:value="nGptStore.max_tokens" :step="1" :max="config.maxToken" :min="1" /></div>
+        <div class=" w-[200px]"><n-slider v-model:value="nGptStore.max_tokens" :step="1" :max="nGptStore.model_max_tokens" :min="1" /></div>
         <div  class="w-[50px] text-right">{{ nGptStore.max_tokens }}</div>
     </div>
 </section>

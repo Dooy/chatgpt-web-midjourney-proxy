@@ -301,6 +301,8 @@ export default {
         "historyToken": "Plus de contexte améliore la précision mais consomme plus de crédits",
         "historyTCnt": "Nombre de Réponses",
         "historyTCntInfo": "Un nombre plus élevé de réponses peut consommer plus de crédits",
+        "modelMaxTokens": "Le montant maximum pris en charge par le modèle",
+        "modelMaxTokensInfo": "Le montant maximum pris en charge par le modèle",
         "role": "Paramètre de Rôle",
         "rolePlaceholder": "Définissez un rôle exclusif pour votre conversation (facultatif)",
         "loading2": "Chargement...",

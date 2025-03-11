@@ -50,6 +50,7 @@ export interface gptConfigType{
     frequency_penalty?:number
     presence_penalty?:number
     tts_voice?:string //TTS 人物
+    model_max_tokens:number // 模型支持最大tokens
 }
 const getGptInt= ():gptConfigType =>{
     let v:gptConfigType=getDefault();
@@ -73,7 +74,8 @@ let v:gptConfigType={
         top_p:1,
         presence_penalty:0,
         frequency_penalty:0,
-        tts_voice:"alloy"
+        tts_voice:"alloy",
+        model_max_tokens:8192
     }
     return v ;
 }

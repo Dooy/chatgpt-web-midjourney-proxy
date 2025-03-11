@@ -300,6 +300,8 @@ export default {
         "historyToken": "Daha fazla bağlam, doğruluğu artırır ancak daha fazla kredi tüketir",
         "historyTCnt": "Yanıt Sayısı",
         "historyTCntInfo": "Daha yüksek yanıt sayısı daha fazla kredi tüketebilir",
+        "modelMaxTokens": "Modelin desteklediği maksimum limit",
+        "modelMaxTokensInfo": "Modelin desteklediği maksimum limit",
         "role": "Rol Ayarı",
         "rolePlaceholder": "Konuşmanız için özel bir rol ayarlayın (isteğe bağlı)",
         "loading2": "Yükleniyor...",
