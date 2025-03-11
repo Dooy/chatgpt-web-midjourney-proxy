@@ -300,6 +300,8 @@ export default {
     ,"historyToken": "더 많은 컨텍스트는 기억을 더 정확하게 만들지만 더 많은 크레딧을 소비할 수 있습니다."
     ,"historyTCnt": "답장 수"
     ,"historyTCntInfo": "답장 수가 많을수록 더 많은 크레딧이 소비될 수 있습니다."
+    ,"modelMaxTokens": "모델이 지원하는 최대 한도"
+    ,"modelMaxTokensInfo": "모델이 지원하는 최대 한도"
     ,"role": "역할 설정"
     ,"rolePlaceholder": "대화에 고유한 역할을 설정하십시오. 필수는 아닙니다."
     ,"loading2": "로딩 중..."

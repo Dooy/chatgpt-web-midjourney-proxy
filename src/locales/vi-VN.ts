@@ -300,6 +300,8 @@ export default {
     "historyToken": "Số ngữ cảnh nhiều hơn sẽ làm cho bộ nhớ chính xác hơn, nhưng sẽ tiêu tốn nhiều chi phí hơn",
     "historyTCnt": "Số câu trả lời",
     "historyTCntInfo": "Số câu trả lời càng nhiều, khả năng tiêu tốn chi phí càng cao",
+    "modelMaxTokens": "Giới hạn tối đa mà mô hình hỗ trợ",
+    "modelMaxTokensInfo": "Giới hạn tối đa mà mô hình hỗ trợ",
     "role": "Đặt vai trò",
     "rolePlaceholder": "Đặt một vai trò riêng cho cuộc trò chuyện của bạn, không bắt buộc",
     "loading2": "Đang tải...",
