@@ -384,6 +384,12 @@ export const canVisionModel= (model:string)=>{
     return false;
 }
 export const isCanBase64Model=(model:string)=>{
+
+    //默认是支持
+    if( model.includes('gpt-3') || model=='gpt-4'){
+        return false
+    }
+    return true
     //gpt-4o
     //customVisionModel
     let arr=['gpt-4o','gemini','1.5','sonnet','opus','deepseek' ];

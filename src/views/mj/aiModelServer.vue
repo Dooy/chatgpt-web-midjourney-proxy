@@ -7,7 +7,7 @@ import { ref ,computed,watch, onMounted,h} from "vue";
 import { SvgIcon } from '@/components/common'
 import { gptFetch, mlog } from "@/api";
 
-const st= ref({ server:'',isShow:false,isLoadData:0 });
+const st= ref({ server:'',isShow:false,isLoadData:0 ,"search":''});
 const ms= useMessage();
   
 const emit= defineEmits(['success']);
@@ -80,6 +80,27 @@ const successClick=(md:any)=> {
 }
 
 //const usageData = await gptFetch(urlUsage);
+const modellist = computed(() => {
+    let rz: any[]=[];
+    for(let o of mGroup.value){
+        if(o.data.length<=0) continue
+        for(let v of o.data){
+         rz.push({label:v.model,value:v.model})
+        }
+    }
+    return rz;
+});
+const abc=()=>{
+    //console.log('abc>> ',st.value.search)
+    if(st.value.search=='') return;
+    for(let o of mGroup.value){
+        if(o.data.length<=0) continue
+        for(let v of o.data){
+         //rz.push({label:v.model,value:v.model})
+         if(v.model==st.value.search) successClick( v)
+        }
+    }
+}
 </script>
 <template>
 <div @click="st.isShow=true">
@@ -91,6 +112,11 @@ const successClick=(md:any)=> {
      <NEmpty v-if="st.isLoadData==0">Loading....</NEmpty>
      <NEmpty v-else-if="st.isLoadData==-1">Loaded Fail ....</NEmpty>
      <div   class=" overflow-y-auto max-h-[400px]" v-else >
+        <div>
+            
+            <n-select v-model:value="st.search" @update:value="abc" clearable :options="modellist" size="small" placeholder="search and select your model"  filterable   />
+       
+        </div>
         <div v-for="mg in mGroup">
             <template v-if="mg.data.length>0">
             <div class="  relative"  >
@@ -111,9 +137,11 @@ const successClick=(md:any)=> {
             </div>
             <div v-if="mg.data.length>0 && !mg.isClosed" class="grid   gap-2 grid-cols-2">
                 <div v-for="md in mg.data" >
+                    <!-- <template v-if="st.search=='' || md.model.includes(st.search)"></template> -->
                    <NTag type="info" size="small" round>
                      <span class="cursor-pointer" @click="successClick(md)" >{{ md.model }}</span>
                    </NTag>
+                   
                 </div>
             </div>
             </template>
