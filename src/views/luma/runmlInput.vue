@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useMessage, NButton,NInput,NTag,NRadioGroup,NRadioButton} from 'naive-ui';
+import {useMessage, NButton,NInput,NTag,NRadioGroup,NRadioButton,NSelect} from 'naive-ui';
  
 import { getRandomInt, runwayMlFeed, runwayMlFeedById, runwayMlFetch } from '@/api/runwayml';
 import { computed, onMounted, ref } from 'vue';
@@ -14,7 +14,7 @@ const f= ref({
        {"uri":"","position":"last"}
     ],
     "seed": 4294967295,
-    "model": "gen3a_turbo",
+    "model": "gen4_turbo",
     "promptText": "",
     "watermark": false,
     "duration": 5,
@@ -26,6 +26,13 @@ const st= ref({isLoading:false })
 const vf=[ 
 {s:'width: 100%; height: 50%;',label: t('mj.rml_heng'),value:'1280:768'}
 ,{s:'width: 50%; height: 100%;',label:t('mj.rml_shu'),value:'768:1280'}
+ ];
+ const vf2=[{s:'width: 100%; height: 100%;',label:'1:1',value:'960:960'}
+,{s:'width: 100%; height: 75%;',label:'4:3',value:'1104:832'}
+,{s:'width: 75%; height: 100%;',label:'3:4',value:'832:1104'}
+,{s:'width: 100%; height: 50%;',label:'16:9',value:'1280:720'}
+,{s:'width: 50%; height: 100%;',label:'9:16',value:'720:1280'}
+,{s:'width: 100%; height: 30%;',label:'21:9',value:'1584:672'}
  ];
  const duanConfig=[
 {key:5,value: '5s'},
@@ -82,12 +89,29 @@ const create= async ()=>{
     }
     st.value.isLoading=false 
 }
+const mvOption= [
+{label: 'Model : gen4_turbo',value: 'gen4_turbo'}
+// ,{label:t('video.rwgen3'),value: 'europa'}
+// ,{label:t('video.rwgen3fast'),value: 'europa-fast'}
+,{label:'Model : gen3a_turbo',value: 'gen3a_turbo'}
+ ]
 </script>
 <template> 
 <div>
+    <section class="mb-2 flex justify-between items-center" >
+            <n-select v-model:value="f.model" :options="mvOption" size="small" />
+    </section>
     <section class="mb-2">
          <div class=" flex items-center justify-between space-x-1">
-            <template  v-for="(item,index) in vf" >
+            <template  v-for="(item,index) in vf2"  v-if="f.model=='gen4_turbo'">
+            <section class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"  :class="{'active':item.value==f.ratio}"  @click=" f.ratio=item.value ">
+                <div class="aspect-box-wrapper mx-auto my-2 flex h-5 w-5 items-center justify-center">
+                    <div class="aspect-box rounded border-2 dark:border-neutral-700" :style="item.s"></div>
+                </div>
+                <p class="mb-1 text-center text-sm">{{ item.label }}</p>
+            </section>
+            </template>
+            <template  v-for="(item,index) in vf"  v-else>
             <section class="aspect-item flex-1 rounded border-2 dark:border-neutral-700 cursor-pointer"  :class="{'active':item.value==f.ratio}"  @click=" f.ratio=item.value ">
                 <div class="aspect-box-wrapper mx-auto my-2 flex h-5 w-5 items-center justify-center">
                     <div class="aspect-box rounded border-2 dark:border-neutral-700" :style="item.s"></div>
@@ -104,6 +128,7 @@ const create= async ()=>{
                 :placeholder="$t('video.descpls')"  type="textarea"  size="small"   
                 :autosize="{ minRows: 3, maxRows: 12  }"  />
     </section>
+   
     <section class="mb-2">
         <div class="flex justify-start  items-top">
             <div> 
