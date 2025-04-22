@@ -543,7 +543,7 @@ export default {
     ,viggleabout:"Viggle 相关",
     viggleserver:"Viggle 接口地址",
     setOpenKeyPlaceholder:'Viggle API 的key, 可不填',
-    info:'说明:<br>1.角色图片最好是个人全身照片<br>2.舞蹈模版视频最好是个人视频 别传群舞',
+    info:'说明:<br>1.角色图片最好是个人全身照片<br>2.舞蹈模版视频最好是个人视频 别传群舞<br>3.生成会给出倍数价格 2电量 表示2倍的基础价格',
     model:'模型',
     bgw:'白色背景',
     bgg:'绿色背景',

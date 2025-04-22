@@ -12,7 +12,7 @@ import { lumaHkStore } from '@/api/lumaStore';
 import { sleep } from '@/api/suno';
 
 const f= ref({ "imageID": "", "bgMode": 2, "modelInfoID": 4,"templateID": "","videoID":'','watermark':1 })
-const st= ref({isDo:false,showImg:false,q:'',imgSrc:'',vgSrc:'',vgCoverURL:'',version:'relax'})
+const st= ref({isDo:false,showImg:false,q:'',imgSrc:'',vgSrc:'',vgCoverURL:'',version:'relax',fee:0 })
 const useTem= ref<ViggleTemplate>()
 const fsRef= ref() ;
 const vsRef= ref() ;
@@ -45,6 +45,16 @@ const generate= async ()=>{
         }
         FeedViggleTask(d.data.taskID)  
     }
+}
+
+const doCheckFee= async (data:any)=>{
+    //  video-task/credit/calculate
+     const dd= await viggleFetch( getMyProUrl('/video-task/credit/calculate'),  data ); 
+
+     st.value.fee= dd.data
+
+     return dd;
+     
 }
 const search=()=>{
     
@@ -139,7 +149,7 @@ const saveMyDate=(is_pro:boolean)=>{
 watch(()=>isHK.value , (n)=>    saveMyDate( n && st.value.version=='pro' ) ); 
 watch(()=>st.value.version , ()=>  saveMyDate(isHK.value && st.value.version=='pro' ) );
 
-watch(()=>homeStore.myData.act, (n)=>{
+watch(()=>homeStore.myData.act,  async (n)=>{
     //canPost.value= n.modelInfoID!=0 && n.bgMode!=0
     if(n=='viggle.useVideo'){
         mlog("viggle.useVideo", homeStore.myData.actData )
@@ -147,6 +157,8 @@ watch(()=>homeStore.myData.act, (n)=>{
         st.value.showImg=false
         f.value.templateID= useTem.value.id
         f.value.videoID= '' 
+        const dd= await doCheckFee({ templateID: useTem.value.id})
+        mlog("viggle.doCheckFee", dd )
     }
 })
 const mvOption= [
@@ -226,7 +238,13 @@ onMounted(() => {
     </div>
 
     <div class="pt-2 flex justify-center items-center w-full">
-         <NButton block :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()"><SvgIcon icon="ri:video-add-line"  /> {{$t('video.generate')}}</NButton> 
+         <NButton block :loading="st.isDo" type="primary" :disabled="!canPost" @click="generate()">
+            <!-- <SvgIcon icon="ri:video-add-line"  />  -->
+            {{$t('video.generate')}}
+            <template v-if="st.fee>0">
+              {{ st.fee }}<SvgIcon icon="mage:electricity"/>
+            </template>
+         </NButton> 
     </div>
     
    <div   class="pt-4 text-[12px]" v-html="t('dance.info')"> </div>
