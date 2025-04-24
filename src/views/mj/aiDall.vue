@@ -9,6 +9,7 @@ const ms = useMessage();
 const config = ref( {
 model:[
 {  "label": "DALL·E 3", "value": "dall-e-3" }
+ ,{  "label": "GPT-Image-1", "value": "gpt-image-1" }
  ,{  "label": "DALL·E 2", "value": "dall-e-2" }
  ,{  "label": "Flux", "value": "flux" }
  ,{  "label": "Flux-Dev", "value": "flux-dev" }
