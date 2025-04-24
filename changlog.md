@@ -1,6 +1,11 @@
 # 功能升级日志
 
 #  计划 
+# 2.23.10
+
+- 😄 新增：gpt-image-1 这个是dall-e格式
+- 😄 新增：pixverse 的 `v4`版本
+
 # 2.23.9
 - 😄 新增：rumwayml 支持 gen4_turbo
 
