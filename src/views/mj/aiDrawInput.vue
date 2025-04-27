@@ -79,7 +79,7 @@ initLoad();
 
     <n-tab-pane name="ideogram" tab="IdeoGram">
      <div class="p-2"> <aiIdeoInput/> </div>
-    </n-tab-pane> 
+    </n-tab-pane>  
     
 
 

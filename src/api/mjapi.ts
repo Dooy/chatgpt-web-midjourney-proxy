@@ -18,7 +18,7 @@ export interface gptsType{
  //const { addChat, updateChat, updateChatSome, getChatByUuidAndIndex } = useChat()
 export function upImg(file:any   ):Promise<any>
 {
-    const maxSize= homeStore.myData.session.uploadImgSize? (+homeStore.myData.session.uploadImgSize):1
+    const maxSize= homeStore.myData.session.uploadImgSize? (+homeStore.myData.session.uploadImgSize):5
     return new Promise((h,r)=>{
         const filename = file.name;
         if(file.size>(1024*1024 * maxSize)){

@@ -225,9 +225,20 @@ export const whisperUpload = ( FormData:FormData )=>{
     })
 }
 
+//gpt 文件上传 /v1/image/edits
+export const gptUploadFile=   (url :string, FormData:FormData)=>{
+    url=  gptGetUrl( url);
+    let headers=   {'Content-Type': 'multipart/form-data' }
+    headers={...headers,...getHeaderAuthorization()}
+
+    return axios.post( url , FormData, {  headers  })
+
+}
+
 export const subGPT= async (data:any, chat:Chat.Chat )=>{
    let d:any;
    let action= data.action;
+   // mlog("gp-image-1 base64Array ",   data.base64Array   )
    //chat.myid=  `${Date.now()}`;
    if(  action=='gpt.dall-e-3' && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
          mlog("ddlog 数据 ", data.data  )
@@ -246,6 +257,50 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
             chat.loading=false;
             homeStore.setMyData({act:'updateChat', actData:chat });
          }
+   }else if(  action=='gpt.dall-e-3'  && data.data.base64Array!=undefined ){ //执行变化
+        mlog("gp-image-1 base64Array ",data.data ,  data.data.base64Array   )
+     //let d= await gptFetch('/v1/images/edits', data.data);
+     const formData = new FormData( ); 
+     for(let o in data.data ){
+        if(o=='base64Array'){
+            for(let f of data.data.base64Array){
+                 formData.append('image[]', f.file )
+            }
+        }else{
+            formData.append(o, data.data[o])
+        }
+       
+
+     }
+    mlog("formData  ",  formData   )
+    
+    //const jda=    upd.data
+    try {
+        const ds = await gptUploadFile('/v1/images/edits', formData)
+        const d=ds.data;
+        if(ds.status!=200) throw "Fail with status:"+ ds.status
+        //const d= jda;
+        //mlog("gp-image-1 结果 ",  d   )
+    
+      
+        let key= 'dall:'+chat.myid;
+        const rz : any= d.data[0];
+        if(rz.b64_json){
+            const base64='data:image/png;base64,'+rz.b64_json;
+            await localSaveAny(base64,key)
+        }
+       
+        chat.text= rz.revised_prompt??`图片已完成`;
+        chat.opt={imageUrl:rz.url?rz.url: 'https://www.openai-hk.com/res/img/open.png' } ;
+        chat.loading = false;
+        homeStore.setMyData({act:'updateChat', actData:chat });
+    } catch (e) {
+        chat.text='失败！'+"\n```json\n"+ (d?JSON.stringify(d, null, 2):e) +"\n```\n";
+        chat.loading=false;
+        homeStore.setMyData({act:'updateChat', actData:chat });
+    }
+    
+
    }else if(  action=='gpt.dall-e-3' ){ //执行变化
        // chat.model= 'dall-e-3';
        
