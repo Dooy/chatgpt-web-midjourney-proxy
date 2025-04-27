@@ -308,8 +308,14 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
        let d= await gptFetch('/v1/images/generations', data.data);
        try{
             const rz : any= d.data[0];
+            let key= 'dall:'+chat.myid;
+      
+            if(rz.b64_json){
+                const base64='data:image/png;base64,'+rz.b64_json;
+                await localSaveAny(base64,key)
+            }
             chat.text= rz.revised_prompt??`图片已完成`;
-            chat.opt={imageUrl:rz.url } ;
+            chat.opt={imageUrl:rz.url?rz.url: 'https://www.openai-hk.com/res/img/open.png' } ;
             chat.loading = false;
             homeStore.setMyData({act:'updateChat', actData:chat });
        }catch(e){
