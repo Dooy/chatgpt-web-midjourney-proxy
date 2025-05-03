@@ -1,6 +1,8 @@
 # 功能升级日志
 
 #  计划 
+# 2.24.2
+- 😄 新增： suno `v4.5`  model 为 `chirp-auk`
 # 2.24.1
 - 😄 新增：gpt-image-1 dall.e-2 支持 v1/image/edit 支持多图
 - 🐞 改进：默认上传改为5M
