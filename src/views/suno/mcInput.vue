@@ -32,6 +32,7 @@ const mvOption= [
 {label: 'verion: v3.5',value: 'chirp-v3-5'}
 ,{label:'verion: v3',value: 'chirp-v3-0'}
 ,{label:'verion: v4',value: 'chirp-v4'}
+,{label:'verion: v4.5',value: 'chirp-auk'}
  ]
 
 const canPost = computed(() => {
@@ -97,6 +98,7 @@ const generate= async ()=>{
            if( exSuno.value?.metadata?.type=='upload') cs.value.task='upload_extend'
            else cs.value.task='extend'
         }
+        cs.value.prompt=''
         let r:any= await sunoFetch(  '/generate' ,  cs.value ) 
         st.value.isLoading =false;
 
