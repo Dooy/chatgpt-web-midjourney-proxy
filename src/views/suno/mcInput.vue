@@ -98,7 +98,7 @@ const generate= async ()=>{
            if( exSuno.value?.metadata?.type=='upload') cs.value.task='upload_extend'
            else cs.value.task='extend'
         }
-        cs.value.prompt=''
+       
         let r:any= await sunoFetch(  '/generate' ,  cs.value ) 
         st.value.isLoading =false;
 
@@ -106,7 +106,8 @@ const generate= async ()=>{
        mlog('ids ', ids );
        if( cs.value.mv='chirp-v3-5-upload' ) cs.value.mv='chirp-v4'
     }else{
-        des.value.prompt=cs.value.title;
+        des.value.prompt='';//cs.value.title;
+        // cs.value.prompt=''
         let r:any= await sunoFetch(  '/generate/description-mode' ,  des.value )  
         st.value.isLoading =false; 
         ids=r.clips.map((r:any)=>r.id);
