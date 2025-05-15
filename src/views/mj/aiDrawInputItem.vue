@@ -146,10 +146,12 @@ function createPrompt(rz:string){
     mlog('createPrompt ', rz,  f.value  );
     if( f.value.sref.trim() != '' ) rzp += ` --sref ${f.value.sref}`
     if( f.value.cref.trim() != '' ) rzp += ` --cref ${f.value.cref}`
-    if( f.value.oref.trim() != '' ) rzp += ` --oref ${f.value.oref}`
+    if(  f.value.oref &&  f.value.oref.trim() != '' ) rzp += ` --oref ${f.value.oref}`
     if( f.value.cw && f.value.cw!='' ) rzp += ` --cw ${f.value.cw}`
     if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}` 
     rz = rzk + rz +rzp;
+
+    // mlog('createPrompt over ', rz  );
     return rz ;
 }
 
