@@ -48,7 +48,7 @@ const qualityOption= [
 const durationOptions=[ {label:t('mj.duration')+':5s',value:5},{label:t('mj.duration')+':8s',value:8}]
 
 
-const f= ref({pe_index:-1, style:null, prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',model:'v4', duration:5,motion_mode:'normal'});
+const f= ref({pe_index:-1, style:null, prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',model:'v4.5', duration:5,motion_mode:'normal'});
 const st= ref({isLoading:false});
 const fsRef= ref() ; 
 const fsRef2= ref() ; 
