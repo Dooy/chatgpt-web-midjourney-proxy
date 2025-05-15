@@ -18,7 +18,8 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:'1:1'}
  ];
 
  const mvOption= [
-{label:'Verion: V4',value: 'v4'}
+{label:'Verion: V4.5',value: 'v4.5'}
+,{label:'Verion: V4',value: 'v4'}
  ,{label:'Verion: V3.5',value: 'v3.5'}
 // ,{label:'Verion: V3',value: 'v3'}
 // ,{label:'Verion: v2.5',value: 'v2.5'}
