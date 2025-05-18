@@ -8,6 +8,7 @@ import { getRandomInt } from '@/api/runwayml';
 import { pixFeed, pixFetch } from '@/api/pixverse';
 import { pixverseTask } from '@/api/pixverseStore';
 import pixEffacts from "./pixEffact.json";
+import pixCameras from "./pixCamera.json";
 
 
 const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:'1:1'}
@@ -48,7 +49,8 @@ const qualityOption= [
 const durationOptions=[ {label:t('mj.duration')+':5s',value:5},{label:t('mj.duration')+':8s',value:8}]
 
 
-const f= ref({pe_index:-1, style:null, prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:'',aspect_ratio:'1:1',model:'v4.5', duration:5,motion_mode:'normal'});
+const f= ref({pe_index:-1, style:null, prompt:'',quality:'360p',negative_prompt:'',image:'',image_tail:''
+,aspect_ratio:'1:1',model:'v4.5', duration:5,motion_mode:'normal',camera_movement:''});
 const st= ref({isLoading:false});
 const fsRef= ref() ; 
 const fsRef2= ref() ; 
@@ -63,6 +65,7 @@ const clearInput = ()=>{
     fsRef2.value='';
     f.value.pe_index= -1 ; 
     exItem.value= undefined
+    f.value.camera_movement=''
 }
 function selectFile(input:any){
    // fsFile.value= input.target.files[0];
@@ -115,6 +118,9 @@ const create= async()=>{
         }
          
     }
+    if(f.value.camera_movement ){
+        obj={...obj,camera_movement:f.value.camera_movement} 
+    }
     try {
         const d:any= await pixFetch('/generate' , obj  )
         mlog('img', d );
@@ -148,6 +154,12 @@ const pixEffact= computed(()=>{
     
     return pixEffacts;
 });
+
+const pixCamera = computed(()=>{
+    
+    return pixCameras;
+});
+
 </script>
 <template>
 <div class="p-2">  
@@ -202,11 +214,11 @@ const pixEffact= computed(()=>{
         </div>
     </div>  
 
-    <div class="pt-2 flex justify-start  items-end">
+    <div class="pt-2 flex items-end justify-between">
          <div>
             <NPopover trigger="hover">
                 <template #trigger>
-                    <div   class="h-[80px] w-[150px]  relative  overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" >
+                    <div   class="h-[70px] w-[120px]  relative  overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" >
                         <template v-if="f.pe_index>-1">
                             <img :src="pixEffact[f.pe_index].thumbnail_path"  />
                             <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{pixEffact[f.pe_index].display_name }}</div>
@@ -222,6 +234,32 @@ const pixEffact= computed(()=>{
                                  autoplay  loop  playsinline ></video> -->
                                   <img :src="item.thumbnail_path"  />
                                 <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{ item.display_name }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </NPopover>
+        </div>
+
+        <div>
+            <NPopover trigger="hover">
+                <template #trigger>
+                    <div   class="h-[70px] w-[120px]  relative  overflow-hidden rounded-sm border border-gray-400/20 flex justify-center items-center cursor-pointer" >
+                        <template v-if="f.camera_movement!='' ">
+                            <img :src="pixCamera.image[f.camera_movement]"  />
+                            <div class="absolute top-1 right-1 text-white/75 text-[14px]" >{{ pixCamera.name[f.camera_movement]??f.camera_movement }}</div>
+                        </template>
+                        <div class="text-center" v-else>运镜</div> 
+                    </div>
+                </template>
+                <div class="w-[320px] h-[400px] overflow-y-auto overflow-hidden mx-[-4px]">
+                    <div class="grid grid-cols-2 gap-2">
+                         <div v-for="(item, index) in pixCamera.image" :key="index"  @click="f.camera_movement=index" >
+                            <div class="relative   overflow-hidden cursor-pointer "  >
+                                <!-- <video class="h-[72px] w-full rounded-md object-cover"  :src="item.video"  :poster="item.poster" 
+                                 autoplay  loop  playsinline ></video> -->
+                                  <img :src="item"  />
+                                <div class="absolute bottom-1 right-1 text-white/75 text-[14px]" >{{ pixCamera.name[index]??index }}</div>
                             </div>
                         </div>
                     </div>
@@ -269,7 +307,7 @@ const pixEffact= computed(()=>{
 
      <section class="pt-2 flex justify-between items-end" >
         <div class="relative"> 
-            <div  class=" cursor-pointer pb-2" @click="clearInput"  v-if="f.image|| f.prompt || f.image_tail"><NTag type="success" size="small" :bordered="false" round  ><span class="cursor-pointer">{{$t('video.clear')}}</span></NTag></div>
+            <div  class=" cursor-pointer pb-2" @click="clearInput"  v-if="f.image|| f.prompt || f.image_tail||f.camera_movement"><NTag type="success" size="small" :bordered="false" round  ><span class="cursor-pointer">{{$t('video.clear')}}</span></NTag></div>
         </div>
         <div class="text-right">
 
