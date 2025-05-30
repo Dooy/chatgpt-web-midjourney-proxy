@@ -161,6 +161,10 @@ const bt= [
     ,{k:'upsample_v5_4x',n:t('mj.up4')} 
     ,{k:'upsample_v6_2x_subtle',n:t('mj.subtle')}//t('mj.up2') 'Subtle'
     ,{k:'upsample_v6_2x_creative',n:t('mj.creative')}  //'Creative'
+    ,{k:'upsample_v6r1_2x_subtle',n:t('mj.subtle')} 
+    ,{k:'upsample_v6r1_2x_creative',n:t('mj.creative')} 
+    ,{k:'upsample_v7_2x_subtle',n:t('mj.subtle')} 
+    ,{k:'upsample_v7_2x_creative',n:t('mj.creative')} 
     ]
 ]
 

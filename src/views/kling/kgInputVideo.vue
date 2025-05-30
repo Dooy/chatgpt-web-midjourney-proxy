@@ -29,6 +29,7 @@ const mvOption= [
 {label:'kling-v1-6',value: 'kling-v1-6'}
 ,{label:'kling-v1-5',value: 'kling-v1-5'}
 ,{label:'kling-v1',value: 'kling-v1'}
+,{label:'kling-v2-master',value: 'kling-v2-master'}
  ]
 
 function selectFile(input:any){
@@ -74,6 +75,10 @@ const createImg = async ()=>{
         }
         //  mlog('abc>> ',  abc  );
         // return 
+        if (abc.model=='kling-v2-master') {
+            delete abc.mode;
+        }
+
         const d:any= await klingFetch('/v1/videos/'+ cat , abc  )
         mlog('img', d );
         klingFeed( d.data.task_id , cat ,  f.value.prompt )
