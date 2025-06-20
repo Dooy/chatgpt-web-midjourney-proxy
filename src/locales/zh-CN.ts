@@ -372,6 +372,11 @@ export default {
   
    ,server_load:'服务端获取'
    ,model_select:'模型选择'
+
+   ,riffabout:'Riffusion 相关'
+   ,riffkeyPlaceholder:'Riffusion 的API Key 可不填'
+   ,riffserver:'Riffusion 接口地址'
+   ,riffinfo:'说明'
   },
 
 	draw: {

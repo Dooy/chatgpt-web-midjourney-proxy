@@ -237,6 +237,28 @@ const changCustom = ()=>{
 //     return ''
 // });
 
+const otherButton= computed(()=>{
+    //mlog('otherButton');
+    
+    if( chat.value.opt?.buttons && chat.value.opt?.buttons.length>0){
+     
+        let  rz= [...chat.value.opt?.buttons]
+        // mlog('otherButton222',rz.length );
+        for(let bts of bt ){
+            for(let ib of bts){
+                let i= getIndex(rz, ib)
+                if(i>-1) rz.splice(i,1)
+            }
+        }
+        let i= rz.findIndex(v=>v.customId.indexOf('BOOKMARK')>-1) //BOOKMARK
+        if(i>-1) rz.splice(i,1)
+        //mlog('otherButton2323',rz.length,rz );
+        return rz 
+
+    }
+    return []
+})
+
 load();
 </script>
 <template>
@@ -260,6 +282,13 @@ load();
                     </div>
                     </template>
                 </div>
+                <div v-if="otherButton.length>0" class=" flex justify-start items-center flex-wrap " >
+                    
+                     <div class="p-1"  v-for="ib in otherButton"> 
+                        <NButton  @click="subV2(ib)" size="small" type="info" >{{  ib.emoji??''  }}{{ ib.label??'' }}  </NButton>
+                    </div>
+                </div>
+                 
             </template>
             <template v-else-if="chat.opt?.action==='UPSCALE' || 'DESCRIBE'===chat.opt?.action"></template>
             <template v-else>

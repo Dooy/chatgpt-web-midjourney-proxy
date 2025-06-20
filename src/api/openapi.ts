@@ -604,6 +604,7 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 PIKA_SERVER:url,
                 UDIO_SERVER:url,
                 PIXVERSE_SERVER:url,
+                RIFF_SERVER:url,
                 
                 
                 
@@ -618,6 +619,7 @@ export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
                 PIKA_KEY:key,
                 UDIO_KEY:key,
                 PIXVERSE_KEY:key,
+                RIFF_KEY:key,
              } )
             blurClean();
             gptServerStore.setMyData( gptServerStore.myData );

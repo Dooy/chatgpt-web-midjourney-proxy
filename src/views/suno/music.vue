@@ -5,6 +5,8 @@ import mcList from './mcList.vue';
 import mcplayer from './mcplayer.vue';
 import { NTabs,NTabPane} from "naive-ui"
 
+import RiffInput from './riffInput.vue';
+import RiffList from './riffList.vue';
 import udioInput from './udioInput.vue';
 import udioList from './udioList.vue';
 import { gptServerStore } from '@/store';
@@ -22,7 +24,7 @@ const initLoad=()=>{
     if(route.query.tab){ 
         st.value.tab= 'suno' 
         let tt= (route.query.tab as string).toLocaleLowerCase();
-        if( ['suno','udio'].indexOf(tt)>-1 ){
+        if( ['suno','udio','riff'].indexOf(tt)>-1 ){
            st.value.tab=tt;
         }
 
@@ -46,7 +48,10 @@ initLoad();
          <n-tab-pane name="suno" tab="Suno"> 
             <McInput /> 
          </n-tab-pane>
-          <n-tab-pane name="udio" tab="Udio"> 
+         <n-tab-pane name="riff" tab="Riffusion"> 
+            <RiffInput/>
+         </n-tab-pane>
+         <n-tab-pane name="udio" tab="Udio"> 
             <udioInput/>
          </n-tab-pane>
            
@@ -54,6 +59,7 @@ initLoad();
     </div>
     <div class=" flex-1  h-full bg-[#fafbfc] pt-2 dark:bg-[#18181c] overflow-y-auto " >
         <udioList  v-if="gptServerStore.myData.TAB_MUSIC=='udio'"/>
+        <RiffList  v-else-if="gptServerStore.myData.TAB_MUSIC=='riff'" />
         <mcList  v-else />
        
     </div>

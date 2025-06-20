@@ -118,6 +118,8 @@ export interface gptServerType{
     UDIO_KEY:string
     PIXVERSE_SERVER:string
     PIXVERSE_KEY:string
+    RIFF_SERVER:string
+    RIFF_KEY:string
     IS_SET_SYNC?:boolean
     GPTS_GX?:boolean
     IS_LUMA_PRO?:boolean

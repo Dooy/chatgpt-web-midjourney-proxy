@@ -5,6 +5,7 @@ import { homeStore } from '@/store';
 import { NImage,NEmpty } from 'naive-ui';
 import {SvgIcon} from '@/components/common'
 import { udioTask } from '@/api/udioStore';
+import { riffTask } from '@/api/riffStore';
 
 //const pObj= ref<SunoMedia>()
 const pObj= ref({image_large_url:'',title:'',tags:'',prompt:'' })
@@ -26,6 +27,16 @@ watch(()=>homeStore.myData.act, (n)=>{
         pObj.value.tags= a.tags?a.tags.join(','):''
         pObj.value.prompt= a.lyrics || a.prompt
         pObj.value.title= a.title
+    }
+    if(n=='goPlayRiff'){
+      let data = homeStore.myData.actData
+        //mlog('goPlayUdio' , data );
+        let a = data as riffTask
+        if(!a.riff) return
+        pObj.value.image_large_url= a.riff.image_url??''
+        pObj.value.tags= a.riff.sound??''
+        pObj.value.prompt= a.riff.lyrics??''
+        pObj.value.title= a.riff.title??'No title'
     }
 })
 </script>

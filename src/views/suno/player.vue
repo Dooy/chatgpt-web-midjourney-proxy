@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { mlog } from '@/api';
+import { riffTask } from '@/api/riffStore';
 import { SunoMedia } from '@/api/sunoStore';
 import { udioTask } from '@/api/udioStore';
 import { homeStore } from '@/store';
@@ -66,6 +67,17 @@ watch(()=>homeStore.myData.act, (n)=>{
         mlog('goPlayUdio' , data );
         let abc = data as udioTask
         pObj.value.audio_url=abc.song_path
+        goPlay();
+    }
+    if( n=="goPlayRiff"){
+         let data = homeStore.myData.actData
+        mlog('goPlayUdio' , data );
+        let abc = data as riffTask
+        if(!abc.riff?.audio_url){
+            //ms.info(t('mj.ud_doing'))
+            return
+        }
+        pObj.value.audio_url=abc.riff?.audio_url??''
         goPlay();
     }
     if(n=='playUpdate'){

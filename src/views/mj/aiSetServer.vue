@@ -275,6 +275,23 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
 
 
 
+      <div class="text-right">{{ $t('mj.riffabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.RIFF_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.riffserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.riffkeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.RIFF_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Riffusion Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+
 
 
       <div  class="text-right" > {{$t('mj.setUploader')}}</div>
