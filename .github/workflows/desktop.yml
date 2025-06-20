@@ -76,7 +76,7 @@ jobs:
         run: |
           yarn config set registry https://registry.npmjs.org/
           yarn cache clean
-          yarn install --frozen-lockfile
+          yarn install
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
