@@ -57,7 +57,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'yarn'
+          cache: 'pnpm'
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
