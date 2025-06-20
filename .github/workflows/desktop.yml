@@ -73,10 +73,13 @@ jobs:
       - name: install frontend dependencies
         #run: yarn config set registry https://registry.npmjs.org/ && yarn install
         #run: yarn install # change this to npm or pnpm or yarn depending on which one you use
+        # run: |
+        #   yarn config set registry https://registry.npmjs.org/
+        #   yarn cache clean
+        #   yarn install
         run: |
-          yarn config set registry https://registry.npmjs.org/
-          yarn cache clean
-          yarn install
+          npm install -g pnpm
+          pnpm install
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
