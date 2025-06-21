@@ -35,6 +35,7 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
     gptServerStore.myData.PIKA_SERVER=n;
     gptServerStore.myData.PIXVERSE_SERVER=n;
     gptServerStore.myData.UDIO_SERVER=n;
+    gptServerStore.myData.RIFF_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
@@ -48,6 +49,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     gptServerStore.myData.PIKA_KEY=n;
     gptServerStore.myData.PIXVERSE_KEY=n;
     gptServerStore.myData.UDIO_KEY=n;
+    gptServerStore.myData.RIFF_KEY=n;
 });
 </script>
 <template>
