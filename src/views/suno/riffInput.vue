@@ -34,11 +34,15 @@ const canPost = computed(() => {
 })
  const generate= async()=>{
     let r:any
-     st.value.isLoading =true;
-    if(st.value.type=='custom'){ 
-        r= await riffFetch(  '/generate' ,  cs.value )  
-    }else{
-        r= await riffFetch(  '/generate/topic' ,  des.value ) 
+    st.value.isLoading =true;
+    try {
+        if(st.value.type=='custom'){ 
+            r= await riffFetch(  '/generate' ,  cs.value )  
+        }else{
+            r= await riffFetch(  '/generate/topic' ,  des.value ) 
+        }
+    } catch (error) {
+        
     }
     st.value.isLoading =false;
     mlog('r:',r)
