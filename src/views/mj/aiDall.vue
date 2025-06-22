@@ -11,11 +11,14 @@ const config = ref( {
 model:[
 {  "label": "DALL·E 3", "value": "dall-e-3" }
  ,{  "label": "GPT-Image-1", "value": "gpt-image-1" }
+ ,{  "label": "flux-kontext-pro", "value": "flux-kontext-pro" }
+ ,{  "label": "flux-kontext-max", "value": "flux-kontext-max" }
  ,{  "label": "DALL·E 2", "value": "dall-e-2" }
  ,{  "label": "Flux", "value": "flux" }
  ,{  "label": "Flux-Dev", "value": "flux-dev" }
  ,{  "label": "Flux-Pro", "value": "flux-pro" }
- ,{  "label": "Flux.1.1-Pro", "value": "flux.1.1-pro" }
+ ,{  "label": "Flux-Pro-1.1", "value": "flux-pro-1.1" }
+ ,{  "label": "Flux-Pro-1.1-Ultra", "value": "flux-pro-1.1-ultra" }
 ]
 });
 interface myFile{
@@ -117,6 +120,7 @@ watch(()=>f.value.model,(n)=>{
 const isCanImageEdit= computed(()=>{
     if(f.value.model=='dall-e-2') return true;
     if(f.value.model=='gpt-image-1') return true;
+    if(f.value.model.indexOf('kontext')>-1) return true;
     return false;
 })
 
