@@ -377,6 +377,10 @@ export default {
    ,riffkeyPlaceholder:'Riffusion 的API Key 可不填'
    ,riffserver:'Riffusion 接口地址'
    ,riffinfo:'说明'
+
+   ,editImage:'图片编辑'
+   ,editVideo:'图生视频'
+   ,moreset:'更多参数'
   },
 
 	draw: {

@@ -79,6 +79,20 @@ async function onConversation() {
      addChat(  +uuid, promptMsg );
      //return ;
 
+   
+  }else if( message.action && (message.action=='mj.edit.video'||  message.action=='mj.edit.image') ){ //'视频，图片编辑'
+   const  str=message.action=='mj.edit.image'?t('mj.editImage'):t('mj.editVideo')
+   let promptMsg: Chat.Chat= getInitChat(str+":\n"+message.data.prompt+"\n\n" );
+   try{
+          //let images= await localSaveAny( JSON.stringify( message.data.image )  ) ;
+          let images= await localSaveAny( JSON.stringify( {fileName:["a.jpg"], fileBase64:[ message.data.image ]} )  ) ;
+          mlog('mj.edit.video key', images );
+          promptMsg.opt= {images:[images]}
+     }catch(e){
+         mlog('mj.edit.video localSaveAny error ',e);
+     }
+     addChat(  +uuid, promptMsg );
+
   }else if( message.action && message.action=='blend' ){
      // promptMsg.opt={  images: message.fileBase64 }
      let promptMsg: Chat.Chat= getInitChat(t('mjchat.blend') );//'混图'

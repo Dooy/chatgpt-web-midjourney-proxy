@@ -260,8 +260,16 @@ export default {
         "pixabout": "Pixverse ile ilgili",
         "pixkeyPlaceholder": "Pixverse API Anahtarı boş bırakılabilir",
         "pixserver": "Pixverse API adresi",
-        "pixinfo": " Açıklama:<br> <ul> <li>1. v3.5 360p süre 5s Normal moduna dayanmaktadır</li><li>2. v2.5 0.5 katıdır</li> <li>3. Süre 10s 2 katıdır</li> <li>4. 540P 1.5 kat, 720P 2 kat, 1080P 4 katıdır</li> <li>5. Performans modu 2 katıdır</li> <li>6. Katlar çarpılır, örneğin 720P süre 10s 2*2 yani 4 katıdır, eğer performansı eklersek 8 kat olur</li></ul>"
+        "pixinfo": " Açıklama:<br> <ul> <li>1. v3.5 360p süre 5s Normal moduna dayanmaktadır</li><li>2. v2.5 0.5 katıdır</li> <li>3. Süre 10s 2 katıdır</li> <li>4. 540P 1.5 kat, 720P 2 kat, 1080P 4 katıdır</li> <li>5. Performans modu 2 katıdır</li> <li>6. Katlar çarpılır, örneğin 720P süre 10s 2*2 yani 4 katıdır, eğer performansı eklersek 8 kat olur</li></ul>",
 
+        "riffabout": "Riffusion Hakkında",
+        "riffkeyPlaceholder": "Riffusion API Anahtarı (isteğe bağlı)",
+        "riffserver": "Riffusion API Adresi",
+        "riffinfo": "Açıklama",
+        
+        "editImage": "Görüntü Düzenleme",
+        "editVideo": "Görüntüden Videoya",
+        "moreset": "Daha Fazla Parametre",
     },
     "mjset": {
         "server": "Sunucu",

@@ -1,5 +1,7 @@
 declare namespace Chat {
-
+	interface VideoUrl{
+		url:string
+	}
 	interface Chat {
 		dateTime: string
 		text: string
@@ -17,6 +19,8 @@ declare namespace Chat {
 			,action?:string
 			,duration?:number
 			,lkey?:string
+			,videoUrls?:VideoUrl[]
+			,imageUrls?:VideoUrl[]
 		} //
 		uuid?:number
 		index?:number

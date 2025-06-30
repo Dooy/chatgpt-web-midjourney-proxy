@@ -260,8 +260,16 @@ export default {
         "pixabout": "Lié à Pixverse",
         "pixkeyPlaceholder": "La clé API de Pixverse peut être laissée vide",
         "pixserver": "Adresse de l'API Pixverse",
-        "pixinfo": " Description :<br> <ul> <li>1. Basé sur v3.5 360p durée 5s mode Normal</li><li>2. v2.5 est 0,5 fois</li> <li>3. Durée 10s est 2 fois</li> <li>4. 540P est 1,5 fois, 720P est 2 fois, 1080P est 4 fois</li> <li>5. Mode performance est 2 fois</li> <li>6. Les multiplicateurs se multiplient, par exemple, 720P durée 10s est 2*2 ce qui fait 4 fois, et si vous ajoutez performance, cela devient 8 fois</li></ul>"
+        "pixinfo": " Description :<br> <ul> <li>1. Basé sur v3.5 360p durée 5s mode Normal</li><li>2. v2.5 est 0,5 fois</li> <li>3. Durée 10s est 2 fois</li> <li>4. 540P est 1,5 fois, 720P est 2 fois, 1080P est 4 fois</li> <li>5. Mode performance est 2 fois</li> <li>6. Les multiplicateurs se multiplient, par exemple, 720P durée 10s est 2*2 ce qui fait 4 fois, et si vous ajoutez performance, cela devient 8 fois</li></ul>",
 
+        "riffabout": "À propos de Riffusion",
+        "riffkeyPlaceholder": "Clé API Riffusion (facultative)",
+        "riffserver": "URL de l'API Riffusion",
+        "riffinfo": "Description",
+        
+        "editImage": "Édition d'image",
+        "editVideo": "Image vers vidéo",
+        "moreset": "Paramètres supplémentaires",
 
     },
     "mjset": {

@@ -260,7 +260,16 @@ export default {
     "pixabout": "Pixverse 관련",
     "pixkeyPlaceholder": "Pixverse API 키는 비워둘 수 있습니다",
     "pixserver": "Pixverse API 주소",
-    "pixinfo": " 설명:<br> <ul> <li>1. v3.5 360p 지속시간 5초 모드 Normal을 기준으로 함</li><li>2. v2.5는 0.5배입니다</li> <li>3. 지속시간 10초는 2배입니다</li> <li>4. 540P는 1.5배, 720P는 2배, 1080P는 4배입니다</li> <li>5. 성능 모드는 2배입니다</li> <li>6. 배수는 곱해지며, 예를 들어 720P 지속시간 10초는 2*2로 4배가 되고, 성능을 추가하면 8배가 됩니다</li></ul>"
+    "pixinfo": " 설명:<br> <ul> <li>1. v3.5 360p 지속시간 5초 모드 Normal을 기준으로 함</li><li>2. v2.5는 0.5배입니다</li> <li>3. 지속시간 10초는 2배입니다</li> <li>4. 540P는 1.5배, 720P는 2배, 1080P는 4배입니다</li> <li>5. 성능 모드는 2배입니다</li> <li>6. 배수는 곱해지며, 예를 들어 720P 지속시간 10초는 2*2로 4배가 되고, 성능을 추가하면 8배가 됩니다</li></ul>",
+
+    "riffabout": "Riffusion 관련",
+    "riffkeyPlaceholder": "Riffusion API 키 (선택 사항)",
+    "riffserver": "Riffusion API 주소",
+    "riffinfo": "설명",
+
+    "editImage": "이미지 편집",
+    "editVideo": "이미지에서 비디오 생성",
+    "moreset": "추가 설정",
  
   },
   "mjset": {

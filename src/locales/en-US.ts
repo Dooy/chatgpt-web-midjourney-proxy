@@ -269,6 +269,11 @@ export default {
    ,riffabout:'About Riffusion'
    ,riffkeyPlaceholder:'Riffusion API Key can be left blank'
    ,riffserver:'Riffusion API address'
+   ,riffinfo:'Riffusion Description'
+
+   ,editImage:'Image Edit'
+   ,editVideo:'Image2Video'
+   ,moreset:'More Parameters'
   },
   "mjset": {
     "server": "Server",

@@ -7,6 +7,9 @@ import { homeStore } from '@/store'
 import aiCanvas from './aiCanvas.vue'
 import MarkdownIt from 'markdown-it'
 import {t} from "@/locales"
+import { SvgIcon } from '@/components/common'
+import AiEditVidoe from './aiEditVidoe.vue'
+import AiEditImage from './aiEditImage.vue'
 
 interface Props { 
   chat:Chat.Chat
@@ -15,8 +18,9 @@ interface Props {
  const { isMobile } = useBasicLayout()
 const ms = useMessage();
 const props = defineProps<Props>();
-const st = ref( { isLoadImg:false, uri_base64:'', bts:[],isShow:false, isCustom:false ,customText:''})
+const st = ref( { isLoadImg:false, uri_base64:'', bts:[],isShow:false, isCustom:false ,customText:'',ctrIndex:-1})
 
+const mst= ref({isShow:false,type:''});
 const reload= ()=>{
     flechTask(chat.value);
 }
@@ -185,7 +189,8 @@ const load = async (isFlash=false )=>{
      if(!chat.value.mjID) return ;
      let key= 'img:'+chat.value.mjID;
     try {
-        if(chat.value.opt?.imageUrl){
+        if(chat.value.opt?.videoUrls || chat.value.opt?.imageUrls){
+        } else if(chat.value.opt?.imageUrl){
             //await loadImg(chat.value.opt?.imageUrl);
             let base64 = await localGet(key );  
             if(!base64 || isFlash ) {
@@ -259,6 +264,11 @@ const otherButton= computed(()=>{
     return []
 })
 
+const subV3=(type:string)=>{
+    mst.value.isShow= true
+    mst.value.type= type
+}
+
 load();
 </script>
 <template>
@@ -272,7 +282,23 @@ load();
              
         </div> 
         <div v-else-if="chat.opt?.action!='IMAGINE'" class="py-2 text-[#666]  whitespace-pre-wrap">{{ chat.opt?.promptEn }} (<span v-html="chat.opt?.action"></span>)</div> 
-        <NImage v-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64: mjImgUrl( chat.opt.imageUrl)" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
+        <div v-if="chat.opt.videoUrls"  class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-2" >
+            <div v-for="(v,k) in chat.opt.videoUrls" class="relative"  @mouseover="st.ctrIndex=k" >
+                <div class="relative flex items-center justify-center bg-white bg-opacity-10 rounded-[8px] overflow-hidden aspect-[16/8.85]">
+                    <video  :src="v.url" :controls="st.ctrIndex==k"  loop playsinline class="w-full h-full object-cover"></video>
+                </div>
+                <a class="absolute top-[8px] right-[8px] cursor-pointer" target="_blank" :href="v.url" :download="(k+1)+'.mp4'"><SvgIcon icon="mdi:download" /></a>
+            </div>
+        </div>
+        <div v-else-if="chat.opt.imageUrls" class="grid grid-cols-2 grid-rows-2 gap-0 max-w-[500px]" >
+             <div v-for="(v,k) in chat.opt.imageUrls" class="relative aspect-square overflow-hidden"  @mouseover="st.ctrIndex=k" >
+                 
+                 <NImage  :src="v.url"     class="w-full h-full object-cover"/>
+                 
+                <a class="absolute top-[8px] right-[8px] cursor-pointer" target="_blank" :href="v.url" :download="(k+1)+'.mp4'"><SvgIcon icon="mdi:download" /></a>
+            </div>
+        </div>
+        <NImage v-else-if="chat.opt.imageUrl" :src="st.uri_base64?st.uri_base64: mjImgUrl( chat.opt.imageUrl)" class=" rounded-sm " :class="[isMobile?'':'!max-w-[500px]']"  /> 
         <div v-if="chat.opt?.status=='SUCCESS' " class=" space-y-2"  >
             <template v-if="chat.opt?.buttons">
                 <div v-for="(bts,ii) in bt" class=" flex justify-start items-center flex-wrap "> 
@@ -288,6 +314,12 @@ load();
                         <NButton  @click="subV2(ib)" size="small" type="info" >{{  ib.emoji??''  }}{{ ib.label??'' }}  </NButton>
                     </div>
                 </div>
+
+                <div class=" flex justify-start items-center flex-wrap " v-if="chat.opt?.action==='UPSCALE' || 'DESCRIBE'===chat.opt?.action">
+                    <div class="p-1"><NButton  @click="subV3('video')" size="small" type="info" > <SvgIcon icon="ri:video-add-line"  />{{ $t('mj.editVideo') }}</NButton> </div>  
+                    <div class="p-1"><NButton  @click="subV3('image')" size="small" type="info" >{{ $t('mj.editImage') }}</NButton></div>
+                </div>
+
                  
             </template>
             <template v-else-if="chat.opt?.action==='UPSCALE' || 'DESCRIBE'===chat.opt?.action"></template>
@@ -330,6 +362,11 @@ load();
                 <div class="text-neutral-500">{{ $t('mj.zoominfo') }}</div>   
                 <NButton type="primary"    size="small" @click="subCustom">{{ $t('mjchat.submit') }}</NButton> 
           </div>
+    </NModal>
+
+    <NModal v-model:show="mst.isShow"   preset="card"  :title=" mst.type=='video'?$t('mj.editVideo'):$t('mj.editImage')" style="max-width: 800px;" @close="mst.isShow=false">
+          <AiEditVidoe :chat="chat" :img="st.uri_base64" @success="mst.isShow=false"  v-if="mst.isShow && mst.type=='video'"   />
+          <AiEditImage :chat="chat" :img="st.uri_base64" @success="mst.isShow=false"  v-if="mst.isShow && mst.type=='image'"   />
     </NModal>
 </div>
 <div v-else class="w-[200px] h-[150px] flex flex-col justify-center items-center" >

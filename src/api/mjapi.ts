@@ -273,8 +273,12 @@ export const subTask= async (data:any, chat:Chat.Chat )=>{
         d=  await mjFetch('/mj/insight-face/swap' , data.data  ); 
         //mlog('换年服务', data.data );
         //return; 
+    }else if( data.action && data.action=='mj.edit.image') { //图编辑
+       d=  await mjFetch('/mj/submit/edits' , data.data  ); 
+    }else if( data.action &&data.action=='mj.edit.video') { //图生视频
+        d=  await mjFetch('/mj/submit/video' , data.data  ); 
     }else if( data.action &&data.action=='img2txt') { //图生文 
-            d=  await mjFetch('/mj/submit/describe' , data.data  ); 
+        d=  await mjFetch('/mj/submit/describe' , data.data  ); 
     }else if( data.action &&data.action=='changeV2') { //执行动作！
         d=  await mjFetch('/mj/submit/action' , data.data  );
         if  (d.description&&  d.description.indexOf('confirm')>-1){
