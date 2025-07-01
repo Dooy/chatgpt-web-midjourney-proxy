@@ -289,6 +289,7 @@ const selectFile3=  (input:any)=>{
             mst.value.isShow=true;
             mst.value.type=st.value.upType;
             mst.value.base64=d;
+            fsRef3.value.value='';
             return 
         }
         let data={
