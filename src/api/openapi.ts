@@ -466,13 +466,13 @@ export const subModel= async (opt: subModelType)=>{
                         const obj= JSON.parse(data );
                         if( obj.choices[0].delta?.reasoning_content ){
                             if (!is_reasoning_content){
-                                opt.onMessage({text:"<think>\n"  ,isFinish: false})
+                                opt.onMessage({text:"\n<think>\n"  ,isFinish: false})
                             }
                             opt.onMessage({text:obj.choices[0].delta?.reasoning_content  ,isFinish:obj.choices[0].finish_reason!=null })
                             is_reasoning_content=true
                         }else{
                             if(is_reasoning_content){
-                                 opt.onMessage({text:"\n</think>" ,isFinish: false})
+                                 opt.onMessage({text:"\n</think>\n" ,isFinish: false})
                             }
                             is_reasoning_content=false
                             opt.onMessage({text:obj.choices[0].delta?.content??'' ,isFinish:obj.choices[0].finish_reason!=null })
