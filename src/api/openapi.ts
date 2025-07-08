@@ -453,6 +453,8 @@ export const subModel= async (opt: subModelType)=>{
         headers={...headers,...getHeaderAuthorization()}
 
         try {
+            let is_reasoning_content=false
+
             await fetchSSE( gptGetUrl('/v1/chat/completions'),{
                 method: 'POST',
                 headers: headers,
@@ -462,7 +464,19 @@ export const subModel= async (opt: subModelType)=>{
                     if(data=='[DONE]') opt.onMessage({text:'',isFinish:true})
                     else {
                         const obj= JSON.parse(data );
-                        opt.onMessage({text:obj.choices[0].delta?.content??'' ,isFinish:obj.choices[0].finish_reason!=null })
+                        if( obj.choices[0].delta?.reasoning_content ){
+                            if (!is_reasoning_content){
+                                opt.onMessage({text:"<think>\n"  ,isFinish: false})
+                            }
+                            opt.onMessage({text:obj.choices[0].delta?.reasoning_content  ,isFinish:obj.choices[0].finish_reason!=null })
+                            is_reasoning_content=true
+                        }else{
+                            if(is_reasoning_content){
+                                 opt.onMessage({text:"\n</think>" ,isFinish: false})
+                            }
+                            is_reasoning_content=false
+                            opt.onMessage({text:obj.choices[0].delta?.content??'' ,isFinish:obj.choices[0].finish_reason!=null })
+                        }
                     }
                 },
                 onError(e ){
