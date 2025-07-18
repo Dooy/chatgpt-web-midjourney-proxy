@@ -14,12 +14,12 @@ const exSuno= ref<SunoMedia>()
 const des= ref( {
   "gpt_description_prompt": "",
   "make_instrumental": false,
-  "mv": "chirp-bluejay-t1",
+  "mv": "chirp-bluejay",
   "prompt": ""
 });
 const cs= ref({
   "prompt": "",
-  "mv": "chirp-bluejay-t1",
+  "mv": "chirp-bluejay",
   "title": "",
   "tags": "",
   "continue_at": 120,
@@ -33,7 +33,7 @@ const mvOption= [
 ,{label:'verion: v3',value: 'chirp-v3-0'}
 ,{label:'verion: v4',value: 'chirp-v4'}
 ,{label:'verion: v4.5',value: 'chirp-auk'}
-,{label:'verion: v4.5+',value: 'chirp-bluejay-t1'}
+,{label:'verion: v4.5+',value: 'chirp-bluejay'}
  ]
 
 const canPost = computed(() => {
