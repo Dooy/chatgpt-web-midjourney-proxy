@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref ,computed,watch} from 'vue';
-import {useMessage, NButton,NSelect,NInput, NImage} from 'naive-ui';
+import {useMessage, NButton,NSelect,NInput, NImage, c} from 'naive-ui';
 import {gptFetch, mlog, upImg} from '@/api'
 import { homeStore } from '@/store';
 import { SvgIcon } from '@/components/common';
@@ -30,8 +30,14 @@ const fsRef= ref() ;
 const base64Array= ref<myFile[]>([]);    
 const f = ref({size:'1024x1024', prompt:'',"model": "dall-e-3","n": 1});
 const isDisabled= computed(()=>{
-    if(st.value.isGo) return true;
-    if(f.value.prompt.trim()=='') return true;
+    if(st.value.isGo) {
+        //console.log('st.value.isGo',st.value.isGo);
+        return true;
+    }
+    if(f.value.prompt.trim()=='') {
+        //console.log('prompt',"空");
+        return true;
+    }
     return false;
 });
 const create= async ()=>{
@@ -134,7 +140,7 @@ const selectFile=(input:any)=>{
             return ;
         }
         base64Array.value.push({file: ff ,base64:d});
-        if(base64Array.value.length>1) st.value.isGo=true;
+        //if(base64Array.value.length>1) st.value.isGo=true;
         //if(st)
     }).catch(e=>ms.error(e));
 }
