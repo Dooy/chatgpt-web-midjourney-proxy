@@ -17,7 +17,7 @@ import FormData  from 'form-data'
 import axios from 'axios';
 import AWS  from 'aws-sdk';
 import { v4 as uuidv4} from 'uuid';
-import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo, klingProxy, pikaProxy, udioProxy, runwaymlProxy, pixverseProxy, sunoProxy } from './myfun'
+import { viggleProxyFileDo,viggleProxy, lumaProxy, runwayProxy, ideoProxy, ideoProxyFileDo, klingProxy, pikaProxy, udioProxy, runwaymlProxy, pixverseProxy, sunoProxy, GptImageEdit } from './myfun'
 
 
 const app = express()
@@ -300,7 +300,8 @@ app.use(
   }
 );
 
- 
+//代理图片编辑
+app.use('/openapi/v1/images/edits',authV2,upload2.any() , GptImageEdit )
 
 //代理openai 接口
 app.use('/openapi' ,authV2, turnstileCheck, proxy(API_BASE_URL, {

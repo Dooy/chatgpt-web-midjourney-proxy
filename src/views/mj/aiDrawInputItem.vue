@@ -15,6 +15,7 @@ import {t} from "@/locales"
 //import { upImg } from "./mj";
 import AiEditVidoe from './aiEditVidoe.vue'
 import AiEditImage from './aiEditImage.vue'
+import { key } from "localforage";
 
 const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 ,{s:'width: 100%; height: 75%;',label:'4:3'}
@@ -23,8 +24,14 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1'}
 ,{s:'width: 50%; height: 100%;',label:'9:16'}
  ];
 
+const bsOption=[
+    {value:0,key:0,label:'未使用'}
+    ,{value:4,key:4,label:'4个'}
+    ,{value:2,key:2,label:'2个 单价1/2'}
+    ,{value:1,key:1,label:'1个 单价1/4'}
+];
 const f=ref({bili:-1, quality:'',view:'',light:'',shot:'',style:'', styles:'',version:'--v 7.0'
-,sref:'',cref:'',cw:'',oref:'' });
+,sref:'',cref:'',cw:'',oref:'',vidoeImage:'',videoBs:0 });
 const st =ref({text:'',isDisabled:false,isLoad:false
     ,fileBase64:[],bot:'',showFace:false,upType:''
 });
@@ -112,6 +119,7 @@ function createPrompt(rz:string){
         msgRef.value.showError(t('mjchat.placeInput') );
         return '';
     }
+    const oloadRz=rz
 
 
     // for(let v of farr){
@@ -151,6 +159,12 @@ function createPrompt(rz:string){
     if(  f.value.oref &&  f.value.oref.trim() != '' ) rzp += ` --oref ${f.value.oref}`
     if( f.value.cw && f.value.cw!='' ) rzp += ` --cw ${f.value.cw}`
     if (f.value.bili > -1) rzp += ` --ar ${vf[f.value.bili].label}` 
+    if(f.value.videoBs>0){
+        if (f.value.vidoeImage) rzk += ` ${f.value.vidoeImage} `
+        rz = ` ${oloadRz} --bs ${f.value.videoBs} `
+        rzp=` --video `
+       
+    }
     rz = rzk + rz +rzp;
 
     // mlog('createPrompt over ', rz  );
@@ -271,6 +285,8 @@ const clearAll=()=>{
   f.value.cw='';
   f.value.sref='';
   f.value.oref='';
+  f.value.vidoeImage='';
+  f.value.videoBs=0;
 }
 
 const uploader=(type:string)=>{
@@ -307,6 +323,8 @@ const selectFile3=  (input:any)=>{
             if(d.code== 1){
                 if( st.value.upType=='cref'){
                     f.value.cref= d.result[0];
+                }else if(st.value.upType=='vidoeImage' ){
+                   f.value.vidoeImage= d.result[0];
                 }else if(st.value.upType=='oref' ){
                     f.value.oref= d.result[0];
                 }else{
@@ -394,6 +412,20 @@ const selectFile3=  (input:any)=>{
                 </template>
             </NInput>
         </section>
+
+        <section class="mb-4 flex justify-between items-center"  >
+          <div >视频</div>
+          <n-select v-model:value="f.videoBs" :options="bsOption" size="small"  class="!w-[60%]" :clearable="true" />
+        </section>
+        <section class="mb-4 flex justify-between items-center" v-if="f.videoBs>0" >
+        <div class="w-[45px]">Video</div>
+            <NInput  v-model:value="f.vidoeImage" size="small" placeholder="视频参考 url" clearable>
+                <template #suffix>
+                    <SvgIcon icon="ri:upload-line" class="cursor-pointer"  @click="uploader('vidoeImage')"></SvgIcon>
+                </template>
+            </NInput>
+        </section>
+
             
       </n-collapse-item>
     </n-collapse>

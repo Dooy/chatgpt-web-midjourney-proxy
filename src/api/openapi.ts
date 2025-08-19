@@ -50,6 +50,9 @@ export const KnowledgeCutOffDate: Record<string, string> = {
   "gpt-4.5-preview": "2024-10",
   "deepseek-v3": "2023-12",
   "deepseek-r1": "2023-12",
+  "gpt-5": "2024-10",
+  "gpt-5-mini": "2024-06",
+  "gpt-5-nano": "2024-06",
   "gemini-pro-1.5": "2024-04"
 };
 
@@ -399,7 +402,7 @@ return DEFAULT_SYSTEM_TEMPLATE;
 }
 
 export const isNewModel=(model:string)=>{
-    return model.startsWith('o1-')
+    return model.startsWith('o1-') ||   model.includes('gpt-5')
 }
 export const subModel= async (opt: subModelType)=>{
     //
