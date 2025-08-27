@@ -13,6 +13,7 @@ model:[
  ,{  "label": "GPT-Image-1", "value": "gpt-image-1" }
  ,{  "label": "flux-kontext-pro", "value": "flux-kontext-pro" }
  ,{  "label": "flux-kontext-max", "value": "flux-kontext-max" }
+ ,{  "label": "nano-banana", "value": "nano-banana" }
  ,{  "label": "DALL·E 2", "value": "dall-e-2" }
  ,{  "label": "Flux", "value": "flux" }
  ,{  "label": "Flux-Dev", "value": "flux-dev" }
@@ -127,6 +128,7 @@ const isCanImageEdit= computed(()=>{
     if(f.value.model=='dall-e-2') return true;
     if(f.value.model=='gpt-image-1') return true;
     if(f.value.model.indexOf('kontext')>-1) return true;
+    if(f.value.model.indexOf('banana')>-1) return true;
     return false;
 })
 
