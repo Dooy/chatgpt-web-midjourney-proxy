@@ -28,7 +28,7 @@ model:[ 'gpt-5','gpt-5-mini','gpt-5-nano','o1','o1-2024-12-17', 'gpt-4-turbo-202
 ,'grok-3','grok-3-reasoner','grok-3-deepsearch'
 ,'gpt-4.5-preview-2025-02-27','gpt-4.5-preview'
 ]
-,maxToken:4096
+,maxToken:16384
 }); 
 const st= ref({openMore:false,isShow:false ,server:'' });
 const voiceList= computed(()=>{
@@ -94,8 +94,8 @@ const saveChat=(type:string)=>{
  
 watch(()=>nGptStore.value.model,(n)=>{
     nGptStore.value.gpts=undefined;
-    let max=4096*2*2;
-    if( n.indexOf('vision')>-1){
+    let max=16384 *2;
+    if( n.indexOf('gpt-3.5')>-1){
         max=4096*2;
     }else if(  n.indexOf('o1-mini')>-1){  
         max=65536 *2;

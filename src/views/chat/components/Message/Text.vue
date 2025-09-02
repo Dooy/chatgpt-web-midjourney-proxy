@@ -131,6 +131,16 @@ onUpdated(() => {
 onUnmounted(() => {
   removeCopyEvents()
 })
+
+const isDall=(chat: Chat.Chat)=>{
+  if( isDallImageModel( chat.model ) ){
+    return true
+  }
+  if(chat.opt?.imageUrl){
+    return true
+  }
+  return false
+}
 </script>
 
 <template>
@@ -140,7 +150,7 @@ onUnmounted(() => {
         <aiTextSetting v-if="!inversion && isApikeyError(text)"/>
         <aiSetAuth v-if="!inversion && isAuthSessionError(text)" />
           
-        <dallText :chat="chat" v-if=" chat.model && chat.model?.indexOf('chat') == -1 && isDallImageModel( chat.model ) " class="whitespace-pre-wrap" />
+        <dallText :chat="chat" v-if=" chat.model && chat.model?.indexOf('chat') == -1 && isDall( chat ) " class="whitespace-pre-wrap" />
         <mjText v-if="chat.mjID" class="whitespace-pre-wrap" :chat="chat" :mdi="mdi"></mjText>
         <ttsText v-else-if="chat.model && isTTS(chat.model) && chat.text=='ok'" :chat="chat"/>
         <template v-else>
