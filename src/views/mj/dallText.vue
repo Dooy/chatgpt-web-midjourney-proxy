@@ -11,7 +11,7 @@ const chat = computed(() =>props.chat);
 
 const load = async ()=>{
      mlog('load-dall', chat.value.myid, chat.value.opt?.imageUrl );
-     //if(chat.value.model!='dall-e-3' || !chat.value.myid || !chat.value.opt?.imageUrl ){
+    
      if( !isDallImageModel(chat.value.model)  || !chat.value.myid || !chat.value.opt?.imageUrl ){
          st.value.isLoadImg=true;
       return ;
