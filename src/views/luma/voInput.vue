@@ -9,7 +9,7 @@ import { gptServerStore } from '@/store';
 import {  ref } from 'vue';
 import { useRoute } from 'vue-router';
 import PixInput from './pixInput.vue';
-import VideoInput from '../video/input.vue';
+//import VideoInput from '../video/input.vue';
 
 const route = useRoute(); // 获取当前路由对象
 
@@ -40,9 +40,10 @@ initLoad();
     <n-tabs type="line"  :tabs-padding="1" class="abc1234" animated :default-value="st.tab"  @update:value="handleUpdateValue">
         <!-- <n-tab-pane name="" tab="">
         </n-tab-pane> -->
-        <n-tab-pane name="all" tab="All">
+        
+        <!-- <n-tab-pane name="all" tab="All">
             <VideoInput />
-        </n-tab-pane>
+        </n-tab-pane> -->
         <n-tab-pane name="pixverse" tab="Pixverse">
             <PixInput />
         </n-tab-pane>
