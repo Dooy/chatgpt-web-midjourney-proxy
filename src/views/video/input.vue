@@ -4,7 +4,7 @@ import { NSelect, NInput,NButton ,useMessage,NEmpty} from 'naive-ui';
 //import mytpl from './tpl.json'
 import { mytpl } from './tpl';
 import { DtoTpl, PostVideo, googleVeoFeed } from './veo';
-import imageBase64Array from './image-base64-array.vue';
+//import imageBase64Array from './image-base64-array.vue';
 import { SvgIcon } from '@/components/common';
 import { t } from '@/locales';
 import { mlog } from '@/api';
@@ -122,12 +122,14 @@ onMounted(() => {
                 :placeholder="tp.placeholder??''"
                 />
             </div>
-            <div class="pt-1" v-if="tp.type=='image_base64_url_array'">
+
+            <!-- <div class="pt-1" v-if="tp.type=='image_base64_url_array'">
                 <image-base64-array v-model:value="stArr[k]" upload="1"></image-base64-array>
             </div>
              <div class="pt-1" v-if="tp.type=='image_base64_url'">
                 <image-base64-array v-model:value="stArr[k]" :is-one="true"></image-base64-array>
-            </div>
+            </div> -->
+
             <div class="pt-1" v-if="tp.type=='select'">
                 <n-select v-model:value="stArr[k]" :options="tp.options" size="small"></n-select>
             </div>
