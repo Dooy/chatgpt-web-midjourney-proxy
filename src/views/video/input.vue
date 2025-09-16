@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { NSelect, NInput,NButton ,useMessage,NEmpty} from 'naive-ui';
-import mytpl from './tpl.json'
+//import mytpl from './tpl.json'
+import { mytpl } from './tpl';
 import { DtoTpl, PostVideo, googleVeoFeed } from './veo';
 import imageBase64Array from './image-base64-array.vue';
 import { SvgIcon } from '@/components/common';
