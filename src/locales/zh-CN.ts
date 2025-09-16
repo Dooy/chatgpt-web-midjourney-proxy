@@ -381,6 +381,8 @@ export default {
    ,editImage:'图片编辑'
    ,editVideo:'图生视频'
    ,moreset:'更多参数'
+
+   
   },
 
 	draw: {
@@ -510,7 +512,7 @@ export default {
   }
   ,video:{
     menu:"视频",
-    menuinfo:'Luma等 视频创作',
+    menuinfo:'Veo 可灵 pixverse等 视频创作',
     descpls:'视频创作描述',
     lumaabout:"Luma 相关",
     lumaserver:"Luma 接口地址",
@@ -542,7 +544,9 @@ export default {
     repeat2:'过期.重新获取',
 
     rwgen3turbo:'版本: Gen-3 Alpha Turbo',
-    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图',
+    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图'
+
+    ,selectModel:'请选择模型'
 
   }
   ,dance:{

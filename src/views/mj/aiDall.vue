@@ -97,17 +97,43 @@ const dimensionsList= computed(()=>{
     ];
     } 
     if(f.value.model=='gpt-image-1'){
-    return [{ 
-                "label": "1024px*1024px",
-                "value": "1024x1024"
-            }, {
-                "label": "1536px*1024px",
-                "value": "1536x1024"
-            }, {
-                "label": "1024px*1536px",
-                "value": "1024x1536"
-            }
-    ];
+        return [{ 
+                    "label": "1024px*1024px",
+                    "value": "1024x1024"
+                }, {
+                    "label": "1536px*1024px",
+                    "value": "1536x1024"
+                }, {
+                    "label": "1024px*1536px",
+                    "value": "1024x1536"
+                }
+        ];
+    }
+    if(f.value.model.includes('banana')){
+     return [{ 
+                    "label": "4:3",
+                    "value": "4x3"
+                }, {
+                    "label": "3:4",
+                    "value": "3x4"
+                }, {
+                    "label": "16:9",
+                    "value": "16x9"
+                }, {
+                    "label": "16:9",
+                    "value": "16x9"
+                }, {
+                    "label": "2:3",
+                    "value": "2x3"
+                }, {
+                    "label": "3:2",
+                    "value": "3x2"
+                }
+                , {
+                    "label": "1:1",
+                    "value": "1024x1024"
+                }
+        ];
     }
     return [{ 
                 "label": "1024px*1024px",

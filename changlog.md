@@ -1,6 +1,10 @@
 # 功能升级日志
 
 #  计划 
+# 2.25.4
+- 😄 新增：nano-banana支持 比例
+- 😄 新增：google veo类视频、fal-ai视频类
+- 😄 新增：支持直达视频模型 https://vercel.ddaiai.com/#/video/index?tab=all&model=veo3
 # 2.25.3
 - 😄 新增：dalle格式的 谷歌 nano-banana
 

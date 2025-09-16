@@ -7,6 +7,7 @@
  import KlingList from '../kling/kgList.vue';
  import RunmlList from './runmlList.vue';
  import PixList from './pixList.vue';
+ import VideoList from '../video/list.vue';
 import { gptServerStore } from '@/store';
  </script>
 <template>
@@ -22,6 +23,7 @@ import { gptServerStore } from '@/store';
         <PikaList v-else-if="gptServerStore.myData.TAB_VIDEO=='pika'"/>
         <RunmlList v-else-if="gptServerStore.myData.TAB_VIDEO=='runwayml'"/>
         <PixList v-else-if="gptServerStore.myData.TAB_VIDEO=='pixverse'"/>
+        <VideoList v-else-if="gptServerStore.myData.TAB_VIDEO=='all'"/>
         <VoList v-else/>
     </div>
      
