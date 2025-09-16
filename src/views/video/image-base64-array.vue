@@ -46,17 +46,20 @@ const selectFile=(input:any)=>{
             return ;
         }
         base64Array.value.push({file: ff ,base64:d});
+        changValue()
         //if(base64Array.value.length>1) st.value.isGo=true;
         //if(st)
     }).catch(e=>ms.error(e));
 }
 
-watch(()=>base64Array.value, ()=>{
-    //let arr:string[]=[]
+const changValue= ()=>{
+    
     let arr=base64Array.value.map(item=>item.base64)
     emit('update:value', pp.isOne?arr[0]: arr)
-    //console.log('base64Array.value', base64Array.value)
-},{deep:true})
+    
+}
+
+//watch(()=>base64Array.value, ,{deep:true})
 
 const max= computed(()=>{
     return pp.isOne?1:3;
@@ -71,7 +74,7 @@ onMounted(()=>{
 })
 watch(()=>pp.value, ()=>{
     updateBase64Array();
-})
+},{deep:true})
 
 </script>
 <template>
