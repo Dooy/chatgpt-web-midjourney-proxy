@@ -8,7 +8,7 @@ import { SvgIcon } from '@/components/common';
 interface Props {
   value: any
   upload?: string
-  isOne?: Boolean
+  isOne?: boolean
 }
 const pp= defineProps<Props>()
 // const pp = defineProps({
