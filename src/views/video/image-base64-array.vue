@@ -71,7 +71,7 @@ onMounted(()=>{
 })
 watch(()=>pp.value, ()=>{
     updateBase64Array();
-},{deep:true})
+})
 
 </script>
 <template>
