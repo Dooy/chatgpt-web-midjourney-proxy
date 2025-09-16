@@ -14,21 +14,41 @@ const route = useRoute(); // 获取当前路由对象
 //"fal-ai/ltxv-13b-098-distilled/image-to-video"
 const st= ref({"model":"veo3-fast-frames",isLoading:false});
 const stArr= ref<any[]>([])
+const modelsOption= ref<{label:string,value:string}[]>([])
+const tplArr= ref<DtoTpl[]>([])
 
-const modelsOption= computed(()=>{
-    let arr=[{label:'Please select Model',value: ''}];
-    for( let o of mytpl.tpl){
-        arr.push({label: o.model,value: o.model})
+// const modelsOption= computed(()=>{
+//     let arr=[{label:'Please select Model',value: ''}];
+//     for( let o of mytpl.tpl){
+//         arr.push({label: o.model,value: o.model})
+//     }
+//     return arr
+// })
+
+const initStart= ()=>{
+    const abc=()=>{
+         let arr=[{label:'Please select Model',value: ''}];
+            for( let o of mytpl.tpl){
+                arr.push({label: o.model,value: o.model})
+            }
+            return arr
     }
-    return arr
-})
-const tplArr= computed(()=>{
-    let arr:DtoTpl[]=[];
-    for( let o of mytpl.tpl){
-        arr.push(o)
+    modelsOption.value= abc()
+
+    const fun2=()=>{
+        let arr:DtoTpl[]=[];
+        for( let o of mytpl.tpl){
+            arr.push(o)
+        }
+        return arr
     }
-    return arr
-})
+    tplArr.value= fun2()
+
+
+
+}
+initStart();
+ 
 const nowTpl= computed(()=>{
     //let arr:any[]=[];
     stArr.value=[];
@@ -37,9 +57,7 @@ const nowTpl= computed(()=>{
     for( let o of mtpl.field){
         stArr.value.push(o.value??'')
     }
-    return mtpl.field
-    
-    
+    return mtpl.field 
 })
 
 const isDisabled= computed(()=>{
