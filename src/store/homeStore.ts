@@ -150,7 +150,7 @@ let v:gptServerType={
         LUMA_KEY:'',
         VIGGLE_SERVER:'',
         VIGGLE_KEY:'',
-        TAB_VIDEO:'luma',
+        TAB_VIDEO:'all',
         RUNWAY_SERVER:'',
         RUNWAY_KEY:'',
         IDEO_SERVER:'',
