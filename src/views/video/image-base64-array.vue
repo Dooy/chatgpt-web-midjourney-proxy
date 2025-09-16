@@ -5,22 +5,28 @@ import { useMessage,NImage } from 'naive-ui';
 import { computed, onMounted, ref ,watch} from 'vue';
 import { SvgIcon } from '@/components/common';
  
+interface Props {
+  value: any
+  upload?: string
+  isOne?: Boolean
+}
+const pp= defineProps<Props>()
+// const pp = defineProps({
+//   value: {
+//     type: Array||String,
+//     required: true,
+//     default:[]
+//   }
+//   ,upload:{
+//     type:String,
+//     default:''
+//   }
+//   ,isOne:{
+//     type:Boolean,
+//     default:false
+//   }
+// })
 
-const pp = defineProps({
-  value: {
-    type: Array||String,
-    required: true,
-    default:[]
-  }
-  ,upload:{
-    type:String,
-    default:''
-  }
-  ,isOne:{
-    type:Boolean,
-    default:false
-  }
-})
 const emit = defineEmits(['update:value'])
 
 const fsRef= ref() ; 
@@ -58,7 +64,7 @@ const max= computed(()=>{
 
 
 const updateBase64Array=()=>{
-    base64Array.value=pp.isOne?[{base64: pp.value }]:(pp.value?pp.value.map((v)=>{return {base64:v}}):[]);
+    base64Array.value=pp.isOne?[{base64: pp.value }]:(pp.value?pp.value.map((v:string)=>{return {base64:v}}):[]);
 }
 onMounted(()=>{
    updateBase64Array();

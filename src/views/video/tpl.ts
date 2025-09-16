@@ -1,4 +1,4 @@
-export const videoTpl={
+export const mytpl={
 "tpl":[
     {
         "model":"veo3-fast-frames",
