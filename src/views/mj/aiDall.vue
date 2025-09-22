@@ -120,8 +120,8 @@ const dimensionsList= computed(()=>{
                     "label": "16:9",
                     "value": "16x9"
                 }, {
-                    "label": "16:9",
-                    "value": "16x9"
+                    "label": "9:16",
+                    "value": "9x16"
                 }, {
                     "label": "2:3",
                     "value": "2x3"
