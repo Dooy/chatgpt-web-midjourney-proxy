@@ -1,6 +1,55 @@
 export const mytpl={
 "tpl":[
     {
+        "model":"sora-2",
+        "field":[
+           {
+            "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description",
+                "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在openai-hk平台上使用，太好用了。"
+               
+            }
+            
+             ,{
+                "key":"orientation",
+                "type":"select",
+                "value":"portrait",
+                "options":[
+                    { "label":"模式: 竖屏", "value":"portrait"}
+                    ,{ "label":"模式: 横屏", "value":"landscape"}
+                ]
+            }
+             ,{
+                "key":"size",
+                "type":"select",
+                "value":"large",
+                "options":[
+                    { "label":"清晰: 高清", "value":"large"}
+                    ,{ "label":"清晰: 一般", "value":"small"}
+                ]
+            }
+             ,{
+                "key":"duration",
+                "type":"select",
+                "value":15,
+                "options":[
+                    { "label":"Duration: 15s", "value":15}
+                    ,{ "label":"Duration: 10s", "value":10}
+                ]
+            }
+            
+            ,
+            
+            {   
+                "key":"images",
+                "type":"image_base64_url_array",
+                "max":2
+            }     
+        ]
+        ,"plat":"sora"
+    },
+    {
         "model":"veo3-fast-frames",
         "field":[
            {

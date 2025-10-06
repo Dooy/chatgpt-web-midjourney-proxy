@@ -25,7 +25,7 @@ export const PostVideo= async(nowModel:DtoTpl, data:any)=>{
     let rz:DtoItem
      
     const plat= nowModel.plat
-    if( plat=="google-veo"){
+    if( plat=="google-veo" ||  plat=="sora" ){
         rz= await googleVeo(nowModel,data)
     }else if(plat=='fal-ai'){
         rz= await falAI(nowModel,data)
@@ -40,10 +40,15 @@ export const PostVideo= async(nowModel:DtoTpl, data:any)=>{
 
 export const DtoFeed= async (item:DtoItem)=>{
    // mlog("sdsds",item )
-    if(item.plat=="google-veo"){
-        googleVeoFeed(item.id)
-    }else if(item.plat=="fal-ai"){
+    // if(item.plat=="google-veo"){
+    //     googleVeoFeed(item.id)
+    // }else if(item.plat=="fal-ai"){
+    //     falAiFeed(item.id)
+    // }
+   if(item.plat=="fal-ai"){
         falAiFeed(item.id)
+    }else{
+      googleVeoFeed(item.id)
     }
 }
 
@@ -64,7 +69,13 @@ const falAI= async(nowModel:DtoTpl, data:any)=>{
 
 const googleVeo= async(nowModel:DtoTpl, data:any)=>{
    data['model']= nowModel.model 
-   const d:any = await gptFetch('/veo/v1/video/create',data)
+   const plat= nowModel.plat
+   var d:any
+   if (plat=="google-veo"){
+     d = await gptFetch('/veo/v1/video/create',data)
+   }else{
+    d = await gptFetch('/'+plat+'/v1/video/create',data)
+   }
    // mlog('返回数据 ',d );
    let  rz:DtoItem={
        mid: d.id,
@@ -116,7 +127,12 @@ export const googleVeoFeed= async( id:string)=>{
         if(rz?.status=='completed'||  rz?.status=='failed'){    
             break 
         }
-        const d:any = await gptFetch(`/veo/v1/video/feed/${id}`)
+        var d:any
+        if (rz && rz.plat!='google-veo' && rz.plat!=''){
+             d = await gptFetch(`/${rz.plat}/v1/video/feed/${id}`)
+        }else{
+            d = await gptFetch(`/veo/v1/video/feed/${id}`)
+        }
         if(!rz){
             rz={
                 mid: d.id,

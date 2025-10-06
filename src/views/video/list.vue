@@ -64,10 +64,16 @@ const deleteGo=(item:any)=>{
             </div>
             
             <template v-else-if=" ((new Date().getTime())/1000-item.task.last_feed)>20  && !item.src ">
-                <div class="w-full pt-[70px] justify-center items-center flex ">
+                <div class="w-full pt-[50px] justify-center items-center flex ">
                     <NButton  size="small" type="primary" @click="getFeed(item)"    >{{$t('video.repeat')}}</NButton>
                 </div>
-                <div class=" text-center w-full h-[80px]  pt-[10px] text-[12px] opacity-80 ">ID: {{ item.task.mid }} </div>
+                <div class=" text-center w-full h-[80px] pb-[30px] text-[12px] opacity-80 ">ID: {{ item.task.mid }} </div>
+            </template>
+            <template v-else-if="!item.src">
+                <div class="w-full pt-[50px] justify-center items-center flex ">
+                    <div class="text-center ">Status: {{ item.task.status }}</div>
+                </div>
+                <div class=" text-center w-full h-[80px]  pb-[30px] text-[12px] opacity-80 ">ID: {{ item.task.mid }} </div>
             </template>
             
             <template v-else>
