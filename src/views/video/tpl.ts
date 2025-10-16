@@ -20,6 +20,15 @@ export const mytpl={
                     ,{ "label":"模式: 横屏", "value":"landscape"}
                 ]
             } 
+             ,{
+                "key":"duration",
+                "type":"select",
+                "value":15,
+                "options":[
+                    { "label":"Duration: 15s", "value":15}
+                    ,{ "label":"Duration: 10s", "value":10}
+                ]
+            }
             ,
             
             {   
@@ -64,7 +73,8 @@ export const mytpl={
                 "type":"select",
                 "value":15,
                 "options":[
-                    { "label":"Duration: 15s", "value":15}
+                    { "label":"Duration: 25s", "value":25}
+                    ,{ "label":"Duration: 15s", "value":15}
                     ,{ "label":"Duration: 10s", "value":10}
                 ]
             }
@@ -79,6 +89,78 @@ export const mytpl={
         ]
         ,"plat":"sora"
     },
+   
+    {
+        "model":"veo3.1",
+       "field":[
+           {
+            "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description"
+            }
+            ,{
+                "key":"enhance_prompt",
+                "type":"no",
+                "value":true
+            }
+            ,{
+                "key":"aspect_ratio",
+                "type":"select",
+                "value":"16:9",
+                "options":[
+                    { "label":"Ratio 16:9", "value":"16:9"}
+                    ,{ "label":"Ratio 9:16", "value":"9:16"}
+                ]
+            }
+        ]
+        ,"plat":"google-veo"
+    } ,
+    {
+        "model":"veo3.1-pro",
+       "field":[
+           {
+            "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description"
+            }
+            ,{
+                "key":"enhance_prompt",
+                "type":"no",
+                "value":true
+            }
+            ,{
+                "key":"aspect_ratio",
+                "type":"select",
+                "value":"16:9",
+                "options":[
+                    { "label":"Ratio 16:9", "value":"16:9"}
+                    ,{ "label":"Ratio 9:16", "value":"9:16"}
+                ]
+            }
+        ]
+        ,"plat":"google-veo"
+    } ,
+ {
+        "model":"veo3.1-components",
+       "field":[
+           {
+            "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description"
+            }
+            ,{
+                "key":"enhance_prompt",
+                "type":"no",
+                "value":true
+            },
+            {   
+                "key":"images",
+                "type":"image_base64_url_array",
+                "max":3
+            }     
+        ]
+        ,"plat":"google-veo"
+    } ,
     {
         "model":"veo3-fast-frames",
         "field":[
