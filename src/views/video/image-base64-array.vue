@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { upImg } from '@/api';
+import { mlog, upImg } from '@/api';
 import { t } from '@/locales';
 import { useMessage,NImage } from 'naive-ui';
 import { computed, onMounted, ref ,watch} from 'vue';
@@ -9,6 +9,7 @@ interface Props {
   value: any
   upload?: string
   isOne?: boolean
+  isFile?: boolean
 }
 const pp= defineProps<Props>()
 // const pp = defineProps({
@@ -54,8 +55,12 @@ const selectFile=(input:any)=>{
 
 const changValue= ()=>{
     
-    let arr=base64Array.value.map(item=>item.base64)
+    let arr:any=base64Array.value.map(item=>item.base64)
+    if(pp.isFile){
+        arr=base64Array.value//.map(item=>item.file)
+    }
     emit('update:value', pp.isOne?arr[0]: arr)
+    //mlog("changValue", arr)
     
 }
 
@@ -67,12 +72,16 @@ const max= computed(()=>{
 
 
 const updateBase64Array=()=>{
+    if(!pp.value){
+        return
+    }
     base64Array.value=pp.isOne?[{base64: pp.value }]:(pp.value?pp.value.map((v:string)=>{return {base64:v}}):[]);
 }
 onMounted(()=>{
    updateBase64Array();
 })
 watch(()=>pp.value, ()=>{
+    if(pp.isFile) return ;
     updateBase64Array();
 },{deep:true})
 

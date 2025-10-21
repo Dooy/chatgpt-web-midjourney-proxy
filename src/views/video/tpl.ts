@@ -39,6 +39,7 @@ export const mytpl={
         ]
         ,"plat":"sora"
     },
+    
     {
         "model":"sora-2-pro",
         "field":[
@@ -89,6 +90,94 @@ export const mytpl={
         ]
         ,"plat":"sora"
     },
+
+    {
+        "model":"openai/sora-2",
+        "key":"sora-2",
+        "field":[
+           {
+            "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description",
+                "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在openai-hk平台上使用，太好用了。"
+               
+            }
+            
+             ,{
+                "key":"size",
+                "type":"select",
+                "value":"720x1280",
+                "options":[
+                    { "label":"size: 720x1280", "value":"720x1280"}
+                    ,{ "label":"size: 1280x720", "value":"1280x720"}
+                ]
+            } 
+             ,{
+                "key":"seconds",
+                "type":"select",
+                "value":4,
+                "options":[
+                    { "label":"Duration: 15s", "value":15}
+                    ,{ "label":"Duration: 10s", "value":10}
+                    ,{ "label":"Duration: 8s", "value":8}
+                    ,{ "label":"Duration: 4s", "value":4}
+                ]
+            }
+            ,
+            
+            {   
+                "key":"input_reference",
+                "type":"image_base64_file",
+                "max":1
+            }     
+        ]
+        ,"plat":"openai"
+    },
+
+
+    {
+        "model":"openai/sora-2-pro",
+        "key":"sora-2-pro",
+        "field":[
+           {
+            "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description",
+                "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在openai-hk平台上使用，太好用了。"
+               
+            }
+            
+             ,{
+                "key":"size",
+                "type":"select",
+                "value":"720x1280",
+                "options":[
+                    { "label":"size: 720x1280", "value":"720x1280"}
+                    ,{ "label":"size: 1280x720", "value":"1280x720"}
+                ]
+            } 
+             ,{
+                "key":"seconds",
+                "type":"select",
+                "value":4,
+                "options":[
+                    { "label":"Duration: 25s", "value":25}
+                    ,{ "label":"Duration: 15s", "value":15}
+                    ,{ "label":"Duration: 10s", "value":10}
+                    ,{ "label":"Duration: 8s", "value":8}
+                    ,{ "label":"Duration: 4s", "value":4}
+                ]
+            }
+            ,
+            
+            {   
+                "key":"input_reference",
+                "type":"image_base64_file",
+                "max":1
+            }     
+        ]
+        ,"plat":"openai"
+    },
    
     {
         "model":"veo3.1",
@@ -111,7 +200,12 @@ export const mytpl={
                     { "label":"Ratio 16:9", "value":"16:9"}
                     ,{ "label":"Ratio 9:16", "value":"9:16"}
                 ]
-            }
+            },
+            {   
+                "key":"images",
+                "type":"image_base64_url_array",
+                "max":1
+            }     
         ]
         ,"plat":"google-veo"
     } ,
@@ -136,7 +230,12 @@ export const mytpl={
                     { "label":"Ratio 16:9", "value":"16:9"}
                     ,{ "label":"Ratio 9:16", "value":"9:16"}
                 ]
-            }
+            },
+            {   
+                "key":"images",
+                "type":"image_base64_url_array",
+                "max":1
+            }     
         ]
         ,"plat":"google-veo"
     } ,
