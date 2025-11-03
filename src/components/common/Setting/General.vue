@@ -8,6 +8,7 @@ import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
+import { getWebDAVConfig, saveWebDAVConfig, syncToWebDAV, syncFromWebDAV } from '@/utils/webdav'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -27,6 +28,19 @@ const name = ref(userInfo.value.name ?? '')
 const description = ref(userInfo.value.description ?? '')
 
 const backgroundImage = ref(userInfo.value.backgroundImage ?? '')
+
+const webdavUrl = ref('')
+const webdavUsername = ref('')
+const webdavPassword = ref('')
+const showWebDAVConfig = ref(false)
+
+// 加载 WebDAV 配置
+const loadedConfig = getWebDAVConfig()
+if (loadedConfig) {
+  webdavUrl.value = loadedConfig.url
+  webdavUsername.value = loadedConfig.username
+  webdavPassword.value = loadedConfig.password
+}
 
 const language = computed({
   get() {
@@ -124,6 +138,41 @@ function handleImportButtonClick(): void {
   const fileInput = document.getElementById('fileInput2') as HTMLElement
   if (fileInput)   fileInput.click()
 }
+
+function saveWebDAV(): void {
+  if (!webdavUrl.value || !webdavUsername.value || !webdavPassword.value) {
+    ms.error(t('setting.webdavConfigError'))
+    return
+  }
+  saveWebDAVConfig({
+    url: webdavUrl.value,
+    username: webdavUsername.value,
+    password: webdavPassword.value,
+  })
+  ms.success(t('common.success'))
+  showWebDAVConfig.value = false
+}
+
+async function handleSync(): Promise<void> {
+  const config = getWebDAVConfig()
+  if (!config) {
+    ms.warning(t('setting.webdavNotConfigured'))
+    showWebDAVConfig.value = true
+    return
+  }
+  
+  try {
+    // 先上传本地数据
+    await syncToWebDAV()
+    // 再下载远程数据（如果远程有更新）
+    await syncFromWebDAV()
+    ms.success(t('setting.webdavSyncSuccess'))
+    location.reload()
+  }
+  catch (error: any) {
+    ms.error(t('setting.webdavSyncError') + ': ' + error.message)
+  }
+}
 </script>
 
 <template>
@@ -187,6 +236,13 @@ function handleImportButtonClick(): void {
             {{ $t('common.import') }}
           </NButton>
 
+          <NButton size="small" type="info" @click="handleSync">
+            <template #icon>
+              <SvgIcon icon="ri:refresh-line" />
+            </template>
+            {{ $t('common.sync') }}
+          </NButton>
+
           <NPopconfirm placement="bottom" @positive-click="clearData">
             <template #trigger>
               <NButton size="small">
@@ -225,6 +281,38 @@ function handleImportButtonClick(): void {
             :options="languageOptions"
             @update-value="value => appStore.setLanguage(value)"
           />
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavSync') }}</span>
+        <NButton size="small" @click="showWebDAVConfig = !showWebDAVConfig">
+          {{ showWebDAVConfig ? $t('common.hide') : $t('setting.webdavConfig') }}
+        </NButton>
+      </div>
+      <div v-if="showWebDAVConfig" class="space-y-4 pl-4 border-l-2">
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavUrl') }}</span>
+          <div class="flex-1">
+            <NInput v-model:value="webdavUrl" placeholder="https://dav.example.com/remote.php/dav/files/username/" />
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavUsername') }}</span>
+          <div class="flex-1">
+            <NInput v-model:value="webdavUsername" placeholder="" />
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavPassword') }}</span>
+          <div class="flex-1">
+            <NInput v-model:value="webdavPassword" type="password" placeholder="" />
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]"></span>
+          <NButton size="small" type="primary" @click="saveWebDAV">
+            {{ $t('common.save') }}
+          </NButton>
         </div>
       </div>
       <div class="flex items-center space-x-4">
