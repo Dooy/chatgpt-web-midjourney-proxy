@@ -162,42 +162,30 @@ async function testWebDAVConnection(): Promise<void> {
   const loading = ms.loading('正在测试连接...', { duration: 0 })
   
   try {
-    const testConfig = {
-      url: webdavUrl.value,
-      username: webdavUsername.value,
-      password: webdavPassword.value,
-    }
+    const testUrl = webdavUrl.value.replace(/\/$/, '')
     
-    const auth = btoa(`${testConfig.username}:${testConfig.password}`)
-    const testUrl = testConfig.url.replace(/\/$/, '')
+    const response = await fetch('/api/webdav-proxy', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: testUrl,
+        method: 'PROPFIND',
+        username: webdavUsername.value,
+        password: webdavPassword.value,
+      }),
+    })
     
-    const xhr = new XMLHttpRequest()
-    xhr.open('PROPFIND', testUrl, true)
-    xhr.setRequestHeader('Authorization', `Basic ${auth}`)
-    xhr.setRequestHeader('Depth', '0')
-    xhr.timeout = 10000
+    const result = await response.json()
+    loading.destroy()
     
-    xhr.onload = () => {
-      loading.destroy()
-      if (xhr.status >= 200 && xhr.status < 300)
-        ms.success('连接成功！配置正确')
-      else if (xhr.status === 401)
-        ms.error('认证失败，请检查用户名和密码')
-      else
-        ms.error(`连接失败: ${xhr.status} ${xhr.statusText}`)
-    }
-    
-    xhr.onerror = () => {
-      loading.destroy()
-      ms.error('连接失败，请检查 WebDAV 地址是否正确，或者尝试使用 HTTPS 地址')
-    }
-    
-    xhr.ontimeout = () => {
-      loading.destroy()
-      ms.error('连接超时，请检查网络或服务器地址')
-    }
-    
-    xhr.send()
+    if (result.success)
+      ms.success('连接成功！配置正确')
+    else if (result.status === 401)
+      ms.error('认证失败，请检查用户名和密码（坚果云需使用应用专用密码）')
+    else
+      ms.error(`连接失败: ${result.error || '未知错误'}`)
   }
   catch (error: any) {
     loading.destroy()

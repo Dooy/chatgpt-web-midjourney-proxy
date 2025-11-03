@@ -19,57 +19,48 @@ export function saveWebDAVConfig(config: WebDAVConfig): void {
   localStorage.setItem(WEBDAV_CONFIG_KEY, JSON.stringify(config))
 }
 
+// 通过后端代理访问 WebDAV
+async function webdavRequest(config: WebDAVConfig, method: string, data?: string): Promise<any> {
+  const url = `${config.url.replace(/\/$/, '')}/${WEBDAV_FILE_NAME}`
+  
+  const response = await fetch('/api/webdav-proxy', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      url,
+      method,
+      username: config.username,
+      password: config.password,
+      data,
+    }),
+  })
+  
+  const result = await response.json()
+  
+  if (!result.success)
+    throw new Error(result.error || '请求失败')
+  
+  return result
+}
+
 // 上传到 WebDAV
 async function uploadToWebDAV(config: WebDAVConfig, data: string): Promise<void> {
-  const url = `${config.url.replace(/\/$/, '')}/${WEBDAV_FILE_NAME}`
-  const auth = btoa(`${config.username}:${config.password}`)
-  
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
-    xhr.open('PUT', url, true)
-    xhr.setRequestHeader('Authorization', `Basic ${auth}`)
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300)
-        resolve()
-      else
-        reject(new Error(`上传失败: ${xhr.status} ${xhr.statusText}`))
-    }
-    
-    xhr.onerror = () => reject(new Error('网络错误，请检查 WebDAV 地址是否正确'))
-    xhr.ontimeout = () => reject(new Error('请求超时'))
-    
-    xhr.timeout = 30000 // 30秒超时
-    xhr.send(data)
-  })
+  await webdavRequest(config, 'PUT', data)
 }
 
 // 从 WebDAV 下载
 async function downloadFromWebDAV(config: WebDAVConfig): Promise<string> {
-  const url = `${config.url.replace(/\/$/, '')}/${WEBDAV_FILE_NAME}`
-  const auth = btoa(`${config.username}:${config.password}`)
-  
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest()
-    xhr.open('GET', url, true)
-    xhr.setRequestHeader('Authorization', `Basic ${auth}`)
-    
-    xhr.onload = () => {
-      if (xhr.status >= 200 && xhr.status < 300)
-        resolve(xhr.responseText)
-      else if (xhr.status === 404)
-        reject(new Error('远程文件不存在，将仅上传本地数据'))
-      else
-        reject(new Error(`下载失败: ${xhr.status} ${xhr.statusText}`))
-    }
-    
-    xhr.onerror = () => reject(new Error('网络错误，请检查 WebDAV 地址、用户名和密码是否正确'))
-    xhr.ontimeout = () => reject(new Error('请求超时'))
-    
-    xhr.timeout = 30000 // 30秒超时
-    xhr.send()
-  })
+  try {
+    const result = await webdavRequest(config, 'GET')
+    return result.data || '{}'
+  }
+  catch (error: any) {
+    if (error.message.includes('404') || error.message.includes('Not Found'))
+      throw new Error('远程文件不存在，将仅上传本地数据')
+    throw error
+  }
 }
 
 // 双向同步（先下载远程，合并后上传）
