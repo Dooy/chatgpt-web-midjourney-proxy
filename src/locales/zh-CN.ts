@@ -14,7 +14,6 @@ export default {
     exportSuccess: '导出成功',
     import: '导入',
     importSuccess: '导入成功',
-    sync: '同步',
     hide: '隐藏',
     clear: '清空',
     clearSuccess: '清空成功',

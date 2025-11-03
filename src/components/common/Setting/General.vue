@@ -8,7 +8,7 @@ import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
-import { getWebDAVConfig, saveWebDAVConfig, syncWithWebDAV, syncToWebDAV, syncFromWebDAV } from '@/utils/webdav'
+import { getWebDAVConfig, saveWebDAVConfig, syncToWebDAV, syncFromWebDAV } from '@/utils/webdav'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -193,32 +193,6 @@ async function testWebDAVConnection(): Promise<void> {
   }
 }
 
-async function handleSync(): Promise<void> {
-  const config = getWebDAVConfig()
-  if (!config) {
-    ms.warning(t('setting.webdavNotConfigured'))
-    showWebDAVConfig.value = true
-    return
-  }
-  
-  const loading = ms.loading('智能同步中...', { duration: 0 })
-  
-  try {
-    const result = await syncWithWebDAV()
-    loading.destroy()
-    
-    ms.success(result.message)
-    
-    if (result.downloaded)
-      setTimeout(() => location.reload(), 1000)
-  }
-  catch (error: any) {
-    loading.destroy()
-    console.error('WebDAV sync error:', error)
-    ms.error(`同步失败: ${error.message}`)
-  }
-}
-
 async function handleUploadToWebDAV(): Promise<void> {
   const config = getWebDAVConfig()
   if (!config) {
@@ -322,13 +296,6 @@ async function handleDownloadFromWebDAV(): Promise<void> {
               <SvgIcon icon="ri:upload-2-fill" />
             </template>
             {{ $t('common.import') }}
-          </NButton>
-
-          <NButton size="small" type="info" @click="handleSync">
-            <template #icon>
-              <SvgIcon icon="ri:refresh-line" />
-            </template>
-            {{ $t('common.sync') }}
           </NButton>
 
           <NButton size="small" type="success" @click="handleUploadToWebDAV">
