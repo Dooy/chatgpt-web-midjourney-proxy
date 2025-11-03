@@ -8,7 +8,7 @@ import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
-import { getWebDAVConfig, saveWebDAVConfig, syncWithWebDAV } from '@/utils/webdav'
+import { getWebDAVConfig, saveWebDAVConfig, syncWithWebDAV, syncToWebDAV, syncFromWebDAV } from '@/utils/webdav'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -201,18 +201,13 @@ async function handleSync(): Promise<void> {
     return
   }
   
-  const loading = ms.loading('正在同步中...', { duration: 0 })
+  const loading = ms.loading('智能同步中...', { duration: 0 })
   
   try {
     const result = await syncWithWebDAV()
     loading.destroy()
     
-    if (result.downloaded && result.uploaded)
-      ms.success('同步成功！已更新本地数据')
-    else if (result.uploaded)
-      ms.success('上传成功！')
-    else
-      ms.success(t('setting.webdavSyncSuccess'))
+    ms.success(result.message)
     
     if (result.downloaded)
       setTimeout(() => location.reload(), 1000)
@@ -221,6 +216,49 @@ async function handleSync(): Promise<void> {
     loading.destroy()
     console.error('WebDAV sync error:', error)
     ms.error(`同步失败: ${error.message}`)
+  }
+}
+
+async function handleUploadToWebDAV(): Promise<void> {
+  const config = getWebDAVConfig()
+  if (!config) {
+    ms.warning(t('setting.webdavNotConfigured'))
+    showWebDAVConfig.value = true
+    return
+  }
+  
+  const loading = ms.loading('上传中...', { duration: 0 })
+  
+  try {
+    await syncToWebDAV()
+    loading.destroy()
+    ms.success('已强制上传本地数据到云端')
+  }
+  catch (error: any) {
+    loading.destroy()
+    ms.error(`上传失败: ${error.message}`)
+  }
+}
+
+async function handleDownloadFromWebDAV(): Promise<void> {
+  const config = getWebDAVConfig()
+  if (!config) {
+    ms.warning(t('setting.webdavNotConfigured'))
+    showWebDAVConfig.value = true
+    return
+  }
+  
+  const loading = ms.loading('下载中...', { duration: 0 })
+  
+  try {
+    await syncFromWebDAV()
+    loading.destroy()
+    ms.success('已从云端下载数据，页面即将刷新')
+    setTimeout(() => location.reload(), 1000)
+  }
+  catch (error: any) {
+    loading.destroy()
+    ms.error(`下载失败: ${error.message}`)
   }
 }
 </script>
@@ -291,6 +329,20 @@ async function handleSync(): Promise<void> {
               <SvgIcon icon="ri:refresh-line" />
             </template>
             {{ $t('common.sync') }}
+          </NButton>
+
+          <NButton size="small" type="success" @click="handleUploadToWebDAV">
+            <template #icon>
+              <SvgIcon icon="ri:cloud-fill" />
+            </template>
+            {{ $t('setting.webdavUpload') }}
+          </NButton>
+
+          <NButton size="small" type="warning" @click="handleDownloadFromWebDAV">
+            <template #icon>
+              <SvgIcon icon="ri:download-cloud-fill" />
+            </template>
+            {{ $t('setting.webdavDownload') }}
           </NButton>
 
           <NPopconfirm placement="bottom" @positive-click="clearData">

@@ -80,6 +80,8 @@ export default {
     webdavSyncSuccess: '同步成功',
     webdavSyncError: '同步失败',
     webdavTest: '测试连接',
+    webdavUpload: '上传',
+    webdavDownload: '下载',
     api: 'API',
     reverseProxy: '反向代理',
     timeout: '超时',
