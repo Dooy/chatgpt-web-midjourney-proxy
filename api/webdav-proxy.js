@@ -1,56 +1,102 @@
-const axios = require('axios');
+const https = require('https');
+const http = require('http');
+const { URL } = require('url');
 
 module.exports = async (req, res) => {
+  // 设置 CORS 头
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // 处理 OPTIONS 请求
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // 只允许 POST 请求
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.writeHead(405).end(JSON.stringify({ error: 'Method not allowed' }));
   }
 
   try {
     const { url, method, username, password, data } = req.body;
 
     if (!url || !method || !username || !password) {
-      return res.status(400).json({ error: '缺少必要参数' });
+      return res.writeHead(400).end(JSON.stringify({ error: '缺少必要参数' }));
     }
 
     // 创建 Basic Auth
     const auth = Buffer.from(`${username}:${password}`).toString('base64');
-    const headers = {
-      'Authorization': `Basic ${auth}`,
+    const parsedUrl = new URL(url);
+    
+    const options = {
+      hostname: parsedUrl.hostname,
+      port: parsedUrl.port || (parsedUrl.protocol === 'https:' ? 443 : 80),
+      path: parsedUrl.pathname + parsedUrl.search,
+      method: method,
+      headers: {
+        'Authorization': `Basic ${auth}`,
+      },
+      timeout: 30000
     };
 
     if (method === 'PUT') {
-      headers['Content-Type'] = 'application/json';
+      options.headers['Content-Type'] = 'application/json';
+      if (data) {
+        const bodyData = typeof data === 'string' ? data : JSON.stringify(data);
+        options.headers['Content-Length'] = Buffer.byteLength(bodyData);
+      }
     }
 
     if (method === 'PROPFIND') {
-      headers['Depth'] = '0';
+      options.headers['Depth'] = '0';
     }
 
-    const axiosConfig = {
-      method: method,
-      url: url,
-      headers: headers,
-      timeout: 30000,
-    };
+    const protocol = parsedUrl.protocol === 'https:' ? https : http;
+
+    const proxyReq = protocol.request(options, (proxyRes) => {
+      let responseData = '';
+      
+      proxyRes.on('data', (chunk) => {
+        responseData += chunk;
+      });
+
+      proxyRes.on('end', () => {
+        res.writeHead(200).end(JSON.stringify({
+          success: true,
+          status: proxyRes.statusCode,
+          data: responseData
+        }));
+      });
+    });
+
+    proxyReq.on('error', (error) => {
+      console.error('WebDAV proxy error:', error.message);
+      res.writeHead(500).end(JSON.stringify({
+        success: false,
+        error: error.message
+      }));
+    });
+
+    proxyReq.on('timeout', () => {
+      proxyReq.destroy();
+      res.writeHead(500).end(JSON.stringify({
+        success: false,
+        error: '请求超时'
+      }));
+    });
 
     if (method === 'PUT' && data) {
-      axiosConfig.data = data;
+      const bodyData = typeof data === 'string' ? data : JSON.stringify(data);
+      proxyReq.write(bodyData);
     }
 
-    const response = await axios(axiosConfig);
-    
-    res.status(200).json({
-      success: true,
-      status: response.status,
-      data: response.data
-    });
+    proxyReq.end();
   } catch (error) {
     console.error('WebDAV proxy error:', error.message);
-    res.status(error.response?.status || 500).json({
+    res.writeHead(500).end(JSON.stringify({
       success: false,
-      error: error.message,
-      status: error.response?.status
-    });
+      error: error.message
+    }));
   }
 };
