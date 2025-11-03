@@ -79,6 +79,7 @@ export default {
     webdavNotConfigured: '请先配置 WebDAV',
     webdavSyncSuccess: '同步成功',
     webdavSyncError: '同步失败',
+    webdavTest: '测试连接',
     api: 'API',
     reverseProxy: '反向代理',
     timeout: '超时',

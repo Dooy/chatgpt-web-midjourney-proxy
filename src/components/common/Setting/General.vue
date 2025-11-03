@@ -8,7 +8,7 @@ import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
-import { getWebDAVConfig, saveWebDAVConfig, syncToWebDAV, syncFromWebDAV } from '@/utils/webdav'
+import { getWebDAVConfig, saveWebDAVConfig, syncWithWebDAV } from '@/utils/webdav'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -153,6 +153,58 @@ function saveWebDAV(): void {
   showWebDAVConfig.value = false
 }
 
+async function testWebDAVConnection(): Promise<void> {
+  if (!webdavUrl.value || !webdavUsername.value || !webdavPassword.value) {
+    ms.error(t('setting.webdavConfigError'))
+    return
+  }
+  
+  const loading = ms.loading('正在测试连接...', { duration: 0 })
+  
+  try {
+    const testConfig = {
+      url: webdavUrl.value,
+      username: webdavUsername.value,
+      password: webdavPassword.value,
+    }
+    
+    const auth = btoa(`${testConfig.username}:${testConfig.password}`)
+    const testUrl = testConfig.url.replace(/\/$/, '')
+    
+    const xhr = new XMLHttpRequest()
+    xhr.open('PROPFIND', testUrl, true)
+    xhr.setRequestHeader('Authorization', `Basic ${auth}`)
+    xhr.setRequestHeader('Depth', '0')
+    xhr.timeout = 10000
+    
+    xhr.onload = () => {
+      loading.destroy()
+      if (xhr.status >= 200 && xhr.status < 300)
+        ms.success('连接成功！配置正确')
+      else if (xhr.status === 401)
+        ms.error('认证失败，请检查用户名和密码')
+      else
+        ms.error(`连接失败: ${xhr.status} ${xhr.statusText}`)
+    }
+    
+    xhr.onerror = () => {
+      loading.destroy()
+      ms.error('连接失败，请检查 WebDAV 地址是否正确，或者尝试使用 HTTPS 地址')
+    }
+    
+    xhr.ontimeout = () => {
+      loading.destroy()
+      ms.error('连接超时，请检查网络或服务器地址')
+    }
+    
+    xhr.send()
+  }
+  catch (error: any) {
+    loading.destroy()
+    ms.error(`测试失败: ${error.message}`)
+  }
+}
+
 async function handleSync(): Promise<void> {
   const config = getWebDAVConfig()
   if (!config) {
@@ -161,16 +213,26 @@ async function handleSync(): Promise<void> {
     return
   }
   
+  const loading = ms.loading('正在同步中...', { duration: 0 })
+  
   try {
-    // 先上传本地数据
-    await syncToWebDAV()
-    // 再下载远程数据（如果远程有更新）
-    await syncFromWebDAV()
-    ms.success(t('setting.webdavSyncSuccess'))
-    location.reload()
+    const result = await syncWithWebDAV()
+    loading.destroy()
+    
+    if (result.downloaded && result.uploaded)
+      ms.success('同步成功！已更新本地数据')
+    else if (result.uploaded)
+      ms.success('上传成功！')
+    else
+      ms.success(t('setting.webdavSyncSuccess'))
+    
+    if (result.downloaded)
+      setTimeout(() => location.reload(), 1000)
   }
   catch (error: any) {
-    ms.error(t('setting.webdavSyncError') + ': ' + error.message)
+    loading.destroy()
+    console.error('WebDAV sync error:', error)
+    ms.error(`同步失败: ${error.message}`)
   }
 }
 </script>
@@ -312,6 +374,9 @@ async function handleSync(): Promise<void> {
           <span class="flex-shrink-0 w-[100px]"></span>
           <NButton size="small" type="primary" @click="saveWebDAV">
             {{ $t('common.save') }}
+          </NButton>
+          <NButton size="small" @click="testWebDAVConnection">
+            {{ $t('setting.webdavTest') }}
           </NButton>
         </div>
       </div>
