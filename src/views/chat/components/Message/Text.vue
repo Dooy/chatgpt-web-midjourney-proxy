@@ -133,6 +133,9 @@ onUnmounted(() => {
 })
 
 const isDall=(chat: Chat.Chat)=>{
+ if(   chat.model=='midjourney'){
+        return false
+  }
   if( isDallImageModel( chat.model ) ){
     return true
   }

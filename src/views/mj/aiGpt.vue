@@ -163,8 +163,9 @@ watch(()=>homeStore.myData.act, async (n)=>{
             message= [  ...historyMesg ];
         }
         if( dd.fileBase64 && dd.fileBase64.length>0 ){
+             let arr = dd.fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
             //if(  model=='gpt-4-vision-preview' || model=='gemini-pro-1.5'){
-            if( isCanBase64Model(model) ){ 
+            if( isCanBase64Model(model) &&arr.length==0 ){ 
                 let obj={
                         "role": "user",
                         "content": [] as any
@@ -177,8 +178,7 @@ watch(()=>homeStore.myData.act, async (n)=>{
                 message.push(obj); 
             }else{
                 let cc= dd.prompt;
-                //附件需要时远程的图片链接 或者文件 链接
-                let arr = dd.fileBase64.filter( (ff:string)=>ff.indexOf('http')>-1);
+                //附件需要时远程的图片链接 或者文件 链接 
                 if(arr.length>0) cc = arr.join(' ')+' '+ cc ;
                 message.push({  "role": "user",  "content": cc })
             }
