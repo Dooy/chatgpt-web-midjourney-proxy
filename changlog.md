@@ -4,6 +4,7 @@
 # 2.25.9
 - 🐞 修复：mj显示双图
 - 🐞 修复：gpt-5-all gpts 读取不了pdf的问题
+- 🐞 修复：nona-banana 请求返回正确，但是页面不显示，原因是确实一个判断逻辑。下面代码即可解决bug #667
 
 # 2.25.8
 - 😄 新增视频：veo3.1 veo3.1-pro openai/sora-2 openai/sora-2-pro
