@@ -243,7 +243,10 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
    let action= data.action;
    // mlog("gp-image-1 base64Array ",   data.base64Array   )
    //chat.myid=  `${Date.now()}`;
-   if(  action=='gpt.dall-e-3' && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
+   const isDall=  action=='gpt.dall-e-3' || isDallImageModel( data.data?.model) ||  data.data?.model?.indexOf('banana')
+   
+   //if(  action=='gpt.dall-e-3' && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
+   if( isDall && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
          mlog("ddlog 数据 ", data.data  )
          try{
             let d= await ideoSubmit(data.data );
@@ -260,7 +263,7 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
             chat.loading=false;
             homeStore.setMyData({act:'updateChat', actData:chat });
          }
-   }else if(  action=='gpt.dall-e-3'  && data.data.base64Array!=undefined ){ //执行变化
+   }else if( isDall  && data.data.base64Array!=undefined ){ //执行变化
         mlog("gp-image-1 base64Array ",data.data ,  data.data.base64Array   )
      //let d= await gptFetch('/v1/images/edits', data.data);
      const formData = new FormData( ); 
@@ -304,7 +307,7 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
     }
     
 
-   }else if(  action=='gpt.dall-e-3' ){ //执行变化
+   }else if( isDall ){ //执行变化
        // chat.model= 'dall-e-3';
        
 
