@@ -1,6 +1,10 @@
 # 功能升级日志
 
 #  计划 
+# 2.25.9
+- 🐞 修复：mj显示双图
+- 🐞 修复：gpt-5-all gpts 读取不了pdf的问题
+
 # 2.25.8
 - 😄 新增视频：veo3.1 veo3.1-pro openai/sora-2 openai/sora-2-pro
 - 😄 修改：sora-2参数
