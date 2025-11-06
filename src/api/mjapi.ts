@@ -73,7 +73,8 @@ export const blob2file= ( blob:Blob,fileName:string )=>{
 }
 
 export const  isFileMp3= (filename:string )=>{
-    let arr='.mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm'.split(/[, ]+/ig);
+    //let arr='.mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm'.split(/[, ]+/ig);
+    let arr='.mp3, .mpeg, .mpga, .m4a, .wav, .webm'.split(/[, ]+/ig);
     mlog('fileIsMp3', arr );
     filename= filename.toLocaleLowerCase();
     for(let ext of arr ){
