@@ -180,12 +180,16 @@ async function testWebDAVConnection(): Promise<void> {
     const result = await response.json()
     loading.destroy()
     
+    console.log('WebDAV测试结果:', result)
+    
     if (result.success || result.status === 207)
       ms.success('连接成功！配置正确')
     else if (result.status === 401)
       ms.error('认证失败，请检查用户名和密码（坚果云需使用应用专用密码）')
+    else if (result.status === 404)
+      ms.error(`路径不存在 (404)\n请求URL: ${result.requestUrl}\n请确认WebDAV路径是否正确`, { duration: 8000 })
     else
-      ms.error(`连接失败: ${result.error || '未知错误'}`)
+      ms.error(`连接失败 (${result.status}): ${result.error || '未知错误'}`, { duration: 6000 })
   }
   catch (error: any) {
     loading.destroy()

@@ -64,11 +64,21 @@ module.exports = async (req, res) => {
       proxyRes.on('end', () => {
         const statusCode = proxyRes.statusCode;
         const isSuccess = (statusCode >= 200 && statusCode < 300) || statusCode === 207;
+        
+        let errorMsg = null;
+        if (!isSuccess) {
+          errorMsg = `HTTP ${statusCode} - ${url}`;
+          if (responseData) {
+            errorMsg += ` | Response: ${responseData.substring(0, 200)}`;
+          }
+        }
+        
         res.writeHead(200).end(JSON.stringify({
           success: isSuccess,
           status: statusCode,
           data: responseData,
-          error: isSuccess ? null : `HTTP ${statusCode}`
+          requestUrl: url,
+          error: errorMsg
         }));
       });
     });
