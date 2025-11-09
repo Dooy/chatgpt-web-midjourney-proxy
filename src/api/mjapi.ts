@@ -73,7 +73,9 @@ export const blob2file= ( blob:Blob,fileName:string )=>{
 }
 
 export const  isFileMp3= (filename:string )=>{
-    let arr='.mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm'.split(/[, ]+/ig);
+    //let arr='.mp3, .mp4, .mpeg, .mpga, .m4a, .wav, .webm'.split(/[, ]+/ig);
+    // 修复： https://github.com/Dooy/chatgpt-web-midjourney-proxy/issues/666
+    let arr='.mp3, .mpeg, .mpga, .m4a, .wav, .webm'.split(/[, ]+/ig);
     mlog('fileIsMp3', arr );
     filename= filename.toLocaleLowerCase();
     for(let ext of arr ){

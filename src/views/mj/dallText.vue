@@ -14,6 +14,9 @@ const load = async ()=>{
     
      if( !isDallImageModel(chat.value.model)  || !chat.value.myid || !chat.value.opt?.imageUrl ){
          st.value.isLoadImg=true;
+         if( chat.value.model=='midjourney'){
+           st.value.isLoadImg=false;
+         }
       return ;
      }
      let key= 'dall:'+chat.value.myid;
