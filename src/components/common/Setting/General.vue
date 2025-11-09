@@ -162,7 +162,7 @@ async function testWebDAVConnection(): Promise<void> {
   const loading = ms.loading('正在测试连接...', { duration: 0 })
   
   try {
-    const testUrl = webdavUrl.value.replace(/\/$/, '')
+    const testUrl = `${webdavUrl.value.replace(/\/$/, '')}/`
     
     const response = await fetch('/api/webdav-proxy', {
       method: 'POST',
@@ -180,7 +180,7 @@ async function testWebDAVConnection(): Promise<void> {
     const result = await response.json()
     loading.destroy()
     
-    if (result.success)
+    if (result.success || result.status === 207)
       ms.success('连接成功！配置正确')
     else if (result.status === 401)
       ms.error('认证失败，请检查用户名和密码（坚果云需使用应用专用密码）')
