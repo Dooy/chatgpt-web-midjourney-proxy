@@ -62,10 +62,12 @@ module.exports = async (req, res) => {
       });
 
       proxyRes.on('end', () => {
+        const isSuccess = proxyRes.statusCode >= 200 && proxyRes.statusCode < 300;
         res.writeHead(200).end(JSON.stringify({
-          success: true,
+          success: isSuccess,
           status: proxyRes.statusCode,
-          data: responseData
+          data: responseData,
+          error: isSuccess ? null : `HTTP ${proxyRes.statusCode}`
         }));
       });
     });
