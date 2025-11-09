@@ -45,8 +45,57 @@ async function webdavRequest(config: WebDAVConfig, method: string, data?: string
   return result
 }
 
+// 创建目录（如果不存在）
+async function ensureDirectory(config: WebDAVConfig): Promise<void> {
+  const dirUrl = config.url.replace(/\/$/, '')
+  
+  try {
+    // 尝试访问目录
+    const response = await fetch('/api/webdav-proxy', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        url: dirUrl,
+        method: 'PROPFIND',
+        username: config.username,
+        password: config.password,
+      }),
+    })
+    
+    const result = await response.json()
+    
+    // 如果目录不存在，尝试创建
+    if (result.status === 404) {
+      const createResponse = await fetch('/api/webdav-proxy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: dirUrl,
+          method: 'MKCOL',
+          username: config.username,
+          password: config.password,
+        }),
+      })
+      
+      const createResult = await createResponse.json()
+      if (!createResult.success && createResult.status !== 405)
+        throw new Error(`无法创建目录: ${createResult.error}`)
+    }
+  }
+  catch (error: any) {
+    // 忽略错误，继续尝试上传
+    console.warn('检查/创建目录失败:', error.message)
+  }
+}
+
 // 上传到 WebDAV
 async function uploadToWebDAV(config: WebDAVConfig, data: string): Promise<void> {
+  // 先确保目录存在
+  await ensureDirectory(config)
   await webdavRequest(config, 'PUT', data)
 }
 

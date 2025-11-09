@@ -162,8 +162,13 @@ async function testWebDAVConnection(): Promise<void> {
   const loading = ms.loading('正在测试连接...', { duration: 0 })
   
   try {
-    // 尝试上传一个测试文件来验证配置
-    const testUrl = `${webdavUrl.value.replace(/\/$/, '')}/chatgpt-test.txt`
+    // 从URL中提取根路径进行测试
+    const url = webdavUrl.value.replace(/\/$/, '')
+    const pathParts = new URL(url).pathname.split('/').filter(Boolean)
+    // 测试根目录 (例如 /dav/)
+    const rootPath = pathParts.length > 0 ? `/${pathParts[0]}/` : '/'
+    const baseUrl = new URL(url).origin
+    const testUrl = `${baseUrl}${rootPath}`
     
     const response = await fetch('/api/webdav-proxy', {
       method: 'POST',
@@ -172,26 +177,25 @@ async function testWebDAVConnection(): Promise<void> {
       },
       body: JSON.stringify({
         url: testUrl,
-        method: 'PUT',
+        method: 'PROPFIND',
         username: webdavUsername.value,
         password: webdavPassword.value,
-        data: 'test',
       }),
     })
     
     const result = await response.json()
     loading.destroy()
     
-    console.log('WebDAV测试结果:', result)
-    
-    if (result.success)
-      ms.success('连接成功！配置正确')
+    if (result.success || result.status === 207)
+      ms.success(`连接成功！配置正确\n注意：实际上传时会使用路径 ${url}`)
     else if (result.status === 401)
       ms.error('认证失败，请检查用户名和密码（坚果云需使用应用专用密码）')
     else if (result.status === 404)
-      ms.error(`路径不存在 (404)\n请求URL: ${result.requestUrl}\n请确认WebDAV路径是否正确（可能需要先在WebDAV服务中创建该目录）`, { duration: 10000 })
+      ms.error(`根路径不存在\n测试URL: ${testUrl}\n请检查WebDAV服务器地址是否正确`)
+    else if (result.status === 409)
+      ms.error(`路径配置问题 (409)\n您配置的路径: ${url}\n该路径的父目录可能不存在，请先在WebDAV中创建 ${url.split('/').slice(0, -1).join('/')} 目录`)
     else
-      ms.error(`连接失败 (${result.status}): ${result.error || '未知错误'}`, { duration: 6000 })
+      ms.error(`连接失败 (${result.status}): ${result.error || '未知错误'}`)
   }
   catch (error: any) {
     loading.destroy()
