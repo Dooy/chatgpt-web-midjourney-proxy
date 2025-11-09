@@ -1,4 +1,4 @@
-// WebDAV 同步工具
+﻿// WebDAV 同步工具
 interface WebDAVConfig {
   url: string
   username: string
@@ -67,5 +67,10 @@ export async function syncFromWebDAV(): Promise<void> {
     throw new Error('WebDAV 未配置')
   
   const result = await webdavRequest(config, 'GET')
-  localStorage.setItem('chatStorage', result.data || '{}')
-}
+  try {
+    localStorage.setItem('chatStorage', result.data || '{}')
+  }
+  catch {
+    throw new Error('浏览器存储限制，请使用Chrome/Edge或手动导入文件')
+  }}
+
