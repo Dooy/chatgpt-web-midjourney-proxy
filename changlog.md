@@ -1,6 +1,10 @@
 # 功能升级日志
 
 #  计划 
+# 2.25.10
+- 😄 新增画图：nano-banana-2
+- 😄 新增对话：`gpt-5.1`、`gemini-3-pro-preview`,`grok-4.1`
+
 # 2.25.9
 - 🐞 修复：mj显示双图
 - 🐞 修复：gpt-5-all gpts 读取不了pdf的问题
