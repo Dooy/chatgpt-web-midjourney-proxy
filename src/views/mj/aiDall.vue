@@ -110,11 +110,14 @@ const dimensionsList= computed(()=>{
                 }
         ];
     }
-    if(f.value.model.includes('banana')){
+    if(f.value.model.includes('banana')){ //auto
      return [{ 
+                    "label": "auto",
+                    "value": "auto"
+                }, { 
                     "label": "4:3",
                     "value": "4x3"
-                }, {
+                },{
                     "label": "3:4",
                     "value": "3x4"
                 }, {

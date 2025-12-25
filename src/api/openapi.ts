@@ -273,6 +273,9 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
                  formData.append('image[]', f.file )
             }
         }else{
+            if(o=='size' && data.data[o]=='auto'){
+                continue;
+            }
             formData.append(o, data.data[o])
         }
        
