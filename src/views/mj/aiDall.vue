@@ -15,7 +15,7 @@ model:[
  ,{  "label": "flux-kontext-max", "value": "flux-kontext-max" }
  ,{  "label": "nano-banana-2", "value": "nano-banana-2" }
  ,{  "label": "nano-banana", "value": "nano-banana" }
- ,{  "label": "nano-banana-hd", "value": "nano-banana-hd" }
+ ,{  "label": "nano-banana-pro", "value": "nano-banana-pro" }
  ,{  "label": "DALL·E 2", "value": "dall-e-2" }
  ,{  "label": "Flux", "value": "flux" }
  ,{  "label": "Flux-Dev", "value": "flux-dev" }
