@@ -8,20 +8,18 @@ import { t } from '@/locales';
 
 const ms = useMessage();
 const config = ref( {
-model:[
-{  "label": "DALL·E 3", "value": "dall-e-3" }
- ,{  "label": "GPT-Image-1", "value": "gpt-image-1" }
- ,{  "label": "flux-kontext-pro", "value": "flux-kontext-pro" }
- ,{  "label": "flux-kontext-max", "value": "flux-kontext-max" }
- ,{  "label": "nano-banana-2", "value": "nano-banana-2" }
- ,{  "label": "nano-banana", "value": "nano-banana" }
- ,{  "label": "nano-banana-pro", "value": "nano-banana-pro" }
- ,{  "label": "DALL·E 2", "value": "dall-e-2" }
- ,{  "label": "Flux", "value": "flux" }
- ,{  "label": "Flux-Dev", "value": "flux-dev" }
- ,{  "label": "Flux-Pro", "value": "flux-pro" }
- ,{  "label": "Flux-Pro-1.1", "value": "flux-pro-1.1" }
- ,{  "label": "Flux-Pro-1.1-Ultra", "value": "flux-pro-1.1-ultra" }
+model: [
+  { "label": "jimeng-3.0", "value": "jimeng-3.0" },
+  { "label": "jimeng-3.1", "value": "jimeng-3.1" },
+  { "label": "nano-banana", "value": "nano-banana" },
+  { "label": "jimeng-4.0", "value": "jimeng-4.0" },
+  { "label": "jimeng-4.0-4k", "value": "jimeng-4.0-4k" },
+  { "label": "jimeng-4.1", "value": "jimeng-4.1" },
+  { "label": "jimeng-4.1-4k", "value": "jimeng-4.1-4k" },
+  { "label": "jimeng-4.5", "value": "jimeng-4.5" },
+  { "label": "jimeng-4.5-4k", "value": "jimeng-4.5-4k" },
+  { "label": "nano-banana-pro", "value": "nano-banana-pro" },
+  { "label": "nano-banana-pro-4k", "value": "nano-banana-pro-4k" }
 ]
 });
 interface myFile{
