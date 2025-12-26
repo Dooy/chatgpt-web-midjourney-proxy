@@ -8,34 +8,59 @@ export const mytpl={
                 "type":"textarea",
                 "placeholder":"Video Description",
                 "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在openai-hk平台上使用，太好用了。"
-               
             }
-            
-             ,{
-                "key":"orientation",
+            ,{
+                "key":"enhance_prompt",
+                "type":"no",
+                "value":true
+            }
+            ,{
+                "key":"aspect_ratio",
                 "type":"select",
-                "value":"portrait",
+                "value":"16:9",
                 "options":[
-                    { "label":"模式: 竖屏", "value":"portrait"}
-                    ,{ "label":"模式: 横屏", "value":"landscape"}
+                    { "label":"Ratio 16:9", "value":"16:9"}
+                    ,{ "label":"Ratio 9:16", "value":"9:16"}
                 ]
-            } 
-             ,{
+            }
+            ,{
+                "key":"resolution",
+                "type":"select",
+                "value":"1080p",
+                "options":[
+                    { "label":"Resolution 4K", "value":"4K"}
+                    ,{ "label":"Resolution 1080p", "value":"1080p"}
+                    ,{ "label":"Resolution 720p", "value":"720p"}
+                    ,{ "label":"Resolution 480p", "value":"480p"}
+                ]
+            }
+            ,{
                 "key":"duration",
                 "type":"select",
-                "value":15,
+                "value":5,
                 "options":[
-                    { "label":"Duration: 15s", "value":15}
-                    ,{ "label":"Duration: 10s", "value":10}
+                    { "label":"Duration 5s", "value":5}
+                    ,{ "label":"Duration 10s", "value":10}
+                    ,{ "label":"Duration 15s", "value":15}
                 ]
             }
-            ,
-            
-            {   
+            ,{
+                "key":"watermark",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Watermark"
+            }
+            ,{
+                "key":"private",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Private"
+            }
+            ,{
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":2
-            }     
+            }
         ]
         ,"plat":"sora"
     },
@@ -48,47 +73,190 @@ export const mytpl={
                 "type":"textarea",
                 "placeholder":"Video Description",
                 "value":"在北京繁忙的人行道上进行的一个随意街头采访。采访者手持一个普通、没有品牌标志的麦克风并问道：你知道OpenAI的Sora 2新模型吗？这是一个好用的视频模型。受访者回答说：是的，我有所了解，它已经可以在openai-hk平台上使用，太好用了。"
-               
             }
-            
-             ,{
-                "key":"orientation",
+            ,{
+                "key":"enhance_prompt",
+                "type":"no",
+                "value":true
+            }
+            ,{
+                "key":"aspect_ratio",
                 "type":"select",
-                "value":"portrait",
+                "value":"16:9",
                 "options":[
-                    { "label":"模式: 竖屏", "value":"portrait"}
-                    ,{ "label":"模式: 横屏", "value":"landscape"}
+                    { "label":"Ratio 16:9", "value":"16:9"}
+                    ,{ "label":"Ratio 9:16", "value":"9:16"}
                 ]
             }
-             ,{
-                "key":"size",
+            ,{
+                "key":"resolution",
                 "type":"select",
-                "value":"large",
+                "value":"1080p",
                 "options":[
-                    { "label":"清晰: 高清", "value":"large"}
-                    ,{ "label":"清晰: 一般", "value":"small"}
+                    { "label":"Resolution 4K", "value":"4K"}
+                    ,{ "label":"Resolution 1080p", "value":"1080p"}
+                    ,{ "label":"Resolution 720p", "value":"720p"}
+                    ,{ "label":"Resolution 480p", "value":"480p"}
                 ]
             }
-             ,{
+            ,{
                 "key":"duration",
                 "type":"select",
-                "value":15,
+                "value":5,
                 "options":[
-                    { "label":"Duration: 25s", "value":25}
-                    ,{ "label":"Duration: 15s", "value":15}
-                    ,{ "label":"Duration: 10s", "value":10}
+                    { "label":"Duration 5s", "value":5}
+                    ,{ "label":"Duration 10s", "value":10}
+                    ,{ "label":"Duration 15s", "value":15}
+                    ,{ "label":"Duration 20s", "value":20}
+                    ,{ "label":"Duration 25s", "value":25}
                 ]
             }
-            
-            ,
-            
-            {   
+            ,{
+                "key":"hd",
+                "type":"switch",
+                "value":false,
+                "placeholder":"HD Mode"
+            }
+            ,{
+                "key":"watermark",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Watermark"
+            }
+            ,{
+                "key":"private",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Private"
+            }
+            ,{
                 "key":"images",
                 "type":"image_base64_url_array",
                 "max":2
-            }     
+            }
         ]
         ,"plat":"sora"
+    },
+    {
+        "model":"doubao-seedance-1-0-pro-250528",
+        "field":[
+            {
+                "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description",
+                "value":"一辆蓝色的跑车在雨夜的城市街道上飞驰，镜头跟随，水面溅起的水花清晰可见"
+            },
+            {
+                "key":"resolution",
+                "type":"select",
+                "value":"720p",
+                "options":[
+                    { "label":"Resolution 720p", "value":"720p"},
+                    { "label":"Resolution 1080p", "value":"1080p"}
+                ]
+            },
+            {
+                "key":"ratio",
+                "type":"select",
+                "value":"16:9",
+                "options":[
+                    { "label":"Ratio 16:9", "value":"16:9"},
+                    { "label":"Ratio 9:16", "value":"9:16"},
+                    { "label":"Ratio 1:1", "value":"1:1"}
+                ]
+            },
+            {
+                "key":"duration",
+                "type":"select",
+                "value":5,
+                "options":[
+                    { "label":"Duration 5s", "value":5},
+                    { "label":"Duration 8s", "value":8},
+                    { "label":"Duration 10s", "value":10},
+                    { "label":"Duration 12s", "value":12}
+                ]
+            },
+            {
+                "key":"fps",
+                "type":"select",
+                "value":24,
+                "options":[
+                    { "label":"FPS 24", "value":24},
+                    { "label":"FPS 30", "value":30}
+                ]
+            },
+            {
+                "key":"camerafixed",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Camera Fixed"
+            },
+            {
+                "key":"watermark",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Watermark"
+            },
+            {
+                "key":"seed",
+                "type":"number",
+                "value":0,
+                "min":0,
+                "max":999999
+            }
+        ],
+        "plat":"seedance"
+    },
+    {
+        "model":"doubao-seedance-1-0-lite-i2v-250428",
+        "field":[
+            {
+                "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description",
+                "value":"结合首帧画面生成一段温暖的旅行视频，镜头轻微移动"
+            },
+            {
+                "key":"resolution",
+                "type":"select",
+                "value":"720p",
+                "options":[
+                    { "label":"Resolution 720p", "value":"720p"},
+                    { "label":"Resolution 1080p", "value":"1080p"}
+                ]
+            },
+            {
+                "key":"ratio",
+                "type":"select",
+                "value":"16:9",
+                "options":[
+                    { "label":"Ratio 16:9", "value":"16:9"},
+                    { "label":"Ratio 9:16", "value":"9:16"},
+                    { "label":"Ratio 1:1", "value":"1:1"}
+                ]
+            },
+            {
+                "key":"duration",
+                "type":"select",
+                "value":5,
+                "options":[
+                    { "label":"Duration 5s", "value":5},
+                    { "label":"Duration 8s", "value":8},
+                    { "label":"Duration 10s", "value":10}
+                ]
+            },
+            {
+                "key":"first_frame",
+                "type":"image_base64_url",
+                "value":"https://ark-project.tos-cn-beijing.volces.com/doc_image/see_i2v.jpeg"
+            },
+            {
+                "key":"last_frame",
+                "type":"image_base64_url",
+                "placeholder":"可选：尾帧"
+            }
+        ],
+        "plat":"seedance"
     },
 
     {

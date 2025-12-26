@@ -201,6 +201,10 @@ export default {
   "ideokeyPlaceholder": "API Key for Ideogram (optional)",
   "ideopls": "Image description prompts",
   "nohead": "Excludes",
+  "doubaoabout": "doubao related",
+  "doubaoserver": "doubao endpoint",
+  "doubaokeyPlaceholder": "doubao Api Key",
+  "doubaokey": "doubao Key",
 
   klingabout: 'Kling About',
   klingserver: 'Kling API Address',
@@ -274,7 +278,41 @@ export default {
    ,editImage:'Image Edit'
    ,editVideo:'Image2Video'
    ,moreset:'More Parameters'
+
+   ,basicSetting:'Basic'
+   ,imageSetting:'Image Settings'
   },
+
+  seedream:{
+    mode:'Mode'
+    ,txt2img:'Text to Image'
+    ,txt2imgDesc:'Generate single image from text'
+    ,img2img:'Image to Image'
+    ,img2imgDesc:'Single reference image editing'
+    ,multi:'Multi Fusion'
+    ,multiDesc:'Fuse multiple reference images'
+    ,group:'Group Generation'
+    ,groupDesc:'Generate multiple coherent images'
+    ,edit:'Image Edit'
+    ,editDesc:'Upload image for editing, supports mask'
+    ,resolution:'Resolution'
+    ,count:'Count'
+    ,optimizePrompt:'Prompt Optimization'
+    ,responseFormat:'Response Format'
+    ,watermark:'Watermark'
+    ,groupCount:'Group Count'
+    ,refImages:'Reference Images (optional, max 14)'
+    ,refImagesOptional:'Reference Images (optional)'
+    ,editImage:'Image to Edit'
+    ,editImagePlaceholder:'Please upload image to edit'
+    ,maskImage:'Mask Image'
+    ,maskImagePlaceholder:'Please upload mask image (optional)'
+    ,maskUploaded:'Mask image uploaded'
+    ,optional:'Optional'
+    ,currentSize:'Current Size: '
+    ,description:'Note: Seedream 4.0/4.5 text/single/multi image generation and editing, supports group, image editing and streaming output.'
+  },
+
   "mjset": {
     "server": "Server",
     "about": "About",
@@ -356,6 +394,13 @@ export default {
     "dalleInfo": "Note:<li>1. DALL-E is an image generation model provided by OpenAI</li><li>2. OpenAI images have an expiration date, so make backups</li><li>3. Note: The price of 1790px images is double</li>",
     "version": "Version",
     "size": "Size",
+    "aspectRatio": "Aspect Ratio",
+    "responseFormat": "Response Format",
+    "imageSize": "Image Size",
+    "nanoBananaSupport": "All Banana models support",
+    "onlyNanoBanana2": "Only nano-banana-2 supports",
+    "refImages": "Reference Images",
+    "refImagesDesc": "Multiple images supported",
     "blendInfo": "Note:<li>1. Blend at least 2 images</li><li>2. Up to 6 images can be used for blending</li>",
     "blendStart": "Start Blending",
     "no2add": "Do not add duplicate images",
@@ -527,6 +572,32 @@ export default {
 
     rwgen3turbo:'Version: Gen-3 Alpha Turbo',
     gen3a_turbo_img:'Gen-3 Alpha Turbo must image',
+    "seedanceabout": "About doubao",
+    "seedanceserver": "doubao API endpoint",
+    "seedancekeyPlaceholder": "doubao Api Key",
+    "seedancekey": "doubao Key",
+    "selectModel": "Please select a model",
+    "referenceFrame": "Reference Frame",
+    "seedanceDesc": "Note: Doubao Seedance supports text-to-video, image-to-video, and first/last frame generation with adjustable resolution, aspect ratio, duration, and more.",
+    "upload": "Upload",
+    "sora2about": "About Sora2",
+    "sora2server": "Sora2 API Endpoint",
+    "sora2keyPlaceholder": "Sora2 API Key (optional)",
+    "sora2key": "Sora2 Key",
+    "hdMode": "HD Mode",
+    "watermark": "Watermark",
+    "private": "Private",
+    "enhancePrompt": "Enhance Prompt",
+    "sora2Desc": "Note: Sora2 supports text-to-video and image-to-video with adjustable resolution, aspect ratio, duration, and more. Pro version supports HD mode and longer duration."
+  },
+  seedance:{
+    mode: "Mode",
+    txt2video: "Text to Video",
+    txt2videoDesc: "Generate video from text",
+    img2video: "Image to Video",
+    img2videoDesc: "Generate video from first frame",
+    img2videoBoth: "First & Last Frame",
+    img2videoBothDesc: "Generate video from first and last frames"
 
   },
   dance:{

@@ -98,6 +98,8 @@ export interface gptServerType{
     OPENAI_API_BASE_URL:string
     MJ_SERVER:string
     MJ_API_SECRET:string
+    DOUBAO_SERVER?:string
+    DOUBAO_KEY?:string
     UPLOADER_URL:string
     MJ_CDN_WSRV?:boolean //wsrv.nl
     SUNO_SERVER:string
@@ -142,6 +144,8 @@ let v:gptServerType={
         MJ_SERVER:'',
         UPLOADER_URL:'',
         MJ_API_SECRET:'',
+        DOUBAO_SERVER:'',
+        DOUBAO_KEY:'',
         SUNO_KEY:'',
         SUNO_SERVER:'',
         MJ_CDN_WSRV:false

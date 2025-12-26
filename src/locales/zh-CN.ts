@@ -178,6 +178,13 @@ export default {
     ,dalleInfo:' 说明：   <li>1 dall-e 是openAi提供的画图模型</li>  <li>2 openAi的图片有时效性，请做好备份</li>   <li>3 注意：1790px的图片价格是双倍</li> <li>4 注意：dall-e-2、gpt-image-1 支持多图参考</li> '
     ,version:'版本'
     ,size:'尺寸'
+    ,aspectRatio:'宽高比'
+    ,responseFormat:'返回格式'
+    ,imageSize:'图片尺寸'
+    ,nanoBananaSupport:'所有 Banana 模型支持'
+    ,onlyNanoBanana2:'仅 nano-banana-2 支持'
+    ,refImages:'参考图'
+    ,refImagesDesc:'支持多图参考'
     ,blendInfo:'说明： <li>1 合成至少2张图片</li> <li>2 最多可传6张图</li> '
     ,blendStart:'开始合成'
     ,no2add:'请勿重复添加图片'
@@ -304,6 +311,10 @@ export default {
     ,ideokeyPlaceholder:'Ideogram 的API Key 可不填'
     ,ideopls:'图片描述 提示词'
     ,nohead:'不含'
+    ,doubaoabout:'doubao 相关'
+    ,doubaoserver:'豆包接口'
+    ,doubaokeyPlaceholder:'豆包 API Key'
+    ,doubaokey:'豆包 Key'
 
     ,klingabout:'可灵 相关'
     ,klingserver:'可灵 接口地址'
@@ -316,7 +327,7 @@ export default {
     ,pro:'高表现'
     ,needImg:'请传参考图才生效！'
     ,seed:'种子数字 1~2147483647'
-    ,klingInfo:'说明： <li>1. 高表现是3.5倍的价格</li>  <li>2. 10s是2倍的价格</li> <li>3. 尾帧必须有参考图片才生效</li> <li>4. v1.5 v1.6的价格都是v1.0的2倍</li><li>5. v2-master的价格都是v1.0的10倍</li>'
+    ,kling:'Kling'
 
     ,camera_type:'镜头'
     ,cnull:'智能匹配'
@@ -325,7 +336,7 @@ export default {
     ,right_turn_forward: '右旋推进'
     ,left_turn_forward: '左旋推进'
 
-    ,kling:'可灵'
+    ,klingInfo:'说明： <li>1. 高表现是3.5倍的价格</li>  <li>2. 10s是2倍的价格</li> <li>3. 尾帧必须有参考图片才生效</li> <li>4. v1.5 v1.6的价格都是v1.0的2倍</li><li>5. v2-master的价格都是v1.0的10倍</li>'
 
     ,rttab:'语音'
     ,rtinfo:'实时语音对话服务(realtime)'
@@ -382,7 +393,39 @@ export default {
    ,editVideo:'图生视频'
    ,moreset:'更多参数'
 
-   
+   ,basicSetting:'基础'
+   ,imageSetting:'画面设置'
+
+  },
+
+  seedream:{
+    mode:'模式'
+    ,txt2img:'文生图'
+    ,txt2imgDesc:'文本生成单图'
+    ,img2img:'图生图'
+    ,img2imgDesc:'单参考图编辑'
+    ,multi:'多图融合'
+    ,multiDesc:'多参考图融合单图'
+    ,group:'组图生成'
+    ,groupDesc:'生成多张连贯图片'
+    ,edit:'图片编辑'
+    ,editDesc:'上传图片进行编辑，支持 mask 蒙版'
+    ,resolution:'分辨率'
+    ,count:'张数'
+    ,optimizePrompt:'提示优化'
+    ,responseFormat:'返回格式'
+    ,watermark:'水印'
+    ,groupCount:'组图数量'
+    ,refImages:'参考图（可选，最多 14 张）'
+    ,refImagesOptional:'参考图（可选）'
+    ,editImage:'待编辑图片'
+    ,editImagePlaceholder:'请上传需要编辑的图片'
+    ,maskImage:'蒙版图片'
+    ,maskImagePlaceholder:'请上传蒙版图片（可选）'
+    ,maskUploaded:'蒙版图片已上传'
+    ,optional:'可选'
+    ,currentSize:'当前像素：'
+    ,description:'说明：Seedream 4.0/4.5 文本/单图/多图生成与编辑，支持组图、图片编辑与流式输出。'
   },
 
 	draw: {
@@ -531,7 +574,7 @@ export default {
     download:'下载',
     extend:'延展',
 
-    lumainfo:'说明：<ul><li >1.relax版已下线，<b style="color:red">入口已经更换到pro无水印版</b></li><li>2.无水印版本需要通过“下载按钮”得到下载链接</li><li>3.pro得到的链接有时限；请及时保存mp4文件到本地</li><li>4.请在生成后的30分钟内；将mp4保存到本地，渠道号也可能被封或者下线</li> <li>5.当下载链接无效时会给出带水印的视频链接</li></ul>',
+    lumainfo:'说明：<ul><li >1.relax版已下线，<b style="color:red">入口已经更换到pro无水印版</b></li><li>2.无水印版本需要通过"下载按钮"得到下载链接</li><li>3.pro得到的链接有时限；请及时保存mp4文件到本地</li><li>4.请在生成后的30分钟内；将mp4保存到本地，渠道号也可能被封或者下线</li> <li>5.当下载链接无效时会给出带水印的视频链接</li></ul>',
     runwayabout:'Runway 相关',
     runwayserver:'Runway 接口地址',
     setOpenKeyPlaceholder2:'Runway API 的key, 可不填',
@@ -544,9 +587,34 @@ export default {
     repeat2:'过期.重新获取',
 
     rwgen3turbo:'版本: Gen-3 Alpha Turbo',
-    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图'
+    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图',
+    seedanceabout:'doubao 配置',
+    seedanceserver:'doubao 接口地址',
+    seedancekeyPlaceholder:'doubao 的 API Key',
+    seedancekey:'doubao Key'
 
     ,selectModel:'请选择模型'
+    ,referenceFrame:'参考帧'
+    ,seedanceDesc:'说明：豆包 Seedance 视频生成，支持文生视频、图生视频、首尾帧图生视频，可调节分辨率、宽高比、时长等参数。'
+    ,upload:'上传'
+    ,sora2about:'Sora2 相关'
+    ,sora2server:'Sora2 接口地址'
+    ,sora2keyPlaceholder:'Sora2 的 API Key, 可不填'
+    ,sora2key:'Sora2 Key'
+    ,hdMode:'高清模式'
+    ,watermark:'水印'
+    ,private:'私密'
+    ,enhancePrompt:'提示词增强'
+    ,sora2Desc:'说明：Sora2 支持文生视频和图生视频，可调节分辨率、宽高比、时长等参数。Pro 版本支持高清模式和更长时长。'
+  }
+  ,seedance:{
+    mode:'模式'
+    ,txt2video:'文生视频'
+    ,txt2videoDesc:'文本生成视频'
+    ,img2video:'图生视频'
+    ,img2videoDesc:'首帧图片生成视频'
+    ,img2videoBoth:'首尾帧生视频'
+    ,img2videoBothDesc:'首帧和尾帧生成视频'
 
   }
   ,dance:{

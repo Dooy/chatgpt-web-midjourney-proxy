@@ -10,6 +10,7 @@ import { ChatMessage } from "gpt-tokenizer/esm/GptEncoding";
 import { chatSetting } from "./chat";
 import { MessageApiInjection } from "naive-ui/es/message/src/MessageProvider";
 import { ideoSubmit } from "./ideo";
+import { seedreamGenerate, seedreamEdits } from "./seedream";
 import { error } from "console";
 //import {encode,  encodeChat}  from "gpt-tokenizer"
 //import {encode,  encodeChat} from "gpt-tokenizer/cjs/encoding/cl100k_base.js";
@@ -243,6 +244,14 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
    let action= data.action;
    // mlog("gp-image-1 base64Array ",   data.base64Array   )
    //chat.myid=  `${Date.now()}`;
+   if(action=='gpt.seedream'){
+        await handleSeedream(data.data, chat);
+        return;
+   }
+   if(action=='gpt.seedream.edit'){
+        await handleSeedreamEdit(data.data, chat);
+        return;
+   }
    const isDall=  action=='gpt.dall-e-3' || isDallImageModel( data.data?.model) ||  data.data?.model?.indexOf('banana')
    
    //if(  action=='gpt.dall-e-3' && data.data && data.data.model && data.data.model.indexOf('ideogram')>-1 ){ //ideogram
@@ -333,6 +342,90 @@ export const subGPT= async (data:any, chat:Chat.Chat )=>{
 
    }
 
+}
+
+async function handleSeedream(payload: any, chat: Chat.Chat) {
+  try {
+    const res = await seedreamGenerate(payload);
+    const list: any[] = Array.isArray(res?.data) ? res.data : [];
+    const images = list
+      .map(
+        (v) =>
+          v.url ||
+          (v.b64_json ? `data:image/png;base64,${v.b64_json}` : ""),
+      )
+      .filter((v) => v);
+    if (!images.length) throw res;
+
+    const first = list[0] ?? {};
+    chat.model = payload?.model ?? chat.model;
+    chat.text = first.revised_prompt ?? payload?.prompt ?? "图片已完成";
+    chat.opt = {
+      imageUrl: images[0],
+      images,
+      size: first.size,
+    };
+    chat.loading = false;
+    homeStore.setMyData({ act: "updateChat", actData: chat });
+  } catch (e: any) {
+    let err = "";
+    try {
+      err = typeof e === "string" ? e : JSON.stringify(e, null, 2);
+    } catch (error) {
+      err = `${e}`;
+    }
+    chat.text = "失败！" + "\n```json\n" + err + "\n```\n";
+    chat.loading = false;
+    homeStore.setMyData({ act: "updateChat", actData: chat });
+  }
+}
+
+async function handleSeedreamEdit(payload: any, chat: Chat.Chat) {
+  try {
+    if (!payload.editImageFile) {
+      throw new Error("请上传需要编辑的图片");
+    }
+    const editsPayload = {
+      model: payload.model,
+      image: payload.editImageFile,
+      mask: payload.editMaskFile,
+      prompt: payload.prompt,
+      n: payload.n,
+      size: payload.size,
+      response_format: payload.response_format,
+    };
+    const res = await seedreamEdits(editsPayload);
+    const list: any[] = Array.isArray(res?.data) ? res.data : [];
+    const images = list
+      .map(
+        (v) =>
+          v.url ||
+          (v.b64_json ? `data:image/png;base64,${v.b64_json}` : ""),
+      )
+      .filter((v) => v);
+    if (!images.length) throw res;
+
+    const first = list[0] ?? {};
+    chat.model = payload?.model ?? chat.model;
+    chat.text = payload?.prompt ?? "图片编辑已完成";
+    chat.opt = {
+      imageUrl: images[0],
+      images,
+      size: first.size,
+    };
+    chat.loading = false;
+    homeStore.setMyData({ act: "updateChat", actData: chat });
+  } catch (e: any) {
+    let err = "";
+    try {
+      err = typeof e === "string" ? e : JSON.stringify(e, null, 2);
+    } catch (error) {
+      err = `${e}`;
+    }
+    chat.text = "编辑失败！" + "\n```json\n" + err + "\n```\n";
+    chat.loading = false;
+    homeStore.setMyData({ act: "updateChat", actData: chat });
+  }
 }
 
 export const isDallImageModel =(model:string|undefined)=>{
@@ -606,49 +699,72 @@ export const  gptUsage=async ()=>{
 export const openaiSetting= ( q:any,ms:MessageApiInjection )=>{
     //mlog()
     mlog('setting', q )
+    const applySettings = (obj:any)=>{
+        const url = obj.url ?? undefined;
+        const key = obj.key ?? undefined;
+        const doubaoUrl = obj.doubao_url ?? obj.doubaoUrl ?? url;
+        const doubaoKey = obj.doubao_key ?? obj.doubaoKey ?? key;
+        gptServerStore.setMyData(  {
+            OPENAI_API_BASE_URL:url, 
+            MJ_SERVER:url, 
+            SUNO_SERVER:url,
+            LUMA_SERVER:url,
+            RUNWAY_SERVER:url,
+            VIGGLE_SERVER:url,
+            IDEO_SERVER:url,
+            KLING_SERVER:url,
+            PIKA_SERVER:url,
+            UDIO_SERVER:url,
+            PIXVERSE_SERVER:url,
+            RIFF_SERVER:url,
+            
+            
+            
+            OPENAI_API_KEY:key,
+            MJ_API_SECRET:key, 
+            SUNO_KEY:key,
+            LUMA_KEY:key,
+            RUNWAY_KEY:key,
+            VIGGLE_KEY:key,
+            IDEO_KEY:key,
+            KLING_KEY:key,
+            PIKA_KEY:key,
+            UDIO_KEY:key,
+            PIXVERSE_KEY:key,
+            RIFF_KEY:key,
+            DOUBAO_SERVER:doubaoUrl,
+            DOUBAO_KEY:doubaoKey,
+         } )
+        blurClean();
+        gptServerStore.setMyData( gptServerStore.myData );
+        ms.success("设置服务端成功！")
+    }
+
     if(q.settings){
         mlog('q.setting', q.settings )
         try {
-            let obj = JSON.parse( q.settings );
-            const url = obj.url ?? undefined;
-            const key = obj.key ?? undefined;
-            //let setQ= { }
-            gptServerStore.setMyData(  {
-                OPENAI_API_BASE_URL:url, 
-                MJ_SERVER:url, 
-                SUNO_SERVER:url,
-                LUMA_SERVER:url,
-                RUNWAY_SERVER:url,
-                VIGGLE_SERVER:url,
-                IDEO_SERVER:url,
-                KLING_SERVER:url,
-                PIKA_SERVER:url,
-                UDIO_SERVER:url,
-                PIXVERSE_SERVER:url,
-                RIFF_SERVER:url,
-                
-                
-                
-                OPENAI_API_KEY:key,
-                MJ_API_SECRET:key, 
-                SUNO_KEY:key,
-                LUMA_KEY:key,
-                RUNWAY_KEY:key,
-                VIGGLE_KEY:key,
-                IDEO_KEY:key,
-                KLING_KEY:key,
-                PIKA_KEY:key,
-                UDIO_KEY:key,
-                PIXVERSE_KEY:key,
-                RIFF_KEY:key,
-             } )
-            blurClean();
-            gptServerStore.setMyData( gptServerStore.myData );
-            ms.success("设置服务端成功！")
-            
+            let obj:any = {};
+            const rawAny = q.settings as any;
+            if (typeof rawAny === 'string') {
+                let raw = rawAny;
+                try { raw = decodeURIComponent(rawAny); } catch(e){}
+                obj = JSON.parse(raw);
+            } else if (typeof rawAny === 'object') {
+                obj = rawAny;
+            }
+            applySettings(obj);
         } catch (error) {
             
         }
+    }
+    else if(q.url || q.key || q.doubao_url || q.doubao_key){
+        const obj:any={
+            url:q.url,
+            key:q.key,
+            doubao_url: q.doubao_url,
+            doubao_key: q.doubao_key,
+        }
+        applySettings(obj)
     }
     else if(isObject(q)){
         mlog('setting2', q )
@@ -667,6 +783,17 @@ export const blurClean= ()=>{
   gptServerStore.myData.MJ_SERVER =myTrim( myTrim( gptServerStore.myData.MJ_SERVER.trim(),'/'),'\\');
   gptServerStore.myData.MJ_API_SECRET = gptServerStore.myData.MJ_API_SECRET.trim();
   gptServerStore.myData.UPLOADER_URL=  myTrim( myTrim( gptServerStore.myData.UPLOADER_URL.trim(),'/'),'\\');
+  // fallback doubao to通用配置
+  if(!gptServerStore.myData.DOUBAO_SERVER && gptServerStore.myData.OPENAI_API_BASE_URL){
+      gptServerStore.myData.DOUBAO_SERVER = gptServerStore.myData.OPENAI_API_BASE_URL;
+  }else if(gptServerStore.myData.DOUBAO_SERVER){
+      gptServerStore.myData.DOUBAO_SERVER = myTrim( myTrim(gptServerStore.myData.DOUBAO_SERVER.trim(),'/'),'\\');
+  }
+  if(!gptServerStore.myData.DOUBAO_KEY && gptServerStore.myData.OPENAI_API_KEY){
+      gptServerStore.myData.DOUBAO_KEY = gptServerStore.myData.OPENAI_API_KEY;
+  }else if(gptServerStore.myData.DOUBAO_KEY){
+      gptServerStore.myData.DOUBAO_KEY = gptServerStore.myData.DOUBAO_KEY.trim();
+  }
 }
 
 export const countTokens= async ( dataSources:Chat.Chat[], input:string ,uuid:number )=>{
