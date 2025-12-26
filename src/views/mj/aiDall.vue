@@ -9,6 +9,8 @@ import { t } from '@/locales';
 const ms = useMessage();
 const config = ref( {
 model: [
+  { "label": "nano-banana-pro", "value": "nano-banana-pro" },
+  { "label": "nano-banana-pro-4k", "value": "nano-banana-pro-4k" }，
   { "label": "jimeng-3.0", "value": "jimeng-3.0" },
   { "label": "jimeng-3.1", "value": "jimeng-3.1" },
   { "label": "nano-banana", "value": "nano-banana" },
@@ -17,9 +19,7 @@ model: [
   { "label": "jimeng-4.1", "value": "jimeng-4.1" },
   { "label": "jimeng-4.1-4k", "value": "jimeng-4.1-4k" },
   { "label": "jimeng-4.5", "value": "jimeng-4.5" },
-  { "label": "jimeng-4.5-4k", "value": "jimeng-4.5-4k" },
-  { "label": "nano-banana-pro", "value": "nano-banana-pro" },
-  { "label": "nano-banana-pro-4k", "value": "nano-banana-pro-4k" }
+  { "label": "jimeng-4.5-4k", "value": "jimeng-4.5-4k" }
 ]
 });
 interface myFile{

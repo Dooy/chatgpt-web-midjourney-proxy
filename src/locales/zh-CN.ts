@@ -175,7 +175,7 @@ export default {
     ,tQuality:'画质'
     ,tStyles:'艺术程度'
     ,tVersion:'模型版本'
-    ,dalleInfo:' 说明：   <li>1 dall-e 是openAi提供的画图模型</li>  <li>2 openAi的图片有时效性，请做好备份</li>   <li>3 注意：1790px的图片价格是双倍</li> <li>4 注意：dall-e-2、gpt-image-1 支持多图参考</li> '
+    ,dalleInfo:' 说明：   <li>1 提供支持openAi的POST /v1/images/generations接口的画图模型</li>  <li>2 服务器的图片有时效性，请做好备份</li>   <li>3 注意：1790px的图片价格是双倍</li> <li>4 注意：dall-e-2、gpt-image-1 支持多图参考</li> '
     ,version:'版本'
     ,size:'尺寸'
     ,blendInfo:'说明： <li>1 合成至少2张图片</li> <li>2 最多可传6张图</li> '
