@@ -36,6 +36,14 @@ export const useAuthStore = defineStore('auth-store', {
         const { data } = await fetchSession<SessionResponse>()
         this.session = { ...data }
 
+        // 调试日志（生产环境可以删除）
+        console.log('[Session] 收到服务器配置:', {
+          OPENAI_API_BASE_URL: data.OPENAI_API_BASE_URL,
+          MJ_SERVER: data.MJ_SERVER,
+          hasUrl: !!data.OPENAI_API_BASE_URL,
+          hasMj: !!data.MJ_SERVER
+        })
+
         homeStore.setMyData({session: data });
         if(appStore.$state.theme=='auto' ){
             appStore.setTheme(  data.theme && data.theme=='light' ?'light':'dark')
@@ -46,19 +54,27 @@ export const useAuthStore = defineStore('auth-store', {
 
         // 如果 localStorage 中没有保存服务器配置，从 session 环境变量初始化
         const serverStoreStr = localStorage.getItem('gptServerStore');
+        console.log('[Session] localStorage 配置:', serverStoreStr)
+
         if(!serverStoreStr || serverStoreStr === '{}'){
           const gptServerStore = (await import('@/store/homeStore')).gptServerStore;
+
           if(data.OPENAI_API_BASE_URL && !gptServerStore.myData.OPENAI_API_BASE_URL){
+            console.log('[Session] 从环境变量设置 OPENAI_API_BASE_URL:', data.OPENAI_API_BASE_URL)
             gptServerStore.setMyData({ OPENAI_API_BASE_URL: data.OPENAI_API_BASE_URL });
           }
           if(data.MJ_SERVER && !gptServerStore.myData.MJ_SERVER){
+            console.log('[Session] 从环境变量设置 MJ_SERVER:', data.MJ_SERVER)
             gptServerStore.setMyData({ MJ_SERVER: data.MJ_SERVER });
           }
+        } else {
+          console.log('[Session] localStorage 有配置，跳过环境变量初始化')
         }
 
         return Promise.resolve(data)
       }
       catch (error) {
+        console.error('[Session] 获取配置失败:', error)
         return Promise.reject(error)
       }
     },
