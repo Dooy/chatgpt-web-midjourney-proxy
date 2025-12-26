@@ -32,6 +32,7 @@ function setupPlugins(env: ImportMetaEnv): PluginOption[] {
 
 export default defineConfig((env) => {
   const viteEnv = loadEnv(env.mode, process.cwd()) as unknown as ImportMetaEnv
+  const serverPort = Number(process.env.FRONT_PORT || viteEnv.VITE_PORT || 5173)
 
   return {
     resolve: {

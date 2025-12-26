@@ -2,6 +2,7 @@ import { gptFetch, gptUploadFile, mlog } from "@/api"
 import { DtoItem, DtoStore } from "@/api/dtoStore"
 import { sleep } from "@/api/suno"
 import { homeStore } from "@/store"
+import { seedanceCreateTask, seedanceGetTask } from "@/api/seedance"
 
 export interface DtoTpl{
     model:string
@@ -14,6 +15,7 @@ export interface DtoField{
     type:string 
     value?:any           
     max?:number           
+    min?:number           
     placeholder?:string           
     options?:  {labal:string,value:string}[]           
 }
@@ -32,6 +34,8 @@ export const PostVideo= async(nowModel:DtoTpl, data:any)=>{
         rz= await openaiVideo(nowModel,data)
     }else if(plat=='fal-ai'){
         rz= await falAI(nowModel,data)
+    }else if(plat=='seedance'){
+        rz= await seedanceVideo(nowModel,data)
     }else{
         mlog("plat",plat, "这个平台没有指定")
         return 
@@ -53,6 +57,8 @@ export const DtoFeed= async (item:DtoItem)=>{
         falAiFeed(item.id)
     }else if(item.plat=="openai" ){
      openaiVideoFeed(item.id)
+    }else if(item.plat=="seedance"){
+      seedanceFeed(item.id)
     }else{
       googleVeoFeed(item.id)
     }
@@ -133,6 +139,63 @@ const googleVeo= async(nowModel:DtoTpl, data:any)=>{
        title:data.prompt??'no prompt'
    }
    return rz
+}
+
+const seedanceVideo = async (nowModel: DtoTpl, data: any) => {
+   const pickImg = (v:any)=> Array.isArray(v)?v[0]:v;
+   const payload = {
+     model: nowModel.model,
+     prompt: data.prompt ?? "",
+     resolution: data.resolution,
+     ratio: data.ratio,
+     duration: data.duration,
+     fps: data.fps,
+     seed: data.seed,
+     camerafixed: data.camerafixed,
+     watermark: data.watermark,
+     return_last_frame: data.return_last_frame,
+     first_frame: pickImg(data.first_frame),
+     last_frame: pickImg(data.last_frame),
+   };
+   const resp = await seedanceCreateTask(payload);
+   let  rz:DtoItem={
+       mid: resp.id,
+       id: resp.id,
+       type: "video",
+       plat: nowModel.plat,
+       status: resp.status ?? "submitted",
+       last_feed:  Math.floor(Date.now() / 1000),
+       title:data.prompt??'no prompt'
+   }
+   return rz
+}
+
+export const seedanceFeed = async( id:string)=>{
+ for(let i=0;i<60;i++){
+        let  rz= csuno.getOneById(id)
+        if(!rz){
+            return 
+        }
+        if(rz?.status=='completed'||  rz?.status=='failed'){    
+            return 
+        }
+        try {
+            const d = await seedanceGetTask(rz.mid);
+            const url = d.content?.video_url || d.output?.video_url || "";
+            const status = d.status || (url ? "succeeded" : rz.status);
+            rz.url= url.startsWith('http')?url:''
+            rz.data=d
+            rz.status= rz.url?'completed': status
+        } catch (error) {
+            rz.status= 'pending'
+        }
+        
+
+        rz.last_feed=Math.floor(Date.now() / 1000)
+        csuno.save(rz)
+        homeStore.setMyData({act:'dtoFeed'});
+        await sleep(5000)
+   }
 }
 
 export const falAiFeed= async( id:string)=>{
