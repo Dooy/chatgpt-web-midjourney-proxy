@@ -108,6 +108,14 @@ router.post('/session', async (req, res) => {
     const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL?? ""
     const MJ_SERVER = process.env.MJ_SERVER?? ""
 
+    // 调试日志（生产环境可以删除）
+    mlog('[Session] 环境变量读取:', {
+      OPENAI_API_BASE_URL: process.env.OPENAI_API_BASE_URL,
+      MJ_SERVER: process.env.MJ_SERVER,
+      hasUrl: !!process.env.OPENAI_API_BASE_URL,
+      hasMj: !!process.env.MJ_SERVER
+    })
+
     let  isHk= (process.env.OPENAI_API_BASE_URL??"").toLocaleLowerCase().indexOf('-hk')>0
     if(!isHk)  isHk= (process.env.LUMA_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
     if(!isHk)  isHk= (process.env.VIGGLE_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0

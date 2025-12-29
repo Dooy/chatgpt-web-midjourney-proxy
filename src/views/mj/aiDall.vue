@@ -63,7 +63,6 @@ const create= async ()=>{
     }
     obj.data= { ...f.value}
 
-    // Nano-banana 特殊处理
     if(isNanoBanana.value){
         obj.data.aspect_ratio = st.value.aspect_ratio;
         obj.data.response_format = st.value.response_format;
@@ -71,6 +70,8 @@ const create= async ()=>{
         if(isNanoBanana2.value){
             obj.data.image_size = st.value.image_size;
         }
+
+        delete obj.data.size;
 
         if(base64Array.value.length>0){
             obj.data.image = base64Array.value.map(item => item.base64);
@@ -201,13 +202,16 @@ const dimensionsList= computed(()=>{
      ]
 
 })
-watch(()=>f.value.model,(n)=>{
+watch(()=>f.value.model,(n, oldVal)=>{
     f.value.size='1024x1024';
 
-    // 切换到 banana 模型时重置 aspect_ratio
-    if(isNanoBanana.value){
+    if(isNanoBanana.value && !oldVal?.includes('banana')){
         st.value.aspect_ratio = '4:3';
     }
+})
+
+watch(()=>st.value.aspect_ratio,(n, oldVal)=>{
+    mlog('aspect_ratio:', n);
 })
 const isCanImageEdit= computed(()=>{
     if(f.value.model=='dall-e-2') return true;

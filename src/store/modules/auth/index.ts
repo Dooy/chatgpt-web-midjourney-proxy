@@ -52,23 +52,32 @@ export const useAuthStore = defineStore('auth-store', {
         let str = localStorage.getItem('gptConfigStore');
         if( ! str ) setTimeout( ()=>  gptConfigStore.setInit() , 500);
 
-        // 如果 localStorage 中没有保存服务器配置，从 session 环境变量初始化
+        // 智能初始化：从环境变量或 localStorage 中选择
         const serverStoreStr = localStorage.getItem('gptServerStore');
         console.log('[Session] localStorage 配置:', serverStoreStr)
 
-        if(!serverStoreStr || serverStoreStr === '{}'){
-          const gptServerStore = (await import('@/store/homeStore')).gptServerStore;
+        const gptServerStore = (await import('@/store/homeStore')).gptServerStore;
 
+        // 检查是否需要从环境变量初始化
+        const needInitFromEnv = (data.OPENAI_API_BASE_URL && !gptServerStore.myData.OPENAI_API_BASE_URL) ||
+                                  (data.MJ_SERVER && !gptServerStore.myData.MJ_SERVER);
+
+        if(needInitFromEnv){
+          const updates: any = {};
           if(data.OPENAI_API_BASE_URL && !gptServerStore.myData.OPENAI_API_BASE_URL){
             console.log('[Session] 从环境变量设置 OPENAI_API_BASE_URL:', data.OPENAI_API_BASE_URL)
-            gptServerStore.setMyData({ OPENAI_API_BASE_URL: data.OPENAI_API_BASE_URL });
+            updates.OPENAI_API_BASE_URL = data.OPENAI_API_BASE_URL;
           }
           if(data.MJ_SERVER && !gptServerStore.myData.MJ_SERVER){
             console.log('[Session] 从环境变量设置 MJ_SERVER:', data.MJ_SERVER)
-            gptServerStore.setMyData({ MJ_SERVER: data.MJ_SERVER });
+            updates.MJ_SERVER = data.MJ_SERVER;
+          }
+          // 只在有更新时才保存
+          if(Object.keys(updates).length > 0){
+            gptServerStore.setMyData(updates);
           }
         } else {
-          console.log('[Session] localStorage 有配置，跳过环境变量初始化')
+          console.log('[Session] 使用现有配置，跳过环境变量初始化')
         }
 
         return Promise.resolve(data)
