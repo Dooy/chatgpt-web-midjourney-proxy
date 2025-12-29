@@ -103,8 +103,9 @@ router.post('/session', async (req, res) => {
     const systemMessage= process.env.SYSTEM_MESSAGE??""
     const customVisionModel= process.env.CUSTOM_VISION_MODELS??""
     const backgroundImage = process.env.BACKGROUND_IMAGE ?? ""
+    const userAvatar = process.env.USER_AVATAR ?? ""
+    const siteTitle = process.env.SITE_TITLE ?? ""
 
-    // 添加服务器配置（用于前端显示）
     const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL?? ""
     const MJ_SERVER = process.env.MJ_SERVER?? ""
 
@@ -125,7 +126,7 @@ router.post('/session', async (req, res) => {
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
       ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel,backgroundImage,isHk,
-      OPENAI_API_BASE_URL, MJ_SERVER
+      OPENAI_API_BASE_URL, MJ_SERVER, userAvatar, siteTitle
     }
     res.send({  status: 'Success', message: '', data})
   }

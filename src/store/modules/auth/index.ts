@@ -11,6 +11,8 @@ interface SessionResponse {
   model: 'ChatGPTAPI' | 'ChatGPTUnofficialProxyAPI'
   OPENAI_API_BASE_URL?: string
   MJ_SERVER?: string
+  userAvatar?: string
+  siteTitle?: string
 }
 
 export interface AuthState {
@@ -45,6 +47,20 @@ export const useAuthStore = defineStore('auth-store', {
         })
 
         homeStore.setMyData({session: data });
+
+        if (data.siteTitle) {
+          document.title = data.siteTitle
+        }
+
+        if (data.userAvatar) {
+          const userStore = (await import('@/store/modules/user')).useUserStore()
+          const currentAvatar = userStore.userInfo.avatar
+          const defaultAvatar = 'https://raw.githubusercontent.com/Dooy/chatgpt-web-midjourney-proxy/main/src/assets/avatar.jpg'
+          if (!currentAvatar || currentAvatar === defaultAvatar) {
+            userStore.updateUserInfo({ avatar: data.userAvatar })
+          }
+        }
+
         if(appStore.$state.theme=='auto' ){
             appStore.setTheme(  data.theme && data.theme=='light' ?'light':'dark')
         }
