@@ -42,14 +42,21 @@ export const useAuthStore = defineStore('auth-store', {
         console.log('[Session] 收到服务器配置:', {
           OPENAI_API_BASE_URL: data.OPENAI_API_BASE_URL,
           MJ_SERVER: data.MJ_SERVER,
+          userAvatar: data.userAvatar,
+          siteTitle: data.siteTitle,
           hasUrl: !!data.OPENAI_API_BASE_URL,
-          hasMj: !!data.MJ_SERVER
+          hasMj: !!data.MJ_SERVER,
+          hasAvatar: !!data.userAvatar,
+          hasTitle: !!data.siteTitle
         })
 
         homeStore.setMyData({session: data });
 
         if (data.siteTitle) {
+          console.log('[Session] 设置网站标题:', data.siteTitle)
           document.title = data.siteTitle
+        } else {
+          console.log('[Session] 未配置 SITE_TITLE，使用默认标题')
         }
 
         if (data.userAvatar) {
@@ -57,8 +64,13 @@ export const useAuthStore = defineStore('auth-store', {
           const currentAvatar = userStore.userInfo.avatar
           const defaultAvatar = 'https://raw.githubusercontent.com/Dooy/chatgpt-web-midjourney-proxy/main/src/assets/avatar.jpg'
           if (!currentAvatar || currentAvatar === defaultAvatar) {
+            console.log('[Session] 设置用户头像:', data.userAvatar)
             userStore.updateUserInfo({ avatar: data.userAvatar })
+          } else {
+            console.log('[Session] 用户已有自定义头像，跳过应用环境变量头像')
           }
+        } else {
+          console.log('[Session] 未配置 USER_AVATAR，使用默认头像')
         }
 
         if(appStore.$state.theme=='auto' ){

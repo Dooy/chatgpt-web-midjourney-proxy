@@ -89,7 +89,8 @@
 | DOUBAO_SERVER | 豆包 API 接口地址（支持 Seedance 视频生成、Seedream 图片生成） | 空  | ✅ |  ✅|
 | DOUBAO_KEY | 豆包 API 的key | 空  | ✅ |  ✅|
 | USER_AVATAR | 用户默认头像链接 | 空  | ✅ |  ✅|
-| SITE_TITLE | 网站标题 | ChatGPT Web Midjourney Proxy  | ✅ |  ✅|
+| SITE_TITLE | 网站标题 | ChatGPT Web Midjourney Proxy  | ✅ |  x|
+| VITE_SITE_TITLE | 网站标题（Vercel 部署时使用） | ChatGPT Web Midjourney Proxy  | x |  ✅|
 
 
 
