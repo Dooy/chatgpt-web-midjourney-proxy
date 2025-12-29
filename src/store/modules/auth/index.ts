@@ -93,7 +93,13 @@ export const useAuthStore = defineStore('auth-store', {
         }
 
         if(appStore.$state.theme=='auto' ){
-            appStore.setTheme(  data.theme && data.theme=='light' ?'light':'dark')
+            if(data.theme === 'light' || data.theme === 'dark') {
+              appStore.setTheme(data.theme)
+            } else if(data.theme === 'auto') {
+              appStore.setTheme('auto')
+            } else {
+              appStore.setTheme('dark')
+            }
         }
 
         let str = localStorage.getItem('gptConfigStore');
