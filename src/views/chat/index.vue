@@ -60,9 +60,9 @@ const { usingContext, toggleUsingContext } = useUsingContext();
 
 const { uuid } = route.params as { uuid: string };
 
-const dataSources = computed(() => chatStore.getChatByUuid(+uuid));
+const dataSources = computed(() => chatStore.getChatByUuid(+uuid) ?? []);
 const conversationList = computed(() =>
-  (dataSources.value || []).filter(
+  dataSources.value.filter(
     (item) => !item.inversion && !!item.conversationOptions
   )
 );
