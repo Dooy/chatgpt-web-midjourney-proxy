@@ -61,13 +61,14 @@ export const useAuthStore = defineStore('auth-store', {
 
         if (data.userAvatar) {
           const userStore = (await import('@/store/modules/user')).useUserStore()
-          const currentAvatar = userStore.userInfo.avatar
-          const defaultAvatar = 'https://raw.githubusercontent.com/Dooy/chatgpt-web-midjourney-proxy/main/src/assets/avatar.jpg'
-          if (!currentAvatar || currentAvatar === defaultAvatar) {
-            console.log('[Session] 设置用户头像:', data.userAvatar)
+          const { ss } = await import('@/utils/storage')
+          const hasUserSetting = ss.get('userStorage')
+
+          if (!hasUserSetting || !hasUserSetting.userInfo?.avatar) {
+            console.log('[Session] 首次访问，应用环境变量头像:', data.userAvatar)
             userStore.updateUserInfo({ avatar: data.userAvatar })
           } else {
-            console.log('[Session] 用户已有自定义头像，跳过应用环境变量头像')
+            console.log('[Session] 用户已有头像设置，保持用户选择')
           }
         } else {
           console.log('[Session] 未配置 USER_AVATAR，使用默认头像')
