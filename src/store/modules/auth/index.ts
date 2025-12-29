@@ -12,6 +12,7 @@ interface SessionResponse {
   OPENAI_API_BASE_URL?: string
   MJ_SERVER?: string
   userAvatar?: string
+  userName?: string
   siteTitle?: string
 }
 
@@ -43,10 +44,12 @@ export const useAuthStore = defineStore('auth-store', {
           OPENAI_API_BASE_URL: data.OPENAI_API_BASE_URL,
           MJ_SERVER: data.MJ_SERVER,
           userAvatar: data.userAvatar,
+          userName: data.userName,
           siteTitle: data.siteTitle,
           hasUrl: !!data.OPENAI_API_BASE_URL,
           hasMj: !!data.MJ_SERVER,
           hasAvatar: !!data.userAvatar,
+          hasName: !!data.userName,
           hasTitle: !!data.siteTitle
         })
 
@@ -72,6 +75,21 @@ export const useAuthStore = defineStore('auth-store', {
           }
         } else {
           console.log('[Session] 未配置 USER_AVATAR，使用默认头像')
+        }
+
+        if (data.userName) {
+          const userStore = (await import('@/store/modules/user')).useUserStore()
+          const { ss } = await import('@/utils/storage')
+          const hasUserSetting = ss.get('userStorage')
+
+          if (!hasUserSetting || !hasUserSetting.userInfo?.name) {
+            console.log('[Session] 首次访问，应用环境变量名称:', data.userName)
+            userStore.updateUserInfo({ name: data.userName })
+          } else {
+            console.log('[Session] 用户已有名称设置，保持用户选择')
+          }
+        } else {
+          console.log('[Session] 未配置 USER_NAME，使用默认名称')
         }
 
         if(appStore.$state.theme=='auto' ){

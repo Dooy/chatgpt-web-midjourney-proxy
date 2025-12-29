@@ -104,6 +104,7 @@ router.post('/session', async (req, res) => {
     const customVisionModel= process.env.CUSTOM_VISION_MODELS??""
     const backgroundImage = process.env.BACKGROUND_IMAGE ?? ""
     const userAvatar = process.env.USER_AVATAR ?? ""
+    const userName = process.env.USER_NAME ?? ""
     const siteTitle = process.env.SITE_TITLE ?? ""
 
     const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL?? ""
@@ -113,10 +114,12 @@ router.post('/session', async (req, res) => {
       OPENAI_API_BASE_URL: process.env.OPENAI_API_BASE_URL,
       MJ_SERVER: process.env.MJ_SERVER,
       USER_AVATAR: userAvatar,
+      USER_NAME: userName,
       SITE_TITLE: siteTitle,
       hasUrl: !!process.env.OPENAI_API_BASE_URL,
       hasMj: !!process.env.MJ_SERVER,
       hasAvatar: !!userAvatar,
+      hasName: !!userName,
       hasTitle: !!siteTitle
     })
 
@@ -129,7 +132,7 @@ router.post('/session', async (req, res) => {
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
       ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel,backgroundImage,isHk,
-      OPENAI_API_BASE_URL, MJ_SERVER, userAvatar, siteTitle
+      OPENAI_API_BASE_URL, MJ_SERVER, userAvatar, userName, siteTitle
     }
     res.send({  status: 'Success', message: '', data})
   }

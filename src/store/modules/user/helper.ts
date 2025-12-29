@@ -18,11 +18,12 @@ export interface UserState {
 export function defaultSetting(): UserState {
   const defaultAvatar = 'https://raw.githubusercontent.com/Dooy/chatgpt-web-midjourney-proxy/main/src/assets/avatar.jpg'
   const userAvatar = homeStore.myData.session?.userAvatar || defaultAvatar
+  const userName = homeStore.myData.session?.userName || t('mjset.sysname')
 
   return {
     userInfo: {
       avatar: userAvatar,
-      name:  t('mjset.sysname'),
+      name: userName,
       description: 'Star on <a href="https://github.com/Dooy/chatgpt-web-midjourney-proxy" class="text-blue-500" target="_blank" >GitHub</a>',
     },
   }
