@@ -45,7 +45,7 @@ const initLoad=()=>{
         }
         handleUpdateValue(   st.value.tab )
     }
-    else st.value.tab=( gptServerStore.myData.DRAW_TYPE?gptServerStore.myData.DRAW_TYPE:'midjourney')
+    else st.value.tab=( gptServerStore.myData.DRAW_TYPE?gptServerStore.myData.DRAW_TYPE:'general')
 }
 initLoad();
 
