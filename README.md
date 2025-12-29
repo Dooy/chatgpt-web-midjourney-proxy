@@ -86,10 +86,8 @@
 | CUSTOM_VISION_MODELS  | 自定义可视图模型 用`,` 分开 |  空 | ✅ |  ✅|
 | LUMA_SERVER |  LUMA API 接口地址  | [搭建参考](https://github.com/LumaAI-API/Luma-API) | ✅ |  ✅|
 | LUMA_KEY |  LUMA API 的key | 空  | ✅ |  ✅|
-| SEEDANCE_SERVER |  Seedance (豆包) 视频生成 API 接口地址 | [openai-hk](https://www.openai-hk.com/docs/lab/seedance-video.html) | ✅ |  ✅|
-| SEEDANCE_KEY |  Seedance API 的key | 空  | ✅ |  ✅|
-| SEEDREAM_SERVER |  Seedream 图片生成 API 接口地址 | [openai-hk](https://www.openai-hk.com/docs/lab/seedream-image.html) | ✅ |  ✅|
-| SEEDREAM_KEY |  Seedream API 的key | 空  | ✅ |  ✅|
+| DOUBAO_SERVER | 豆包 API 接口地址（支持 Seedance 视频生成、Seedream 图片生成） | 空  | ✅ |  ✅|
+| DOUBAO_KEY | 豆包 API 的key | 空  | ✅ |  ✅|
 
 
 
@@ -98,7 +96,6 @@
 > - [x] 需 [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) 或者[trueai](https://github.com/trueai-org/midjourney-proxy) 支持
 > - [x] 需 Suno-API  支持
 > - [x] 需 [Luma-API](https://github.com/LumaAI-API/Luma-API)  支持
-> - [x] 需 Seedance/Seedream 支持
 
 
 ```bash
@@ -111,10 +108,8 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e LUMA_KEY=your-luma-key  \
 -e SUNO_SERVER=https://your-suno-server:8000  \
 -e SUNO_KEY=you-suno-key  \
--e SEEDANCE_SERVER=https://your-seedance-server:8000  \
--e SEEDANCE_KEY=your-seedance-key  \
--e SEEDREAM_SERVER=https://your-seedream-server:8000  \
--e SEEDREAM_KEY=your-seedream-key  ydlhero/chatgpt-web-midjourney-proxy
+-e DOUBAO_SERVER=https://your-doubao-server:8000  \
+-e DOUBAO_KEY=your-doubao-key  ydlhero/chatgpt-web-midjourney-proxy
 ```
 访问 http://ip:6015 
 
