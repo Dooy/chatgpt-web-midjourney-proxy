@@ -544,9 +544,50 @@ export default {
     repeat2:'过期.重新获取',
 
     rwgen3turbo:'版本: Gen-3 Alpha Turbo',
-    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图'
+    gen3a_turbo_img:'Gen-3 Alpha Turbo 必须带图',
+    seedanceabout:'doubao 配置',
+    seedanceserver:'doubao 接口地址',
+    seedancekeyPlaceholder:'doubao 的 API Key',
+    seedancekey:'doubao Key'
 
     ,selectModel:'请选择模型'
+    ,referenceFrame:'参考帧'
+    ,seedanceDesc:'说明：豆包 Seedance 视频生成，支持文生视频、图生视频、首尾帧图生视频，可调节分辨率、宽高比、时长等参数。'
+    ,upload:'上传'
+
+  }
+  ,seedance:{
+    mode:'模式'
+    ,txt2video:'文生视频'
+    ,txt2videoDesc:'文本生成视频'
+    ,img2video:'图生视频'
+    ,img2videoDesc:'首帧图片生成视频'
+    ,img2videoBoth:'首尾帧生视频'
+    ,img2videoBothDesc:'首帧和尾帧生成视频'
+
+  }
+  ,seedream:{
+    mode:'模式'
+    ,txt2img:'文生图'
+    ,txt2imgDesc:'文本生成单图'
+    ,img2img:'图生图'
+    ,img2imgDesc:'单参考图编辑'
+    ,multi:'多图融合'
+    ,multiDesc:'多参考图融合单图'
+    ,group:'组图生成'
+    ,groupDesc:'生成多张连贯图片'
+    ,edit:'图片编辑'
+    ,editDesc:'上传图片进行编辑，支持 mask 蒙版'
+    ,resolution:'分辨率'
+    ,count:'张数'
+    ,optimizePrompt:'提示优化'
+    ,responseFormat:'返回格式'
+    ,watermark:'水印'
+    ,groupCount:'组图数量'
+    ,refImages:'参考图（可选，最多 14 张）'
+    ,refImagesOptional:'参考图（可选）'
+    ,editImage:'待编辑图片'
+    ,maskImage:'蒙版图片（可选）'
 
   }
   ,dance:{

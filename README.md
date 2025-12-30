@@ -17,6 +17,8 @@
 - [x] 支持 runway 文生视频，图生视频
 - [x] 支持 luma 文生视频，图生视频
 - [x] 支持 viggle 舞蹈
+- [x] 支持 seedance (豆包) 文生视频，图生视频，首尾帧视频
+- [x] 支持 seedream 文生图，图生图，多图融合，图片编辑
 - [x] 支持 suno 单独模块，可歌词调整 曲风调整
 - [x] 支持 suno 以音频生成音频
 - [x] 支持 flux dall.e 文生图
@@ -43,8 +45,8 @@
 
 ## 无服务器-个人桌面安装
 > - [x] 请到 https://github.com/Dooy/chatgpt-web-midjourney-proxy/releases 下载最新版本安装(选择合适你操作系统的版本)
-> - [x] 选择一个合适的中转服务商( 最好都支持 `gpt`  `gpts` `midjourney` `claude`  `suno` `luma` `runway` `viggle` `flux` `ideogram` `kling` `pika`)
-> - [x] 中转服务商推荐 https://www.openai-hk.com 一个`key`和`api接口地址` 同时支持 [gpt](https://www.openai-hk.com/docs/getting-started.html) [gpts](https://www.openai-hk.com/docs/openai/gpts.html) [midjourney](https://www.openai-hk.com/docs/midjourney/guide.html) [claude](https://www.openai-hk.com/docs/lab/claude-3.html) [suno](https://www.openai-hk.com/docs/lab/suno-v3.html) [luma](https://www.openai-hk.com/docs/lab/luma-video.html) [runway](https://www.openai-hk.com/docs/lab/runway-video.html) [viggle](https://www.openai-hk.com/docs/lab/viggle-dance.html) [ideogram](https://www.openai-hk.com/docs/lab/ideogram.html) [flux](https://www.openai-hk.com/docs/lab/flux.html) [kling](https://www.openai-hk.com/docs/lab/kling.html) [pika](https://www.openai-hk.com/docs/lab/pika-video.html) [Riffusion](https://www.openai-hk.com/docs/lab/riffusion-music.html)
+> - [x] 选择一个合适的中转服务商( 最好都支持 `gpt`  `gpts` `midjourney` `claude`  `suno` `luma` `runway` `viggle` `flux` `ideogram` `kling` `pika` `seedance` `seedream`)
+> - [x] 中转服务商推荐 https://www.openai-hk.com 一个`key`和`api接口地址` 同时支持 [gpt](https://www.openai-hk.com/docs/getting-started.html) [gpts](https://www.openai-hk.com/docs/openai/gpts.html) [midjourney](https://www.openai-hk.com/docs/midjourney/guide.html) [claude](https://www.openai-hk.com/docs/lab/claude-3.html) [suno](https://www.openai-hk.com/docs/lab/suno-v3.html) [luma](https://www.openai-hk.com/docs/lab/luma-video.html) [runway](https://www.openai-hk.com/docs/lab/runway-video.html) [viggle](https://www.openai-hk.com/docs/lab/viggle-dance.html) [ideogram](https://www.openai-hk.com/docs/lab/ideogram.html) [flux](https://www.openai-hk.com/docs/lab/flux.html) [kling](https://www.openai-hk.com/docs/lab/kling.html) [pika](https://www.openai-hk.com/docs/lab/pika-video.html) [seedance](https://www.openai-hk.com/docs/lab/seedance-video.html) [seedream](https://www.openai-hk.com/docs/lab/seedream-image.html) [Riffusion](https://www.openai-hk.com/docs/lab/riffusion-music.html)
 ![多模态](./docs/suno-ds.jpg)
 
 ## Vercel 一键部署
@@ -84,6 +86,8 @@
 | CUSTOM_VISION_MODELS  | 自定义可视图模型 用`,` 分开 |  空 | ✅ |  ✅|
 | LUMA_SERVER |  LUMA API 接口地址  | [搭建参考](https://github.com/LumaAI-API/Luma-API) | ✅ |  ✅|
 | LUMA_KEY |  LUMA API 的key | 空  | ✅ |  ✅|
+| DOUBAO_SERVER | 豆包 API 接口地址（支持 Seedance 视频生成、Seedream 图片生成） | 空  | ✅ |  ✅|
+| DOUBAO_KEY | 豆包 API 的key | 空  | ✅ |  ✅|
 
   
 
@@ -103,7 +107,9 @@ docker run --name chatgpt-web-midjourney-proxy  -d -p 6015:3002 \
 -e LUMA_SERVER=https://your-luma-server:8000  \
 -e LUMA_KEY=your-luma-key  \
 -e SUNO_SERVER=https://your-suno-server:8000  \
--e SUNO_KEY=you-suno-key  ydlhero/chatgpt-web-midjourney-proxy
+-e SUNO_KEY=you-suno-key  \
+-e DOUBAO_SERVER=https://your-doubao-server:8000  \
+-e DOUBAO_KEY=your-doubao-key  ydlhero/chatgpt-web-midjourney-proxy
 ```
 访问 http://ip:6015 
 

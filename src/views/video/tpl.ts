@@ -902,6 +902,127 @@ export const mytpl={
         }       
         ],
         "plat":"fal-ai"
+    },
+    {
+        "model":"doubao-seedance-1-0-pro-250528",
+        "field":[
+            {
+                "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description",
+                "value":"一辆蓝色的跑车在雨夜的城市街道上飞驰，镜头跟随，水面溅起的水花清晰可见"
+            },
+            {
+                "key":"resolution",
+                "type":"select",
+                "value":"720p",
+                "options":[
+                    { "label":"Resolution 720p", "value":"720p"},
+                    { "label":"Resolution 1080p", "value":"1080p"}
+                ]
+            },
+            {
+                "key":"ratio",
+                "type":"select",
+                "value":"16:9",
+                "options":[
+                    { "label":"Ratio 16:9", "value":"16:9"},
+                    { "label":"Ratio 9:16", "value":"9:16"},
+                    { "label":"Ratio 1:1", "value":"1:1"}
+                ]
+            },
+            {
+                "key":"duration",
+                "type":"select",
+                "value":5,
+                "options":[
+                    { "label":"Duration 5s", "value":5},
+                    { "label":"Duration 8s", "value":8},
+                    { "label":"Duration 10s", "value":10},
+                    { "label":"Duration 12s", "value":12}
+                ]
+            },
+            {
+                "key":"fps",
+                "type":"select",
+                "value":24,
+                "options":[
+                    { "label":"FPS 24", "value":24},
+                    { "label":"FPS 30", "value":30}
+                ]
+            },
+            {
+                "key":"camerafixed",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Camera Fixed"
+            },
+            {
+                "key":"watermark",
+                "type":"switch",
+                "value":false,
+                "placeholder":"Watermark"
+            },
+            {
+                "key":"seed",
+                "type":"number",
+                "value":0,
+                "min":0,
+                "max":999999
+            }
+        ],
+        "plat":"seedance"
+    },
+    {
+        "model":"doubao-seedance-1-0-lite-i2v-250428",
+        "field":[
+            {
+                "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description",
+                "value":"结合首帧画面生成一段温暖的旅行视频，镜头轻微移动"
+            },
+            {
+                "key":"resolution",
+                "type":"select",
+                "value":"720p",
+                "options":[
+                    { "label":"Resolution 720p", "value":"720p"},
+                    { "label":"Resolution 1080p", "value":"1080p"}
+                ]
+            },
+            {
+                "key":"ratio",
+                "type":"select",
+                "value":"16:9",
+                "options":[
+                    { "label":"Ratio 16:9", "value":"16:9"},
+                    { "label":"Ratio 9:16", "value":"9:16"},
+                    { "label":"Ratio 1:1", "value":"1:1"}
+                ]
+            },
+            {
+                "key":"duration",
+                "type":"select",
+                "value":5,
+                "options":[
+                    { "label":"Duration 5s", "value":5},
+                    { "label":"Duration 8s", "value":8},
+                    { "label":"Duration 10s", "value":10}
+                ]
+            },
+            {
+                "key":"first_frame",
+                "type":"image_base64_url",
+                "value":"https://ark-project.tos-cn-beijing.volces.com/doc_image/see_i2v.jpeg"
+            },
+            {
+                "key":"last_frame",
+                "type":"image_base64_url",
+                "placeholder":"可选：尾帧"
+            }
+        ],
+        "plat":"seedance"
     }
 
 ]

@@ -107,6 +107,20 @@ const routes: RouteRecordRaw[] = [
   },
 
   {
+    path: '/seedance',
+    name: 'seedance',
+    component: lumaLayout,
+    redirect: '/seedance/index',
+    children: [
+      {
+        path: '/seedance/:uuid?',
+        name: 'seedance',
+        component: () => import('@/views/video/seedancePage.vue'),
+      },
+    ],
+  },
+
+  {
     path: '/dance',
     name: 'dance',
     component: lumaLayout,
