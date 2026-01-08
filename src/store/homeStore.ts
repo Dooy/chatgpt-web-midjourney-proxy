@@ -98,6 +98,8 @@ export interface gptServerType{
     OPENAI_API_BASE_URL:string
     MJ_SERVER:string
     MJ_API_SECRET:string
+    DOUBAO_SERVER?:string
+    DOUBAO_KEY?:string
     UPLOADER_URL:string
     MJ_CDN_WSRV?:boolean //wsrv.nl
     SUNO_SERVER:string
@@ -142,6 +144,8 @@ let v:gptServerType={
         MJ_SERVER:'',
         UPLOADER_URL:'',
         MJ_API_SECRET:'',
+        DOUBAO_SERVER:'',
+        DOUBAO_KEY:'',
         SUNO_KEY:'',
         SUNO_SERVER:'',
         MJ_CDN_WSRV:false
@@ -169,11 +173,22 @@ let v:gptServerType={
 }
 const getServerInit= ():gptServerType =>{
     let v:gptServerType=getServerDefault();
+
+    // 从 localStorage 读取用户配置
     let str = localStorage.getItem('gptServerStore');
     if(str){
         let old = JSON.parse(str);
         if(old) v={...v,...old};
     }
+
+    // 如果用户配置为空，尝试从 session 环境变量读取
+    if(!v.OPENAI_API_BASE_URL && homeStore.myData.session?.OPENAI_API_BASE_URL){
+        v.OPENAI_API_BASE_URL = homeStore.myData.session.OPENAI_API_BASE_URL;
+    }
+    if(!v.MJ_SERVER && homeStore.myData.session?.MJ_SERVER){
+        v.MJ_SERVER = homeStore.myData.session.MJ_SERVER;
+    }
+
     return v;
 }
 

@@ -32,6 +32,7 @@ function setupPlugins(env: ImportMetaEnv): PluginOption[] {
 
 export default defineConfig((env) => {
   const viteEnv = loadEnv(env.mode, process.cwd()) as unknown as ImportMetaEnv
+  const serverPort = Number(process.env.FRONT_PORT || viteEnv.VITE_PORT || 5173)
 
   return {
     resolve: {
@@ -39,7 +40,19 @@ export default defineConfig((env) => {
         '@': path.resolve(process.cwd(), 'src'),
       },
     },
-    plugins: setupPlugins(viteEnv),
+    plugins: [
+      ...setupPlugins(viteEnv),
+      {
+        name: 'html-transform',
+        transformIndexHtml(html) {
+          const siteTitle = process.env.VITE_SITE_TITLE || viteEnv.VITE_SITE_TITLE || 'ChatGPT Web Midjourney Proxy'
+          return html.replace(
+            /<title>(.*?)<\/title>/,
+            `<title>${siteTitle}</title>`
+          )
+        },
+      },
+    ],
     server: {
       host: '0.0.0.0',
       port: 1002,

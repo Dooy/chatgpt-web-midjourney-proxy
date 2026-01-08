@@ -91,10 +91,10 @@ router.post('/session', async (req, res) => {
     const notify = process.env.SYS_NOTIFY?? "" ;
     const disableGpt4 = process.env.DISABLE_GPT4?? "" ;
     const isUploadR2 = isNotEmptyString(process.env.R2_DOMAIN);
-    const isWsrv =  process.env.MJ_IMG_WSRV?? "" 
-    const uploadImgSize =  process.env.UPLOAD_IMG_SIZE?? "5" 
-    const gptUrl = process.env.GPT_URL?? ""; 
-    const theme = process.env.SYS_THEME?? "dark"; 
+    const isWsrv =  process.env.MJ_IMG_WSRV?? ""
+    const uploadImgSize =  process.env.UPLOAD_IMG_SIZE?? "5"
+    const gptUrl = process.env.GPT_URL?? "";
+    const theme = process.env.SYS_THEME?? "dark";
     const isCloseMdPreview = process.env.CLOSE_MD_PREVIEW?true:false
     const uploadType= process.env.UPLOAD_TYPE
     const turnstile= process.env.TURNSTILE_SITE
@@ -103,15 +103,36 @@ router.post('/session', async (req, res) => {
     const systemMessage= process.env.SYSTEM_MESSAGE??""
     const customVisionModel= process.env.CUSTOM_VISION_MODELS??""
     const backgroundImage = process.env.BACKGROUND_IMAGE ?? ""
+    const userAvatar = process.env.USER_AVATAR ?? ""
+    const userName = process.env.USER_NAME ?? ""
+    const siteTitle = process.env.SITE_TITLE ?? ""
+
+    const OPENAI_API_BASE_URL = process.env.OPENAI_API_BASE_URL?? ""
+    const MJ_SERVER = process.env.MJ_SERVER?? ""
+
+    mlog('[Session] 环境变量读取:', {
+      OPENAI_API_BASE_URL: process.env.OPENAI_API_BASE_URL,
+      MJ_SERVER: process.env.MJ_SERVER,
+      USER_AVATAR: userAvatar,
+      USER_NAME: userName,
+      SITE_TITLE: siteTitle,
+      hasUrl: !!process.env.OPENAI_API_BASE_URL,
+      hasMj: !!process.env.MJ_SERVER,
+      hasAvatar: !!userAvatar,
+      hasName: !!userName,
+      hasTitle: !!siteTitle
+    })
+
     let  isHk= (process.env.OPENAI_API_BASE_URL??"").toLocaleLowerCase().indexOf('-hk')>0
     if(!isHk)  isHk= (process.env.LUMA_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
     if(!isHk)  isHk= (process.env.VIGGLE_SERVER??"").toLocaleLowerCase().indexOf('-hk')>0
-    
+
 
     const data= { disableGpt4,isWsrv,uploadImgSize,theme,isCloseMdPreview,uploadType,
       notify , baiduId, googleId,isHideServer,isUpload, auth: hasAuth
       , model: currentModel(),amodel,isApiGallery,cmodels,isUploadR2,gptUrl
-      ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel,backgroundImage,isHk
+      ,turnstile,menuDisable,visionModel,systemMessage,customVisionModel,backgroundImage,isHk,
+      OPENAI_API_BASE_URL, MJ_SERVER, userAvatar, userName, siteTitle
     }
     res.send({  status: 'Success', message: '', data})
   }

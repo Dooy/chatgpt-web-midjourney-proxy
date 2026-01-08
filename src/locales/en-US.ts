@@ -519,6 +519,9 @@ export default {
     "runwayserver": "Runway API Endpoint",
     "setOpenKeyPlaceholder2": "Runway API key, optional",
     "endImg": "End Frame Image",
+    "referenceImage": "Reference Image",
+    "firstFrame": "First Frame",
+    "lastFrame": "Last Frame",
     "runwayinfo": "Explanation: <ul><li>1. Runway images and videos have expiration times.</li><li>2. Please save the MP4 file locally within 30 minutes after generating the video.</li></ul>",
     "nosup": "Not supported temporarily",
     "rwgen2": "Version: Gen-2, cost-effective",
@@ -527,6 +530,52 @@ export default {
 
     rwgen3turbo:'Version: Gen-3 Alpha Turbo',
     gen3a_turbo_img:'Gen-3 Alpha Turbo must image',
+    seedanceabout: "About doubao",
+    seedanceserver: "doubao API endpoint",
+    seedancekeyPlaceholder: "doubao Api Key",
+    seedancekey: "doubao Key",
+    selectModel: "Please select a model",
+    referenceFrame: "Reference Frame",
+    seedanceDesc: "Note: Doubao Seedance supports text-to-video, image-to-video, and first/last frame generation with adjustable resolution, aspect ratio, duration, and more.",
+    upload: "Upload"
+
+  },
+  seedance:{
+    mode: "Mode",
+    txt2video: "Text to Video",
+    txt2videoDesc: "Generate video from text",
+    img2video: "Image to Video",
+    img2videoDesc: "Generate video from first frame",
+    img2videoBoth: "First & Last Frame",
+    img2videoBothDesc: "Generate video from first and last frames"
+
+  },
+  seedream:{
+    mode:'Mode'
+    ,txt2img:'Text to Image'
+    ,txt2imgDesc:'Generate single image from text'
+    ,img2img:'Image to Image'
+    ,img2imgDesc:'Single reference image editing'
+    ,multi:'Multi Fusion'
+    ,multiDesc:'Fuse multiple reference images'
+    ,group:'Group Generation'
+    ,groupDesc:'Generate multiple coherent images'
+    ,edit:'Image Edit'
+    ,editDesc:'Upload image for editing, supports mask'
+    ,resolution:'Resolution'
+    ,count:'Count'
+    ,optimizePrompt:'Prompt Optimization'
+    ,responseFormat:'Response Format'
+    ,watermark:'Watermark'
+    ,groupCount:'Group Count'
+    ,refImages:'Reference Images (optional, max 14)'
+    ,refImagesOptional:'Reference Images (optional)'
+    ,editImage:'Image to Edit'
+    ,editImagePlaceholder:'Please upload image to edit'
+    ,maskImage:'Mask Image'
+    ,maskImagePlaceholder:'Please upload mask image (optional)'
+    ,maskUploaded:'Mask image uploaded'
+    ,optional:'Optional'
 
   },
   dance:{
