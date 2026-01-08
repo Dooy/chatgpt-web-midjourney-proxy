@@ -203,6 +203,21 @@ export const mytpl={
                 "value":0,
                 "min":0,
                 "max":999999
+            },
+            {
+                "key":"reference_image",
+                "type":"image_base64_url",
+                "placeholder":"参考图（可选）"
+            },
+            {
+                "key":"first_frame",
+                "type":"image_base64_url",
+                "placeholder":"首帧图（可选）"
+            },
+            {
+                "key":"last_frame",
+                "type":"image_base64_url",
+                "placeholder":"尾帧图（可选）"
             }
         ],
         "plat":"seedance"
@@ -249,6 +264,11 @@ export const mytpl={
                 "key":"first_frame",
                 "type":"image_base64_url",
                 "value":"https://ark-project.tos-cn-beijing.volces.com/doc_image/see_i2v.jpeg"
+            },
+            {
+                "key":"reference_image",
+                "type":"image_base64_url",
+                "placeholder":"参考图（可选）"
             },
             {
                 "key":"last_frame",

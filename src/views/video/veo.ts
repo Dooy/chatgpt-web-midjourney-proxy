@@ -146,6 +146,7 @@ const seedanceVideo = async (nowModel: DtoTpl, data: any) => {
    const payload = {
      model: nowModel.model,
      prompt: data.prompt ?? "",
+     reference_image: pickImg(data.reference_image),
      resolution: data.resolution,
      ratio: data.ratio,
      duration: data.duration,

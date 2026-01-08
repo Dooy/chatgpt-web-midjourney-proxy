@@ -31,6 +31,11 @@ const defaultSeedanceTpl: DtoTpl = {
       value: '一辆蓝色的跑车在雨夜的城市街道上飞驰，镜头跟随，水面溅起的水花清晰可见',
     },
     {
+      key: 'reference_image',
+      type: 'image_base64_url',
+      placeholder: '可选：参考图',
+    },
+    {
       key: 'resolution',
       type: 'select',
       value: '480p',
@@ -145,10 +150,10 @@ const filteredFields = computed(() => {
 
   // 根据模式过滤字段
   if (st.value.mode === 'txt2video') {
-    // 文生视频：不显示 first_frame 和 last_frame
+    // 文生视频：仅参考图可选，不显示首尾帧
     fields = fields.filter((f) => f.key !== 'first_frame' && f.key !== 'last_frame');
   } else if (st.value.mode === 'img2video') {
-    // 图生视频：只显示 first_frame
+    // 图生视频：参考图 + 首帧
     fields = fields.filter((f) => f.key !== 'last_frame');
   }
   // img2videoBoth: 显示 first_frame 和 last_frame
@@ -230,6 +235,7 @@ const create = async () => {
   }
   st.value.isLoading = true;
   const data = pickDataFromFields();
+  // 参考图/首尾帧统一为单图上传，后端取数组第0项
   try {
     await PostVideo(currentTpl.value, data);
   } catch (error) {
@@ -293,8 +299,11 @@ const create = async () => {
           <n-select v-model:value="fieldValues[tp.originalIndex]" :options="tp.options" size="small" />
         </div>
 
-        <n-divider v-if="tp.key === 'first_frame'" title-placement="left">{{ $t('video.referenceFrame') }}</n-divider>
         <div class="pt-1" v-if="tp.type === 'image_base64_url'">
+          <n-divider v-if="tp.key === 'first_frame'" title-placement="left">{{ $t('video.referenceFrame') }}</n-divider>
+          <div class="pb-1 text-[13px] opacity-80" v-if="tp.key === 'reference_image'">{{ $t('video.referenceImage') }}</div>
+          <div class="pb-1 text-[13px] opacity-80" v-else-if="tp.key === 'first_frame'">{{ $t('video.firstFrame') }}</div>
+          <div class="pb-1 text-[13px] opacity-80" v-else-if="tp.key === 'last_frame'">{{ $t('video.lastFrame') }}</div>
           <image-base64-array v-model:value="fieldValues[tp.originalIndex]" :is-one="true" upload="1" />
         </div>
 

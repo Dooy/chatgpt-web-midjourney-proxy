@@ -4,6 +4,7 @@ import { mlog, myTrim } from "./mjapi";
 export interface SeedanceCreatePayload {
   model: string;
   prompt: string;
+  reference_image?: string;
   resolution?: string;
   ratio?: string;
   duration?: number;
@@ -106,6 +107,13 @@ export const seedanceCreateTask = async (payload: SeedanceCreatePayload) => {
 
   const text = `${payload.prompt.trim()} ${args.join(" ")}`.trim();
   const content: any[] = [{ type: "text", text }];
+
+  if (payload.reference_image) {
+    content.push({
+      type: "image_url",
+      image_url: { url: payload.reference_image },
+    });
+  }
 
   // 第三方 API 兼容：不使用 role 字段，first_frame 放在首帧位置
   if (payload.first_frame) {
