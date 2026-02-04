@@ -32,6 +32,7 @@ const mvOption= [
 {label: 'verion: v3.5',value: 'chirp-v3-5'}
 ,{label:'verion: v3',value: 'chirp-v3-0'}
 ,{label:'verion: v4',value: 'chirp-v4'}
+,{label:'verion: v4.5-all',value: 'chirp-auk-turbo'}
 ,{label:'verion: v4.5',value: 'chirp-auk'}
 ,{label:'verion: v4.5+',value: 'chirp-bluejay'}
 ,{label:'verion: v5',value: 'chirp-crow'}
