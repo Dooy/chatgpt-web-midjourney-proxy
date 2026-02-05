@@ -8,6 +8,7 @@ import type { UserInfo } from '@/store/modules/user/helper'
 import { getCurrentDate } from '@/utils/functions'
 import { useBasicLayout } from '@/hooks/useBasicLayout'
 import { t } from '@/locales'
+import { getWebDAVConfig, saveWebDAVConfig, syncToWebDAV, syncFromWebDAV } from '@/utils/webdav'
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -27,6 +28,19 @@ const name = ref(userInfo.value.name ?? '')
 const description = ref(userInfo.value.description ?? '')
 
 const backgroundImage = ref(userInfo.value.backgroundImage ?? '')
+
+const webdavUrl = ref('')
+const webdavUsername = ref('')
+const webdavPassword = ref('')
+const showWebDAVConfig = ref(false)
+
+// 加载 WebDAV 配置
+const loadedConfig = getWebDAVConfig()
+if (loadedConfig) {
+  webdavUrl.value = loadedConfig.url
+  webdavUsername.value = loadedConfig.username
+  webdavPassword.value = loadedConfig.password
+}
 
 const language = computed({
   get() {
@@ -124,6 +138,102 @@ function handleImportButtonClick(): void {
   const fileInput = document.getElementById('fileInput2') as HTMLElement
   if (fileInput)   fileInput.click()
 }
+
+function saveWebDAV(): void {
+  if (!webdavUrl.value || !webdavUsername.value || !webdavPassword.value) {
+    ms.error(t('setting.webdavConfigError'))
+    return
+  }
+  saveWebDAVConfig({
+    url: webdavUrl.value,
+    username: webdavUsername.value,
+    password: webdavPassword.value,
+  })
+  ms.success(t('common.success'))
+  showWebDAVConfig.value = false
+}
+
+async function testWebDAVConnection(): Promise<void> {
+  if (!webdavUrl.value || !webdavUsername.value || !webdavPassword.value) {
+    ms.error(t('setting.webdavConfigError'))
+    return
+  }
+  
+  const loading = ms.loading('正在测试连接...', { duration: 0 })
+  
+  try {
+    const url = new URL(webdavUrl.value.replace(/\/$/, ''))
+    const rootUrl = `${url.origin}${url.pathname.split('/')[1] ? `/${url.pathname.split('/')[1]}/` : '/'}`
+    
+    const response = await fetch('/api/webdav-proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        url: rootUrl,
+        method: 'PROPFIND',
+        username: webdavUsername.value,
+        password: webdavPassword.value,
+      }),
+    })
+    
+    const result = await response.json()
+    loading.destroy()
+    
+    if (result.success || result.status === 207)
+      ms.success('连接成功！')
+    else if (result.status === 401)
+      ms.error('认证失败，请检查用户名和密码')
+    else
+      ms.error(`连接失败: ${result.error || result.status}`)
+  }
+  catch (error: any) {
+    loading.destroy()
+    ms.error(`测试失败: ${error.message}`)
+  }
+}
+
+async function handleUploadToWebDAV(): Promise<void> {
+  const config = getWebDAVConfig()
+  if (!config) {
+    ms.warning(t('setting.webdavNotConfigured'))
+    showWebDAVConfig.value = true
+    return
+  }
+  
+  const loading = ms.loading('上传中...', { duration: 0 })
+  
+  try {
+    await syncToWebDAV()
+    loading.destroy()
+    ms.success('已强制上传本地数据到云端')
+  }
+  catch (error: any) {
+    loading.destroy()
+    ms.error(`上传失败: ${error.message}`)
+  }
+}
+
+async function handleDownloadFromWebDAV(): Promise<void> {
+  const config = getWebDAVConfig()
+  if (!config) {
+    ms.warning(t('setting.webdavNotConfigured'))
+    showWebDAVConfig.value = true
+    return
+  }
+  
+  const loading = ms.loading('下载中...', { duration: 0 })
+  
+  try {
+    await syncFromWebDAV()
+    loading.destroy()
+    ms.success('已从云端下载数据，页面即将刷新')
+    setTimeout(() => location.reload(), 1000)
+  }
+  catch (error: any) {
+    loading.destroy()
+    ms.error(`下载失败: ${error.message}`)
+  }
+}
 </script>
 
 <template>
@@ -187,6 +297,20 @@ function handleImportButtonClick(): void {
             {{ $t('common.import') }}
           </NButton>
 
+          <NButton size="small" type="success" @click="handleUploadToWebDAV">
+            <template #icon>
+              <SvgIcon icon="ri:cloud-fill" />
+            </template>
+            {{ $t('setting.webdavUpload') }}
+          </NButton>
+
+          <NButton size="small" type="warning" @click="handleDownloadFromWebDAV">
+            <template #icon>
+              <SvgIcon icon="ri:download-cloud-fill" />
+            </template>
+            {{ $t('setting.webdavDownload') }}
+          </NButton>
+
           <NPopconfirm placement="bottom" @positive-click="clearData">
             <template #trigger>
               <NButton size="small">
@@ -225,6 +349,41 @@ function handleImportButtonClick(): void {
             :options="languageOptions"
             @update-value="value => appStore.setLanguage(value)"
           />
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavSync') }}</span>
+        <NButton size="small" @click="showWebDAVConfig = !showWebDAVConfig">
+          {{ showWebDAVConfig ? $t('common.hide') : $t('setting.webdavConfig') }}
+        </NButton>
+      </div>
+      <div v-if="showWebDAVConfig" class="space-y-4 pl-4 border-l-2">
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavUrl') }}</span>
+          <div class="flex-1">
+            <NInput v-model:value="webdavUrl" placeholder="https://dav.example.com/remote.php/dav/files/username/" />
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavUsername') }}</span>
+          <div class="flex-1">
+            <NInput v-model:value="webdavUsername" placeholder="" />
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]">{{ $t('setting.webdavPassword') }}</span>
+          <div class="flex-1">
+            <NInput v-model:value="webdavPassword" type="password" placeholder="" />
+          </div>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex-shrink-0 w-[100px]"></span>
+          <NButton size="small" type="primary" @click="saveWebDAV">
+            {{ $t('common.save') }}
+          </NButton>
+          <NButton size="small" @click="testWebDAVConnection">
+            {{ $t('setting.webdavTest') }}
+          </NButton>
         </div>
       </div>
       <div class="flex items-center space-x-4">

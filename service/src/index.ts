@@ -346,7 +346,50 @@ app.use('/udio' ,authV2, udioProxy  );
 
 app.use('/pixverse' ,authV2, pixverseProxy  );
 
-
+// WebDAV 代理接口
+router.post('/webdav-proxy', authV2, async (req, res) => {
+  try {
+    const { url, method, username, password, data } = req.body
+    
+    if (!url || !method || !username || !password) {
+      return res.status(400).json({ error: '缺少必要参数' })
+    }
+    
+    const auth = Buffer.from(`${username}:${password}`).toString('base64')
+    const headers: any = {
+      'Authorization': `Basic ${auth}`,
+    }
+    
+    if (method === 'PUT') {
+      headers['Content-Type'] = 'application/json'
+    }
+    
+    const axiosConfig: any = {
+      method,
+      url,
+      headers,
+      timeout: 30000,
+    }
+    
+    if (method === 'PUT' && data) {
+      axiosConfig.data = data
+    }
+    
+    const response = await axios(axiosConfig)
+    res.json({ 
+      success: true, 
+      status: response.status,
+      data: response.data 
+    })
+  }
+  catch (error: any) {
+    res.status(error.response?.status || 500).json({ 
+      success: false,
+      error: error.message,
+      status: error.response?.status
+    })
+  }
+})
 
 
 
