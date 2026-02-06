@@ -548,6 +548,16 @@ export default {
 
     ,selectModel:'请选择模型'
 
+    ,sora2about:'Sora2 相关'
+    ,sora2server:'Sora2 接口地址'
+    ,sora2keyPlaceholder:'Sora2 的 API Key, 可不填'
+    ,sora2key:'Sora2 Key'
+    ,hdMode:'高清模式'
+    ,watermark:'水印'
+    ,private:'私密'
+    ,enhancePrompt:'提示词增强'
+    ,sora2Desc:'说明：Sora2 支持文生视频和图生视频，可调节分辨率、宽高比、时长等参数。Pro 版本支持高清模式和更长时长。'
+
   }
   ,dance:{
     menu:"舞蹈",

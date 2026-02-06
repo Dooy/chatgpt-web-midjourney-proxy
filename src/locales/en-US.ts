@@ -528,6 +528,18 @@ export default {
     rwgen3turbo:'Version: Gen-3 Alpha Turbo',
     gen3a_turbo_img:'Gen-3 Alpha Turbo must image',
 
+    selectModel:'Please select a model',
+
+    sora2about: "About Sora2",
+    sora2server: "Sora2 API Endpoint",
+    sora2keyPlaceholder: "Sora2 API Key (optional)",
+    sora2key: "Sora2 Key",
+    hdMode: "HD Mode",
+    watermark: "Watermark",
+    private: "Private",
+    enhancePrompt: "Enhance Prompt",
+    sora2Desc: "Note: Sora2 supports text-to-video and image-to-video with adjustable resolution, aspect ratio, duration, and more. Pro version supports HD mode and longer duration."
+
   },
   dance:{
     menu: "Dance",
