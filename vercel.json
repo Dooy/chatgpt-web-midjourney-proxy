@@ -1,11 +1,31 @@
 {
   "rewrites": [
     {
+      "source": "/session",
+      "destination": "/api/session"
+    },
+    {
       "source": "/openapi/(.*)",
       "destination": "/api/proxy"
     },
     {
       "source": "/mjapi/(.*)",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/sunoapi/(.*)",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/luma/(.*)",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/viggle/(.*)",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/runwayml/(.*)",
       "destination": "/api/proxy"
     }
   ]
