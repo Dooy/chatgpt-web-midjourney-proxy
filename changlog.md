@@ -1,7 +1,8 @@
 # 功能升级日志
 
 #  计划 
-
+# 2.25.11
+- feat: 添加 WebDAV 聊天记录同步功能 #665
 
 # 2.25.10
 - 😄 新增画图：nano-banana-2 gpt-image-1.5 gemini-3.1-flash-image-preivew
