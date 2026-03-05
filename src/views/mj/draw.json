@@ -254,6 +254,10 @@
 			"value": "--v 5.1"
 		},
 		{
+			"labelKey": "Niji V7",
+			"value": "--niji 7"
+		},
+		{
 			"labelKey": "draw.versionList.nijiV6",
 			"value": "--niji 6"
 		},
