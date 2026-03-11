@@ -1,9 +1,8 @@
-version: '3'
 
 services:
   gptweb:
     container_name: chatgpt-web-midjourney-proxy
-    image: ydlhero/chatgpt-web-midjourney-proxy # 总是使用latest,更新时重新pull该tag镜像即可
+    image: ydlhero/chatgpt-web-midjourney-proxy:local # 总是使用latest,更新时重新pull该tag镜像即可
     ports:
       - 6050:3002
     environment:

@@ -1,7 +1,7 @@
 module.exports = (req, res) => {
   console.log('session.js', req.body);
   try {
-    let data = req.body.data; 
+    let data = req.body.data;
     let obj ={
         "status": "Success",
         "message": "",
@@ -11,14 +11,14 @@ module.exports = (req, res) => {
             "auth":   process.env.AUTH_SECRET_KEY?true:false ,
             "model": "ChatGPTAPI",
             "amodel": process.env.OPENAI_API_MODEL?? "gpt-3.5-turbo"
-            ,isApiGallery:    process.env.MJ_API_GALLERY ? true : false 
-            ,cmodels : process.env.CUSTOM_MODELS??'' 
-            ,baiduId : process.env.TJ_BAIDU_ID?? "" 
+            ,isApiGallery:    process.env.MJ_API_GALLERY ? true : false
+            ,cmodels : process.env.CUSTOM_MODELS??''
+            ,baiduId : process.env.TJ_BAIDU_ID?? ""
             ,googleId: process.env.TJ_GOOGLE_ID?? ""
-            , notify : process.env.SYS_NOTIFY?? "" 
-            ,disableGpt4 : process.env.DISABLE_GPT4?? "" 
-            ,isWsrv:  process.env.MJ_IMG_WSRV?? "" 
-            ,uploadImgSize: process.env.UPLOAD_IMG_SIZE?? "5" 
+            , notify : process.env.SYS_NOTIFY?? ""
+            ,disableGpt4 : process.env.DISABLE_GPT4?? ""
+            ,isWsrv:  process.env.MJ_IMG_WSRV?? ""
+            ,uploadImgSize: process.env.UPLOAD_IMG_SIZE?? "5"
             ,gptUrl : process.env.GPT_URL?? ""
             ,theme : process.env.SYS_THEME?? "dark"
             ,isCloseMdPreview : process.env.CLOSE_MD_PREVIEW?true:false
@@ -26,7 +26,12 @@ module.exports = (req, res) => {
             ,visionModel: process.env.VISION_MODEL??""
             ,systemMessage: process.env.SYSTEM_MESSAGE??""
             ,customVisionModel: process.env.CUSTOM_VISION_MODELS??""
-
+            ,backgroundImage: process.env.BACKGROUND_IMAGE??""
+            ,userAvatar: process.env.USER_AVATAR??""
+            ,userName: process.env.USER_NAME??""
+            ,siteTitle: process.env.SITE_TITLE??""
+            ,OPENAI_API_BASE_URL: process.env.OPENAI_API_BASE_URL??""
+            ,MJ_SERVER: process.env.MJ_SERVER??""
         }
     }
     res.writeHead(200).end(
