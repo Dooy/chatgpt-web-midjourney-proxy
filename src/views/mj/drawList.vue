@@ -106,7 +106,7 @@ async function onConversation() {
      addChat(  +uuid, promptMsg );
 
     
-  }else if( message.action && ['gpt.dall-e-3','shorten'].indexOf(message.action) >-1   ){ //gpt.dall-e-3 //subTas
+  }else if( message.action && ['gpt.dall-e-3','shorten','gpt.seedream'].indexOf(message.action) >-1   ){ //gpt.dall-e-3 //subTas
     let promptMsg: Chat.Chat= getInitChat( message.data.prompt ); 
     mlog( 'gpt.dall-e-3' ,  message.data.fileBase64 );
     if(  message.data.fileBase64 &&  message.data.fileBase64.length>0 ){
@@ -148,9 +148,10 @@ async function onConversation() {
 
   if (lastContext && usingContext.value)
     options = { ...lastContext }
+  const isGptAction=  message.action && message.action.indexOf('gpt.')==0
   let outMsg: Chat.Chat={
       dateTime: new Date().toLocaleString(),
-      text: message.action=='gpt.dall-e-3'? t('mjchat.wait3'): t('mjchat.submiting'),
+      text: isGptAction?( message.action=='gpt.dall-e-3'? t('mjchat.wait3'): t('mjchat.submiting')): t('mjchat.submiting'),
       loading: true,
       inversion: false,
       error: false,
@@ -158,7 +159,7 @@ async function onConversation() {
       requestOptions: { prompt:  t('mjchat.submiting'), options: { ...options } },
       uuid:+uuid,
       myid: `${Date.now()}`
-      ,model:message.action=='gpt.dall-e-3'? message.data.model :'midjourney'
+      ,model:isGptAction? (message.data?.model??'midjourney') :'midjourney'
      
     }
   //mlog('outMsg model',outMsg.model );
