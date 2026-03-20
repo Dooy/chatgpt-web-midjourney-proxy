@@ -437,7 +437,7 @@ export const subModel= async (opt: subModelType)=>{
     let body:any ={
             max_tokens ,
             model ,
-            temperature,
+          //  temperature,
             top_p,
             presence_penalty ,frequency_penalty,
             "messages": opt.message
