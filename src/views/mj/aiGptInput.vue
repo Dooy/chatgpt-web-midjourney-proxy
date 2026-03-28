@@ -233,7 +233,7 @@ watch(()=> homeStore.myData.vtoken ,  regCookie  )
 </script>
 <template>
 <vue-turnstile ref="tRef"  :site-key="homeStore.myData.session.turnstile" :appearance="appearance"    v-model="homeStore.myData.vtoken" v-if="homeStore.myData.session.turnstile" />
-<!-- <div>{{ homeStore.myData.vtoken }}</div> -->
+<!-- <div>{{ homeStore.myData.vtoken }}</div> --> 
 <div v-if="st.showMic" class="  myinputs flex justify-center items-center" >
     <AiMic @cancel="st.showMic=false" @send="sendMic" />
 </div>

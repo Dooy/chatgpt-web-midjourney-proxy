@@ -563,6 +563,7 @@ export default {
     moban2: "Template Name",
     use: "Use"
   }
+  ,'录音':'Record'
 
 
 

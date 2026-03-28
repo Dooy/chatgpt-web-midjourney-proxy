@@ -584,6 +584,7 @@ export default {
     moban2:'模版名称',
     use:'使用',
   }
+  ,'录音':'录音'
 
 
 }

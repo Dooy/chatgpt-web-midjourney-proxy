@@ -20,6 +20,8 @@ const st =ref({start:0,isGo:false});
 const ms = useMessage();
 const { isMobile } = useBasicLayout()
 
+const props = defineProps<{ opt?:string }>();
+
 recorder.onprogress =  (params) => {
     stat.value = {duration: params.duration , fileSize: params.fileSize, vol: params.vol }
     //emit('process', stat.value);
@@ -75,14 +77,17 @@ onUnmounted(() => {
 }),
 watch(()=> stat.value , (n)=> emit('process', stat.value) ,{deep:true} );
 
-start();
+if(!props.opt) start();
 </script>
 <template> 
-<template v-if="!st.isGo">
+<div v-if="!st.isGo" class="flex justify-center space-x-1">
     <NButton @click="start()" type="primary" block round> 
         <template #icon><SvgIcon icon="bi:mic"/></template>{{ $t('mj.mStart') }}
     </NButton>
-</template>
+    <NButton @click="cancal()" type="info" block round>
+        <template #icon><SvgIcon icon="ri:close-circle-line"/></template>{{ $t('mj.mCanel') }}
+    </NButton> 
+</div>
 <n-button-group v-else>
     <NButton @click="start()" type="primary" v-if="st.start==0" > 
         <template #icon><SvgIcon icon="bi:mic"/></template>{{ $t('mj.mStart') }}
@@ -105,9 +110,12 @@ start();
 
         <NButton type="primary" @click="send()">
         <template #icon><SvgIcon icon="ri:send-plane-fill"></SvgIcon></template>
-        {{ $t('mj.mSent') }}
+         
+        <span v-if="props.opt=='sunoupload'">{{ $t('setting.webdavUpload') }}</span> 
+        <span v-else>{{ $t('mj.mSent') }}</span> 
         <span class="w-[30px]" v-if="stat.duration>0 ">{{ stat?.duration.toFixed(1) }}s</span>
         </NButton> 
     </template>
+     
 </n-button-group> 
 </template>
