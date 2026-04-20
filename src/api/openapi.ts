@@ -438,7 +438,7 @@ export const subModel= async (opt: subModelType)=>{
             max_tokens ,
             model ,
           //  temperature,
-            top_p,
+          //  top_p,
             presence_penalty ,frequency_penalty,
             "messages": opt.message
            ,stream:true
@@ -448,7 +448,7 @@ export const subModel= async (opt: subModelType)=>{
             max_completion_tokens:max_tokens ,
             model ,
             //temperature,
-            top_p,
+            //top_p,
             presence_penalty ,frequency_penalty,
             "messages": opt.message
            ,stream:false
