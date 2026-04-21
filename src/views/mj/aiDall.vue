@@ -9,9 +9,11 @@ import { t } from '@/locales';
 const ms = useMessage();
 const config = ref( {
 model:[
-{  "label": "DALL·E 3", "value": "dall-e-3" }
+
+ {  "label": "GPT-Image-2", "value": "gpt-image-2" }
  ,{  "label": "GPT-Image-1", "value": "gpt-image-1" }
  ,{  "label": "GPT-Image-1.5", "value": "gpt-image-1.5" }
+ ,{  "label": "DALL·E 3", "value": "dall-e-3" }
  ,{  "label": "flux-kontext-pro", "value": "flux-kontext-pro" }
  ,{  "label": "flux-kontext-max", "value": "flux-kontext-max" }
  ,{  "label": "nano-banana-2", "value": "nano-banana-2" }
