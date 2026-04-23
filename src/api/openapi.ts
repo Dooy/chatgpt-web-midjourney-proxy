@@ -439,7 +439,7 @@ export const subModel= async (opt: subModelType)=>{
             model ,
           //  temperature,
           //  top_p,
-            presence_penalty ,frequency_penalty,
+          //  presence_penalty ,frequency_penalty,
             "messages": opt.message
            ,stream:true
         }
@@ -449,7 +449,7 @@ export const subModel= async (opt: subModelType)=>{
             model ,
             //temperature,
             //top_p,
-            presence_penalty ,frequency_penalty,
+           // presence_penalty ,frequency_penalty,
             "messages": opt.message
            ,stream:false
         }
