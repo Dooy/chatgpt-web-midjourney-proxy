@@ -164,6 +164,7 @@ const isCanImageEdit= computed(()=>{
     if(f.value.model=='gpt-image-1' ||  f.value.model.includes('gpt-image')) return true;
     if(f.value.model.indexOf('kontext')>-1) return true;
     if(f.value.model.indexOf('banana')>-1) return true;
+    if(f.value.model.indexOf('-image')>-1) return true;
     return false;
 })
 
