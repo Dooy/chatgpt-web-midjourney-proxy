@@ -199,7 +199,7 @@ const selectFile=(input:any)=>{
 </section>
 
 <div class="mb-1">
-     <n-input    type="textarea"  v-model:value="f.prompt"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="500" show-count 
+     <n-input    type="textarea"  v-model:value="f.prompt"   :placeholder="$t('mjchat.prompt')" round clearable maxlength="5000" show-count 
       :autosize="{   minRows:3, maxRows:10 }" />
 </div>
 <div class="mb-1" v-if="isCanImageEdit"> 
