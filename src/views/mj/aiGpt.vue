@@ -337,7 +337,9 @@ const submit= (model:string, message:any[] ,  opt?:any )=>{
                 goFinish();
             }
             ,signal:controller.value.signal,
-            }).then(()=>goFinish() ).catch(e=>{
+            }).then( ()=> goFinish() 
+            ).catch(e=>{
+                 mlog('onError',e)
                 if(e.message!='canceled')  textRz.value.push("\n"+t('mj.fail')+":\n```\n"+(e.reason??JSON.stringify(e,null,2)) +"\n```\n")
                 goFinish();
             });

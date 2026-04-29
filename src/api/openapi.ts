@@ -411,6 +411,9 @@ return DEFAULT_SYSTEM_TEMPLATE;
 export const isNewModel=(model:string)=>{
     return model.startsWith('o1-') ||   model.includes('gpt-5')
 }
+export const isClaudeModel=(model:string)=>{
+    return model.includes('claude')
+}
 export const subModel= async (opt: subModelType)=>{
     //
     let model= opt.model?? ( gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo");
@@ -437,13 +440,20 @@ export const subModel= async (opt: subModelType)=>{
     let body:any ={
             max_tokens ,
             model ,
-          //  temperature,
-          //  top_p,
-          //  presence_penalty ,frequency_penalty,
+           temperature,
+           top_p,
+           presence_penalty ,frequency_penalty,
             "messages": opt.message
            ,stream:true
         }
-    if(isNewModel(model)){
+    if(isClaudeModel(model)){
+        body ={
+            max_completion_tokens:max_tokens ,
+            model , 
+            "messages": opt.message
+           ,stream:false
+        }
+    }else if(isNewModel(model)){
         body ={
             max_completion_tokens:max_tokens ,
             model ,
@@ -506,10 +516,15 @@ export const subModel= async (opt: subModelType)=>{
             opt.onMessage({text: t('mj.thinking') ,isFinish: false })
             let obj :any= await gptFetch( '/v1/chat/completions',body  )
             //mlog('结果 >>',obj   )
-            opt.onMessage({text:obj.choices[0].message.content??'' ,isFinish: true ,isAll:true})
+            try {
+                opt.onMessage({text:obj.choices[0].message.content??'' ,isFinish: true ,isAll:true})
+            } catch (error) {
+                mlog('❌未错误4', obj )
+                opt.onError && opt.onError(obj)
+            }     
             
         } catch (error ) {
-            mlog('❌未错误2',error  )
+            mlog('❌未错误3',error  )
             opt.onError && opt.onError(error)
         }
     }

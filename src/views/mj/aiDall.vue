@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref ,computed,watch} from 'vue';
-import {useMessage, NButton,NSelect,NInput, NImage, c} from 'naive-ui';
+import {useMessage, NButton,NSelect,NInput, NImage } from 'naive-ui';
 import {gptFetch, mlog, upImg} from '@/api'
 import { homeStore } from '@/store';
 import { SvgIcon } from '@/components/common';
@@ -35,7 +35,7 @@ interface myFile{
 const st =ref({isGo:false,quality:'medium' }); 
 const fsRef= ref() ; 
 const base64Array= ref<myFile[]>([]);    
-const f = ref({size:'1024x1024', prompt:'',"model": "dall-e-3","n": 1});
+const f = ref({size:'1024x1024', prompt:'',"model": "gpt-image-2","n": 1});
 const isDisabled= computed(()=>{
     if(st.value.isGo) {
         //console.log('st.value.isGo',st.value.isGo);
