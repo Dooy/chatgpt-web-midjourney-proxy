@@ -409,7 +409,7 @@ return DEFAULT_SYSTEM_TEMPLATE;
 }
 
 export const isNewModel=(model:string)=>{
-    return model.startsWith('o1-') ||   model.includes('gpt-5')
+    return model.startsWith('o1-')// ||   model.includes('gpt-5')
 }
 export const isClaudeModel=(model:string)=>{
     return model.includes('claude')
@@ -451,7 +451,7 @@ export const subModel= async (opt: subModelType)=>{
             max_completion_tokens:max_tokens ,
             model , 
             "messages": opt.message
-           ,stream:false
+           ,stream:true
         }
     }else if(isNewModel(model)){
         body ={
