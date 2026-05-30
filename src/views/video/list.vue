@@ -17,10 +17,16 @@ const list= ref<DtoItem[]>([]);
 const list2= ref<ViewCard[]>([]);
 const st=ref({show:false,showImg:'' ,isLoad:false,pIndex:-1,isStart:true });
 
+const props = defineProps<{
+    platFilter?: string
+}>();
+
 const ms= useMessage()
 const initLoad=()=>{
-    
     let arr = csuno.getObjs();
+    if(props.platFilter){
+        arr = arr.filter(v=>v.plat===props.platFilter)
+    }
     mlog("initLoad List", arr); //
     list.value= arr.reverse()
 

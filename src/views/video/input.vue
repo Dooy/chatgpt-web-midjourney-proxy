@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { NSelect, NInput,NButton ,useMessage,NEmpty} from 'naive-ui';
+import { NSelect, NInput,NButton ,useMessage,NEmpty, NSwitch} from 'naive-ui';
 //import mytpl from './tpl.json'
 import { mytpl } from './tpl';
 import { DtoTpl, PostVideo, googleVeoFeed } from './veo';
@@ -141,6 +141,12 @@ onMounted(() => {
 
             <div class="pt-1" v-if="tp.type=='select'">
                 <n-select v-model:value="stArr[k]" :options="tp.options" size="small"></n-select>
+            </div>
+            <div class="pt-1" v-if="tp.type=='switch'">
+                <div class="flex items-center justify-between">
+                    <span class="text-[13px] opacity-80">{{ tp.placeholder }}</span>
+                    <n-switch v-model:value="stArr[k]" size="small" />
+                </div>
             </div>
         </template>
     

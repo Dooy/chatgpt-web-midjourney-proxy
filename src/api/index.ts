@@ -80,4 +80,5 @@ export * from "./Recognition"
 export * from "./luma"
 export * from "./ideo"
 export * from "./realtime"
-
+export * from "./seedream"
+export * from "./seedance"
