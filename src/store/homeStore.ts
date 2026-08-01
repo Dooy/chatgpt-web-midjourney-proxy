@@ -97,6 +97,8 @@ export const gptConfigStore= reactive({
 export interface gptServerType{
     OPENAI_API_KEY:string
     OPENAI_API_BASE_URL:string
+    ATLAS_SERVER:string
+    ATLAS_KEY:string
     MJ_SERVER:string
     MJ_API_SECRET:string
     UPLOADER_URL:string
@@ -140,6 +142,8 @@ const  getServerDefault=()=>{
 let v:gptServerType={
         OPENAI_API_KEY:'',
         OPENAI_API_BASE_URL:'',
+        ATLAS_SERVER:'https://api.atlascloud.ai/api/v1',
+        ATLAS_KEY:'',
         MJ_SERVER:'',
         UPLOADER_URL:'',
         MJ_API_SECRET:'',
