@@ -685,6 +685,8 @@ export const blurClean= ()=>{
   mlog('blurClean');
   gptServerStore.myData.OPENAI_API_BASE_URL =myTrim( myTrim(gptServerStore.myData.OPENAI_API_BASE_URL.trim(),'/'), '\\' );
   gptServerStore.myData.OPENAI_API_KEY = gptServerStore.myData.OPENAI_API_KEY.trim();
+  gptServerStore.myData.MUAPI_SERVER = gptServerStore.myData.MUAPI_SERVER.trim();
+  gptServerStore.myData.MUAPI_KEY = gptServerStore.myData.MUAPI_KEY.trim();
   gptServerStore.myData.MJ_SERVER =myTrim( myTrim( gptServerStore.myData.MJ_SERVER.trim(),'/'),'\\');
   gptServerStore.myData.MJ_API_SECRET = gptServerStore.myData.MJ_API_SECRET.trim();
   gptServerStore.myData.UPLOADER_URL=  myTrim( myTrim( gptServerStore.myData.UPLOADER_URL.trim(),'/'),'\\');

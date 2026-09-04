@@ -1,6 +1,40 @@
 export const mytpl={
 "tpl":[
     {
+        "model":"seedance-2-text-to-video",
+        "field":[
+            {
+                "key":"prompt",
+                "type":"textarea",
+                "placeholder":"Video Description"
+            },
+            {
+                "key":"aspect_ratio",
+                "type":"select",
+                "value":"16:9",
+                "options":[
+                    { "label":"Ratio 21:9", "value":"21:9"},
+                    { "label":"Ratio 16:9", "value":"16:9"},
+                    { "label":"Ratio 4:3", "value":"4:3"},
+                    { "label":"Ratio 1:1", "value":"1:1"},
+                    { "label":"Ratio 3:4", "value":"3:4"},
+                    { "label":"Ratio 9:16", "value":"9:16"}
+                ]
+            },
+            {
+                "key":"duration",
+                "type":"select",
+                "value":5,
+                "options":[
+                    { "label":"Duration: 5s", "value":5},
+                    { "label":"Duration: 10s", "value":10},
+                    { "label":"Duration: 15s", "value":15}
+                ]
+            }
+        ],
+        "plat":"muapi"
+    },
+    {
         "model":"sora-2",
         "field":[
            {
