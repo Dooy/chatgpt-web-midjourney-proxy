@@ -97,6 +97,8 @@ export const gptConfigStore= reactive({
 export interface gptServerType{
     OPENAI_API_KEY:string
     OPENAI_API_BASE_URL:string
+    MUAPI_SERVER:string
+    MUAPI_KEY:string
     MJ_SERVER:string
     MJ_API_SECRET:string
     UPLOADER_URL:string
@@ -140,6 +142,8 @@ const  getServerDefault=()=>{
 let v:gptServerType={
         OPENAI_API_KEY:'',
         OPENAI_API_BASE_URL:'',
+        MUAPI_SERVER:'https://api.muapi.ai/api/v1',
+        MUAPI_KEY:'',
         MJ_SERVER:'',
         UPLOADER_URL:'',
         MJ_API_SECRET:'',
