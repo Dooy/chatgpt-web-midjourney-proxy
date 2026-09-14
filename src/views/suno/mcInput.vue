@@ -14,12 +14,12 @@ const exSuno= ref<SunoMedia>()
 const des= ref( {
   "gpt_description_prompt": "",
   "make_instrumental": false,
-  "mv": "chirp-fenix",
+  "mv": "chirp-hawk",
   "prompt": ""
 });
 const cs= ref({
   "prompt": "",
-  "mv": "chirp-fenix",
+  "mv": "chirp-hawk",
   "title": "",
   "tags": "",
   "continue_at": 120,
@@ -29,14 +29,17 @@ const cs= ref({
 });
 
 const mvOption= [
-{label: 'verion: v3.5',value: 'chirp-v3-5'}
-,{label:'verion: v3',value: 'chirp-v3-0'}
-,{label:'verion: v4',value: 'chirp-v4'}
-,{label:'verion: v4.5-all',value: 'chirp-auk-turbo'}
-,{label:'verion: v4.5',value: 'chirp-auk'}
-,{label:'verion: v4.5+',value: 'chirp-bluejay'}
-,{label:'verion: v5',value: 'chirp-crow'}
-,{label:'verion: v5.5',value: 'chirp-fenix'}
+// {label: 'verion: v3.5',value: 'chirp-v3-5'}
+// ,{label:'verion: v3',value: 'chirp-v3-0'}
+// ,{label:'verion: v4',value: 'chirp-v4'}
+// ,{label:'verion: v4.5-all',value: 'chirp-auk-turbo'}
+// ,{label:'verion: v4.5',value: 'chirp-auk'}
+// ,{label:'verion: v4.5+',value: 'chirp-bluejay'}
+// ,{label:'verion: v5',value: 'chirp-crow'}
+// ,{label:'verion: v5.5',value: 'chirp-fenix'}
+{label: 'verion: v6',value: 'chirp-hawk'}
+,{label: 'verion: v6-wild',value: 'chirp-hawk-wild'}
+,{label: 'verion: v6-mini',value: 'chirp-goose'}
  ]
 
 const canPost = computed(() => {
@@ -108,7 +111,7 @@ const generate= async ()=>{
 
        ids=r.clips.map((r:any)=>r.id);
        mlog('ids ', ids );
-       if( cs.value.mv='chirp-v3-5-upload' ) cs.value.mv='chirp-v4'
+       if( cs.value.mv='chirp-v3-5-upload' ) cs.value.mv='chirp-hawk'
     }else{
         des.value.prompt='';//cs.value.title;
         // cs.value.prompt=''

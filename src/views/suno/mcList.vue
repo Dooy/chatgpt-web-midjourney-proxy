@@ -138,7 +138,7 @@ initLoad();
                     <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" > {{item.metadata.duration.toFixed(1)}}s</div>
                     <div @click="extend(item)" class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md cursor-pointer">{{ $t('suno.extend') }}</div>
                 </template>
-                <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.major_model_version"> {{item.major_model_version}}</div>
+                <div class="text-[8px] flex items-center border-[1px] border-gray-500/30 px-1 list-none rounded-md" v-if="item.major_model_version"> {{item.major_model_version}}{{ item.model_name?':'+item.model_name:'' }}</div>
                 <n-popconfirm @positive-click="()=>deleteGo(item)" placement="bottom">
                     <template #trigger><SvgIcon icon="mdi:delete" class="cursor-pointer"   /></template>
                      {{ $t('mj.confirmDelete') }}
