@@ -20,11 +20,16 @@ spec:
         - image: chenzhaoyu94/chatgpt-web
           name: chatgpt-web
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 3002
           env:
             - name: OPENAI_API_KEY
-              value: sk-xxx
+              valueFrom:
+                secretKeyRef:
+                  name: chatgpt-web-secrets
+                  key: openai-api-key
             - name: OPENAI_API_BASE_URL
               value: 'https://api.openai.com'
             - name: OPENAI_API_MODEL
@@ -32,7 +37,10 @@ spec:
             - name: API_REVERSE_PROXY
               value: https://ai.fakeopen.com/api/conversation
             - name: AUTH_SECRET_KEY
-              value: '123456'
+              valueFrom:
+                secretKeyRef:
+                  name: chatgpt-web-secrets
+                  key: auth-secret-key
             - name: TIMEOUT_MS
               value: '60000'
             - name: SOCKS_PROXY_HOST
