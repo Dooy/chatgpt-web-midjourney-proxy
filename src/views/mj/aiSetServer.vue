@@ -84,6 +84,25 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           </n-input>
       </section>
 
+      <div class="text-right">
+        <a href="https://muapi.ai/ai-video-api" target="_blank" rel="noreferrer">MuAPI video API</a>
+      </div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean" placeholder="MuAPI API server" v-model:value="gptServerStore.myData.MUAPI_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">MuAPI Server:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean" type="password" placeholder="MuAPI access key" show-password-on="click" v-model:value="gptServerStore.myData.MUAPI_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]"><a href="https://muapi.ai/access-keys" target="_blank" rel="noreferrer">MuAPI Key:</a></span>
+            </template>
+          </n-input>
+      </section>
+
 
       <div class="flex justify-between items-baseline ">
         <section class="mb-4 flex justify-start items-center">
