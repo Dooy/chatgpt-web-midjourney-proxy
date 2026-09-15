@@ -84,6 +84,22 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           </n-input>
       </section>
 
+      <div class="text-right">Atlas Cloud</div>
+      <section class="mb-4 flex justify-between items-center">
+          <n-input @blur="blurClean" placeholder="https://api.atlascloud.ai/api/v1" v-model:value="gptServerStore.myData.ATLAS_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Atlas API:</span>
+            </template>
+          </n-input>
+      </section>
+      <section class="mb-4 flex justify-between items-center">
+          <n-input @blur="blurClean" type="password" placeholder="Atlas Cloud API Key" show-password-on="click" v-model:value="gptServerStore.myData.ATLAS_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Atlas Key:</span>
+            </template>
+          </n-input>
+      </section>
+
 
       <div class="flex justify-between items-baseline ">
         <section class="mb-4 flex justify-start items-center">

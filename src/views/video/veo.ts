@@ -1,7 +1,7 @@
 import { gptFetch, gptUploadFile, mlog } from "@/api"
 import { DtoItem, DtoStore } from "@/api/dtoStore"
 import { sleep } from "@/api/suno"
-import { homeStore } from "@/store"
+import { gptServerStore, homeStore } from "@/store"
 
 export interface DtoTpl{
     model:string
@@ -30,6 +30,8 @@ export const PostVideo= async(nowModel:DtoTpl, data:any)=>{
         rz= await googleVeo(nowModel,data)
     }else if(plat=='openai'){
         rz= await openaiVideo(nowModel,data)
+    }else if(plat=='atlas'){
+        rz= await atlasVideo(nowModel,data)
     }else if(plat=='fal-ai'){
         rz= await falAI(nowModel,data)
     }else{
@@ -51,10 +53,66 @@ export const DtoFeed= async (item:DtoItem)=>{
     // }
    if(item.plat=="fal-ai"){
         falAiFeed(item.id)
+    }else if(item.plat=="atlas"){
+        atlasVideoFeed(item.id)
     }else if(item.plat=="openai" ){
      openaiVideoFeed(item.id)
     }else{
       googleVeoFeed(item.id)
+    }
+}
+
+const atlasRequest = async(path:string, init?:RequestInit)=>{
+    const server=gptServerStore.myData.ATLAS_SERVER.replace(/\/+$/, '')
+    const key=gptServerStore.myData.ATLAS_KEY.trim()
+    if(!key) throw new Error('Atlas Cloud API key is required')
+    const response=await fetch(server+path, {
+        ...init,
+        headers:{
+            'Authorization':`Bearer ${key}`,
+            'Content-Type':'application/json',
+            ...init?.headers,
+        },
+    })
+    const body=await response.json()
+    if(!response.ok || (body.code && body.code!==200)) throw new Error(body.message??`Atlas Cloud request failed: ${response.status}`)
+    return body.data
+}
+
+const atlasVideo= async(nowModel:DtoTpl, data:any)=>{
+    const d=await atlasRequest('/model/generateVideo', {
+        method:'POST',
+        body:JSON.stringify({...data, model:nowModel.model}),
+    })
+    if(!d?.id) throw new Error('Atlas Cloud did not return a prediction id')
+    return {
+        mid:d.id,
+        id:d.id,
+        type:'video',
+        plat:nowModel.plat,
+        status:d.status??'submitted',
+        last_feed:Math.floor(Date.now()/1000),
+        title:data.prompt??'no prompt',
+    } as DtoItem
+}
+
+const atlasVideoFeed= async(id:string)=>{
+    for(let i=0;i<120;i++){
+        const rz=csuno.getOneById(id)
+        if(!rz || rz.status==='completed' || rz.status==='failed') return
+        try{
+            const d=await atlasRequest('/model/prediction/'+rz.mid)
+            const output=Array.isArray(d.outputs)?d.outputs[0]:(Array.isArray(d.output)?d.output[0]:d.output)
+            rz.data=d
+            rz.url=typeof output==='string'?output:''
+            rz.status=rz.url?'completed':(d.status??'pending')
+        }catch(error){
+            rz.status='pending'
+        }
+        rz.last_feed=Math.floor(Date.now()/1000)
+        csuno.save(rz)
+        homeStore.setMyData({act:'dtoFeed'})
+        await sleep(5000)
     }
 }
 
