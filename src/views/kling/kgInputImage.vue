@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import {useMessage, NButton,NInput,NTag} from 'naive-ui';
+import {useMessage, NButton,NInput,NTag,NSelect} from 'naive-ui';
 import { clearImageBase64, mlog, upImg } from '@/api';
 import { homeStore } from '@/store';
 import { klingFeed, klingFetch } from '@/api/kling';
 
-const f= ref({prompt:'',negative_prompt:'',image:'',image_fidelity:0.5,n:1,aspect_ratio:'1:1'});
+const f= ref({prompt:'',negative_prompt:'',image:'',image_fidelity:0.5,n:1,aspect_ratio:'1:1',model_name:'kling-v2-1'});
 const st= ref({bili:0,isLoading:false});
 
 const fsRef= ref() ; 
@@ -18,6 +18,11 @@ const vf=[{s:'width: 100%; height: 100%;',label:'1:1',value:'1:1'}
 ,{s:'width: 100%; height: 50%;',label:'16:9',value:'16:9'}
 ,{s:'width: 50%; height: 100%;',label:'9:16',value:'9:16'}
  ];
+
+ const mvOption= [
+{label:'kling-v2-1',value: 'kling-v2-1'}
+,{label:'kling-v3',value: 'kling-v3'}
+ ]
 
 
  function selectFile(input:any){
@@ -76,16 +81,24 @@ klingFetch('https://api.openai-hk.com/v1/models').then(d=>mlog('models',d ) )
 
         </div>
     </section> 
+     <section class="mb-4 flex justify-between items-center" >
+         <div>{{ $t('mjset.model') }}</div>
+         <n-select v-model:value="f.model_name" size="small" :options="mvOption"  class="!w-[70%]" />
+         
+    </section>
+
     <section class="mb-4 flex justify-between items-center" >
          <div>{{ $t('mj.nohead') }}</div>
           <NInput v-model="f.negative_prompt" size="small"  class="!w-[70%]"  clearable :placeholder="$t('mj.negative_prompt')" />
     </section>
+    
      <section class="mb-4 flex justify-between items-center" >
          
           <n-input v-model:value="f.prompt" 
                 :placeholder="$t('mj.ideopls')"  type="textarea"  size="small"   
                 :autosize="{ minRows: 3, maxRows: 12  }"  />
     </section>
+    
     
     <section class="mb-4 flex justify-between items-end" >
         <div class="relative"> 
