@@ -10,6 +10,7 @@ import {  ref } from 'vue';
 import { useRoute } from 'vue-router';
 import PixInput from './pixInput.vue';
 import VideoInput from '../video/input.vue';
+import SeedanceInput from '../video/seedanceInput.vue';
 
 const route = useRoute(); // 获取当前路由对象
 
@@ -24,7 +25,7 @@ const initLoad=()=>{
         //st.value.tab=route.query.tab as string;
         st.value.tab= 'pixverse' 
         let tt= (route.query.tab as string).toLocaleLowerCase();
-        if( ['luma','runway','pika','kling','runwayml','pixverse','all'].indexOf(tt)>-1 ){
+        if( ['luma','runway','pika','kling','runwayml','pixverse','all','seedance'].indexOf(tt)>-1 ){
            st.value.tab=tt;
         }
         handleUpdateValue(  st.value.tab )
@@ -43,6 +44,9 @@ initLoad();
         
         <n-tab-pane name="all" tab="All">
             <VideoInput />
+        </n-tab-pane>
+        <n-tab-pane name="seedance" tab="Seedance">
+            <SeedanceInput />
         </n-tab-pane>
         <n-tab-pane name="pixverse" tab="Pixverse">
             <PixInput />

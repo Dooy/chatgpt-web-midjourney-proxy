@@ -36,6 +36,7 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
     gptServerStore.myData.PIXVERSE_SERVER=n;
     gptServerStore.myData.UDIO_SERVER=n;
     gptServerStore.myData.RIFF_SERVER=n;
+    gptServerStore.myData.DOUBAO_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
@@ -50,6 +51,7 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     gptServerStore.myData.PIXVERSE_KEY=n;
     gptServerStore.myData.UDIO_KEY=n;
     gptServerStore.myData.RIFF_KEY=n;
+    gptServerStore.myData.DOUBAO_KEY=n;
 });
 </script>
 <template>
@@ -204,6 +206,23 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.ideokeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.IDEO_KEY" clearable>
             <template #prefix>
               <span class="text-[var(--n-tab-text-color-active)]">Ideogram Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <div class="text-right">{{ $t('mj.doubaoabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.DOUBAO_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.doubaoserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.doubaokeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.DOUBAO_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.doubaokey')}}:</span>
             </template>
           </n-input>
       </section>
