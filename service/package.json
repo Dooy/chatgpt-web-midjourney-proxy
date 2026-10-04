@@ -1,9 +1,9 @@
 {
-  "name": "chatgpt-web-service",
+  "name": "HOBA AI TOOLBOX",
   "version": "2.15.6",
   "private": false,
-  "description": "ChatGPT Web Midjourney Proxy",
-  "author": "ChenZhaoYu <ydlhero@gmail.com>",
+  "description": "HOBA AI TOOLBOX",
+  "author": "HOBA",
   "keywords": [
     "chatgpt-web",
     "chatgpt",

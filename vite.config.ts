@@ -19,8 +19,8 @@ function setupPlugins(env: ImportMetaEnv): PluginOption[] {
     VitePWA({ // env.VITE_GLOB_APP_PWA === 'true' &&
       injectRegister: 'auto',
       manifest: {
-        name: 'chatGPT-MJ',
-        short_name: 'chatGPT-MJ',
+        name: 'HOBA AI TOOLBOX',
+        short_name: 'HOBA AI TOOLBOX',
         icons: [
           { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
           { src: 'pwa-512x512.png', sizes: '512x512', type: 'image/png' },
@@ -42,6 +42,7 @@ export default defineConfig((env) => {
     plugins: setupPlugins(viteEnv),
     server: {
       host: '0.0.0.0',
+      allowedHosts: true,
       port: 1002,
       open: false,
       proxy: {

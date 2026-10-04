@@ -10,7 +10,6 @@ import {NSpin ,NEmpty,NImage, NTag } from 'naive-ui'
 //import AiMsg from "@/views/aidutu/aiMsg.vue";
 import { homeStore ,useChatStore} from "@/store"
 import { useBasicLayout } from '@/hooks/useBasicLayout'
-//import { ViewCard } from 'vue-waterfall-plugin-next/dist/types/types/waterfall'
 import { getMjAll, localGet, mlog ,loadGallery, url2base64 } from '@/api'
  
 const chatStore = useChatStore()

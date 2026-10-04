@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next'
 import 'vue-waterfall-plugin-next/dist/style.css'
-import { ViewCard } from 'vue-waterfall-plugin-next/dist/types/types/waterfall';
 
 import { mlog } from '@/api';
 import { DtoItem, DtoStore } from '@/api/dtoStore';
@@ -11,6 +10,15 @@ import{ DtoFeed, breakpoints } from './veo'
 import { t } from '@/locales';
 import { SvgIcon } from '@/components/common';
 import { homeStore } from '@/store';
+type ViewCard = {
+    id: string | number
+    url?: string
+    src?: string
+    index?: number
+    isLoad?: number
+    task?: any
+    [key: string]: any
+};
 
 const csuno= new DtoStore()
 const list= ref<DtoItem[]>([]);

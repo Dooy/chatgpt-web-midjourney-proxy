@@ -5,7 +5,6 @@ import 'vue-waterfall-plugin-next/dist/style.css'
 import { KlingTask, klingStore } from '@/api/klingStore';
 import { nextTick, ref, watch } from 'vue';
 import {NEmpty ,NButton,NPopover, NButtonGroup,NSpin, NImage,NPopconfirm,useMessage} from "naive-ui"
-import { ViewCard } from 'vue-waterfall-plugin-next/dist/types/types/waterfall';
 import { useBasicLayout } from '@/hooks/useBasicLayout';
 import { homeStore } from '@/store';
 import { klingFeed } from '@/api/kling';
@@ -13,6 +12,15 @@ import { mlog } from '@/api';
 import { SvgIcon } from '@/components/common';
 import { t } from '@/locales';
 import KgImage from './kgImage.vue';
+type ViewCard = {
+    id: string | number
+    url?: string
+    src?: string
+    index?: number
+    isLoad?: number
+    task?: any
+    [key: string]: any
+};
 
 const list= ref<KlingTask[]>([]);
 const list2= ref<ViewCard[]>([]);

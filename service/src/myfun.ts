@@ -9,7 +9,9 @@ import pkg from '../package.json'
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
 
-export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
+const envUrl = (value?: string) => isNotEmptyString(value) ? value : API_BASE_URL
+
+export const lumaProxy=proxy(envUrl(process.env.LUMA_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -25,7 +27,7 @@ export const lumaProxy=proxy(process.env.LUMA_SERVER??  API_BASE_URL, {
   
 });
 
-export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
+export const runwayProxy=proxy(envUrl(process.env.RUNWAY_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -43,11 +45,11 @@ export const runwayProxy=proxy(process.env.RUNWAY_SERVER??  API_BASE_URL, {
 
 //runwaymlProxy
 
-export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
+export const runwaymlProxy=proxy(envUrl(process.env.RUNWAYML_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     let url =  req.originalUrl;
-    let server= process.env.RUNWAYML_SERVER??  API_BASE_URL
+    let server= envUrl(process.env.RUNWAYML_SERVER)
     if( server.indexOf('runwayml.com')>-1 ){
         url= req.originalUrl.replace('/runwayml', '')
     }
@@ -65,7 +67,7 @@ export const runwaymlProxy=proxy(process.env.RUNWAYML_SERVER??  API_BASE_URL, {
   
 });
 
-export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
+export const klingProxy=proxy(envUrl(process.env.KLING_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -81,7 +83,7 @@ export const klingProxy=proxy(process.env.KLING_SERVER??  API_BASE_URL, {
   
 });
 
-export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
+export const viggleProxy=proxy(envUrl(process.env.VIGGLE_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -98,7 +100,7 @@ export const viggleProxy=proxy(process.env.VIGGLE_SERVER??  API_BASE_URL, {
 })
 
 
-export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
+export const ideoProxy=proxy(envUrl(process.env.IDEO_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -113,7 +115,7 @@ export const ideoProxy=proxy(process.env.IDEO_SERVER??  API_BASE_URL, {
   
 })
 
-export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
+export const pikaProxy=proxy(envUrl(process.env.PIKA_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -128,7 +130,7 @@ export const pikaProxy=proxy(process.env.PIKA_SERVER??  API_BASE_URL, {
   
 })
 
-export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
+export const pixverseProxy=proxy(envUrl(process.env.PIXVERSE_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -146,7 +148,7 @@ export const pixverseProxy=proxy(process.env.PIXVERSE_SERVER??  API_BASE_URL, {
 
 
 
-export const udioProxy=proxy(process.env.UDIO_SERVER??  API_BASE_URL, {
+export const udioProxy=proxy(envUrl(process.env.UDIO_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return  req.originalUrl //req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串
@@ -169,7 +171,7 @@ export const ideoProxyFileDo=async( req:Request, res:Response, next?:NextFunctio
     let  API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
-    API_BASE_URL= process.env.IDEO_SERVER??  API_BASE_URL
+    API_BASE_URL= envUrl(process.env.IDEO_SERVER)
     if(req.file.buffer) {
       const fileBuffer = req.file.buffer;
       const formData = new FormData();
@@ -202,7 +204,7 @@ export const viggleProxyFileDo= async( req:Request, res:Response, next?:NextFunc
     let  API_BASE_URL = isNotEmptyString(process.env.OPENAI_API_BASE_URL)
     ? process.env.OPENAI_API_BASE_URL
     : 'https://api.openai.com'
-    API_BASE_URL= process.env.VIGGLE_SERVER??  API_BASE_URL
+    API_BASE_URL= envUrl(process.env.VIGGLE_SERVER)
     if(req.file.buffer) {
       const fileBuffer = req.file.buffer;
       const formData = new FormData();
@@ -228,7 +230,7 @@ export const viggleProxyFileDo= async( req:Request, res:Response, next?:NextFunc
     
 }
 
-export const sunoProxy=proxy(process.env.SUNO_SERVER??  API_BASE_URL, {
+export const sunoProxy=proxy(envUrl(process.env.SUNO_SERVER), {
   https: false, limit: '10mb',
   proxyReqPathResolver: function (req) {
     return req.originalUrl.replace('/sunoapi', '') // 将URL中的 `/openapi` 替换为空字符串

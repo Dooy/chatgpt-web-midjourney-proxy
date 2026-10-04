@@ -1,4 +1,4 @@
-# ChatGPT Web Midjourney Proxy
+# HOBA AI TOOLBOX
 💡**선언**
 - 이 프로젝트는 GitHub에만 게시되며, MIT 라이센스를 기반으로 무료로 오픈 소스 학습용으로 사용됩니다. 어떤 형태의 계정 판매, 유료 서비스, 토론 그룹 등의 행위도 없으니 사기를 조심하십시오.
 - 이 오픈 소스는 [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web)를 기반으로 2차 개발된 것이며, [midjourney-proxy](https://github.com/novicezk/midjourney-proxy)가 제공하는 midjourney API와 [Suno-API](https://github.com/SunoAI-API/Suno-API)를 백엔드로 사용하여 형성되었습니다.

@@ -8,10 +8,10 @@ import { onMounted, ref, watch } from 'vue';
 import { mlog,RealtimeEvent,instructions } from '@/api';
 import { WavRenderer } from '@/utils/wav_renderer';
 import { RealtimeClient } from '@openai/realtime-api-beta';
-import { ItemType } from '@openai/realtime-api-beta/dist/lib/client.js';
 import { useMessage ,NModal,NButton} from 'naive-ui';
 import { gptServerStore } from '@/store';
 import { t } from '@/locales';
+type ItemType = any;
 const wavRecorderRef=  ref<WavRecorder>( new  WavRecorder({ sampleRate: 24000 })) 
 const wavStreamPlayerRef=  ref<WavStreamPlayer>( new WavStreamPlayer({ sampleRate: 24000 })) 
 const clientCanvasRef = ref<HTMLCanvasElement|null>(null);

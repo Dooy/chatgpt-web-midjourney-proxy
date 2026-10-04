@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "ChatGPT-MJ",
+    "productName": "HOBA AI TOOLBOX",
     "version": "2.26.5"
   },
   "tauri": {

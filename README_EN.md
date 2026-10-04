@@ -1,5 +1,5 @@
 
-# ChatGPT Web Midjourney Proxy
+# HOBA AI TOOLBOX
 
 [中文](./README_ZH.md) | [Русский язык](./README_RU.md) | [Français](./README_FR.md) | [한국어](./README_KR.md) | [Tiếng Việt](./README_VN.md) | [Türkçe](./README_TR.md)
 

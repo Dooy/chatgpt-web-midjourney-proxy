@@ -61,7 +61,7 @@ async function onConversation() {
   if (loading.value)
     return
   if( !message.drawText && dataSources.value.length==0){
-      message.drawText=  t('mjset.sysname');//'AI绘图';
+      message.drawText=  t('mjset.sysname');//'HOBA AI TOOLBOX';
   }
 //   if (!message || message.trim() === '')
 //     return

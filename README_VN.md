@@ -1,4 +1,4 @@
-# ChatGPT Web Midjourney Proxy
+# HOBA AI TOOLBOX
 💡**Tuyên bố**
 - Dự án này chỉ phát hành trên GitHub, dựa trên giấy phép MIT, miễn phí và sử dụng cho mục đích học tập mã nguồn mở. Không có bất kỳ hình thức bán tài khoản, dịch vụ trả phí, nhóm thảo luận, nhóm thảo luận nào khác. Hãy cảnh giác với lừa đảo.
 - Mã nguồn mở này được phát triển lại dựa trên [ChenZhaoYu](https://github.com/Chanzhaoyu/chatgpt-web) và sử dụng midjourney api do [midjourney-proxy](https://github.com/novicezk/midjourney-proxy) cung cấp và [Suno-API](https://github.com/SunoAI-API/Suno-API) làm backend.
