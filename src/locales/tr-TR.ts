@@ -546,5 +546,17 @@ export default {
         moban: "Dans Şablonu",
         moban2: "Şablon Adı",
         use: "Kullan"
-    }
+    },
+    "声音": "Ses",
+  "分辨率": "Çözünürlük",
+  "首帧": "İlk Kare",
+  "尾帧": "Son Kare",
+  "seedance相关": "Seedance ile İlgili",
+  "seedance接口地址": "Seedance API Uç Noktası",
+  "seedance Key": "Seedance Anahtarı",
+  "seedancekeyPlaceholder": "Seedance API Anahtarı (İsteğe Bağlı)",
+  "minimax相关": "MiniMax ile İlgili",
+  "minimax接口地址": "MiniMax API Uç Noktası",
+  "minimax Key": "MiniMax Anahtarı",
+  "minimaxkeyPlaceholder": "MiniMax API Anahtarı (İsteğe Bağlı)"
   }

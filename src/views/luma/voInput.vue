@@ -10,6 +10,7 @@ import {  ref } from 'vue';
 import { useRoute } from 'vue-router';
 import PixInput from './pixInput.vue';
 import VideoInput from '../video/input.vue';
+import SeedanceInput from './seedanceInput.vue';
 
 const route = useRoute(); // 获取当前路由对象
 
@@ -53,14 +54,20 @@ initLoad();
         </n-tab-pane>
 
        
-        <n-tab-pane name="pika" tab="Pika">
+        <n-tab-pane name="pika" tab="Pika" v-if="st.tab=='luma'">
             <PikaInput />
         </n-tab-pane>
-        <n-tab-pane name="luma" tab="Luma">
+        <n-tab-pane name="luma" tab="Luma" v-if="st.tab=='luma'">
             <LumaInput />
         </n-tab-pane>
-         <n-tab-pane name="runway" tab="Runway" style="--n-tab-gap:10px">
+         <n-tab-pane name="runway" tab="Runway"  v-if="st.tab=='runway'"  >
             <RunwayInput />
+        </n-tab-pane>
+        <n-tab-pane name="seedance" tab="Seedance"   >
+            <SeedanceInput/>
+        </n-tab-pane>
+        <n-tab-pane name="minimax" tab="MiniMax"   style="--n-tab-gap:10px">
+              <SeedanceInput type="minimax"/>
         </n-tab-pane>
     </n-tabs>
 </div>

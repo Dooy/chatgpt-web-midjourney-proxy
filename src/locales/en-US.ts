@@ -568,8 +568,17 @@ export default {
    ,'当禁用stream时,则使用非流式数据':'When streaming is disabled, non-streaming data is used.'
 
 
-
-
-
+ ,"声音": "Audio",
+  "分辨率": "Resolution",
+  "首帧": "First Frame",
+  "尾帧": "Last Frame",
+  "seedance相关": "Seedance Related",
+  "seedance接口地址": "Seedance API Endpoint",
+  "seedance Key": "Seedance Key",
+  "seedancekeyPlaceholder": "Seedance API Key (Optional)",
+  "minimax相关": "MiniMax Related",
+  "minimax接口地址": "MiniMax API Endpoint",
+  "minimax Key": "MiniMax Key",
+  "minimaxkeyPlaceholder": "MiniMax API Key (Optional)"
 
 }

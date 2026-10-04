@@ -550,6 +550,18 @@ export default {
     moban: "Mẫu nhảy múa",
     moban2: "Tên mẫu",
     use: "Sử dụng"
-}
+},
+"声音": "Âm thanh",
+  "分辨率": "Độ phân giải",
+  "首帧": "Khung hình đầu tiên",
+  "尾帧": "Khung hình cuối cùng",
+  "seedance相关": "Liên quan đến Seedance",
+  "seedance接口地址": "Endpoint API Seedance",
+  "seedance Key": "Khóa Seedance",
+  "seedancekeyPlaceholder": "Khóa API Seedance (Tùy chọn)",
+  "minimax相关": "Liên quan đến MiniMax",
+  "minimax接口地址": "Endpoint API MiniMax",
+  "minimax Key": "Khóa MiniMax",
+  "minimaxkeyPlaceholder": "Khóa API MiniMax (Tùy chọn)"
 
 }

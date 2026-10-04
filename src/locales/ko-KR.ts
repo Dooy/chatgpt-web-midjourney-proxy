@@ -551,6 +551,18 @@ export default {
     moban: "댄스 템플릿",
     moban2: "템플릿 이름",
     use: "사용"
-}
+},
+"声音": "오디오",
+  "分辨率": "해상도",
+  "首帧": "첫 프레임",
+  "尾帧": "마지막 프레임",
+  "seedance相关": "Seedance 관련",
+  "seedance接口地址": "Seedance API 엔드포인트",
+  "seedance Key": "Seedance 키",
+  "seedancekeyPlaceholder": "Seedance API 키 (선택 사항)",
+  "minimax相关": "MiniMax 관련",
+  "minimax接口地址": "MiniMax API 엔드포인트",
+  "minimax Key": "MiniMax 키",
+  "minimaxkeyPlaceholder": "MiniMax API 키 (선택 사항)"
 
 }

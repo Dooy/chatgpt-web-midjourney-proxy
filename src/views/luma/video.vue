@@ -4,6 +4,8 @@
  import VoList from './voList.vue';
  import RunwayList from './runwayList.vue';
  import PikaList from './pikaList.vue';
+ import SeedanceList from './seedanceList.vue';
+ import MinimaxList from './minimaxList.vue';
  import KlingList from '../kling/kgList.vue';
  import RunmlList from './runmlList.vue';
  import PixList from './pixList.vue';
@@ -24,6 +26,8 @@ import { gptServerStore } from '@/store';
         <RunmlList v-else-if="gptServerStore.myData.TAB_VIDEO=='runwayml'"/>
         <PixList v-else-if="gptServerStore.myData.TAB_VIDEO=='pixverse'"/>
         <VideoList v-else-if="gptServerStore.myData.TAB_VIDEO=='all'"/>
+        <SeedanceList v-else-if="gptServerStore.myData.TAB_VIDEO=='seedance'"/>
+        <MinimaxList v-else-if="gptServerStore.myData.TAB_VIDEO=='minimax'"/>
         <VoList v-else/>
     </div>
      

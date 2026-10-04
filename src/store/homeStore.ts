@@ -113,6 +113,10 @@ export interface gptServerType{
     IDEO_KEY:string
     KLING_SERVER:string
     KLING_KEY:string
+    SEEDANCE_SERVER:string
+    SEEDANCE_KEY:string
+    MINIMAX_SERVER:string
+    MINIMAX_KEY:string
     PIKA_SERVER:string
     PIKA_KEY:string
     UDIO_SERVER:string
@@ -138,34 +142,40 @@ export interface gptServerType{
 
 const  getServerDefault=()=>{
 let v:gptServerType={
-        OPENAI_API_KEY:'',
-        OPENAI_API_BASE_URL:'',
-        MJ_SERVER:'',
-        UPLOADER_URL:'',
-        MJ_API_SECRET:'',
-        SUNO_KEY:'',
-        SUNO_SERVER:'',
-        MJ_CDN_WSRV:false
-        ,IS_SET_SYNC:true,
-        LUMA_SERVER:'',
-        LUMA_KEY:'',
-        VIGGLE_SERVER:'',
-        VIGGLE_KEY:'',
-        TAB_VIDEO:'all',
-        RUNWAY_SERVER:'',
-        RUNWAY_KEY:'',
-        IDEO_SERVER:'',
-        IDEO_KEY:'',
-        KLING_SERVER:'',
-        KLING_KEY:'',
-        PIKA_SERVER:'',
-        PIKA_KEY:'',
-        TTS_VOICE:'alloy',
-        UDIO_SERVER:'',
-        UDIO_KEY:'',
-        PIXVERSE_SERVER:'',
-        PIXVERSE_KEY:''
-    }
+    OPENAI_API_KEY: '',
+    OPENAI_API_BASE_URL: '',
+    MJ_SERVER: '',
+    UPLOADER_URL: '',
+    MJ_API_SECRET: '',
+    SUNO_KEY: '',
+    SUNO_SERVER: '',
+    MJ_CDN_WSRV: false,
+    IS_SET_SYNC: true,
+    LUMA_SERVER: '',
+    LUMA_KEY: '',
+    VIGGLE_SERVER: '',
+    VIGGLE_KEY: '',
+    TAB_VIDEO: 'all',
+    RUNWAY_SERVER: '',
+    RUNWAY_KEY: '',
+    IDEO_SERVER: '',
+    IDEO_KEY: '',
+    KLING_SERVER: '',
+    KLING_KEY: '',
+    PIKA_SERVER: '',
+    PIKA_KEY: '',
+    TTS_VOICE: 'alloy',
+    UDIO_SERVER: '',
+    UDIO_KEY: '',
+    PIXVERSE_SERVER: '',
+    PIXVERSE_KEY: '',
+    SEEDANCE_KEY: '',
+    SEEDANCE_SERVER: '',
+    MINIMAX_SERVER: '',
+    MINIMAX_KEY: '',
+    RIFF_SERVER: '',
+    RIFF_KEY: ''
+}
     return v ;
 }
 const getServerInit= ():gptServerType =>{

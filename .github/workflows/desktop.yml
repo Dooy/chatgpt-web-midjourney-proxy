@@ -78,7 +78,7 @@ jobs:
         #   yarn cache clean
         #   yarn install
         run: |
-          npm install -g pnpm
+          npm install -g pnpm@10.33.2
           pnpm install
       - uses: tauri-apps/tauri-action@v0
         env:

@@ -10,7 +10,8 @@ const ms = useMessage();
 const config = ref( {
 model:[
 
- {  "label": "GPT-Image-2", "value": "gpt-image-2" }
+ {  "label": "GPT-Image-2.5", "value": "gpt-image-2.5" }
+ ,{  "label": "GPT-Image-2", "value": "gpt-image-2" }
  ,{  "label": "GPT-Image-1", "value": "gpt-image-1" }
  ,{  "label": "GPT-Image-1.5", "value": "gpt-image-1.5" }
  ,{  "label": "DALL·E 3", "value": "dall-e-3" }
@@ -35,7 +36,7 @@ interface myFile{
 const st =ref({isGo:false,quality:'medium' }); 
 const fsRef= ref() ; 
 const base64Array= ref<myFile[]>([]);    
-const f = ref({size:'1024x1024', prompt:'',"model": "gpt-image-2","n": 1});
+const f = ref({size:'1024x1024', prompt:'',"model": "gpt-image-2.5","n": 1});
 const isDisabled= computed(()=>{
     if(st.value.isGo) {
         //console.log('st.value.isGo',st.value.isGo);

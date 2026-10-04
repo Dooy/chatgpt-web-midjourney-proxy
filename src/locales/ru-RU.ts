@@ -554,5 +554,18 @@ export default {
     moban2: "Название шаблона",
     use: "Использовать"
 }
+,
+"声音": "Аудио",
+  "分辨率": "Разрешение",
+  "首帧": "Первый кадр",
+  "尾帧": "Последний кадр",
+  "seedance相关": "Связанные с Seedance",
+  "seedance接口地址": "API-эндпоинт Seedance",
+  "seedance Key": "Ключ Seedance",
+  "seedancekeyPlaceholder": "API-ключ Seedance (необязательно)",
+  "minimax相关": "Связанные с MiniMax",
+  "minimax接口地址": "API-эндпоинт MiniMax",
+  "minimax Key": "Ключ MiniMax",
+  "minimaxkeyPlaceholder": "API-ключ MiniMax (необязательно)"
 
 }

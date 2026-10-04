@@ -36,6 +36,8 @@ watch(() => gptServerStore.myData.OPENAI_API_BASE_URL , (n)=>{
     gptServerStore.myData.PIXVERSE_SERVER=n;
     gptServerStore.myData.UDIO_SERVER=n;
     gptServerStore.myData.RIFF_SERVER=n;
+    gptServerStore.myData.SEEDANCE_SERVER=n;
+    gptServerStore.myData.MINIMAX_SERVER=n;
 });
 watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     if(!gptServerStore.myData.IS_SET_SYNC) return  ;
@@ -50,6 +52,8 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
     gptServerStore.myData.PIXVERSE_KEY=n;
     gptServerStore.myData.UDIO_KEY=n;
     gptServerStore.myData.RIFF_KEY=n;
+    gptServerStore.myData.SEEDANCE_KEY=n;
+     gptServerStore.myData.MINIMAX_KEY=n;
 });
 </script>
 <template>
@@ -138,75 +142,8 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
       </section>
 
 
-      <div class="text-right">{{$t('video.lumaabout')}}</div>
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.LUMA_SERVER" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">{{$t('video.lumaserver')}}:</span>
-            </template>
-          </n-input>
-      </section>
-
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input  @blur="blurClean" type="password"  :placeholder="$t('video.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.LUMA_KEY" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">Luma Key:</span>
-            </template>
-          </n-input>
-      </section>
 
 
-      <div class="text-right">{{$t('dance.viggleabout')}}</div>
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.VIGGLE_SERVER" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">{{$t('dance.viggleserver')}}:</span>
-            </template>
-          </n-input>
-      </section>
-
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input  @blur="blurClean" type="password"  :placeholder="$t('dance.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.VIGGLE_KEY" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">Viggle Key:</span>
-            </template>
-          </n-input>
-      </section>
-
-
-      <div class="text-right">{{$t('video.runwayabout')}}</div>
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.RUNWAY_SERVER" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">{{$t('video.runwayserver')}}:</span>
-            </template>
-          </n-input>
-      </section>
-
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input  @blur="blurClean" type="password"  :placeholder="$t('video.setOpenKeyPlaceholder2')" show-password-on="click" v-model:value="gptServerStore.myData.RUNWAY_KEY" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">Runway Key:</span>
-            </template>
-          </n-input>
-      </section>
-
-      <div class="text-right">{{ $t('mj.ideoabout')  }}</div>
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.IDEO_SERVER" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.ideoserver')}}:</span>
-            </template>
-          </n-input>
-      </section>
-
-      <section class="mb-4 flex justify-between items-center"  >
-          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.ideokeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.IDEO_KEY" clearable>
-            <template #prefix>
-              <span class="text-[var(--n-tab-text-color-active)]">Ideogram Key:</span>
-            </template>
-          </n-input>
-      </section>
 
 
       <div class="text-right">{{ $t('mj.klingabout')  }}</div>
@@ -225,6 +162,44 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
             </template>
           </n-input>
       </section>
+
+
+      <div class="text-right">{{ $t('seedance相关')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.SEEDANCE_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('seedance接口地址')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('seedancekeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.SEEDANCE_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('seedance Key')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+
+      <div class="text-right">{{ $t('minimax相关')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.MINIMAX_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('minimax接口地址')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('minimaxkeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.MINIMAX_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('minimax Key')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+
 
       <div class="text-right">{{ $t('mj.pikaabout')  }}</div>
       <section class="mb-4 flex justify-between items-center"  >
@@ -289,6 +264,76 @@ watch(() => gptServerStore.myData.OPENAI_API_KEY , (n)=>{
           <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.riffkeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.RIFF_KEY" clearable>
             <template #prefix>
               <span class="text-[var(--n-tab-text-color-active)]">Riffusion Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+
+      <div class="text-right">{{$t('dance.viggleabout')}}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.VIGGLE_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('dance.viggleserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('dance.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.VIGGLE_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Viggle Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+
+      <div class="text-right">{{$t('video.runwayabout')}}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.RUNWAY_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('video.runwayserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('video.setOpenKeyPlaceholder2')" show-password-on="click" v-model:value="gptServerStore.myData.RUNWAY_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Runway Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <div class="text-right">{{ $t('mj.ideoabout')  }}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.IDEO_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('mj.ideoserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('mj.ideokeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.IDEO_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Ideogram Key:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <div class="text-right">{{$t('video.lumaabout')}}</div>
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input @blur="blurClean"  :placeholder="$t('mj.setOpenPlaceholder') " v-model:value="gptServerStore.myData.LUMA_SERVER" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">{{$t('video.lumaserver')}}:</span>
+            </template>
+          </n-input>
+      </section>
+
+      <section class="mb-4 flex justify-between items-center"  >
+          <n-input  @blur="blurClean" type="password"  :placeholder="$t('video.setOpenKeyPlaceholder')" show-password-on="click" v-model:value="gptServerStore.myData.LUMA_KEY" clearable>
+            <template #prefix>
+              <span class="text-[var(--n-tab-text-color-active)]">Luma Key:</span>
             </template>
           </n-input>
       </section>

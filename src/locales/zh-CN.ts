@@ -395,6 +395,7 @@ export default {
    ,editVideo:'图生视频'
    ,moreset:'更多参数'
 
+
    
   },
 
@@ -587,6 +588,20 @@ export default {
   ,'录音':'录音'
   ,'禁用stream':'禁用stream'
   ,'当禁用stream时,则使用非流式数据':'当禁用stream时,则使用非流式数据'
+
+  ,'声音':'声音'
+  ,'分辨率':'分辨率'
+  ,'首帧':'首帧'
+  ,'尾帧':'尾帧'
+  ,'seedance相关':'Seedance 相关'
+  ,'seedance接口地址':'Seedance 接口地址'
+  ,'seedance Key':'Seedance Key'
+  ,'seedancekeyPlaceholder':'Seedance API Key 选填'
+
+  ,'minimax相关':'MiniMax 相关'
+  ,'minimax接口地址':'MiniMax接口地址'
+  ,'minimax Key':'MiniMax Key'
+  ,'minimaxkeyPlaceholder':'MiniMax API Key 选填'
 
 
 }

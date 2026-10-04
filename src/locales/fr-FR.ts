@@ -548,6 +548,18 @@ export default {
         moban: "Modèle de danse",
         moban2: "Nom du modèle",
         use: "Utiliser"
-    }
+    },
+    "声音": "Audio",
+  "分辨率": "Résolution",
+  "首帧": "Première image",
+  "尾帧": "Dernière image",
+  "seedance相关": "Paramètres Seedance",
+  "seedance接口地址": "Point de terminaison API Seedance",
+  "seedance Key": "Clé Seedance",
+  "seedancekeyPlaceholder": "Clé API Seedance (facultatif)",
+  "minimax相关": "Paramètres MiniMax",
+  "minimax接口地址": "Point de terminaison API MiniMax",
+  "minimax Key": "Clé MiniMax",
+  "minimaxkeyPlaceholder": "Clé API MiniMax (facultatif)"
 
   }

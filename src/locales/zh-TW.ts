@@ -546,6 +546,18 @@ export default {
     moban: "跳舞模板",
     moban2: "模板名稱",
     use: "使用"
-}
+},
+"声音": "聲音",
+  "分辨率": "解析度",
+  "首帧": "首幀",
+  "尾帧": "尾幀",
+  "seedance相关": "Seedance 相關",
+  "seedance接口地址": "Seedance API 位址",
+  "seedance Key": "Seedance Key",
+  "seedancekeyPlaceholder": "Seedance API Key 選填",
+  "minimax相关": "MiniMax 相關",
+  "minimax接口地址": "MiniMax API 位址",
+  "minimax Key": "MiniMax Key",
+  "minimaxkeyPlaceholder": "MiniMax API Key 選填"
 
 }
