@@ -1,6 +1,29 @@
 export const mytpl={
 "tpl":[
     {
+        "model":"bytedance/seedance-2.0/text-to-video",
+        "plat":"atlas",
+        "field":[
+            {"key":"prompt","type":"textarea","placeholder":"Video Description"},
+            {"key":"duration","type":"select","value":5,"options":[
+                {"label":"Duration: 5s","value":5},
+                {"label":"Duration: 10s","value":10},
+                {"label":"Duration: 15s","value":15}
+            ]},
+            {"key":"resolution","type":"select","value":"720p","options":[
+                {"label":"Resolution: 480p","value":"480p"},
+                {"label":"Resolution: 720p","value":"720p"},
+                {"label":"Resolution: 1080p","value":"1080p"}
+            ]},
+            {"key":"ratio","type":"select","value":"16:9","options":[
+                {"label":"Ratio: 16:9","value":"16:9"},
+                {"label":"Ratio: 9:16","value":"9:16"},
+                {"label":"Ratio: 1:1","value":"1:1"}
+            ]},
+            {"key":"generate_audio","type":"no","value":true}
+        ]
+    },
+    {
         "model":"sora-2",
         "field":[
            {
