@@ -112,40 +112,42 @@ const uploadImage=  (type:string)=>{
   }
 
 const createVideo = async()=>{
+    const content=[sdinput.value.content[0]];
     for (let i = 0; i < imgagRef.value.length; i++) {
         const item = imgagRef.value[i];
         if(item!='' && item.startsWith('http')) {       
-           sdinput.value.content.push({"type":"image_url","role":'reference_image',"image_url":{url:item}})
+           content.push({"type":"image_url","role":'reference_image',"image_url":{url:item}})
         }
     }
     for (let i = 0; i < videoRef.value.length; i++) {
         const item = videoRef.value[i];
         if(item!='' && item.startsWith('http')) {       
-           sdinput.value.content.push({"type":"video_url","role":'reference_video',"video_url":{url:item}})
+           content.push({"type":"video_url","role":'reference_video',"video_url":{url:item}})
         }
     }
     if(f.value.image!=""){
-        sdinput.value.content.push({"type":"image_url","role":'first_frame',"image_url":{url:f.value.image}})
+        content.push({"type":"image_url","role":'first_frame',"image_url":{url:f.value.image}})
     }
     if(f.value.image_tail!=""){
-        sdinput.value.content.push({"type":"image_url","role":'last_frame',"image_url":{url:f.value.image}})
+        content.push({"type":"image_url","role":'last_frame',"image_url":{url:f.value.image_tail}})
     }
+    const request={...sdinput.value,content};
 
-    //console.log('sdinput',sdinput.value);
+    //console.log('sdinput',request);
     f.value.isLoading=true;
     try {
         if( pp.type=='minimax' ) {
-             mlog('minimax', sdinput.value );
-             //const bodydata= sdinput.value;
+             mlog('minimax', request );
+             //const bodydata= request;
              //delete bodydata.generate_audio;
-            const d:any= await minimaxFetch('/v2/video_generation' , sdinput.value  )
+            const d:any= await minimaxFetch('/v2/video_generation' , request  )
             mlog('minimax', d ); //task_GhE6ZauDF2NxKrpPrBH2LtzkfJEtUAhP
-            MinimaxFeed(d.task_id, sdinput.value.content[0].text??'')
+            MinimaxFeed(d.task_id, request.content[0].text??'')
 
         }else{
-            const d:any= await seedDanceFetch('/api/v3/contents/generations/tasks' , sdinput.value  )
+            const d:any= await seedDanceFetch('/api/v3/contents/generations/tasks' , request  )
             mlog('sd', d ); //task_GhE6ZauDF2NxKrpPrBH2LtzkfJEtUAhP
-            SeedanceFeed(d.id, sdinput.value.content[0].text??'')
+            SeedanceFeed(d.id, request.content[0].text??'')
         }
        
     }finally{
