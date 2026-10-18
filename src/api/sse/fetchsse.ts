@@ -83,6 +83,7 @@ export async function fetchSSE(
       throw new types.ChatGPTError('unsupported "fetch" implementation')
     }
 
+    body.setEncoding('utf8')
     body.on('readable', () => {
       let chunk: string | Buffer
       while (null !== (chunk = body.read())) {
@@ -90,10 +91,12 @@ export async function fetchSSE(
       }
     })
   } else {
+    const decoder = new TextDecoder()
     for await (const chunk of streamAsyncIterable(res.body)) {
-      const str = new TextDecoder().decode(chunk)
+      const str = decoder.decode(chunk, { stream: true })
       //console.log(str );
       feed(str)
     }
+    feed(decoder.decode())
   }
 }
