@@ -130,13 +130,13 @@ onMounted(() => {
             </div>
 
             <div class="pt-1" v-if="tp.type=='image_base64_url_array'">
-                <image-base64-array v-model:value="stArr[k]" upload="1"></image-base64-array>
+                <image-base64-array v-model:value="stArr[k]" :max="tp.max" upload="1"></image-base64-array>
             </div>
              <div class="pt-1" v-if="tp.type=='image_base64_url'">
-                <image-base64-array v-model:value="stArr[k]" :is-one="true"></image-base64-array>
+                <image-base64-array v-model:value="stArr[k]" :is-one="true" :max="tp.max"></image-base64-array>
             </div>
             <div class="pt-1" v-if="tp.type=='image_base64_file'">
-                <image-base64-array v-model:value="stArr[k]" :is-file="true"  :is-one="true" upload="1"  ></image-base64-array>
+                <image-base64-array v-model:value="stArr[k]" :is-file="true"  :is-one="true" :max="tp.max" upload="1"  ></image-base64-array>
             </div>
 
             <div class="pt-1" v-if="tp.type=='select'">

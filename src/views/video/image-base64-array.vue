@@ -10,6 +10,7 @@ interface Props {
   upload?: string
   isOne?: boolean
   isFile?: boolean
+  max?: number
 }
 const pp= defineProps<Props>()
 // const pp = defineProps({
@@ -67,7 +68,7 @@ const changValue= ()=>{
 //watch(()=>base64Array.value, ,{deep:true})
 
 const max= computed(()=>{
-    return pp.isOne?1:3;
+    return pp.isOne?1:pp.max??3;
 })
 
 
@@ -92,7 +93,7 @@ watch(()=>pp.value, ()=>{
         <NImage :src="item.base64" object-fit="cover"></NImage>
         <SvgIcon icon="fluent:delete-12-filled" :class="{'hidden':max>1}"
         class="absolute top-0 right-0 text-red-600 text-[20px] cursor-pointer  group-hover:block "
-        @click="base64Array.splice(base64Array.indexOf(item),1)"></SvgIcon>
+        @click="base64Array.splice(base64Array.indexOf(item),1); changValue()"></SvgIcon>
     </div>
     <div   @click="fsRef.click()" v-if="base64Array.length<max" 
          class="w-[var(--my-blend-img-size)] h-[var(--my-blend-img-size)] mt-2 bg-[#999] overflow-hidden rounded-sm flex justify-center items-center cursor-pointer">
