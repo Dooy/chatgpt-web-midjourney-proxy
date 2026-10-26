@@ -10,7 +10,7 @@ module.exports = (req, res) => {
             "isUpload": false,
             "auth":   process.env.AUTH_SECRET_KEY?true:false ,
             "model": "ChatGPTAPI",
-            "amodel": process.env.OPENAI_API_MODEL?? "gpt-4.1"
+            "amodel": process.env.OPENAI_API_MODEL?? "gpt-6-luna"
             ,isApiGallery:    process.env.MJ_API_GALLERY ? true : false 
             ,cmodels : process.env.CUSTOM_MODELS??'' 
             ,baiduId : process.env.TJ_BAIDU_ID?? "" 
