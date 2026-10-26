@@ -386,7 +386,7 @@ export const getSystemMessage = (uuid?:number )=>{
         sysTem= chatS.getGptConfig().systemMessage ;
     }
     if(  sysTem ) return sysTem;
-    let model= gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo";
+    let model= gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-4.1";
     let producer= 'You are ChatGPT, a large language model trained by OpenAI.'
     if(model.includes('claude')) producer=  'You are Claude, a large language model trained by Anthropic.';
     if(model.includes('gemini')) producer=  'You are Gemini, a large language model trained by Google.';
@@ -416,7 +416,7 @@ export const isClaudeModel=(model:string)=>{
 }
 export const subModel= async (opt: subModelType)=>{
     //
-    let model= opt.model?? ( gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-3.5-turbo");
+    let model= opt.model?? ( gptConfigStore.myData.model?gptConfigStore.myData.model: "gpt-4.1");
     let max_tokens= gptConfigStore.myData.max_tokens;
     let temperature= 0.5;
     let top_p= 1;
