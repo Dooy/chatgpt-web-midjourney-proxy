@@ -60,7 +60,7 @@ const { usingContext, toggleUsingContext } = useUsingContext();
 
 const { uuid } = route.params as { uuid: string };
 
-const dataSources = computed(() => chatStore.getChatByUuid(+uuid));
+const dataSources = computed(() => chatStore.getChatByUuid(+uuid) ?? []);
 const conversationList = computed(() =>
   dataSources.value.filter(
     (item) => !item.inversion && !!item.conversationOptions
@@ -78,9 +78,11 @@ const promptStore = usePromptStore();
 const { promptList: promptTemplate } = storeToRefs<any>(promptStore);
 
 // 未知原因刷新页面，loading 状态不会重置，手动重置
-dataSources.value.forEach((item, index) => {
-  if (item.loading) updateChatSome(+uuid, index, { loading: false });
-});
+if (dataSources.value) {
+  dataSources.value.forEach((item, index) => {
+    if (item.loading) updateChatSome(+uuid, index, { loading: false });
+  });
+}
 
 const userStore = useUserStore();
 
@@ -659,11 +661,11 @@ const ychat = computed(() => {
               <Message
                 v-for="(item, index) of dataSources"
                 :key="index"
-                :date-time="item.dateTime"
-                :text="item.text"
-                :inversion="item.inversion"
-                :error="item.error"
-                :loading="item.loading"
+                :date-time="item?.dateTime ?? ''"
+                :text="item?.text ?? ''"
+                :inversion="item?.inversion ?? false"
+                :error="item?.error ?? false"
+                :loading="item?.loading ?? false"
                 @regenerate="onRegenerate(index)"
                 @delete="handleDelete(index)"
                 @edit="handleEdit(index)"
