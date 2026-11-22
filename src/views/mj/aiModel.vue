@@ -21,14 +21,30 @@ const nGptStore = ref(  chatSet.getGptConfig() );
 // ,'claude-3-5-sonnet-20241022','claude-3-sonnet-20240229','claude-3-opus-20240229','claude-3-haiku-20240307','claude-3-5-sonnet-20240620','suno-v3'
 
 const config = ref({
-model:['gpt-5.5', 'gpt-5.4','gpt-5.1','gemini-3.1-pro-preview','gemini-3-pro-preview','grok-4','gpt-5','gpt-5.5-mini','gpt-5.4-nano','o1','o1-2024-12-17', 'gpt-4-turbo-2024-04-09','o1-preview','o1-mini','o1-preview-2024-09-12','o1-mini-2024-09-12','chatgpt-4o-latest','gpt-4o-2024-11-20','gpt-4o-2024-08-06','gpt-4o-2024-05-13','gpt-4o-mini-2024-07-18','gpt-4o-mini','gpt-4o','gpt-4-turbo','gpt-4-0125-preview','gpt-3.5-turbo',`gpt-4-1106-preview`,`gpt-3.5-turbo-16k`,'gpt-4','gpt-4-0613','gpt-4-32k-0613' ,'gpt-4-32k','gpt-4-32k-0314',`gpt-3.5-turbo-16k-0613`
+model:[
+
+"gpt-6.2-sol",
+  "gpt-6.2-astra",
+  "claude-opus-5-5",
+  "claude-fable-5-2",
+  "claude-sonnet-5-5",
+  "claude-haiku-5-5",
+  "gemini-4-argon",
+  "gemini-4-carbon",
+  "gemini-4-hydrogen",
+  "gemini-4-neon",
+  "gemini-3.8-flash",
+  "gemini-3.5-flash",
+  "deepseek-v4-pro",
+  "deepseek-v4.1-flash"
+ ,'gpt-5.5', 'gpt-5.4','gpt-5.1','gemini-3.1-pro-preview','gemini-3-pro-preview','grok-4','gpt-5','gpt-5.5-mini','gpt-5.4-nano','o1','o1-2024-12-17', 'gpt-4-turbo-2024-04-09','o1-preview','o1-mini','o1-preview-2024-09-12','o1-mini-2024-09-12','chatgpt-4o-latest','gpt-4o-2024-11-20','gpt-4o-2024-08-06','gpt-4o-2024-05-13','gpt-4o-mini-2024-07-18','gpt-4o-mini','gpt-4o','gpt-4-turbo','gpt-4-0125-preview','gpt-3.5-turbo',`gpt-4-1106-preview`,`gpt-3.5-turbo-16k`,'gpt-4','gpt-4-0613','gpt-4-32k-0613' ,'gpt-4-32k','gpt-4-32k-0314',`gpt-3.5-turbo-16k-0613`
 ,`gpt-4-vision-preview`,`gpt-3.5-turbo-1106` ,'gpt-3.5-turbo-0125'
 ,'gpt-3.5-turbo-0301','gpt-3.5-turbo-0613','gpt-4-all','gpt-3.5-net'
 ,'gemini-3-flash-preview',"gemini-3.1-flash"
 ,'claude-sonnet-4-6','claude-opus-4-7','claude-opus-4-6','claude-haiku-4-5'
-,'deepseek-r1','deepseek-v3','deepseek-v3.2','deepseek-v4-flash','deepseek-v4-pro'
+,'deepseek-r1','deepseek-v3','deepseek-v3.2','deepseek-v4-flash' 
 ,'grok-4.2','grok-4.1' 
-,'gpt-4.5-preview-2025-02-27','gpt-4.5-preview'
+,'gpt-4.5-preview-2025-02-27','gpt-4.5-preview' 
 ]
 ,maxToken:16384
 }); 

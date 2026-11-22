@@ -19,6 +19,21 @@ import { error } from "console";
 
 export const KnowledgeCutOffDate: Record<string, string> = {
   default: "2021-09",
+  "gpt-6.2-sol": "2026-04",
+  "gpt-6.2-astra": "2026-05",
+  "claude-opus-5-5": "2026-06",
+  "claude-fable-5-2": "2026-06",
+  "claude-sonnet-5-5": "2026-06",
+  "claude-haiku-5-5": "2026-06",
+  "gemini-4-argon": "2026-03",
+  "gemini-4-carbon": "2026-03",
+  "gemini-4-hydrogen": "2026-03",
+  "gemini-4-neon": "2026-03",
+  "gemini-3.8-flash": "2026-03",
+  "gemini-3.5-flash": "2026-03",
+  "deepseek-v4-pro": "2026-01",
+  "deepseek-v4.1-flash": "2026-01",
+
   "gpt-4-1106-preview": "2023-04",
   "gpt-4-0125-preview": "2023-12",
   "gpt-4-vision-preview": "2023-04",
