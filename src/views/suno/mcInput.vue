@@ -111,7 +111,7 @@ const generate= async ()=>{
 
        ids=r.clips.map((r:any)=>r.id);
        mlog('ids ', ids );
-       if( cs.value.mv='chirp-v3-5-upload' ) cs.value.mv='chirp-hawk'
+       if( cs.value.mv==='chirp-v3-5-upload' ) cs.value.mv='chirp-hawk'
     }else{
         des.value.prompt='';//cs.value.title;
         // cs.value.prompt=''
