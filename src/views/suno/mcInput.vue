@@ -93,34 +93,34 @@ const generateLyrics= ()=>{
 }
 
 const generate= async ()=>{
-    st.value.isLoading =false;
+    st.value.isLoading =true;
     let ids:string[]=[];
-     
 
-    if(st.value.type=='custom'){ 
-        if(des.value.make_instrumental) cs.value.prompt='';
-        if( cs.value.continue_clip_id!=''  ){
-            //chirp-v3-5-upload
-           // cs.value.mv='chirp-v3-5-upload'
-           if( exSuno.value?.metadata?.type=='upload') cs.value.task='upload_extend'
-           else cs.value.task='extend'
+    try {
+        if(st.value.type=='custom'){
+            if(des.value.make_instrumental) cs.value.prompt='';
+            if( cs.value.continue_clip_id!=''  ){
+                //chirp-v3-5-upload
+               // cs.value.mv='chirp-v3-5-upload'
+               if( exSuno.value?.metadata?.type=='upload') cs.value.task='upload_extend'
+               else cs.value.task='extend'
+            }
+
+            let r:any= await sunoFetch(  '/generate' ,  cs.value )
+            ids=r.clips.map((r:any)=>r.id);
+            mlog('ids ', ids );
+            if( cs.value.mv='chirp-v3-5-upload' ) cs.value.mv='chirp-hawk'
+        }else{
+            des.value.prompt='';//cs.value.title;
+            // cs.value.prompt=''
+            let r:any= await sunoFetch(  '/generate/description-mode' ,  des.value )
+            ids=r.clips.map((r:any)=>r.id);
         }
-       
-        let r:any= await sunoFetch(  '/generate' ,  cs.value ) 
+        cs.value.task='';
+        FeedTask(ids)
+    } finally {
         st.value.isLoading =false;
-
-       ids=r.clips.map((r:any)=>r.id);
-       mlog('ids ', ids );
-       if( cs.value.mv='chirp-v3-5-upload' ) cs.value.mv='chirp-hawk'
-    }else{
-        des.value.prompt='';//cs.value.title;
-        // cs.value.prompt=''
-        let r:any= await sunoFetch(  '/generate/description-mode' ,  des.value )  
-        st.value.isLoading =false; 
-        ids=r.clips.map((r:any)=>r.id);
     }
-    cs.value.task='';
-    FeedTask(ids)
 }
 
 
