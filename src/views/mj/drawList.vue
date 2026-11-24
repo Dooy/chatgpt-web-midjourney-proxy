@@ -126,7 +126,7 @@ async function onConversation() {
     if( message.fileBase64 && message.fileBase64.length>0 ){
        // promptMsg.opt={  images: message.fileBase64 }
        try{
-            let images= await localSaveAny( JSON.stringify(  {fileName:["a.jpg"], fileBase64:[ message.data.fileBase64]} )  ) ;
+            let images= await localSaveAny( JSON.stringify(  {fileName:["a.jpg"], fileBase64: message.fileBase64} )  ) ;
             mlog('key', images );
             promptMsg.opt= {images:[images]}
        }catch(e){
