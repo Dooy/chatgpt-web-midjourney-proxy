@@ -126,6 +126,7 @@ const go= async()=>{
     try{
         await client.connect(); 
     }catch(e ){
+        await wavRecorder.end();
         st.value.msg= t('mj.rtservererror')
         ms.error( st.value.msg);
 
