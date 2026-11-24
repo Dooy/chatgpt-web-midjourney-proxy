@@ -13,7 +13,7 @@ function getHeaderAuthorization(){
         const  vtokenh={ 'x-vtoken':  homeStore.myData.vtoken ,'x-ctoken':  homeStore.myData.ctoken};
         headers= {...headers, ...vtokenh}
     }
-    if(!gptServerStore.myData.KLING_KEY){ 
+    if(!gptServerStore.myData.PIXVERSE_KEY){
         const authStore = useAuthStore()
         if( authStore.token ) {
             const bmi= { 'x-ptoken':  authStore.token };
